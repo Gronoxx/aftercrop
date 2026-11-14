@@ -1,0 +1,658 @@
+<!doctype html>
+<!-- Written with an SI tool (Claude, Anthropic) for NASA Space Apps 2026. See AI_USE.md. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aftercrop field drawing</title>
+<!--
+  Offline tool, no network beyond the local server. From the repository root:
+      python3 -m http.server 8000
+  then open  localhost:8000/tools/draw_fields.html  in a browser.
+  It reads data/interim/basemap_<window id>.png and .json (pipeline/fields/basemap.py),
+  lets you click up to 12 candidate polygons and saves a GeoJSON in lon/lat (EPSG:4326)
+  with properties {field_id} only, for config/fields/candidates.geojson.
+  The pixel counts and the two dashed meridians (product area limit, development strip limit)
+  are a drawing aid. pipeline/fields/geometry.py decides.
+-->
+<style>
+  :root {
+    --bg: #f6f5f1; --panel: #ffffff; --ink: #1d1d1b; --muted: #66645e; --line: #d9d6cc;
+    --accent: #1f5f8b; --bad: #a3271f; --ok: #2d6a2f; --warn: #8a5a00;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body { background: var(--bg); color: var(--ink); font: 14px/1.4 system-ui, -apple-system, "Segoe UI", sans-serif;
+         display: flex; flex-direction: column; }
+  header { padding: 8px 16px; border-bottom: 1px solid var(--line); background: var(--panel);
+           display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; }
+  header h1 { font-size: 16px; margin: 0 8px 0 0; }
+  header label { color: var(--muted); }
+  input[type=text] { font: inherit; padding: 3px 6px; width: 170px; }
+  button { font: inherit; padding: 4px 10px; border: 1px solid var(--line); background: #fff; border-radius: 4px; cursor: pointer; }
+  button:hover { border-color: var(--accent); }
+  button.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+  button:disabled { opacity: .45; cursor: default; }
+  #status { flex: 1 1 260px; min-height: 1.4em; }
+  #status.bad { color: var(--bad); } #status.ok { color: var(--ok); }
+  main { flex: 1; display: flex; min-height: 0; }
+  #viewport { flex: 1; overflow: auto; position: relative; cursor: crosshair; min-width: 0; user-select: none; -webkit-user-select: none; touch-action: none;
+              background-color: #ddd; background-image:
+                linear-gradient(45deg, #ccc 25%, transparent 25%), linear-gradient(-45deg, #ccc 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, #ccc 75%), linear-gradient(-45deg, transparent 75%, #ccc 75%);
+              background-size: 16px 16px; background-position: 0 0, 0 8px, 8px -8px, -8px 0; }
+  #viewport.panning { cursor: grabbing; }
+  #stage { position: relative; transform-origin: 0 0; }
+  #img { display: block; image-rendering: pixelated; image-rendering: crisp-edges; user-select: none; -webkit-user-drag: none; }
+  #svg { position: absolute; left: 0; top: 0; overflow: visible; }
+  #empty { padding: 32px; color: var(--muted); max-width: 640px; }
+  aside { width: 330px; flex: none; border-left: 1px solid var(--line); background: var(--panel); overflow: auto; padding: 12px 14px; }
+  aside h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); margin: 14px 0 6px; }
+  .row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .cand { border: 1px solid var(--line); border-radius: 6px; padding: 6px 8px; margin: 6px 0; }
+  .cand.active { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+  .cand .head { display: flex; align-items: center; gap: 8px; font-weight: 600; }
+  .swatch { width: 14px; height: 14px; border-radius: 3px; display: inline-block; }
+  .cand .meta { color: var(--muted); font-size: 12px; margin: 2px 0 4px; }
+  .cand .err { color: var(--bad); font-size: 12px; }
+  .cand .okm { color: var(--ok); font-size: 12px; }
+  .cand button { padding: 2px 8px; font-size: 12px; }
+  #help { color: var(--muted); font-size: 12px; }
+  #help kbd { border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 3px; padding: 0 4px; font-size: 11px; }
+  #out { width: 100%; height: 120px; font: 11px/1.3 ui-monospace, Menlo, monospace; }
+  #cursor { font: 12px ui-monospace, Menlo, monospace; color: var(--muted); }
+  @media (max-width: 760px) { main { flex-direction: column; } aside { width: auto; border-left: 0; border-top: 1px solid var(--line); max-height: 45vh; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Draw candidate fields</h1>
+  <label for="win">Window id</label>
+  <input type="text" id="win" value="londrina_rural_nw" spellcheck="false">
+  <button id="loadBtn" class="primary">Load basemap</button>
+  <label>or pick files <input type="file" id="pngFile" accept="image/png"> <input type="file" id="jsonFile" accept=".json,application/json"></label>
+  <label>Reopen a saved GeoJSON <input type="file" id="importFile" accept=".geojson,.json,application/json"></label>
+  <span id="status" role="status" aria-live="polite"></span>
+</header>
+<main>
+  <div id="viewport" tabindex="0" aria-label="Basemap. Click to add a vertex, drag to move the view.">
+    <div id="empty">
+      <p><strong>No basemap loaded.</strong> Start the local server from the repository root with
+      <code>python3 -m http.server 8000</code>, open this page through it, and press <em>Load basemap</em>.
+      Without the server, pick the PNG and its JSON with the two file buttons.</p>
+    </div>
+    <div id="stage" hidden><img id="img" alt="Basemap of the field window"><svg id="svg"></svg></div>
+  </div>
+  <aside>
+    <div class="row">
+      <button id="zoomOut" title="Zoom out (-)">-</button>
+      <span id="zoomLabel">100%</span>
+      <button id="zoomIn" title="Zoom in (+)">+</button>
+      <button id="zoomFit">Fit</button>
+    </div>
+    <div id="cursor">&nbsp;</div>
+    <h2>Candidates (up to 12)</h2>
+    <div class="row">
+      <button id="newBtn">New candidate</button>
+      <button id="undoBtn">Undo vertex</button>
+      <button id="closeBtn">Close polygon</button>
+    </div>
+    <div id="list"></div>
+    <h2>Save</h2>
+    <div class="row">
+      <button id="exportBtn" class="primary">Download candidates.geojson</button>
+      <button id="clearBtn">Clear all</button>
+    </div>
+    <p id="help">Save the file as <code>config/fields/candidates.geojson</code>.
+      Click to add a vertex. Click the first vertex, press <kbd>Enter</kbd> or <em>Close polygon</em> to close.
+      <kbd>Backspace</kbd> undoes a vertex, <kbd>Esc</kbd> stops drawing. Drag to move the view,
+      <kbd>+</kbd> <kbd>-</kbd> or pinch to zoom. Draw inside the field edges: a 30 m strip along the
+      border is dropped and the field needs at least 20 pixels left. No owner, no CAR, no names: only the id is saved.
+      The drawing is kept in this browser until you clear it.</p>
+    <textarea id="out" readonly spellcheck="false" aria-label="Exported GeoJSON"></textarea>
+  </aside>
+</main>
+<script>
+"use strict";
+// BEGIN aftercrop-core (pure functions, run under node by tests/test_fields_draw_tool.py)
+const DEG = Math.PI / 180;
+const BUFFER_M = 30;          // protocol.field.inner_buffer_m, shown as a drawing aid only
+const MIN_PIXELS = 20;        // protocol.field.min_clean_pixels, shown as a drawing aid only
+const MAX_CANDIDATES = 12;     // protocol.field.candidates, upper bound
+const PRODUCT_LON_MAX = -51.25;   // protocol.field.product_area.lon_max: candidates only west of it
+const STRIP_LON_MIN = -51.245;    // protocol.field.development_strip.lon_min: rehearsal only, east of it
+const ID_RE = /^[a-z0-9][a-z0-9_-]{0,31}$/;
+
+function utmParams(zone, south) {
+  return { lon0: -183 + 6 * zone, k0: 0.9996, fe: 500000, fn: south ? 10000000 : 0,
+           a: 6378137, f: 1 / 298.257223563 };
+}
+
+function parseTmWkt(wkt) {
+  // Transverse Mercator parameters of a WKT1 string, or null when it is not one.
+  if (!/PROJECTION\["Transverse_Mercator"\]/i.test(wkt)) return null;
+  const num = "(-?[0-9.]+(?:[eE][-+]?[0-9]+)?)";
+  const par = (name) => {
+    const m = wkt.match(new RegExp('PARAMETER\\["' + name + '",\\s*' + num + "\\]", "i"));
+    return m ? Number(m[1]) : null;
+  };
+  const sph = wkt.match(new RegExp('SPHEROID\\["[^"]*",\\s*' + num + ",\\s*" + num, "i"));
+  const p = { lon0: par("central_meridian"), k0: par("scale_factor"), fe: par("false_easting"),
+              fn: par("false_northing"), a: sph ? Number(sph[1]) : null, f: sph ? 1 / Number(sph[2]) : null };
+  const lat0 = par("latitude_of_origin");
+  if (Object.values(p).some((v) => v === null || !isFinite(v)) || lat0 !== 0 || !/UNIT\["metre",\s*1[,\]]/i.test(wkt)) {
+    throw new Error("Transverse Mercator WKT this tool cannot read (needs latitude of origin 0 and metres).");
+  }
+  return p;
+}
+
+function tmParams(georef) {
+  // The CRS the file declares (plan 9.2): WKT first, then the EPSG code of a UTM zone.
+  const p = parseTmWkt(String(georef.crs_wkt || ""));
+  if (p) return p;
+  const epsg = Number(georef.crs_epsg);
+  if (epsg >= 32601 && epsg <= 32660) return utmParams(epsg - 32600, false);
+  if (epsg >= 32701 && epsg <= 32760) return utmParams(epsg - 32700, true);
+  throw new Error("The basemap CRS is not Transverse Mercator: this tool cannot convert it.");
+}
+
+function tmSeries(p) {
+  // Krueger series to fourth order in n (Karney 2011, J. Geodesy 85, eqs. 35-36).
+  const n = p.f / (2 - p.f), n2 = n * n, n3 = n2 * n, n4 = n3 * n;
+  return {
+    A: p.a / (1 + n) * (1 + n2 / 4 + n4 / 64),
+    alpha: [n / 2 - 2 * n2 / 3 + 5 * n3 / 16 + 41 * n4 / 180, 13 * n2 / 48 - 3 * n3 / 5 + 557 * n4 / 1440,
+            61 * n3 / 240 - 103 * n4 / 140, 49561 * n4 / 161280],
+    beta: [n / 2 - 2 * n2 / 3 + 37 * n3 / 96 - n4 / 360, n2 / 48 + n3 / 15 - 437 * n4 / 1440,
+           17 * n3 / 480 - 37 * n4 / 840, 4397 * n4 / 161280],
+    e: Math.sqrt(p.f * (2 - p.f)),
+  };
+}
+
+function tmForward(lon, lat, p) {
+  const s = tmSeries(p);
+  const phi = lat * DEG, dl = (lon - p.lon0) * DEG, sp = Math.sin(phi);
+  const t = Math.sinh(Math.atanh(sp) - s.e * Math.atanh(s.e * sp));   // tan of the conformal latitude
+  const xi = Math.atan2(t, Math.cos(dl));
+  const eta = Math.atanh(Math.sin(dl) / Math.sqrt(1 + t * t));
+  let x = xi, y = eta;
+  for (let j = 1; j <= 4; j++) {
+    x += s.alpha[j - 1] * Math.sin(2 * j * xi) * Math.cosh(2 * j * eta);
+    y += s.alpha[j - 1] * Math.cos(2 * j * xi) * Math.sinh(2 * j * eta);
+  }
+  return [p.fe + p.k0 * s.A * y, p.fn + p.k0 * s.A * x];
+}
+
+function tmInverse(E, N, p) {
+  const s = tmSeries(p);
+  const xi = (N - p.fn) / (p.k0 * s.A), eta = (E - p.fe) / (p.k0 * s.A);
+  let xp = xi, ep = eta;
+  for (let j = 1; j <= 4; j++) {
+    xp -= s.beta[j - 1] * Math.sin(2 * j * xi) * Math.cosh(2 * j * eta);
+    ep -= s.beta[j - 1] * Math.cos(2 * j * xi) * Math.sinh(2 * j * eta);
+  }
+  const chi = Math.asin(Math.sin(xp) / Math.cosh(ep));
+  const lon = p.lon0 + Math.atan2(Math.sinh(ep), Math.cos(xp)) / DEG;
+  let phi = chi;   // geodetic from conformal latitude by iteration (Snyder 1987, eq. 7-9)
+  for (let i = 0; i < 50; i++) {
+    const es = s.e * Math.sin(phi);
+    const next = 2 * Math.atan(Math.tan(Math.PI / 4 + chi / 2) * Math.pow((1 + es) / (1 - es), s.e / 2)) - Math.PI / 2;
+    const done = Math.abs(next - phi) < 1e-15;
+    phi = next;
+    if (done) break;
+  }
+  return [lon, phi / DEG];
+}
+
+function checkGeoref(g) {
+  const t = g && g.transform;
+  if (!Array.isArray(t) || t.length < 6 || t.some((v) => typeof v !== "number" || !isFinite(v))) throw new Error("georeference JSON has no transform");
+  if (t[1] !== 0 || t[3] !== 0 || !(t[0] > 0) || !(t[4] < 0)) throw new Error("only north-up grids are supported");
+  if (!(g.width > 0) || !(g.height > 0)) throw new Error("georeference JSON has no width and height");
+  return tmParams(g);
+}
+
+function pxToMap(col, row, g) { const t = g.transform; return [t[2] + col * t[0], t[5] + row * t[4]]; }
+function mapToPx(x, y, g) { const t = g.transform; return [(x - t[2]) / t[0], (y - t[5]) / t[4]]; }
+function pxToLonLat(col, row, g, p) { const m = pxToMap(col, row, g); return tmInverse(m[0], m[1], p); }
+function lonLatToPx(lon, lat, g, p) { const m = tmForward(lon, lat, p); return mapToPx(m[0], m[1], g); }
+
+function signedArea(pts) {
+  let s = 0;
+  for (let i = 0; i < pts.length; i++) { const a = pts[i], b = pts[(i + 1) % pts.length]; s += a[0] * b[1] - b[0] * a[1]; }
+  return s / 2;
+}
+
+function orient(p, q, r) { const v = (q[0] - p[0]) * (r[1] - p[1]) - (q[1] - p[1]) * (r[0] - p[0]); return (v > 0) - (v < 0); }
+function onSeg(p, q, r) { return Math.min(p[0], r[0]) <= q[0] && q[0] <= Math.max(p[0], r[0]) && Math.min(p[1], r[1]) <= q[1] && q[1] <= Math.max(p[1], r[1]); }
+function segmentsMeet(p1, p2, q1, q2) {
+  const o1 = orient(p1, p2, q1), o2 = orient(p1, p2, q2), o3 = orient(q1, q2, p1), o4 = orient(q1, q2, p2);
+  if (o1 !== o2 && o3 !== o4) return true;
+  return (o1 === 0 && onSeg(p1, q1, p2)) || (o2 === 0 && onSeg(p1, q2, p2)) || (o3 === 0 && onSeg(q1, p1, q2)) || (o4 === 0 && onSeg(q1, p2, q2));
+}
+
+function ringErrors(pts) {
+  // Same checks as geometry.ring_errors, on distinct vertices without the closing point.
+  const n = pts.length, errs = [];
+  if (n < 3) return ["fewer than 3 vertices"];
+  if (signedArea(pts) === 0) errs.push("zero area");
+  for (let i = 0; i < n; i++) {
+    const a = pts[i], b = pts[(i + 1) % n], c = pts[(i + 2) % n];
+    if (orient(a, b, c) === 0 && (b[0] - a[0]) * (c[0] - b[0]) + (b[1] - a[1]) * (c[1] - b[1]) < 0) errs.push("edges fold back");
+  }
+  for (let i = 0; i < n; i++) for (let j = i + 2; j < n; j++) {
+    if (i === 0 && j === n - 1) continue;
+    if (segmentsMeet(pts[i], pts[(i + 1) % n], pts[j], pts[(j + 1) % n])) { errs.push("edges cross"); return errs; }
+  }
+  return errs;
+}
+
+function dedupeVertices(pts) {
+  const out = [];
+  for (const q of pts) if (!out.length || q[0] !== out[out.length - 1][0] || q[1] !== out[out.length - 1][1]) out.push(q);
+  while (out.length > 1 && out[0][0] === out[out.length - 1][0] && out[0][1] === out[out.length - 1][1]) out.pop();
+  return out;
+}
+
+function innerPixelCount(ptsPx, g, bufferM) {
+  // Pixels whose centre is in the polygon and at least bufferM metres from its edge (geometry.inner_mask).
+  const xy = ptsPx.map((q) => pxToMap(q[0], q[1], g));
+  const t = g.transform, n = xy.length;
+  const cols = xy.map((q) => q[0]), rows = xy.map((q) => q[1]);
+  const c0 = Math.max(0, Math.floor((Math.min(...cols) - t[2]) / t[0] - 0.5)), c1 = Math.min(g.width - 1, Math.ceil((Math.max(...cols) - t[2]) / t[0] - 0.5));
+  const r0 = Math.max(0, Math.floor((Math.max(...rows) - t[5]) / t[4] - 0.5)), r1 = Math.min(g.height - 1, Math.ceil((Math.min(...rows) - t[5]) / t[4] - 0.5));
+  let count = 0;
+  for (let r = r0; r <= r1; r++) {
+    const py = t[5] + (r + 0.5) * t[4];
+    for (let c = c0; c <= c1; c++) {
+      const px = t[2] + (c + 0.5) * t[0];
+      let inside = false, d2 = Infinity;
+      for (let k = 0; k < n; k++) {
+        const [x1, y1] = xy[k], [x2, y2] = xy[(k + 1) % n];
+        if ((y1 > py) !== (y2 > py) && px < x1 + (py - y1) * (x2 - x1) / (y2 - y1)) inside = !inside;
+        const dx = x2 - x1, dy = y2 - y1;
+        const u = Math.max(0, Math.min(1, ((px - x1) * dx + (py - y1) * dy) / (dx * dx + dy * dy)));
+        const ex = px - x1 - u * dx, ey = py - y1 - u * dy;
+        d2 = Math.min(d2, ex * ex + ey * ey);
+      }
+      if (inside && Math.sqrt(d2) >= bufferM - 1e-6) count++;
+    }
+  }
+  return count;
+}
+
+// Zone of a polygon from its vertex longitudes (SA-D63). geometry.py decides; this only warns.
+function zoneOf(lons) {
+  if (Math.max(...lons) < PRODUCT_LON_MAX) return "product";
+  if (Math.min(...lons) > STRIP_LON_MIN) return "strip";
+  return "neither";
+}
+
+// A meridian as basemap pixels, or null when the georeference gives no lon/lat bounds or the
+// meridian lies outside them. Densified: a meridian is not a straight pixel column in UTM.
+function meridianPx(lon, g, p, n) {
+  const b = g && g.bounds_lonlat_approx;
+  if (!b || ![b.lon_min, b.lon_max, b.lat_min, b.lat_max].every((v) => typeof v === "number" && isFinite(v))) return null;
+  if (lon < b.lon_min || lon > b.lon_max) return null;
+  const k = n || 24, out = [];
+  for (let i = 0; i <= k; i++) out.push(lonLatToPx(lon, b.lat_min + (b.lat_max - b.lat_min) * i / k, g, p));
+  return out;
+}
+
+function areaHa(ptsPx, g) { return Math.abs(signedArea(ptsPx.map((q) => pxToMap(q[0], q[1], g)))) / 1e4; }
+
+function buildGeoJSON(cands, g, p, windowId) {
+  // FeatureCollection in lon/lat, rings closed and counter-clockwise (RFC 7946), properties {field_id} only.
+  const features = cands.map((cand) => {
+    let ring = dedupeVertices(cand.pts).map((q) => pxToLonLat(q[0], q[1], g, p).map((v) => Number(v.toFixed(8))));
+    ring = dedupeVertices(ring);
+    if (signedArea(ring) < 0) ring.reverse();
+    ring.push(ring[0].slice());
+    return { type: "Feature", properties: { field_id: cand.id }, geometry: { type: "Polygon", coordinates: [ring] } };
+  });
+  const doc = { type: "FeatureCollection", features };
+  if (windowId) doc.window_id = windowId;
+  return doc;
+}
+
+function parseGeoJSON(doc, g, p) {
+  if (!doc || doc.type !== "FeatureCollection" || !Array.isArray(doc.features)) throw new Error("not a GeoJSON FeatureCollection");
+  const out = [];
+  for (const f of doc.features) {
+    const id = f && f.properties && f.properties.field_id;
+    if (!ID_RE.test(String(id))) throw new Error("a feature has no valid field_id");
+    if (!f.geometry || f.geometry.type !== "Polygon" || f.geometry.coordinates.length !== 1) throw new Error(id + ": one Polygon ring expected");
+    const pts = dedupeVertices(f.geometry.coordinates[0].map((q) => lonLatToPx(q[0], q[1], g, p)));
+    out.push({ id: String(id), pts, closed: true });
+  }
+  if (out.length > MAX_CANDIDATES) throw new Error("more than " + MAX_CANDIDATES + " polygons");
+  return out;
+}
+// END aftercrop-core
+
+// UI ---------------------------------------------------------------------------------
+const SVG_NS = "http://www.w3.org/2000/svg";   // the only URL in this file: a name, never fetched
+const COLORS = ["#e4572e", "#29b6f6", "#ffd23f", "#76c043", "#d17bf6", "#ff8f00",
+                "#00bfa5", "#f06292", "#9ccc65", "#7986cb", "#ffb74d", "#4dd0e1"];
+const ZOOMS = [0.5, 0.75, 1, 1.5, 2, 3, 4, 6, 8, 12, 16];
+const $ = (id) => document.getElementById(id);
+const state = { georef: null, params: null, windowId: null, zoom: 2, cands: [], active: -1 };
+
+function setStatus(msg, kind) { const s = $("status"); s.textContent = msg; s.className = kind || ""; }
+function storageKey() { return "aftercrop-draw-" + (state.windowId || "none"); }
+function save() { try { localStorage.setItem(storageKey(), JSON.stringify(state.cands)); } catch (e) { /* storage off: nothing kept */ } }
+function restore() {
+  try {
+    const raw = localStorage.getItem(storageKey());
+    const c = raw ? JSON.parse(raw) : [];
+    if (Array.isArray(c) && c.every((x) => ID_RE.test(String(x.id)) && Array.isArray(x.pts))) return c.slice(0, MAX_CANDIDATES);
+  } catch (e) { /* ignore */ }
+  return [];
+}
+
+function activeCand() { return state.active >= 0 ? state.cands[state.active] : null; }
+function nextId() { for (let i = 1; ; i++) { const id = "c" + i; if (!state.cands.some((c) => c.id === id)) return id; } }
+function colorOf(c) { return COLORS[(parseInt(c.id.replace(/\D/g, ""), 10) - 1 + COLORS.length * 10) % COLORS.length] || COLORS[0]; }
+
+function candInfo(c) {
+  const pts = dedupeVertices(c.pts);
+  if (!c.closed) return { ok: false, text: pts.length + " vertices, open", errs: [] };
+  const errs = ringErrors(pts);
+  if (errs.length) return { ok: false, text: pts.length + " vertices", errs };
+  const n = innerPixelCount(pts, state.georef, BUFFER_M);
+  const ha = areaHa(pts, state.georef);
+  const enough = n >= MIN_PIXELS;
+  const zone = zoneOf(pts.map((q) => pxToLonLat(q[0], q[1], state.georef, state.params)[0]));
+  const zoneText = { product: "product area", strip: "development strip, rehearsal only",
+                     neither: "crosses a limit: refused in both modes" }[zone];
+  const errs = [];
+  if (!enough) errs.push("too small: fewer than " + MIN_PIXELS + " pixels inside the 30 m strip");
+  if (zone === "neither") errs.push("crosses " + PRODUCT_LON_MAX + " or lies between the two limits: refused in both modes");
+  return { ok: !errs.length, zone, text: pts.length + " vertices, " + ha.toFixed(1) + " ha, about " + n + " pixels inside the 30 m strip, " + zoneText,
+           errs };
+}
+
+function el(tag, attrs, text) {
+  const e = document.createElementNS(SVG_NS, tag);
+  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  if (text !== undefined) e.textContent = text;
+  return e;
+}
+
+function render() {
+  const svg = $("svg");
+  while (svg.firstChild) svg.removeChild(svg.firstChild);
+  if (!state.georef) return;
+  const z = state.zoom, W = state.georef.width, H = state.georef.height;
+  const img = $("img");
+  img.style.width = W * z + "px"; img.style.height = H * z + "px";
+  svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+  svg.setAttribute("width", W * z); svg.setAttribute("height", H * z);
+  $("zoomLabel").textContent = Math.round(z * 100) + "%";
+  [[PRODUCT_LON_MAX, "#ffffff", "product limit " + PRODUCT_LON_MAX], [STRIP_LON_MIN, "#ffd23f", "strip limit " + STRIP_LON_MIN]].forEach(([lon, col, label]) => {
+    const line = meridianPx(lon, state.georef, state.params);
+    if (!line) return;
+    svg.appendChild(el("polyline", { points: line.map((q) => q[0] + "," + q[1]).join(" "), fill: "none", stroke: col,
+      "stroke-width": 1.5, "stroke-dasharray": "6 4", "vector-effect": "non-scaling-stroke" }));
+    const top = line[line.length - 1][1] < line[0][1] ? line[line.length - 1] : line[0];
+    svg.appendChild(el("text", { x: top[0] + 4 / z, y: Math.max(top[1], 0) + 14 / z, "font-size": 12 / z, fill: col, stroke: "#000",
+      "stroke-width": 3 / z, "paint-order": "stroke" }, label));
+  });
+  state.cands.forEach((c, i) => {
+    const col = colorOf(c), act = i === state.active;
+    const pts = c.pts.map((q) => q[0] + "," + q[1]).join(" ");
+    if (c.pts.length >= 2) {
+      svg.appendChild(el(c.closed ? "polygon" : "polyline", {
+        points: pts, fill: c.closed ? col : "none", "fill-opacity": c.closed ? 0.18 : 0, stroke: col,
+        "stroke-width": act ? 3 : 2, "vector-effect": "non-scaling-stroke", "stroke-linejoin": "round" }));
+    }
+    c.pts.forEach((q, k) => svg.appendChild(el("circle", { cx: q[0], cy: q[1], r: (k === 0 && !c.closed ? 6 : 3.5) / z,
+      fill: k === 0 && !c.closed ? "#fff" : col, stroke: "#000", "stroke-width": 1, "vector-effect": "non-scaling-stroke" })));
+    if (c.pts.length) {
+      const cx = c.pts.reduce((s, q) => s + q[0], 0) / c.pts.length, cy = c.pts.reduce((s, q) => s + q[1], 0) / c.pts.length;
+      svg.appendChild(el("text", { x: cx, y: cy, "font-size": 15 / z, "font-weight": 700, fill: "#fff", stroke: "#000",
+        "stroke-width": 3 / z, "paint-order": "stroke", "text-anchor": "middle", "dominant-baseline": "middle" }, c.id));
+    }
+  });
+  renderList();
+}
+
+function renderList() {
+  const list = $("list");
+  list.textContent = "";
+  if (!state.cands.length) { const p = document.createElement("p"); p.id = "help"; p.textContent = "Click on the image to start candidate c1."; list.appendChild(p); }
+  state.cands.forEach((c, i) => {
+    const info = candInfo(c);
+    const box = document.createElement("div");
+    box.className = "cand" + (i === state.active ? " active" : "");
+    const head = document.createElement("div"); head.className = "head";
+    const sw = document.createElement("span"); sw.className = "swatch"; sw.style.background = colorOf(c);
+    head.append(sw, document.createTextNode(c.id));
+    const meta = document.createElement("div"); meta.className = "meta"; meta.textContent = info.text;
+    box.append(head, meta);
+    info.errs.forEach((m) => { const d = document.createElement("div"); d.className = "err"; d.textContent = m; box.appendChild(d); });
+    if (info.ok) { const d = document.createElement("div"); d.className = "okm"; d.textContent = "ready"; box.appendChild(d); }
+    const row = document.createElement("div"); row.className = "row";
+    const b1 = document.createElement("button"); b1.textContent = i === state.active ? "Editing" : "Edit";
+    b1.onclick = () => { state.active = i; render(); };
+    const b2 = document.createElement("button"); b2.textContent = c.closed ? "Reopen" : "Close";
+    b2.onclick = () => { state.active = i; c.closed ? reopen() : closeActive(); };
+    const b3 = document.createElement("button"); b3.textContent = "Delete";
+    b3.onclick = () => { if (confirm("Delete " + c.id + "?")) { state.cands.splice(i, 1); state.active = -1; save(); render(); } };
+    row.append(b1, b2, b3); box.appendChild(row);
+    list.appendChild(box);
+  });
+  $("newBtn").disabled = state.cands.length >= MAX_CANDIDATES;
+}
+
+function startNew() {
+  if (state.cands.length >= MAX_CANDIDATES) { setStatus("Already " + MAX_CANDIDATES + " candidates. Delete one first.", "bad"); return null; }
+  const c = { id: nextId(), pts: [], closed: false };
+  state.cands.push(c); state.active = state.cands.length - 1;
+  setStatus("Drawing " + c.id + ": click the vertices along the field edge.");
+  return c;
+}
+
+function addVertex(col, row) {
+  let c = activeCand();
+  if (!c || c.closed) { c = startNew(); if (!c) return; }
+  if (c.pts.length >= 3) {
+    const f = c.pts[0], tol = 8 / state.zoom;
+    if (Math.hypot(col - f[0], row - f[1]) <= tol) { closeActive(); return; }
+  }
+  c.pts.push([Number(col.toFixed(2)), Number(row.toFixed(2))]);
+  save(); render();
+}
+
+function closeActive() {
+  const c = activeCand();
+  if (!c || c.closed) return;
+  c.pts = dedupeVertices(c.pts);
+  if (c.pts.length < 3) { setStatus("A polygon needs at least 3 vertices.", "bad"); return; }
+  c.closed = true;
+  const info = candInfo(c);
+  setStatus(info.ok ? c.id + " closed." : c.id + " closed, but: " + info.errs.join("; "), info.ok ? "ok" : "bad");
+  save(); render();
+}
+
+function reopen() { const c = activeCand(); if (c) { c.closed = false; setStatus("Adding vertices to " + c.id + "."); save(); render(); } }
+function undo() {
+  const c = activeCand();
+  if (!c) return;
+  if (c.closed) c.closed = false; else c.pts.pop();
+  if (!c.pts.length) { state.cands.splice(state.active, 1); state.active = -1; }
+  save(); render();
+}
+
+function exportFile() {
+  if (!state.georef) { setStatus("Load a basemap first.", "bad"); return; }
+  const ready = [], skipped = [];
+  state.cands.forEach((c) => { const info = candInfo(c); (info.ok ? ready : skipped).push(info.ok ? c : c.id + " (" + (info.errs[0] || "open") + ")"); });
+  if (!ready.length) { setStatus("Nothing to save: no closed polygon with enough pixels.", "bad"); return; }
+  const doc = buildGeoJSON(ready, state.georef, state.params, state.windowId);
+  const text = JSON.stringify(doc, null, 1) + "\n";
+  $("out").value = text;
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([text], { type: "application/geo+json" }));
+  a.download = "candidates.geojson";
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  setStatus("Saved " + ready.map((c) => c.id).join(", ") + (skipped.length ? ". Left out: " + skipped.join(", ") : "") +
+            ". Put the file in config/fields/.", skipped.length ? "bad" : "ok");
+}
+
+// Loading ------------------------------------------------------------------------------
+function useBasemap(georef, imgUrl, label) {
+  let params;
+  try { params = checkGeoref(georef); } catch (e) { setStatus(e.message, "bad"); return; }
+  const img = $("img");
+  img.onload = () => {
+    if (img.naturalWidth !== georef.width || img.naturalHeight !== georef.height) {
+      setStatus("The PNG is " + img.naturalWidth + "x" + img.naturalHeight + " but the JSON says " + georef.width + "x" + georef.height + ".", "bad");
+      return;
+    }
+    state.georef = georef; state.params = params;
+    state.windowId = (georef.window && georef.window.id) || $("win").value.trim() || null;
+    state.cands = restore(); state.active = -1;
+    $("empty").hidden = true; $("stage").hidden = false;
+    fit();
+    setStatus("Loaded " + label + (state.cands.length ? ", " + state.cands.length + " candidates restored from this browser" : "") + ".", "ok");
+  };
+  img.onerror = () => setStatus("Could not read the PNG " + label + ".", "bad");
+  img.src = imgUrl;
+}
+
+async function loadFromServer() {
+  const win = $("win").value.trim();
+  if (!/^[A-Za-z0-9._-]+$/.test(win)) { setStatus("Window id: letters, digits, dot, dash or underscore only.", "bad"); return; }
+  const stem = "../data/interim/basemap_" + win;
+  try {
+    const r = await fetch(stem + ".json", { cache: "no-store" });
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    useBasemap(await r.json(), stem + ".png?t=" + Date.now(), "basemap_" + win);
+  } catch (e) {
+    setStatus("Could not read " + stem + ".json (" + e.message + "). Run python3 -m http.server from the repository root, or pick the files.", "bad");
+  }
+}
+
+let picked = { png: null, json: null };
+function tryPicked() {
+  if (!picked.png || !picked.json) { setStatus("Now pick the " + (picked.png ? "JSON" : "PNG") + " file."); return; }
+  const reader = new FileReader();
+  reader.onload = () => {
+    try { useBasemap(JSON.parse(reader.result), URL.createObjectURL(picked.png), picked.png.name); }
+    catch (e) { setStatus("The JSON file could not be read: " + e.message, "bad"); }
+  };
+  reader.readAsText(picked.json);
+}
+
+function importFile(file) {
+  if (!state.georef) { setStatus("Load the basemap before reopening a GeoJSON.", "bad"); return; }
+  const reader = new FileReader();
+  reader.onload = () => {
+    try {
+      const cands = parseGeoJSON(JSON.parse(reader.result), state.georef, state.params);
+      if (state.cands.length && !confirm("Replace the " + state.cands.length + " candidates on screen?")) return;
+      state.cands = cands; state.active = -1; save(); render();
+      setStatus("Reopened " + cands.length + " candidates from " + file.name + ".", "ok");
+    } catch (e) { setStatus("Could not reopen " + file.name + ": " + e.message, "bad"); }
+  };
+  reader.readAsText(file);
+}
+
+// View ------------------------------------------------------------------------------------
+function setZoom(z, clientX, clientY) {
+  const vp = $("viewport"), rect = vp.getBoundingClientRect();
+  const ox = clientX === undefined ? rect.width / 2 : clientX - rect.left, oy = clientY === undefined ? rect.height / 2 : clientY - rect.top;
+  const ix = (vp.scrollLeft + ox) / state.zoom, iy = (vp.scrollTop + oy) / state.zoom;
+  state.zoom = z; render();
+  vp.scrollLeft = ix * z - ox; vp.scrollTop = iy * z - oy;
+}
+function stepZoom(dir, x, y) {
+  const i = ZOOMS.reduce((best, v, k) => (Math.abs(v - state.zoom) < Math.abs(ZOOMS[best] - state.zoom) ? k : best), 0);
+  setZoom(ZOOMS[Math.max(0, Math.min(ZOOMS.length - 1, i + dir))], x, y);
+}
+function fit() {
+  if (!state.georef) return;
+  const vp = $("viewport"), z = Math.min(vp.clientWidth / state.georef.width, vp.clientHeight / state.georef.height);
+  setZoom(Math.max(ZOOMS[0], Math.min(ZOOMS[ZOOMS.length - 1], Math.floor(z * 100) / 100)));
+}
+
+function eventToPx(ev) {
+  const svg = $("svg"), m = svg.getScreenCTM();
+  if (!m) return null;
+  const pt = new DOMPoint(ev.clientX, ev.clientY).matrixTransform(m.inverse());
+  return [pt.x, pt.y];
+}
+
+let drag = null;
+function onDown(ev) {
+  if (!state.georef || ev.button !== 0) return;
+  const vp = $("viewport"), rect = vp.getBoundingClientRect();
+  if (ev.clientX - rect.left >= vp.clientWidth || ev.clientY - rect.top >= vp.clientHeight) return;  // a scrollbar
+  ev.preventDefault();  // no text selection, no image drag
+  drag = { x: ev.clientX, y: ev.clientY, sl: vp.scrollLeft, st: vp.scrollTop, moved: false };
+  vp.setPointerCapture(ev.pointerId);
+}
+function onMove(ev) {
+  if (state.georef) {
+    const q = eventToPx(ev);
+    if (q && q[0] >= 0 && q[1] >= 0 && q[0] <= state.georef.width && q[1] <= state.georef.height) {
+      const ll = pxToLonLat(q[0], q[1], state.georef, state.params);
+      $("cursor").textContent = "px " + q[0].toFixed(1) + ", " + q[1].toFixed(1) + "   lon " + ll[0].toFixed(5) + " lat " + ll[1].toFixed(5);
+    }
+  }
+  if (!drag) return;
+  const dx = ev.clientX - drag.x, dy = ev.clientY - drag.y;
+  if (!drag.moved && Math.hypot(dx, dy) > 4) { drag.moved = true; $("viewport").classList.add("panning"); }
+  if (drag.moved) { const vp = $("viewport"); vp.scrollLeft = drag.sl - dx; vp.scrollTop = drag.st - dy; }
+}
+function onUp(ev) {
+  if (!drag) return;
+  const moved = drag.moved;
+  drag = null; $("viewport").classList.remove("panning");
+  if (moved) return;
+  const q = eventToPx(ev);
+  if (!q) return;
+  if (q[0] < 0 || q[1] < 0 || q[0] > state.georef.width || q[1] > state.georef.height) { setStatus("That point is outside the basemap.", "bad"); return; }
+  addVertex(q[0], q[1]);
+}
+
+$("viewport").addEventListener("pointerdown", onDown);
+$("viewport").addEventListener("pointermove", onMove);
+$("viewport").addEventListener("pointerup", onUp);
+$("viewport").addEventListener("pointercancel", () => { drag = null; $("viewport").classList.remove("panning"); });
+$("viewport").addEventListener("wheel", (ev) => {
+  if (!state.georef || !(ev.ctrlKey || ev.metaKey)) return;   // plain wheel scrolls, pinch or ctrl+wheel zooms
+  ev.preventDefault(); stepZoom(ev.deltaY < 0 ? 1 : -1, ev.clientX, ev.clientY);
+}, { passive: false });
+document.addEventListener("keydown", (ev) => {
+  if (ev.target && (ev.target.tagName === "INPUT" || ev.target.tagName === "TEXTAREA")) return;
+  if (ev.key === "Enter") { closeActive(); ev.preventDefault(); }
+  else if (ev.key === "Backspace" || ((ev.ctrlKey || ev.metaKey) && ev.key === "z")) { undo(); ev.preventDefault(); }
+  else if (ev.key === "Escape") { const c = activeCand(); if (c && !c.closed && c.pts.length >= 3) closeActive(); state.active = -1; render(); }
+  else if (ev.key === "+" || ev.key === "=") stepZoom(1);
+  else if (ev.key === "-") stepZoom(-1);
+});
+$("loadBtn").onclick = loadFromServer;
+$("win").addEventListener("keydown", (ev) => { if (ev.key === "Enter") loadFromServer(); });
+$("pngFile").onchange = (ev) => { picked.png = ev.target.files[0] || null; tryPicked(); };
+$("jsonFile").onchange = (ev) => { picked.json = ev.target.files[0] || null; tryPicked(); };
+$("importFile").onchange = (ev) => { if (ev.target.files[0]) importFile(ev.target.files[0]); ev.target.value = ""; };
+$("zoomIn").onclick = () => stepZoom(1);
+$("zoomOut").onclick = () => stepZoom(-1);
+$("zoomFit").onclick = fit;
+$("newBtn").onclick = () => {
+  const c = activeCand();
+  if (c && !c.closed && c.pts.length === 0) { setStatus("Click on the image to start " + c.id + "."); return; }
+  if (c && !c.closed && c.pts.length >= 3) closeActive();
+  startNew(); render();
+};
+$("undoBtn").onclick = undo;
+$("closeBtn").onclick = closeActive;
+$("exportBtn").onclick = exportFile;
+$("clearBtn").onclick = () => { if (state.cands.length && confirm("Delete every candidate on screen and in this browser?")) { state.cands = []; state.active = -1; save(); render(); } };
+if (location.protocol === "http:" || location.protocol === "https:") loadFromServer();
+</script>
+</body>
+</html>

@@ -1,0 +1,327 @@
+{
+  "schema_version": "1",
+  "region_id": "norte_pr",
+  "mode": "decision",
+  "trial_sites": [
+    "Londrina",
+    "Floresta",
+    "Cafelândia"
+  ],
+  "pack": {
+    "decision": true,
+    "strategies": true,
+    "calendar": true,
+    "trials": true,
+    "reviewer": false
+  },
+  "strategies": [
+    {
+      "id": "S1",
+      "name": "Keep corn",
+      "sequence_text": "Soybean, then second-crop corn, every year.",
+      "source_ids": [
+        "embrapa_doc398",
+        "embrapa_doc476"
+      ],
+      "simulated": true
+    },
+    {
+      "id": "S2",
+      "name": "Corn with grass",
+      "sequence_text": "Soybean, then second-crop corn sown with Urochloa ruziziensis grass.",
+      "source_ids": [
+        "embrapa_doc398",
+        "zarc_portaria_344_2026"
+      ],
+      "simulated": false
+    },
+    {
+      "id": "S3",
+      "name": "Wheat on part",
+      "sequence_text": "Soybean, wheat, soybean, on up to 50% of the area, not every year.",
+      "source_ids": [
+        "embrapa_doc476",
+        "embrapa_jorn_acad_2025"
+      ],
+      "simulated": true
+    }
+  ],
+  "rules": {
+    "hard": [
+      {
+        "id": "soy_calendar_portaria_1579_2026",
+        "source_id": "adapar_portaria_1579_2026",
+        "soy_sowing": {
+          "start": "09-01",
+          "end": "12-31"
+        },
+        "soy_free": {
+          "start": "06-02",
+          "end": "08-31"
+        },
+        "removes": [],
+        "why": "it breaks the soybean-free period or the legal soybean window"
+      }
+    ],
+    "soft": [
+      {
+        "id": "wheat_max_half_area",
+        "applies_to": [
+          "S3"
+        ],
+        "source_id": "embrapa_doc476",
+        "removes": [],
+        "text": "Keep wheat to at most 50% of the area."
+      },
+      {
+        "id": "one_winter_without_wheat_or_barley",
+        "applies_to": [
+          "S3"
+        ],
+        "source_id": "embrapa_trigo_sistemas_2019",
+        "removes": [],
+        "text": "Leave one winter without wheat or barley before wheat comes back."
+      }
+    ]
+  },
+  "constraints": [
+    {
+      "id": "no_narrow_row_seeder",
+      "label": "Do you have a narrow-row seed drill for wheat?",
+      "removes": [
+        "S3"
+      ],
+      "why": "no narrow-row seed drill for wheat"
+    },
+    {
+      "id": "no_grass_seeding",
+      "label": "How would the brachiaria seed go in?",
+      "removes": [
+        "S2"
+      ],
+      "why": "no way to sow the brachiaria seed"
+    },
+    {
+      "id": "no_wheat_buyer",
+      "label": "Does your storage or cooperative receive wheat?",
+      "removes": [
+        "S3"
+      ],
+      "why": "no storage or cooperative receives wheat"
+    },
+    {
+      "id": "rented_land",
+      "label": "Is the land yours or rented?",
+      "removes": [],
+      "why": "This goes to the agronomist sheet."
+    },
+    {
+      "id": "zarc_insurance_credit",
+      "label": "Are your insurance or credit tied to the Zarc?",
+      "removes": [],
+      "why": "With insurance or credit tied to the Zarc, an option outside the Zarc is out."
+    }
+  ],
+  "alerts": [
+    {
+      "id": "pratylenchus",
+      "text_en": "Pratylenchus in brachiaria",
+      "text_pt": "Pratylenchus na braquiária",
+      "trigger": "option_S2",
+      "source_id": "embrapa_sp17_2020",
+      "audited": true
+    },
+    {
+      "id": "wheat_root_disease",
+      "text_en": "root disease in repeated wheat",
+      "text_pt": "doença de raiz no trigo repetido",
+      "trigger": "option_S3_repeated",
+      "source_id": "embrapa_trigo_sistemas_2019",
+      "audited": true
+    },
+    {
+      "id": "white_mold",
+      "text_en": "white mold above 600 m",
+      "text_pt": "mofo-branco acima de 600 m",
+      "trigger": "altitude_above_600_m_nasadem",
+      "source_id": "embrapa_sp17_2020",
+      "audited": true
+    },
+    {
+      "id": "leafhopper_stunting",
+      "text_en": "corn leafhopper and corn stunt",
+      "text_pt": "cigarrinha e enfezamentos",
+      "trigger": "live_or_volunteer_corn",
+      "source_id": "embrapa_cartilha_cigarrinha",
+      "audited": true
+    },
+    {
+      "id": "frost_at_heading",
+      "text_en": "frost at heading",
+      "text_pt": "geada no espigamento",
+      "trigger": "wheat_power_minimum_temperature",
+      "source_id": "zarc_frost_2026_27",
+      "audited": true
+    },
+    {
+      "id": "gibberella",
+      "text_en": "head blight",
+      "text_pt": "giberela",
+      "trigger": "general",
+      "source_id": "cultivar_giberela",
+      "audited": true
+    },
+    {
+      "id": "blast_and_harvest_rain",
+      "text_en": "wheat blast and rain at harvest",
+      "text_pt": "brusone e chuva na colheita",
+      "trigger": "local_review",
+      "source_id": null,
+      "audited": false
+    }
+  ],
+  "units": {
+    "bag_kg": {
+      "v": 60,
+      "l": "region.units.bag_kg"
+    },
+    "alqueire_ha": {
+      "v": 2.42,
+      "l": "region.units.alqueire_ha"
+    },
+    "screen_unit": "ha"
+  },
+  "price_scenarios": [
+    {
+      "id": "example_low",
+      "label": "Corn price 15% lower",
+      "values": {
+        "p_soy": {
+          "v": 100,
+          "l": "region.price_scenarios.example_low.p_soy"
+        },
+        "p_corn": {
+          "v": 42.5,
+          "l": "region.price_scenarios.example_low.p_corn"
+        },
+        "p_wheat": {
+          "v": 60,
+          "l": "region.price_scenarios.example_low.p_wheat"
+        },
+        "Y_corn": {
+          "v": 100,
+          "l": "region.price_scenarios.example_low.Y_corn"
+        },
+        "Y_wheat": {
+          "v": 50,
+          "l": "region.price_scenarios.example_low.Y_wheat"
+        },
+        "c_corn": {
+          "v": 3000,
+          "l": "region.price_scenarios.example_low.c_corn"
+        },
+        "c_wheat": {
+          "v": 1400,
+          "l": "region.price_scenarios.example_low.c_wheat"
+        },
+        "c_grass": {
+          "v": 400,
+          "l": "region.price_scenarios.example_low.c_grass"
+        }
+      },
+      "fictitious": true
+    },
+    {
+      "id": "example_mid",
+      "label": "Base",
+      "values": {
+        "p_soy": {
+          "v": 100,
+          "l": "region.price_scenarios.example_mid.p_soy"
+        },
+        "p_corn": {
+          "v": 50,
+          "l": "region.price_scenarios.example_mid.p_corn"
+        },
+        "p_wheat": {
+          "v": 60,
+          "l": "region.price_scenarios.example_mid.p_wheat"
+        },
+        "Y_corn": {
+          "v": 100,
+          "l": "region.price_scenarios.example_mid.Y_corn"
+        },
+        "Y_wheat": {
+          "v": 50,
+          "l": "region.price_scenarios.example_mid.Y_wheat"
+        },
+        "c_corn": {
+          "v": 3000,
+          "l": "region.price_scenarios.example_mid.c_corn"
+        },
+        "c_wheat": {
+          "v": 1400,
+          "l": "region.price_scenarios.example_mid.c_wheat"
+        },
+        "c_grass": {
+          "v": 400,
+          "l": "region.price_scenarios.example_mid.c_grass"
+        }
+      },
+      "fictitious": true
+    },
+    {
+      "id": "example_high",
+      "label": "Corn price 15% higher",
+      "values": {
+        "p_soy": {
+          "v": 100,
+          "l": "region.price_scenarios.example_high.p_soy"
+        },
+        "p_corn": {
+          "v": 57.5,
+          "l": "region.price_scenarios.example_high.p_corn"
+        },
+        "p_wheat": {
+          "v": 60,
+          "l": "region.price_scenarios.example_high.p_wheat"
+        },
+        "Y_corn": {
+          "v": 100,
+          "l": "region.price_scenarios.example_high.Y_corn"
+        },
+        "Y_wheat": {
+          "v": 50,
+          "l": "region.price_scenarios.example_high.Y_wheat"
+        },
+        "c_corn": {
+          "v": 3000,
+          "l": "region.price_scenarios.example_high.c_corn"
+        },
+        "c_wheat": {
+          "v": 1400,
+          "l": "region.price_scenarios.example_high.c_wheat"
+        },
+        "c_grass": {
+          "v": 400,
+          "l": "region.price_scenarios.example_high.c_grass"
+        }
+      },
+      "fictitious": true
+    }
+  ],
+  "noise_floor": {
+    "v": null,
+    "l": "region.noise_floor"
+  },
+  "choice_seasons": [
+    "2025/26"
+  ],
+  "nasa_switch": {
+    "main_page_if_states_changed_min": {
+      "v": 1,
+      "l": "region.nasa_switch.main_page_if_states_changed_min"
+    },
+    "otherwise": "how_we_know"
+  }
+}

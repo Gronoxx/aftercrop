@@ -1,0 +1,70 @@
+{
+  "_note": "Example, fictitious. Regression pin of the R1 Latin hypercube for the synthetic protocol (seed 20261114, 12 dimensions). It draws parameters only: no engine run, no trial value. If the draw order or generator changes, these values change and the test fails. The band levels [10, 90] and the method are test values: the protocol holds neither yet [DECIDE].",
+  "band_percentiles": [
+    10,
+    90
+  ],
+  "percentile_method": "nearest_rank",
+  "dimensions": [
+    "CCx",
+    "HI0.maize",
+    "HI0.soybean",
+    "HI0.wheat",
+    "WP_star_g_m2.maize",
+    "WP_star_g_m2.soybean",
+    "WP_star_g_m2.wheat",
+    "Zmax_m",
+    "available_water",
+    "senescence",
+    "sowing.maize",
+    "sowing.wheat"
+  ],
+  "members_50": {
+    "first_member": [
+      0.7845152740448604,
+      0.5286664503111258,
+      0.816133693209565,
+      0.2584265796135966,
+      0.5169728470284841,
+      0.8405448344938696,
+      0.24568915401895097,
+      0.5947967171892777,
+      0.23405184928309225,
+      0.1099302789093611,
+      0.6103094727684779,
+      0.4324572098503049
+    ],
+    "last_member": [
+      0.07735456409253275,
+      0.5178816671288572,
+      0.2684121813079602,
+      0.11051510266065873,
+      0.009854315495632149,
+      0.6136235344545894,
+      0.06471415672541327,
+      0.6130875603820164,
+      0.18568819483708857,
+      0.13048749496993867,
+      0.9124845639243949,
+      0.13716585448276986
+    ],
+    "sha256": "727a83f179cc56c380dc89732179c01f8b87283f874e363fbcbd2682a681ebb8"
+  },
+  "members_20": {
+    "first_member": [
+      0.478270609382927,
+      0.7381384556599753,
+      0.4617820864320607,
+      0.5645035949213715,
+      0.18719071044008612,
+      0.6536011805793821,
+      0.8148807362549929,
+      0.0557394970957142,
+      0.741140348660607,
+      0.5563833674403923,
+      0.8717353750299855,
+      0.06699355078491905
+    ],
+    "sha256": "9b621a6566b5ac11fde63143b221e70a87ddf997135def7a6f91b7c84369604d"
+  }
+}

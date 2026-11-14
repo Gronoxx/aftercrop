@@ -1,0 +1,2856 @@
+{
+ "_notice": "Written with an SI tool (Claude, Anthropic) for NASA Space Apps 2026. See AI_USE.md.",
+ "schema_version": "1",
+ "label": "real",
+ "records": {
+  "ablation.hls_vi_v2.states_changed": {
+   "id": "ablation.hls_vi_v2.states_changed",
+   "value": 0,
+   "unit": "states",
+   "evidence_class": "derived_from_trials",
+   "source_id": "hls_vi_v2",
+   "transform": "pipeline/decision/run_states.mjs",
+   "method_id": "M5-A3-v1",
+   "data_version": "real fields from the M2 outputs, example price scenarios",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Counted on the fictitious example in three price scenarios. Read as a sensitivity to price.",
+   "seal": "Derived from trials",
+   "owner": "M5"
+  },
+  "ablation.hls_vi_v2.states_total": {
+   "id": "ablation.hls_vi_v2.states_total",
+   "value": 18,
+   "unit": "states",
+   "evidence_class": "derived_from_trials",
+   "source_id": "hls_vi_v2",
+   "transform": "pipeline/decision/run_states.mjs",
+   "method_id": "M5-A3-v1",
+   "data_version": "real fields from the M2 outputs, example price scenarios",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Counted on the fictitious example in three price scenarios. Read as a sensitivity to price.",
+   "seal": "Derived from trials",
+   "owner": "M5"
+  },
+  "ablation.nasadem.states_changed": {
+   "id": "ablation.nasadem.states_changed",
+   "value": null,
+   "unit": "states",
+   "evidence_class": "derived_from_trials",
+   "source_id": "nasadem",
+   "transform": "pipeline/decision/run_states.mjs",
+   "method_id": "M5-A3-v1",
+   "data_version": "real fields from the M2 outputs, example price scenarios",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Counted on the fictitious example in three price scenarios. Read as a sensitivity to price.",
+   "seal": "Derived from trials",
+   "owner": "M5"
+  },
+  "ablation.nasadem.states_total": {
+   "id": "ablation.nasadem.states_total",
+   "value": null,
+   "unit": "states",
+   "evidence_class": "derived_from_trials",
+   "source_id": "nasadem",
+   "transform": "pipeline/decision/run_states.mjs",
+   "method_id": "M5-A3-v1",
+   "data_version": "real fields from the M2 outputs, example price scenarios",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Counted on the fictitious example in three price scenarios. Read as a sensitivity to price.",
+   "seal": "Derived from trials",
+   "owner": "M5"
+  },
+  "browser.S2.G": {
+   "id": "browser.S2.G",
+   "value": null,
+   "unit": "sc/ha",
+   "evidence_class": "your_numbers",
+   "source_id": null,
+   "transform": "decision.mjs:computeG2",
+   "method_id": "M5-G-v1",
+   "data_version": "computed on the page from your numbers",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Uses only your numbers. No model output enters the money.",
+   "seal": "Your numbers",
+   "owner": "M7"
+  },
+  "browser.S2.N": {
+   "id": "browser.S2.N",
+   "value": null,
+   "unit": "site-seasons",
+   "evidence_class": "derived_from_trials",
+   "source_id": "embrapa_docs",
+   "transform": "decision.mjs:countAtStep",
+   "method_id": "M5-steps-v1",
+   "data_version": "trials_a.csv sha256 bba555752cd4dae91640e7744373af732ad43b7ddd2f258254a2687cc0d8c40a, protocol-v1 tagged",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Counts of published trial site-seasons at or above your step. Trial plots, not this field.",
+   "seal": "Derived from trials",
+   "owner": "M7"
+  },
+  "browser.S2.n": {
+   "id": "browser.S2.n",
+   "value": null,
+   "unit": "site-seasons",
+   "evidence_class": "derived_from_trials",
+   "source_id": "embrapa_docs",
+   "transform": "decision.mjs:trialCount",
+   "method_id": "M5-steps-v1",
+   "data_version": "trials_a.csv sha256 bba555752cd4dae91640e7744373af732ad43b7ddd2f258254a2687cc0d8c40a, protocol-v1 tagged",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Counts of published trial site-seasons at or above your step. Trial plots, not this field.",
+   "seal": "Derived from trials",
+   "owner": "M7"
+  },
+  "browser.S2.step": {
+   "id": "browser.S2.step",
+   "value": null,
+   "unit": "sc/ha, rounded up",
+   "evidence_class": "your_numbers",
+   "source_id": null,
+   "transform": "decision.mjs:stepOf",
+   "method_id": "M5-step-v1",
+   "data_version": "computed on the page from your numbers",
+   "uncertainty": {
+    "kind": "exact"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Rounding up never favours the switch.",
+   "seal": "Your numbers",
+   "owner": "M7"
+  },
+  "browser.S3.G": {
+   "id": "browser.S3.G",
+   "value": null,
+   "unit": "sc/ha",
+   "evidence_class": "your_numbers",
+   "source_id": null,
+   "transform": "decision.mjs:computeG3",
+   "method_id": "M5-G-v1",
+   "data_version": "computed on the page from your numbers",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Uses only your numbers. No model output enters the money.",
+   "seal": "Your numbers",
+   "owner": "M7"
+  },
+  "browser.S3.N": {
+   "id": "browser.S3.N",
+   "value": null,
+   "unit": "site-seasons",
+   "evidence_class": "derived_from_trials",
+   "source_id": "embrapa_docs",
+   "transform": "decision.mjs:countAtStep",
+   "method_id": "M5-steps-v1",
+   "data_version": "trials_a.csv sha256 bba555752cd4dae91640e7744373af732ad43b7ddd2f258254a2687cc0d8c40a, protocol-v1 tagged",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Counts of published trial site-seasons at or above your step. Trial plots, not this field.",
+   "seal": "Derived from trials",
+   "owner": "M7"
+  },
+  "browser.S3.n": {
+   "id": "browser.S3.n",
+   "value": null,
+   "unit": "site-seasons",
+   "evidence_class": "derived_from_trials",
+   "source_id": "embrapa_docs",
+   "transform": "decision.mjs:trialCount",
+   "method_id": "M5-steps-v1",
+   "data_version": "trials_a.csv sha256 bba555752cd4dae91640e7744373af732ad43b7ddd2f258254a2687cc0d8c40a, protocol-v1 tagged",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Counts of published trial site-seasons at or above your step. Trial plots, not this field.",
+   "seal": "Derived from trials",
+   "owner": "M7"
+  },
+  "browser.S3.step": {
+   "id": "browser.S3.step",
+   "value": null,
+   "unit": "sc/ha, rounded up",
+   "evidence_class": "your_numbers",
+   "source_id": null,
+   "transform": "decision.mjs:stepOf",
+   "method_id": "M5-step-v1",
+   "data_version": "computed on the page from your numbers",
+   "uncertainty": {
+    "kind": "exact"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Rounding up never favours the switch.",
+   "seal": "Your numbers",
+   "owner": "M7"
+  },
+  "browser.field_order": {
+   "id": "browser.field_order",
+   "value": null,
+   "unit": "seasons",
+   "evidence_class": "estimated_from_satellite",
+   "source_id": "hls_vi_v2",
+   "transform": "decision.mjs:fieldOrder",
+   "method_id": "M5-field-order-v1",
+   "data_version": "HLSL30_VI 2.0, HLSS30_VI 2.0",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Field order is shown only above the noise floor of N1. The choice seasons stay out.",
+   "seal": "Estimated from satellite",
+   "owner": "M7"
+  },
+  "browser.hls_switch": {
+   "id": "browser.hls_switch",
+   "value": null,
+   "unit": "states",
+   "evidence_class": "derived_from_trials",
+   "source_id": "hls_vi_v2",
+   "transform": "app.mjs:switchCount",
+   "method_id": "M7-switch-v1",
+   "data_version": "computed on the page from your numbers and the HLS window warning",
+   "uncertainty": {
+    "kind": "exact"
+   },
+   "validation_state": "not_applicable",
+   "limits": "States of this page that change when HLS is off. Not a measure of accuracy.",
+   "seal": "Derived from trials",
+   "owner": "M7"
+  },
+  "browser.input.Y_corn": {
+   "id": "browser.input.Y_corn",
+   "value": null,
+   "unit": "as typed",
+   "evidence_class": "your_numbers",
+   "source_id": null,
+   "transform": "app.mjs:parseNumber",
+   "method_id": "M7-inputs-v1",
+   "data_version": "typed on the page",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Not verified.",
+   "seal": "Your numbers",
+   "owner": "M7"
+  },
+  "browser.input.Y_wheat": {
+   "id": "browser.input.Y_wheat",
+   "value": null,
+   "unit": "as typed",
+   "evidence_class": "your_numbers",
+   "source_id": null,
+   "transform": "app.mjs:parseNumber",
+   "method_id": "M7-inputs-v1",
+   "data_version": "typed on the page",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Not verified.",
+   "seal": "Your numbers",
+   "owner": "M7"
+  },
+  "browser.input.c_corn": {
+   "id": "browser.input.c_corn",
+   "value": null,
+   "unit": "as typed",
+   "evidence_class": "your_numbers",
+   "source_id": null,
+   "transform": "app.mjs:parseNumber",
+   "method_id": "M7-inputs-v1",
+   "data_version": "typed on the page",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Not verified.",
+   "seal": "Your numbers",
+   "owner": "M7"
+  },
+  "browser.input.c_grass": {
+   "id": "browser.input.c_grass",
+   "value": null,
+   "unit": "as typed",
+   "evidence_class": "your_numbers",
+   "source_id": null,
+   "transform": "app.mjs:parseNumber",
+   "method_id": "M7-inputs-v1",
+   "data_version": "typed on the page",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Not verified.",
+   "seal": "Your numbers",
+   "owner": "M7"
+  },
+  "browser.input.c_wheat": {
+   "id": "browser.input.c_wheat",
+   "value": null,
+   "unit": "as typed",
+   "evidence_class": "your_numbers",
+   "source_id": null,
+   "transform": "app.mjs:parseNumber",
+   "method_id": "M7-inputs-v1",
+   "data_version": "typed on the page",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Not verified.",
+   "seal": "Your numbers",
+   "owner": "M7"
+  },
+  "browser.input.p_corn": {
+   "id": "browser.input.p_corn",
+   "value": null,
+   "unit": "as typed",
+   "evidence_class": "your_numbers",
+   "source_id": null,
+   "transform": "app.mjs:parseNumber",
+   "method_id": "M7-inputs-v1",
+   "data_version": "typed on the page",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Not verified.",
+   "seal": "Your numbers",
+   "owner": "M7"
+  },
+  "browser.input.p_soy": {
+   "id": "browser.input.p_soy",
+   "value": null,
+   "unit": "as typed",
+   "evidence_class": "your_numbers",
+   "source_id": null,
+   "transform": "app.mjs:parseNumber",
+   "method_id": "M7-inputs-v1",
+   "data_version": "typed on the page",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Not verified.",
+   "seal": "Your numbers",
+   "owner": "M7"
+  },
+  "browser.input.p_wheat": {
+   "id": "browser.input.p_wheat",
+   "value": null,
+   "unit": "as typed",
+   "evidence_class": "your_numbers",
+   "source_id": null,
+   "transform": "app.mjs:parseNumber",
+   "method_id": "M7-inputs-v1",
+   "data_version": "typed on the page",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Not verified.",
+   "seal": "Your numbers",
+   "owner": "M7"
+  },
+  "browser.input.sowing_date": {
+   "id": "browser.input.sowing_date",
+   "value": null,
+   "unit": "as typed",
+   "evidence_class": "your_numbers",
+   "source_id": null,
+   "transform": "decision.mjs:sowingDateStatus",
+   "method_id": "M7-inputs-v1",
+   "data_version": "typed on the page",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Not verified.",
+   "seal": "Your numbers",
+   "owner": "M7"
+  },
+  "browser.margin_corn": {
+   "id": "browser.margin_corn",
+   "value": null,
+   "unit": "R$/ha",
+   "evidence_class": "your_numbers",
+   "source_id": null,
+   "transform": "decision.mjs:marginCorn",
+   "method_id": "M5-margin-v1",
+   "data_version": "computed on the page from your numbers",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Not verified.",
+   "seal": "Your numbers",
+   "owner": "M7"
+  },
+  "browser.margin_wheat": {
+   "id": "browser.margin_wheat",
+   "value": null,
+   "unit": "R$/ha",
+   "evidence_class": "your_numbers",
+   "source_id": null,
+   "transform": "decision.mjs:marginWheat",
+   "method_id": "M5-margin-v1",
+   "data_version": "computed on the page from your numbers",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Not verified.",
+   "seal": "Your numbers",
+   "owner": "M7"
+  },
+  "browser.nitrogen_exposure": {
+   "id": "browser.nitrogen_exposure",
+   "value": null,
+   "unit": "R$/ha",
+   "evidence_class": "your_numbers",
+   "source_id": null,
+   "transform": "app.mjs:nitrogenExposure",
+   "method_id": "M7-nitrogen-v1",
+   "data_version": "computed on the page from your numbers",
+   "uncertainty": {
+    "kind": "exact"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Shown apart. It does not enter G, because fertilizer is already in your costs.",
+   "seal": "Your numbers",
+   "owner": "M7"
+  },
+  "field_a.area_ha": {
+   "id": "field_a.area_ha",
+   "value": 23.76,
+   "unit": "ha",
+   "evidence_class": "estimated_from_satellite",
+   "source_id": "hls",
+   "transform": "pipeline.fields.geometry.field_on_grid",
+   "method_id": "M2-area-v1",
+   "data_version": "HLSL30_VI 2.0, HLSS30_VI 2.0, HLSL30 2.0, HLSS30 2.0",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Drawn by hand on the satellite basemap. Not a survey of the field.",
+   "seal": "Estimated from satellite",
+   "owner": "M2"
+  },
+  "field_a.climate": {
+   "id": "field_a.climate",
+   "value": null,
+   "unit": "seasons (frost, k of n) and mm (rain total per season)",
+   "evidence_class": "reanalysis",
+   "source_id": "power_daily,embrapa_doc476,zarc_frost_2026_27",
+   "transform": "pipeline.decision.risk_counts.occupation_climate",
+   "method_id": "M5-climate-occupation-v1",
+   "data_version": "POWER 1984 to 2025, whole occupation periods only",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Counts of past seasons in one POWER cell, not a forecast and not a threshold of failure.",
+   "seal": "Reanalysis",
+   "owner": "M5"
+  },
+  "field_a.ended_before": {
+   "id": "field_a.ended_before",
+   "value": null,
+   "unit": "seasons",
+   "evidence_class": "estimated_from_satellite",
+   "source_id": "hls_vi_v2,zarc_tabua",
+   "transform": "pipeline.decision.calendar.ended_before_from_basis",
+   "method_id": "M5-window-v2",
+   "data_version": "Tábua 2026/2027; ribbon 2018/19 to 2025/26",
+   "uncertainty": {
+    "kind": "event_interval",
+    "low": null,
+    "high": null
+   },
+   "validation_state": "not_applicable",
+   "limits": "Without a soil report: the earliest end of the corn window across every AD class and cycle group of the municipality (SA-D84). Never says that sowing fell inside the window.",
+   "seal": "Estimated from satellite",
+   "owner": "M5"
+  },
+  "field_a.erosivity": {
+   "id": "field_a.erosivity",
+   "value": {
+    "S1": 14.932666390035587,
+    "S2": 11.815267107988792,
+    "S3": 27.13453233781789
+   },
+   "unit": "% of annual R",
+   "evidence_class": "published_climatology",
+   "source_id": "gloreda",
+   "transform": "pipeline.decision.erosivity.erosivity",
+   "method_id": "M5-erosivity-v1",
+   "data_version": "GloREDa 1.2 (Zenodo 10.5281/zenodo.8036998), mean of the field-window pixels",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Climatology with no specific year. Classes compare strategies, not soil loss.",
+   "seal": "Published climatology",
+   "owner": "M5"
+  },
+  "field_a.green_end.2018_19": {
+   "id": "field_a.green_end.2018_19",
+   "value": 10,
+   "unit": "days between the last green and the first not-green clean observation",
+   "evidence_class": "estimated_from_satellite",
+   "source_id": "hls_vi_v2",
+   "transform": "pipeline.fields.events.green_ends",
+   "method_id": "M2-green-end-v2",
+   "data_version": "HLSL30_VI 2.0, HLSS30_VI 2.0",
+   "uncertainty": {
+    "kind": "event_interval",
+    "low": "2019-01-13",
+    "high": "2019-01-23"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Green ending is not harvest. Confirm with your own date.",
+   "seal": "Estimated from satellite",
+   "owner": "M2"
+  },
+  "field_a.green_end.2019_20": {
+   "id": "field_a.green_end.2019_20",
+   "value": 5,
+   "unit": "days between the last green and the first not-green clean observation",
+   "evidence_class": "estimated_from_satellite",
+   "source_id": "hls_vi_v2",
+   "transform": "pipeline.fields.events.green_ends",
+   "method_id": "M2-green-end-v2",
+   "data_version": "HLSL30_VI 2.0, HLSS30_VI 2.0",
+   "uncertainty": {
+    "kind": "event_interval",
+    "low": "2020-02-12",
+    "high": "2020-02-17"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Green ending is not harvest. Confirm with your own date.",
+   "seal": "Estimated from satellite",
+   "owner": "M2"
+  },
+  "field_a.green_end.2020_21": {
+   "id": "field_a.green_end.2020_21",
+   "value": 20,
+   "unit": "days between the last green and the first not-green clean observation",
+   "evidence_class": "estimated_from_satellite",
+   "source_id": "hls_vi_v2",
+   "transform": "pipeline.fields.events.green_ends",
+   "method_id": "M2-green-end-v2",
+   "data_version": "HLSL30_VI 2.0, HLSS30_VI 2.0",
+   "uncertainty": {
+    "kind": "event_interval",
+    "low": "2021-02-21",
+    "high": "2021-03-13"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Green ending is not harvest. Confirm with your own date.",
+   "seal": "Estimated from satellite",
+   "owner": "M2"
+  },
+  "field_a.green_end.2021_22": {
+   "id": "field_a.green_end.2021_22",
+   "value": 20,
+   "unit": "days between the last green and the first not-green clean observation",
+   "evidence_class": "estimated_from_satellite",
+   "source_id": "hls_vi_v2",
+   "transform": "pipeline.fields.events.green_ends",
+   "method_id": "M2-green-end-v2",
+   "data_version": "HLSL30_VI 2.0, HLSS30_VI 2.0",
+   "uncertainty": {
+    "kind": "event_interval",
+    "low": "2022-01-22",
+    "high": "2022-02-11"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Green ending is not harvest. Confirm with your own date.",
+   "seal": "Estimated from satellite",
+   "owner": "M2"
+  },
+  "field_a.green_end.2022_23": {
+   "id": "field_a.green_end.2022_23",
+   "value": 34,
+   "unit": "days between the last green and the first not-green clean observation",
+   "evidence_class": "estimated_from_satellite",
+   "source_id": "hls_vi_v2",
+   "transform": "pipeline.fields.events.green_ends",
+   "method_id": "M2-green-end-v2",
+   "data_version": "HLSL30_VI 2.0, HLSS30_VI 2.0",
+   "uncertainty": {
+    "kind": "event_interval",
+    "low": "2023-01-27",
+    "high": "2023-03-02"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Green ending is not harvest. Confirm with your own date.",
+   "seal": "Estimated from satellite",
+   "owner": "M2"
+  },
+  "field_a.green_end.2023_24": {
+   "id": "field_a.green_end.2023_24",
+   "value": 8,
+   "unit": "days between the last green and the first not-green clean observation",
+   "evidence_class": "estimated_from_satellite",
+   "source_id": "hls_vi_v2",
+   "transform": "pipeline.fields.events.green_ends",
+   "method_id": "M2-green-end-v2",
+   "data_version": "HLSL30_VI 2.0, HLSS30_VI 2.0",
+   "uncertainty": {
+    "kind": "event_interval",
+    "low": "2024-02-01",
+    "high": "2024-02-09"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Green ending is not harvest. Confirm with your own date.",
+   "seal": "Estimated from satellite",
+   "owner": "M2"
+  },
+  "field_a.green_end.2024_25": {
+   "id": "field_a.green_end.2024_25",
+   "value": 15,
+   "unit": "days between the last green and the first not-green clean observation",
+   "evidence_class": "estimated_from_satellite",
+   "source_id": "hls_vi_v2",
+   "transform": "pipeline.fields.events.green_ends",
+   "method_id": "M2-green-end-v2",
+   "data_version": "HLSL30_VI 2.0, HLSS30_VI 2.0",
+   "uncertainty": {
+    "kind": "event_interval",
+    "low": "2025-01-11",
+    "high": "2025-01-26"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Green ending is not harvest. Confirm with your own date.",
+   "seal": "Estimated from satellite",
+   "owner": "M2"
+  },
+  "field_a.green_end.2025_26": {
+   "id": "field_a.green_end.2025_26",
+   "value": 15,
+   "unit": "days between the last green and the first not-green clean observation",
+   "evidence_class": "estimated_from_satellite",
+   "source_id": "hls_vi_v2",
+   "transform": "pipeline.fields.events.green_ends",
+   "method_id": "M2-green-end-v2",
+   "data_version": "HLSL30_VI 2.0, HLSS30_VI 2.0",
+   "uncertainty": {
+    "kind": "event_interval",
+    "low": "2026-02-15",
+    "high": "2026-03-02"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Green ending is not harvest. Confirm with your own date.",
+   "seal": "Estimated from satellite",
+   "owner": "M2"
+  },
+  "field_a.ndvi_series": {
+   "id": "field_a.ndvi_series",
+   "value": null,
+   "unit": "NDVI and NBR2, unitless, mean over the inner polygon",
+   "evidence_class": "seen_by_satellite",
+   "source_id": "hls_vi_v2",
+   "transform": "pipeline.fields.ndvi_series",
+   "method_id": "M2-ndvi-series-v1",
+   "data_version": "HLSL30_VI 2.0, HLSS30_VI 2.0",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Does not tell the crop, bare soil or yield.",
+   "seal": "Seen by satellite",
+   "owner": "M2"
+  },
+  "field_a.next_soy": {
+   "id": "field_a.next_soy",
+   "value": null,
+   "unit": "state",
+   "evidence_class": "simulated",
+   "source_id": null,
+   "transform": "pipeline.bench.label",
+   "method_id": "M5-next-soy-v1",
+   "data_version": "not completed: the bench label is not frozen",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_completed",
+   "limits": "Direction only. Never a percentage, never an absolute yield, never in the money.",
+   "seal": "Simulated",
+   "owner": "M5"
+  },
+  "field_a.relief": {
+   "id": "field_a.relief",
+   "value": null,
+   "unit": "slope class",
+   "evidence_class": "estimated_from_satellite",
+   "source_id": "nasadem",
+   "transform": "pipeline.fields.relief",
+   "method_id": "M2-relief-v1",
+   "data_version": "NASADEM",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Terraces are not seen at this scale. Tell us if the field is terraced.",
+   "seal": "Estimated from satellite",
+   "owner": "M2"
+  },
+  "field_a.ribbon": {
+   "id": "field_a.ribbon",
+   "value": null,
+   "unit": "dekad class: green, not green, to confirm or no data",
+   "evidence_class": "estimated_from_satellite",
+   "source_id": "hls_vi_v2",
+   "transform": "pipeline.fields.ribbon",
+   "method_id": "M2-ribbon-v1",
+   "data_version": "HLSL30_VI 2.0, HLSS30_VI 2.0",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "A dekad with no clean observation stays no data. Nothing is interpolated.",
+   "seal": "Estimated from satellite",
+   "owner": "M2"
+  },
+  "field_a.ribbon_counts.no_green": {
+   "id": "field_a.ribbon_counts.no_green",
+   "value": 8.5,
+   "unit": "ten-day periods of 36 with no green seen, median over the seasons",
+   "evidence_class": "estimated_from_satellite",
+   "source_id": "hls_vi_v2",
+   "transform": "pipeline.fields.ribbon.no_green_count",
+   "method_id": "M5-no-green-v1",
+   "data_version": "ribbon 2018/19 to 2025/26",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "No green is not bare soil: NDVI cannot separate straw from soil. Periods with no clean image are not counted.",
+   "seal": "Estimated from satellite",
+   "owner": "M5"
+  },
+  "field_a.risk": {
+   "id": "field_a.risk",
+   "value": null,
+   "unit": "years",
+   "evidence_class": "reanalysis",
+   "source_id": "power_daily,zarc_tabua",
+   "transform": "pipeline.decision.risk_counts",
+   "method_id": "M5-risk-counts-v1",
+   "data_version": "POWER 1984 to 2025; Tábua 2026/2027",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Years counted in a climate cell, not at a station on your farm.",
+   "seal": "Reanalysis",
+   "owner": "M5"
+  },
+  "field_a.risk_at_exit": {
+   "id": "field_a.risk_at_exit",
+   "value": null,
+   "unit": "seasons",
+   "evidence_class": "estimated_from_satellite",
+   "source_id": "hls_vi_v2,zarc_tabua",
+   "transform": "pipeline.decision.calendar.risk_at_exit_from_basis",
+   "method_id": "M5-risk-at-exit-v1",
+   "data_version": "Tábua 2026/2027; ribbon 2018/19 to 2025/26",
+   "uncertainty": {
+    "kind": "event_interval",
+    "low": null,
+    "high": null
+   },
+   "validation_state": "not_applicable",
+   "limits": "A condition of the field being free, never a sowing date.",
+   "seal": "Estimated from satellite",
+   "owner": "M5"
+  },
+  "field_a.scale_note.dem_m": {
+   "id": "field_a.scale_note.dem_m",
+   "value": 29.6,
+   "unit": "m",
+   "evidence_class": "estimated_from_satellite",
+   "source_id": "nasadem",
+   "transform": "pipeline.decision.field_inputs.scale_note",
+   "method_id": "M2-scale-note-v1",
+   "data_version": "NASADEM",
+   "uncertainty": {
+    "kind": "exact"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Terrain cell size. Terraces and small low spots are finer than this.",
+   "seal": "Estimated from satellite",
+   "owner": "M2"
+  },
+  "field_a.scale_note.erosivity_km": {
+   "id": "field_a.scale_note.erosivity_km",
+   "value": 0.89,
+   "unit": "km",
+   "evidence_class": "published_climatology",
+   "source_id": "gloreda",
+   "transform": "pipeline.decision.field_inputs.scale_note",
+   "method_id": "M2-scale-note-v1",
+   "data_version": "GloREDa, Global Rainfall Erosivity Database (Zenodo record 8036998)",
+   "uncertainty": {
+    "kind": "exact"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Published climatology with no specific year.",
+   "seal": "Published climatology",
+   "owner": "M2"
+  },
+  "field_a.scale_note.power_cell_km": {
+   "id": "field_a.scale_note.power_cell_km",
+   "value": 59.5,
+   "unit": "km",
+   "evidence_class": "reanalysis",
+   "source_id": "power_daily",
+   "transform": "pipeline.decision.field_inputs.scale_note",
+   "method_id": "M2-scale-note-v1",
+   "data_version": "POWER daily point API, community AG",
+   "uncertainty": {
+    "kind": "exact"
+   },
+   "validation_state": "not_applicable",
+   "limits": "One climate cell covers many fields. It is not a station on your farm.",
+   "seal": "Reanalysis",
+   "owner": "M2"
+  },
+  "field_a.scale_note.radiation_cell_km": {
+   "id": "field_a.scale_note.radiation_cell_km",
+   "value": 106.5,
+   "unit": "km",
+   "evidence_class": "reanalysis",
+   "source_id": "power_daily",
+   "transform": "pipeline.decision.field_inputs.scale_note",
+   "method_id": "M2-scale-note-v1",
+   "data_version": "POWER daily point API, community AG",
+   "uncertainty": {
+    "kind": "exact"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Solar radiation comes from a coarser cell than rain and temperature.",
+   "seal": "Reanalysis",
+   "owner": "M2"
+  },
+  "field_a.scale_note.soil_m": {
+   "id": "field_a.scale_note.soil_m",
+   "value": 250,
+   "unit": "m",
+   "evidence_class": "unknown",
+   "source_id": "soilgrids_wcs",
+   "transform": "pipeline.decision.field_inputs.scale_note",
+   "method_id": "M2-scale-note-v1",
+   "data_version": "SoilGrids 2.0 (WCS 2.0.1, maps.isric.org)",
+   "uncertainty": {
+    "kind": "exact"
+   },
+   "validation_state": "not_applicable",
+   "limits": "A global soil map cell, not a lab report of this field.",
+   "seal": "Unknown",
+   "owner": "M2"
+  },
+  "field_a.soil": {
+   "id": "field_a.soil",
+   "value": null,
+   "unit": "layers: clay, sand and organic matter, % by mass",
+   "evidence_class": "unknown",
+   "source_id": "soilgrids_wcs",
+   "transform": "pipeline.fields.soil_profile",
+   "method_id": "M2-soil-profile-v1",
+   "data_version": "SoilGrids 2.0 (WCS 2.0.1, maps.isric.org)",
+   "uncertainty": {
+    "kind": "range"
+   },
+   "validation_state": "not_applicable",
+   "limits": "A global soil map, not a lab report. Ask for a soil lab report.",
+   "seal": "Unknown",
+   "owner": "M2"
+  },
+  "field_a.window_reading": {
+   "id": "field_a.window_reading",
+   "value": null,
+   "unit": "seasons",
+   "evidence_class": "estimated_from_satellite",
+   "source_id": "hls_vi_v2,zarc_tabua",
+   "transform": "pipeline.decision.calendar.field_window_reading",
+   "method_id": "M5-window-v2",
+   "data_version": "Tábua 2026/2027; ribbon 2018/19 to 2025/26",
+   "uncertainty": {
+    "kind": "event_interval",
+    "low": null,
+    "high": null
+   },
+   "validation_state": "not_applicable",
+   "limits": "for any soil class: the latest end of the corn window across every AD class and cycle group of the municipality",
+   "seal": "Estimated from satellite",
+   "owner": "M5"
+  },
+  "field_a.zarc_risk_band": {
+   "id": "field_a.zarc_risk_band",
+   "value": null,
+   "unit": "% risk per ten-day period",
+   "evidence_class": "official_rule",
+   "source_id": "zarc_tabua",
+   "transform": "pipeline.decision.calendar.risk_band",
+   "method_id": "M5-zarc-band-v1",
+   "data_version": "Tábua 2026/2027",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Zarc risk for sowing in each ten-day period. A blank period is outside the zoning, never zero risk.",
+   "seal": "Official rule",
+   "owner": "M5"
+  },
+  "field_b.area_ha": {
+   "id": "field_b.area_ha",
+   "value": 53.822,
+   "unit": "ha",
+   "evidence_class": "estimated_from_satellite",
+   "source_id": "hls",
+   "transform": "pipeline.fields.geometry.field_on_grid",
+   "method_id": "M2-area-v1",
+   "data_version": "HLSL30_VI 2.0, HLSS30_VI 2.0, HLSL30 2.0, HLSS30 2.0",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Drawn by hand on the satellite basemap. Not a survey of the field.",
+   "seal": "Estimated from satellite",
+   "owner": "M2"
+  },
+  "field_b.climate": {
+   "id": "field_b.climate",
+   "value": null,
+   "unit": "seasons (frost, k of n) and mm (rain total per season)",
+   "evidence_class": "reanalysis",
+   "source_id": "power_daily,embrapa_doc476,zarc_frost_2026_27",
+   "transform": "pipeline.decision.risk_counts.occupation_climate",
+   "method_id": "M5-climate-occupation-v1",
+   "data_version": "POWER 1984 to 2025, whole occupation periods only",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Counts of past seasons in one POWER cell, not a forecast and not a threshold of failure.",
+   "seal": "Reanalysis",
+   "owner": "M5"
+  },
+  "field_b.ended_before": {
+   "id": "field_b.ended_before",
+   "value": null,
+   "unit": "seasons",
+   "evidence_class": "estimated_from_satellite",
+   "source_id": "hls_vi_v2,zarc_tabua",
+   "transform": "pipeline.decision.calendar.ended_before_from_basis",
+   "method_id": "M5-window-v2",
+   "data_version": "Tábua 2026/2027; ribbon 2018/19 to 2025/26",
+   "uncertainty": {
+    "kind": "event_interval",
+    "low": null,
+    "high": null
+   },
+   "validation_state": "not_applicable",
+   "limits": "Without a soil report: the earliest end of the corn window across every AD class and cycle group of the municipality (SA-D84). Never says that sowing fell inside the window.",
+   "seal": "Estimated from satellite",
+   "owner": "M5"
+  },
+  "field_b.erosivity": {
+   "id": "field_b.erosivity",
+   "value": {
+    "S1": 14.932666390035587,
+    "S2": 11.815267107988792,
+    "S3": 27.13453233781789
+   },
+   "unit": "% of annual R",
+   "evidence_class": "published_climatology",
+   "source_id": "gloreda",
+   "transform": "pipeline.decision.erosivity.erosivity",
+   "method_id": "M5-erosivity-v1",
+   "data_version": "GloREDa 1.2 (Zenodo 10.5281/zenodo.8036998), mean of the field-window pixels",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Climatology with no specific year. Classes compare strategies, not soil loss.",
+   "seal": "Published climatology",
+   "owner": "M5"
+  },
+  "field_b.green_end.2018_19": {
+   "id": "field_b.green_end.2018_19",
+   "value": null,
+   "unit": "days between the last green and the first not-green clean observation",
+   "evidence_class": "estimated_from_satellite",
+   "source_id": "hls_vi_v2",
+   "transform": "pipeline.fields.events.green_ends",
+   "method_id": "M2-green-end-v2",
+   "data_version": "HLSL30_VI 2.0, HLSS30_VI 2.0",
+   "uncertainty": {
+    "kind": "event_interval",
+    "low": null,
+    "high": null
+   },
+   "validation_state": "not_applicable",
+   "limits": "Green ending is not harvest. Confirm with your own date.",
+   "seal": "Estimated from satellite",
+   "owner": "M2"
+  },
+  "field_b.green_end.2019_20": {
+   "id": "field_b.green_end.2019_20",
+   "value": 3,
+   "unit": "days between the last green and the first not-green clean observation",
+   "evidence_class": "estimated_from_satellite",
+   "source_id": "hls_vi_v2",
+   "transform": "pipeline.fields.events.green_ends",
+   "method_id": "M2-green-end-v2",
+   "data_version": "HLSL30_VI 2.0, HLSS30_VI 2.0",
+   "uncertainty": {
+    "kind": "event_interval",
+    "low": "2020-02-27",
+    "high": "2020-03-01"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Green ending is not harvest. Confirm with your own date.",
+   "seal": "Estimated from satellite",
+   "owner": "M2"
+  },
+  "field_b.green_end.2020_21": {
+   "id": "field_b.green_end.2020_21",
+   "value": 15,
+   "unit": "days between the last green and the first not-green clean observation",
+   "evidence_class": "estimated_from_satellite",
+   "source_id": "hls_vi_v2",
+   "transform": "pipeline.fields.events.green_ends",
+   "method_id": "M2-green-end-v2",
+   "data_version": "HLSL30_VI 2.0, HLSS30_VI 2.0",
+   "uncertainty": {
+    "kind": "event_interval",
+    "low": "2021-02-26",
+    "high": "2021-03-13"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Green ending is not harvest. Confirm with your own date.",
+   "seal": "Estimated from satellite",
+   "owner": "M2"
+  },
+  "field_b.green_end.2021_22": {
+   "id": "field_b.green_end.2021_22",
+   "value": 8,
+   "unit": "days between the last green and the first not-green clean observation",
+   "evidence_class": "estimated_from_satellite",
+   "source_id": "hls_vi_v2",
+   "transform": "pipeline.fields.events.green_ends",
+   "method_id": "M2-green-end-v2",
+   "data_version": "HLSL30_VI 2.0, HLSS30_VI 2.0",
+   "uncertainty": {
+    "kind": "event_interval",
+    "low": "2022-02-27",
+    "high": "2022-03-07"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Green ending is not harvest. Confirm with your own date.",
+   "seal": "Estimated from satellite",
+   "owner": "M2"
+  },
+  "field_b.green_end.2022_23": {
+   "id": "field_b.green_end.2022_23",
+   "value": 34,
+   "unit": "days between the last green and the first not-green clean observation",
+   "evidence_class": "estimated_from_satellite",
+   "source_id": "hls_vi_v2",
+   "transform": "pipeline.fields.events.green_ends",
+   "method_id": "M2-green-end-v2",
+   "data_version": "HLSL30_VI 2.0, HLSS30_VI 2.0",
+   "uncertainty": {
+    "kind": "event_interval",
+    "low": "2023-01-27",
+    "high": "2023-03-02"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Green ending is not harvest. Confirm with your own date.",
+   "seal": "Estimated from satellite",
+   "owner": "M2"
+  },
+  "field_b.green_end.2023_24": {
+   "id": "field_b.green_end.2023_24",
+   "value": 5,
+   "unit": "days between the last green and the first not-green clean observation",
+   "evidence_class": "estimated_from_satellite",
+   "source_id": "hls_vi_v2",
+   "transform": "pipeline.fields.events.green_ends",
+   "method_id": "M2-green-end-v2",
+   "data_version": "HLSL30_VI 2.0, HLSS30_VI 2.0",
+   "uncertainty": {
+    "kind": "event_interval",
+    "low": "2024-02-26",
+    "high": "2024-03-02"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Green ending is not harvest. Confirm with your own date.",
+   "seal": "Estimated from satellite",
+   "owner": "M2"
+  },
+  "field_b.green_end.2024_25": {
+   "id": "field_b.green_end.2024_25",
+   "value": 10,
+   "unit": "days between the last green and the first not-green clean observation",
+   "evidence_class": "estimated_from_satellite",
+   "source_id": "hls_vi_v2",
+   "transform": "pipeline.fields.events.green_ends",
+   "method_id": "M2-green-end-v2",
+   "data_version": "HLSL30_VI 2.0, HLSS30_VI 2.0",
+   "uncertainty": {
+    "kind": "event_interval",
+    "low": "2025-02-20",
+    "high": "2025-03-02"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Green ending is not harvest. Confirm with your own date.",
+   "seal": "Estimated from satellite",
+   "owner": "M2"
+  },
+  "field_b.green_end.2025_26": {
+   "id": "field_b.green_end.2025_26",
+   "value": 10,
+   "unit": "days between the last green and the first not-green clean observation",
+   "evidence_class": "estimated_from_satellite",
+   "source_id": "hls_vi_v2",
+   "transform": "pipeline.fields.events.green_ends",
+   "method_id": "M2-green-end-v2",
+   "data_version": "HLSL30_VI 2.0, HLSS30_VI 2.0",
+   "uncertainty": {
+    "kind": "event_interval",
+    "low": "2026-02-20",
+    "high": "2026-03-02"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Green ending is not harvest. Confirm with your own date.",
+   "seal": "Estimated from satellite",
+   "owner": "M2"
+  },
+  "field_b.ndvi_series": {
+   "id": "field_b.ndvi_series",
+   "value": null,
+   "unit": "NDVI and NBR2, unitless, mean over the inner polygon",
+   "evidence_class": "seen_by_satellite",
+   "source_id": "hls_vi_v2",
+   "transform": "pipeline.fields.ndvi_series",
+   "method_id": "M2-ndvi-series-v1",
+   "data_version": "HLSL30_VI 2.0, HLSS30_VI 2.0",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Does not tell the crop, bare soil or yield.",
+   "seal": "Seen by satellite",
+   "owner": "M2"
+  },
+  "field_b.next_soy": {
+   "id": "field_b.next_soy",
+   "value": null,
+   "unit": "state",
+   "evidence_class": "simulated",
+   "source_id": null,
+   "transform": "pipeline.bench.label",
+   "method_id": "M5-next-soy-v1",
+   "data_version": "not completed: the bench label is not frozen",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_completed",
+   "limits": "Direction only. Never a percentage, never an absolute yield, never in the money.",
+   "seal": "Simulated",
+   "owner": "M5"
+  },
+  "field_b.relief": {
+   "id": "field_b.relief",
+   "value": null,
+   "unit": "slope class",
+   "evidence_class": "estimated_from_satellite",
+   "source_id": "nasadem",
+   "transform": "pipeline.fields.relief",
+   "method_id": "M2-relief-v1",
+   "data_version": "NASADEM",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Terraces are not seen at this scale. Tell us if the field is terraced.",
+   "seal": "Estimated from satellite",
+   "owner": "M2"
+  },
+  "field_b.ribbon": {
+   "id": "field_b.ribbon",
+   "value": null,
+   "unit": "dekad class: green, not green, to confirm or no data",
+   "evidence_class": "estimated_from_satellite",
+   "source_id": "hls_vi_v2",
+   "transform": "pipeline.fields.ribbon",
+   "method_id": "M2-ribbon-v1",
+   "data_version": "HLSL30_VI 2.0, HLSS30_VI 2.0",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "A dekad with no clean observation stays no data. Nothing is interpolated.",
+   "seal": "Estimated from satellite",
+   "owner": "M2"
+  },
+  "field_b.ribbon_counts.no_green": {
+   "id": "field_b.ribbon_counts.no_green",
+   "value": 9,
+   "unit": "ten-day periods of 36 with no green seen, median over the seasons",
+   "evidence_class": "estimated_from_satellite",
+   "source_id": "hls_vi_v2",
+   "transform": "pipeline.fields.ribbon.no_green_count",
+   "method_id": "M5-no-green-v1",
+   "data_version": "ribbon 2018/19 to 2025/26",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "No green is not bare soil: NDVI cannot separate straw from soil. Periods with no clean image are not counted.",
+   "seal": "Estimated from satellite",
+   "owner": "M5"
+  },
+  "field_b.risk": {
+   "id": "field_b.risk",
+   "value": null,
+   "unit": "years",
+   "evidence_class": "reanalysis",
+   "source_id": "power_daily,zarc_tabua",
+   "transform": "pipeline.decision.risk_counts",
+   "method_id": "M5-risk-counts-v1",
+   "data_version": "POWER 1984 to 2025; Tábua 2026/2027",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Years counted in a climate cell, not at a station on your farm.",
+   "seal": "Reanalysis",
+   "owner": "M5"
+  },
+  "field_b.risk_at_exit": {
+   "id": "field_b.risk_at_exit",
+   "value": null,
+   "unit": "seasons",
+   "evidence_class": "estimated_from_satellite",
+   "source_id": "hls_vi_v2,zarc_tabua",
+   "transform": "pipeline.decision.calendar.risk_at_exit_from_basis",
+   "method_id": "M5-risk-at-exit-v1",
+   "data_version": "Tábua 2026/2027; ribbon 2018/19 to 2025/26",
+   "uncertainty": {
+    "kind": "event_interval",
+    "low": null,
+    "high": null
+   },
+   "validation_state": "not_applicable",
+   "limits": "A condition of the field being free, never a sowing date.",
+   "seal": "Estimated from satellite",
+   "owner": "M5"
+  },
+  "field_b.scale_note.dem_m": {
+   "id": "field_b.scale_note.dem_m",
+   "value": 29.6,
+   "unit": "m",
+   "evidence_class": "estimated_from_satellite",
+   "source_id": "nasadem",
+   "transform": "pipeline.decision.field_inputs.scale_note",
+   "method_id": "M2-scale-note-v1",
+   "data_version": "NASADEM",
+   "uncertainty": {
+    "kind": "exact"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Terrain cell size. Terraces and small low spots are finer than this.",
+   "seal": "Estimated from satellite",
+   "owner": "M2"
+  },
+  "field_b.scale_note.erosivity_km": {
+   "id": "field_b.scale_note.erosivity_km",
+   "value": 0.89,
+   "unit": "km",
+   "evidence_class": "published_climatology",
+   "source_id": "gloreda",
+   "transform": "pipeline.decision.field_inputs.scale_note",
+   "method_id": "M2-scale-note-v1",
+   "data_version": "GloREDa, Global Rainfall Erosivity Database (Zenodo record 8036998)",
+   "uncertainty": {
+    "kind": "exact"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Published climatology with no specific year.",
+   "seal": "Published climatology",
+   "owner": "M2"
+  },
+  "field_b.scale_note.power_cell_km": {
+   "id": "field_b.scale_note.power_cell_km",
+   "value": 59.6,
+   "unit": "km",
+   "evidence_class": "reanalysis",
+   "source_id": "power_daily",
+   "transform": "pipeline.decision.field_inputs.scale_note",
+   "method_id": "M2-scale-note-v1",
+   "data_version": "POWER daily point API, community AG",
+   "uncertainty": {
+    "kind": "exact"
+   },
+   "validation_state": "not_applicable",
+   "limits": "One climate cell covers many fields. It is not a station on your farm.",
+   "seal": "Reanalysis",
+   "owner": "M2"
+  },
+  "field_b.scale_note.radiation_cell_km": {
+   "id": "field_b.scale_note.radiation_cell_km",
+   "value": 106.5,
+   "unit": "km",
+   "evidence_class": "reanalysis",
+   "source_id": "power_daily",
+   "transform": "pipeline.decision.field_inputs.scale_note",
+   "method_id": "M2-scale-note-v1",
+   "data_version": "POWER daily point API, community AG",
+   "uncertainty": {
+    "kind": "exact"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Solar radiation comes from a coarser cell than rain and temperature.",
+   "seal": "Reanalysis",
+   "owner": "M2"
+  },
+  "field_b.scale_note.soil_m": {
+   "id": "field_b.scale_note.soil_m",
+   "value": 250,
+   "unit": "m",
+   "evidence_class": "unknown",
+   "source_id": "soilgrids_wcs",
+   "transform": "pipeline.decision.field_inputs.scale_note",
+   "method_id": "M2-scale-note-v1",
+   "data_version": "SoilGrids 2.0 (WCS 2.0.1, maps.isric.org)",
+   "uncertainty": {
+    "kind": "exact"
+   },
+   "validation_state": "not_applicable",
+   "limits": "A global soil map cell, not a lab report of this field.",
+   "seal": "Unknown",
+   "owner": "M2"
+  },
+  "field_b.soil": {
+   "id": "field_b.soil",
+   "value": null,
+   "unit": "layers: clay, sand and organic matter, % by mass",
+   "evidence_class": "unknown",
+   "source_id": "soilgrids_wcs",
+   "transform": "pipeline.fields.soil_profile",
+   "method_id": "M2-soil-profile-v1",
+   "data_version": "SoilGrids 2.0 (WCS 2.0.1, maps.isric.org)",
+   "uncertainty": {
+    "kind": "range"
+   },
+   "validation_state": "not_applicable",
+   "limits": "A global soil map, not a lab report. Ask for a soil lab report.",
+   "seal": "Unknown",
+   "owner": "M2"
+  },
+  "field_b.window_reading": {
+   "id": "field_b.window_reading",
+   "value": null,
+   "unit": "seasons",
+   "evidence_class": "estimated_from_satellite",
+   "source_id": "hls_vi_v2,zarc_tabua",
+   "transform": "pipeline.decision.calendar.field_window_reading",
+   "method_id": "M5-window-v2",
+   "data_version": "Tábua 2026/2027; ribbon 2018/19 to 2025/26",
+   "uncertainty": {
+    "kind": "event_interval",
+    "low": null,
+    "high": null
+   },
+   "validation_state": "not_applicable",
+   "limits": "for any soil class: the latest end of the corn window across every AD class and cycle group of the municipality",
+   "seal": "Estimated from satellite",
+   "owner": "M5"
+  },
+  "field_b.zarc_risk_band": {
+   "id": "field_b.zarc_risk_band",
+   "value": null,
+   "unit": "% risk per ten-day period",
+   "evidence_class": "official_rule",
+   "source_id": "zarc_tabua",
+   "transform": "pipeline.decision.calendar.risk_band",
+   "method_id": "M5-zarc-band-v1",
+   "data_version": "Tábua 2026/2027",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Zarc risk for sowing in each ten-day period. A blank period is outside the zoning, never zero risk.",
+   "seal": "Official rule",
+   "owner": "M5"
+  },
+  "field_c.area_ha": {
+   "id": "field_c.area_ha",
+   "value": 33.122,
+   "unit": "ha",
+   "evidence_class": "estimated_from_satellite",
+   "source_id": "hls",
+   "transform": "pipeline.fields.geometry.field_on_grid",
+   "method_id": "M2-area-v1",
+   "data_version": "HLSL30_VI 2.0, HLSS30_VI 2.0, HLSL30 2.0, HLSS30 2.0",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Drawn by hand on the satellite basemap. Not a survey of the field.",
+   "seal": "Estimated from satellite",
+   "owner": "M2"
+  },
+  "field_c.climate": {
+   "id": "field_c.climate",
+   "value": null,
+   "unit": "seasons (frost, k of n) and mm (rain total per season)",
+   "evidence_class": "reanalysis",
+   "source_id": "power_daily,embrapa_doc476,zarc_frost_2026_27",
+   "transform": "pipeline.decision.risk_counts.occupation_climate",
+   "method_id": "M5-climate-occupation-v1",
+   "data_version": "POWER 1984 to 2025, whole occupation periods only",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Counts of past seasons in one POWER cell, not a forecast and not a threshold of failure.",
+   "seal": "Reanalysis",
+   "owner": "M5"
+  },
+  "field_c.ended_before": {
+   "id": "field_c.ended_before",
+   "value": null,
+   "unit": "seasons",
+   "evidence_class": "estimated_from_satellite",
+   "source_id": "hls_vi_v2,zarc_tabua",
+   "transform": "pipeline.decision.calendar.ended_before_from_basis",
+   "method_id": "M5-window-v2",
+   "data_version": "Tábua 2026/2027; ribbon 2018/19 to 2025/26",
+   "uncertainty": {
+    "kind": "event_interval",
+    "low": null,
+    "high": null
+   },
+   "validation_state": "not_applicable",
+   "limits": "Without a soil report: the earliest end of the corn window across every AD class and cycle group of the municipality (SA-D84). Never says that sowing fell inside the window.",
+   "seal": "Estimated from satellite",
+   "owner": "M5"
+  },
+  "field_c.erosivity": {
+   "id": "field_c.erosivity",
+   "value": {
+    "S1": 14.932666390035587,
+    "S2": 11.815267107988792,
+    "S3": 27.13453233781789
+   },
+   "unit": "% of annual R",
+   "evidence_class": "published_climatology",
+   "source_id": "gloreda",
+   "transform": "pipeline.decision.erosivity.erosivity",
+   "method_id": "M5-erosivity-v1",
+   "data_version": "GloREDa 1.2 (Zenodo 10.5281/zenodo.8036998), mean of the field-window pixels",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Climatology with no specific year. Classes compare strategies, not soil loss.",
+   "seal": "Published climatology",
+   "owner": "M5"
+  },
+  "field_c.green_end.2018_19": {
+   "id": "field_c.green_end.2018_19",
+   "value": 5,
+   "unit": "days between the last green and the first not-green clean observation",
+   "evidence_class": "estimated_from_satellite",
+   "source_id": "hls_vi_v2",
+   "transform": "pipeline.fields.events.green_ends",
+   "method_id": "M2-green-end-v2",
+   "data_version": "HLSL30_VI 2.0, HLSS30_VI 2.0",
+   "uncertainty": {
+    "kind": "event_interval",
+    "low": "2019-01-28",
+    "high": "2019-02-02"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Green ending is not harvest. Confirm with your own date.",
+   "seal": "Estimated from satellite",
+   "owner": "M2"
+  },
+  "field_c.green_end.2019_20": {
+   "id": "field_c.green_end.2019_20",
+   "value": 10,
+   "unit": "days between the last green and the first not-green clean observation",
+   "evidence_class": "estimated_from_satellite",
+   "source_id": "hls_vi_v2",
+   "transform": "pipeline.fields.events.green_ends",
+   "method_id": "M2-green-end-v2",
+   "data_version": "HLSL30_VI 2.0, HLSS30_VI 2.0",
+   "uncertainty": {
+    "kind": "event_interval",
+    "low": "2020-02-17",
+    "high": "2020-02-27"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Green ending is not harvest. Confirm with your own date.",
+   "seal": "Estimated from satellite",
+   "owner": "M2"
+  },
+  "field_c.green_end.2020_21": {
+   "id": "field_c.green_end.2020_21",
+   "value": 10,
+   "unit": "days between the last green and the first not-green clean observation",
+   "evidence_class": "estimated_from_satellite",
+   "source_id": "hls_vi_v2",
+   "transform": "pipeline.fields.events.green_ends",
+   "method_id": "M2-green-end-v2",
+   "data_version": "HLSL30_VI 2.0, HLSS30_VI 2.0",
+   "uncertainty": {
+    "kind": "event_interval",
+    "low": "2021-03-13",
+    "high": "2021-03-23"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Green ending is not harvest. Confirm with your own date.",
+   "seal": "Estimated from satellite",
+   "owner": "M2"
+  },
+  "field_c.green_end.2021_22": {
+   "id": "field_c.green_end.2021_22",
+   "value": 8,
+   "unit": "days between the last green and the first not-green clean observation",
+   "evidence_class": "estimated_from_satellite",
+   "source_id": "hls_vi_v2",
+   "transform": "pipeline.fields.events.green_ends",
+   "method_id": "M2-green-end-v2",
+   "data_version": "HLSL30_VI 2.0, HLSS30_VI 2.0",
+   "uncertainty": {
+    "kind": "event_interval",
+    "low": "2022-02-27",
+    "high": "2022-03-07"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Green ending is not harvest. Confirm with your own date.",
+   "seal": "Estimated from satellite",
+   "owner": "M2"
+  },
+  "field_c.green_end.2022_23": {
+   "id": "field_c.green_end.2022_23",
+   "value": 24,
+   "unit": "days between the last green and the first not-green clean observation",
+   "evidence_class": "estimated_from_satellite",
+   "source_id": "hls_vi_v2",
+   "transform": "pipeline.fields.events.green_ends",
+   "method_id": "M2-green-end-v2",
+   "data_version": "HLSL30_VI 2.0, HLSS30_VI 2.0",
+   "uncertainty": {
+    "kind": "event_interval",
+    "low": "2023-02-06",
+    "high": "2023-03-02"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Green ending is not harvest. Confirm with your own date.",
+   "seal": "Estimated from satellite",
+   "owner": "M2"
+  },
+  "field_c.green_end.2023_24": {
+   "id": "field_c.green_end.2023_24",
+   "value": 2,
+   "unit": "days between the last green and the first not-green clean observation",
+   "evidence_class": "estimated_from_satellite",
+   "source_id": "hls_vi_v2",
+   "transform": "pipeline.fields.events.green_ends",
+   "method_id": "M2-green-end-v2",
+   "data_version": "HLSL30_VI 2.0, HLSS30_VI 2.0",
+   "uncertainty": {
+    "kind": "event_interval",
+    "low": "2024-02-09",
+    "high": "2024-02-11"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Green ending is not harvest. Confirm with your own date.",
+   "seal": "Estimated from satellite",
+   "owner": "M2"
+  },
+  "field_c.green_end.2024_25": {
+   "id": "field_c.green_end.2024_25",
+   "value": 10,
+   "unit": "days between the last green and the first not-green clean observation",
+   "evidence_class": "estimated_from_satellite",
+   "source_id": "hls_vi_v2",
+   "transform": "pipeline.fields.events.green_ends",
+   "method_id": "M2-green-end-v2",
+   "data_version": "HLSL30_VI 2.0, HLSS30_VI 2.0",
+   "uncertainty": {
+    "kind": "event_interval",
+    "low": "2025-02-10",
+    "high": "2025-02-20"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Green ending is not harvest. Confirm with your own date.",
+   "seal": "Estimated from satellite",
+   "owner": "M2"
+  },
+  "field_c.green_end.2025_26": {
+   "id": "field_c.green_end.2025_26",
+   "value": 10,
+   "unit": "days between the last green and the first not-green clean observation",
+   "evidence_class": "estimated_from_satellite",
+   "source_id": "hls_vi_v2",
+   "transform": "pipeline.fields.events.green_ends",
+   "method_id": "M2-green-end-v2",
+   "data_version": "HLSL30_VI 2.0, HLSS30_VI 2.0",
+   "uncertainty": {
+    "kind": "event_interval",
+    "low": "2026-02-20",
+    "high": "2026-03-02"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Green ending is not harvest. Confirm with your own date.",
+   "seal": "Estimated from satellite",
+   "owner": "M2"
+  },
+  "field_c.ndvi_series": {
+   "id": "field_c.ndvi_series",
+   "value": null,
+   "unit": "NDVI and NBR2, unitless, mean over the inner polygon",
+   "evidence_class": "seen_by_satellite",
+   "source_id": "hls_vi_v2",
+   "transform": "pipeline.fields.ndvi_series",
+   "method_id": "M2-ndvi-series-v1",
+   "data_version": "HLSL30_VI 2.0, HLSS30_VI 2.0",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Does not tell the crop, bare soil or yield.",
+   "seal": "Seen by satellite",
+   "owner": "M2"
+  },
+  "field_c.next_soy": {
+   "id": "field_c.next_soy",
+   "value": null,
+   "unit": "state",
+   "evidence_class": "simulated",
+   "source_id": null,
+   "transform": "pipeline.bench.label",
+   "method_id": "M5-next-soy-v1",
+   "data_version": "not completed: the bench label is not frozen",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_completed",
+   "limits": "Direction only. Never a percentage, never an absolute yield, never in the money.",
+   "seal": "Simulated",
+   "owner": "M5"
+  },
+  "field_c.relief": {
+   "id": "field_c.relief",
+   "value": null,
+   "unit": "slope class",
+   "evidence_class": "estimated_from_satellite",
+   "source_id": "nasadem",
+   "transform": "pipeline.fields.relief",
+   "method_id": "M2-relief-v1",
+   "data_version": "NASADEM",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Terraces are not seen at this scale. Tell us if the field is terraced.",
+   "seal": "Estimated from satellite",
+   "owner": "M2"
+  },
+  "field_c.ribbon": {
+   "id": "field_c.ribbon",
+   "value": null,
+   "unit": "dekad class: green, not green, to confirm or no data",
+   "evidence_class": "estimated_from_satellite",
+   "source_id": "hls_vi_v2",
+   "transform": "pipeline.fields.ribbon",
+   "method_id": "M2-ribbon-v1",
+   "data_version": "HLSL30_VI 2.0, HLSS30_VI 2.0",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "A dekad with no clean observation stays no data. Nothing is interpolated.",
+   "seal": "Estimated from satellite",
+   "owner": "M2"
+  },
+  "field_c.ribbon_counts.no_green": {
+   "id": "field_c.ribbon_counts.no_green",
+   "value": 9.5,
+   "unit": "ten-day periods of 36 with no green seen, median over the seasons",
+   "evidence_class": "estimated_from_satellite",
+   "source_id": "hls_vi_v2",
+   "transform": "pipeline.fields.ribbon.no_green_count",
+   "method_id": "M5-no-green-v1",
+   "data_version": "ribbon 2018/19 to 2025/26",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "No green is not bare soil: NDVI cannot separate straw from soil. Periods with no clean image are not counted.",
+   "seal": "Estimated from satellite",
+   "owner": "M5"
+  },
+  "field_c.risk": {
+   "id": "field_c.risk",
+   "value": null,
+   "unit": "years",
+   "evidence_class": "reanalysis",
+   "source_id": "power_daily,zarc_tabua",
+   "transform": "pipeline.decision.risk_counts",
+   "method_id": "M5-risk-counts-v1",
+   "data_version": "POWER 1984 to 2025; Tábua 2026/2027",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Years counted in a climate cell, not at a station on your farm.",
+   "seal": "Reanalysis",
+   "owner": "M5"
+  },
+  "field_c.risk_at_exit": {
+   "id": "field_c.risk_at_exit",
+   "value": null,
+   "unit": "seasons",
+   "evidence_class": "estimated_from_satellite",
+   "source_id": "hls_vi_v2,zarc_tabua",
+   "transform": "pipeline.decision.calendar.risk_at_exit_from_basis",
+   "method_id": "M5-risk-at-exit-v1",
+   "data_version": "Tábua 2026/2027; ribbon 2018/19 to 2025/26",
+   "uncertainty": {
+    "kind": "event_interval",
+    "low": null,
+    "high": null
+   },
+   "validation_state": "not_applicable",
+   "limits": "A condition of the field being free, never a sowing date.",
+   "seal": "Estimated from satellite",
+   "owner": "M5"
+  },
+  "field_c.scale_note.dem_m": {
+   "id": "field_c.scale_note.dem_m",
+   "value": 29.6,
+   "unit": "m",
+   "evidence_class": "estimated_from_satellite",
+   "source_id": "nasadem",
+   "transform": "pipeline.decision.field_inputs.scale_note",
+   "method_id": "M2-scale-note-v1",
+   "data_version": "NASADEM",
+   "uncertainty": {
+    "kind": "exact"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Terrain cell size. Terraces and small low spots are finer than this.",
+   "seal": "Estimated from satellite",
+   "owner": "M2"
+  },
+  "field_c.scale_note.erosivity_km": {
+   "id": "field_c.scale_note.erosivity_km",
+   "value": 0.89,
+   "unit": "km",
+   "evidence_class": "published_climatology",
+   "source_id": "gloreda",
+   "transform": "pipeline.decision.field_inputs.scale_note",
+   "method_id": "M2-scale-note-v1",
+   "data_version": "GloREDa, Global Rainfall Erosivity Database (Zenodo record 8036998)",
+   "uncertainty": {
+    "kind": "exact"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Published climatology with no specific year.",
+   "seal": "Published climatology",
+   "owner": "M2"
+  },
+  "field_c.scale_note.power_cell_km": {
+   "id": "field_c.scale_note.power_cell_km",
+   "value": 59.6,
+   "unit": "km",
+   "evidence_class": "reanalysis",
+   "source_id": "power_daily",
+   "transform": "pipeline.decision.field_inputs.scale_note",
+   "method_id": "M2-scale-note-v1",
+   "data_version": "POWER daily point API, community AG",
+   "uncertainty": {
+    "kind": "exact"
+   },
+   "validation_state": "not_applicable",
+   "limits": "One climate cell covers many fields. It is not a station on your farm.",
+   "seal": "Reanalysis",
+   "owner": "M2"
+  },
+  "field_c.scale_note.radiation_cell_km": {
+   "id": "field_c.scale_note.radiation_cell_km",
+   "value": 106.5,
+   "unit": "km",
+   "evidence_class": "reanalysis",
+   "source_id": "power_daily",
+   "transform": "pipeline.decision.field_inputs.scale_note",
+   "method_id": "M2-scale-note-v1",
+   "data_version": "POWER daily point API, community AG",
+   "uncertainty": {
+    "kind": "exact"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Solar radiation comes from a coarser cell than rain and temperature.",
+   "seal": "Reanalysis",
+   "owner": "M2"
+  },
+  "field_c.scale_note.soil_m": {
+   "id": "field_c.scale_note.soil_m",
+   "value": 250,
+   "unit": "m",
+   "evidence_class": "unknown",
+   "source_id": "soilgrids_wcs",
+   "transform": "pipeline.decision.field_inputs.scale_note",
+   "method_id": "M2-scale-note-v1",
+   "data_version": "SoilGrids 2.0 (WCS 2.0.1, maps.isric.org)",
+   "uncertainty": {
+    "kind": "exact"
+   },
+   "validation_state": "not_applicable",
+   "limits": "A global soil map cell, not a lab report of this field.",
+   "seal": "Unknown",
+   "owner": "M2"
+  },
+  "field_c.soil": {
+   "id": "field_c.soil",
+   "value": null,
+   "unit": "layers: clay, sand and organic matter, % by mass",
+   "evidence_class": "unknown",
+   "source_id": "soilgrids_wcs",
+   "transform": "pipeline.fields.soil_profile",
+   "method_id": "M2-soil-profile-v1",
+   "data_version": "SoilGrids 2.0 (WCS 2.0.1, maps.isric.org)",
+   "uncertainty": {
+    "kind": "range"
+   },
+   "validation_state": "not_applicable",
+   "limits": "A global soil map, not a lab report. Ask for a soil lab report.",
+   "seal": "Unknown",
+   "owner": "M2"
+  },
+  "field_c.window_reading": {
+   "id": "field_c.window_reading",
+   "value": null,
+   "unit": "seasons",
+   "evidence_class": "estimated_from_satellite",
+   "source_id": "hls_vi_v2,zarc_tabua",
+   "transform": "pipeline.decision.calendar.field_window_reading",
+   "method_id": "M5-window-v2",
+   "data_version": "Tábua 2026/2027; ribbon 2018/19 to 2025/26",
+   "uncertainty": {
+    "kind": "event_interval",
+    "low": null,
+    "high": null
+   },
+   "validation_state": "not_applicable",
+   "limits": "for any soil class: the latest end of the corn window across every AD class and cycle group of the municipality",
+   "seal": "Estimated from satellite",
+   "owner": "M5"
+  },
+  "field_c.zarc_risk_band": {
+   "id": "field_c.zarc_risk_band",
+   "value": null,
+   "unit": "% risk per ten-day period",
+   "evidence_class": "official_rule",
+   "source_id": "zarc_tabua",
+   "transform": "pipeline.decision.calendar.risk_band",
+   "method_id": "M5-zarc-band-v1",
+   "data_version": "Tábua 2026/2027",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Zarc risk for sowing in each ten-day period. A blank period is outside the zoning, never zero risk.",
+   "seal": "Official rule",
+   "owner": "M5"
+  },
+  "region.nasa_switch.main_page_if_states_changed_min": {
+   "id": "region.nasa_switch.main_page_if_states_changed_min",
+   "value": 1,
+   "unit": "states",
+   "evidence_class": "unknown",
+   "source_id": null,
+   "transform": "pipeline.decision.precompute.nasa_switch_rule",
+   "method_id": "M5-nasa-switch-rule-v1",
+   "data_version": "protocol.nasa_switch (SA-D66)",
+   "uncertainty": {
+    "kind": "exact"
+   },
+   "validation_state": "not_applicable",
+   "limits": "A rule fixed in the protocol before any run (SA-D66). It places the switch, it is not a result.",
+   "seal": "Unknown",
+   "owner": "M5"
+  },
+  "region.noise_floor": {
+   "id": "region.noise_floor",
+   "value": 7.5,
+   "unit": "days",
+   "evidence_class": "estimated_from_satellite",
+   "source_id": "hls_vi_v2",
+   "transform": "pipeline.bench.n1.evaluate",
+   "method_id": "M4-N1-v1",
+   "data_version": "N1 of noise_floor.json: 13 pairs of field halves, 3 of L30 against S30, percentile 90 (nearest_rank)",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Nothing below the floor reaches the screen. Field order needs a difference above it.",
+   "seal": "Estimated from satellite",
+   "owner": "M5"
+  },
+  "region.price_scenarios.example_high.Y_corn": {
+   "id": "region.price_scenarios.example_high.Y_corn",
+   "value": 100,
+   "unit": "sc/ha",
+   "evidence_class": "your_numbers",
+   "source_id": null,
+   "transform": "pipeline.decision.precompute.price_scenarios",
+   "method_id": "M5-price-scenarios-v1",
+   "data_version": "example, fictitious",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Example, fictitious. Type your own prices and costs.",
+   "seal": "Your numbers",
+   "owner": "M5"
+  },
+  "region.price_scenarios.example_high.Y_wheat": {
+   "id": "region.price_scenarios.example_high.Y_wheat",
+   "value": 50,
+   "unit": "sc/ha",
+   "evidence_class": "your_numbers",
+   "source_id": null,
+   "transform": "pipeline.decision.precompute.price_scenarios",
+   "method_id": "M5-price-scenarios-v1",
+   "data_version": "example, fictitious",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Example, fictitious. Type your own prices and costs.",
+   "seal": "Your numbers",
+   "owner": "M5"
+  },
+  "region.price_scenarios.example_high.c_corn": {
+   "id": "region.price_scenarios.example_high.c_corn",
+   "value": 3000,
+   "unit": "R$/ha",
+   "evidence_class": "your_numbers",
+   "source_id": null,
+   "transform": "pipeline.decision.precompute.price_scenarios",
+   "method_id": "M5-price-scenarios-v1",
+   "data_version": "example, fictitious",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Example, fictitious. Type your own prices and costs.",
+   "seal": "Your numbers",
+   "owner": "M5"
+  },
+  "region.price_scenarios.example_high.c_grass": {
+   "id": "region.price_scenarios.example_high.c_grass",
+   "value": 400,
+   "unit": "R$/ha",
+   "evidence_class": "your_numbers",
+   "source_id": null,
+   "transform": "pipeline.decision.precompute.price_scenarios",
+   "method_id": "M5-price-scenarios-v1",
+   "data_version": "example, fictitious",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Example, fictitious. Type your own prices and costs.",
+   "seal": "Your numbers",
+   "owner": "M5"
+  },
+  "region.price_scenarios.example_high.c_wheat": {
+   "id": "region.price_scenarios.example_high.c_wheat",
+   "value": 1400,
+   "unit": "R$/ha",
+   "evidence_class": "your_numbers",
+   "source_id": null,
+   "transform": "pipeline.decision.precompute.price_scenarios",
+   "method_id": "M5-price-scenarios-v1",
+   "data_version": "example, fictitious",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Example, fictitious. Type your own prices and costs.",
+   "seal": "Your numbers",
+   "owner": "M5"
+  },
+  "region.price_scenarios.example_high.p_corn": {
+   "id": "region.price_scenarios.example_high.p_corn",
+   "value": 57.5,
+   "unit": "R$/sc",
+   "evidence_class": "your_numbers",
+   "source_id": null,
+   "transform": "pipeline.decision.precompute.price_scenarios",
+   "method_id": "M5-price-scenarios-v1",
+   "data_version": "example, fictitious",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Example, fictitious. Type your own prices and costs.",
+   "seal": "Your numbers",
+   "owner": "M5"
+  },
+  "region.price_scenarios.example_high.p_soy": {
+   "id": "region.price_scenarios.example_high.p_soy",
+   "value": 100,
+   "unit": "R$/sc",
+   "evidence_class": "your_numbers",
+   "source_id": null,
+   "transform": "pipeline.decision.precompute.price_scenarios",
+   "method_id": "M5-price-scenarios-v1",
+   "data_version": "example, fictitious",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Example, fictitious. Type your own prices and costs.",
+   "seal": "Your numbers",
+   "owner": "M5"
+  },
+  "region.price_scenarios.example_high.p_wheat": {
+   "id": "region.price_scenarios.example_high.p_wheat",
+   "value": 60,
+   "unit": "R$/sc",
+   "evidence_class": "your_numbers",
+   "source_id": null,
+   "transform": "pipeline.decision.precompute.price_scenarios",
+   "method_id": "M5-price-scenarios-v1",
+   "data_version": "example, fictitious",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Example, fictitious. Type your own prices and costs.",
+   "seal": "Your numbers",
+   "owner": "M5"
+  },
+  "region.price_scenarios.example_low.Y_corn": {
+   "id": "region.price_scenarios.example_low.Y_corn",
+   "value": 100,
+   "unit": "sc/ha",
+   "evidence_class": "your_numbers",
+   "source_id": null,
+   "transform": "pipeline.decision.precompute.price_scenarios",
+   "method_id": "M5-price-scenarios-v1",
+   "data_version": "example, fictitious",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Example, fictitious. Type your own prices and costs.",
+   "seal": "Your numbers",
+   "owner": "M5"
+  },
+  "region.price_scenarios.example_low.Y_wheat": {
+   "id": "region.price_scenarios.example_low.Y_wheat",
+   "value": 50,
+   "unit": "sc/ha",
+   "evidence_class": "your_numbers",
+   "source_id": null,
+   "transform": "pipeline.decision.precompute.price_scenarios",
+   "method_id": "M5-price-scenarios-v1",
+   "data_version": "example, fictitious",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Example, fictitious. Type your own prices and costs.",
+   "seal": "Your numbers",
+   "owner": "M5"
+  },
+  "region.price_scenarios.example_low.c_corn": {
+   "id": "region.price_scenarios.example_low.c_corn",
+   "value": 3000,
+   "unit": "R$/ha",
+   "evidence_class": "your_numbers",
+   "source_id": null,
+   "transform": "pipeline.decision.precompute.price_scenarios",
+   "method_id": "M5-price-scenarios-v1",
+   "data_version": "example, fictitious",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Example, fictitious. Type your own prices and costs.",
+   "seal": "Your numbers",
+   "owner": "M5"
+  },
+  "region.price_scenarios.example_low.c_grass": {
+   "id": "region.price_scenarios.example_low.c_grass",
+   "value": 400,
+   "unit": "R$/ha",
+   "evidence_class": "your_numbers",
+   "source_id": null,
+   "transform": "pipeline.decision.precompute.price_scenarios",
+   "method_id": "M5-price-scenarios-v1",
+   "data_version": "example, fictitious",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Example, fictitious. Type your own prices and costs.",
+   "seal": "Your numbers",
+   "owner": "M5"
+  },
+  "region.price_scenarios.example_low.c_wheat": {
+   "id": "region.price_scenarios.example_low.c_wheat",
+   "value": 1400,
+   "unit": "R$/ha",
+   "evidence_class": "your_numbers",
+   "source_id": null,
+   "transform": "pipeline.decision.precompute.price_scenarios",
+   "method_id": "M5-price-scenarios-v1",
+   "data_version": "example, fictitious",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Example, fictitious. Type your own prices and costs.",
+   "seal": "Your numbers",
+   "owner": "M5"
+  },
+  "region.price_scenarios.example_low.p_corn": {
+   "id": "region.price_scenarios.example_low.p_corn",
+   "value": 42.5,
+   "unit": "R$/sc",
+   "evidence_class": "your_numbers",
+   "source_id": null,
+   "transform": "pipeline.decision.precompute.price_scenarios",
+   "method_id": "M5-price-scenarios-v1",
+   "data_version": "example, fictitious",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Example, fictitious. Type your own prices and costs.",
+   "seal": "Your numbers",
+   "owner": "M5"
+  },
+  "region.price_scenarios.example_low.p_soy": {
+   "id": "region.price_scenarios.example_low.p_soy",
+   "value": 100,
+   "unit": "R$/sc",
+   "evidence_class": "your_numbers",
+   "source_id": null,
+   "transform": "pipeline.decision.precompute.price_scenarios",
+   "method_id": "M5-price-scenarios-v1",
+   "data_version": "example, fictitious",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Example, fictitious. Type your own prices and costs.",
+   "seal": "Your numbers",
+   "owner": "M5"
+  },
+  "region.price_scenarios.example_low.p_wheat": {
+   "id": "region.price_scenarios.example_low.p_wheat",
+   "value": 60,
+   "unit": "R$/sc",
+   "evidence_class": "your_numbers",
+   "source_id": null,
+   "transform": "pipeline.decision.precompute.price_scenarios",
+   "method_id": "M5-price-scenarios-v1",
+   "data_version": "example, fictitious",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Example, fictitious. Type your own prices and costs.",
+   "seal": "Your numbers",
+   "owner": "M5"
+  },
+  "region.price_scenarios.example_mid.Y_corn": {
+   "id": "region.price_scenarios.example_mid.Y_corn",
+   "value": 100,
+   "unit": "sc/ha",
+   "evidence_class": "your_numbers",
+   "source_id": null,
+   "transform": "pipeline.decision.precompute.price_scenarios",
+   "method_id": "M5-price-scenarios-v1",
+   "data_version": "example, fictitious",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Example, fictitious. Type your own prices and costs.",
+   "seal": "Your numbers",
+   "owner": "M5"
+  },
+  "region.price_scenarios.example_mid.Y_wheat": {
+   "id": "region.price_scenarios.example_mid.Y_wheat",
+   "value": 50,
+   "unit": "sc/ha",
+   "evidence_class": "your_numbers",
+   "source_id": null,
+   "transform": "pipeline.decision.precompute.price_scenarios",
+   "method_id": "M5-price-scenarios-v1",
+   "data_version": "example, fictitious",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Example, fictitious. Type your own prices and costs.",
+   "seal": "Your numbers",
+   "owner": "M5"
+  },
+  "region.price_scenarios.example_mid.c_corn": {
+   "id": "region.price_scenarios.example_mid.c_corn",
+   "value": 3000,
+   "unit": "R$/ha",
+   "evidence_class": "your_numbers",
+   "source_id": null,
+   "transform": "pipeline.decision.precompute.price_scenarios",
+   "method_id": "M5-price-scenarios-v1",
+   "data_version": "example, fictitious",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Example, fictitious. Type your own prices and costs.",
+   "seal": "Your numbers",
+   "owner": "M5"
+  },
+  "region.price_scenarios.example_mid.c_grass": {
+   "id": "region.price_scenarios.example_mid.c_grass",
+   "value": 400,
+   "unit": "R$/ha",
+   "evidence_class": "your_numbers",
+   "source_id": null,
+   "transform": "pipeline.decision.precompute.price_scenarios",
+   "method_id": "M5-price-scenarios-v1",
+   "data_version": "example, fictitious",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Example, fictitious. Type your own prices and costs.",
+   "seal": "Your numbers",
+   "owner": "M5"
+  },
+  "region.price_scenarios.example_mid.c_wheat": {
+   "id": "region.price_scenarios.example_mid.c_wheat",
+   "value": 1400,
+   "unit": "R$/ha",
+   "evidence_class": "your_numbers",
+   "source_id": null,
+   "transform": "pipeline.decision.precompute.price_scenarios",
+   "method_id": "M5-price-scenarios-v1",
+   "data_version": "example, fictitious",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Example, fictitious. Type your own prices and costs.",
+   "seal": "Your numbers",
+   "owner": "M5"
+  },
+  "region.price_scenarios.example_mid.p_corn": {
+   "id": "region.price_scenarios.example_mid.p_corn",
+   "value": 50,
+   "unit": "R$/sc",
+   "evidence_class": "your_numbers",
+   "source_id": null,
+   "transform": "pipeline.decision.precompute.price_scenarios",
+   "method_id": "M5-price-scenarios-v1",
+   "data_version": "example, fictitious",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Example, fictitious. Type your own prices and costs.",
+   "seal": "Your numbers",
+   "owner": "M5"
+  },
+  "region.price_scenarios.example_mid.p_soy": {
+   "id": "region.price_scenarios.example_mid.p_soy",
+   "value": 100,
+   "unit": "R$/sc",
+   "evidence_class": "your_numbers",
+   "source_id": null,
+   "transform": "pipeline.decision.precompute.price_scenarios",
+   "method_id": "M5-price-scenarios-v1",
+   "data_version": "example, fictitious",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Example, fictitious. Type your own prices and costs.",
+   "seal": "Your numbers",
+   "owner": "M5"
+  },
+  "region.price_scenarios.example_mid.p_wheat": {
+   "id": "region.price_scenarios.example_mid.p_wheat",
+   "value": 60,
+   "unit": "R$/sc",
+   "evidence_class": "your_numbers",
+   "source_id": null,
+   "transform": "pipeline.decision.precompute.price_scenarios",
+   "method_id": "M5-price-scenarios-v1",
+   "data_version": "example, fictitious",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Example, fictitious. Type your own prices and costs.",
+   "seal": "Your numbers",
+   "owner": "M5"
+  },
+  "region.units.alqueire_ha": {
+   "id": "region.units.alqueire_ha",
+   "value": 2.42,
+   "unit": "ha",
+   "evidence_class": "unknown",
+   "source_id": null,
+   "transform": "pipeline.decision.precompute.region_doc",
+   "method_id": "M5-units-v1",
+   "data_version": "plan 14.2 and 7.15",
+   "uncertainty": {
+    "kind": "exact"
+   },
+   "validation_state": "not_applicable",
+   "limits": "A unit of the region, used to convert your numbers.",
+   "seal": "Unknown",
+   "owner": "M5"
+  },
+  "region.units.bag_kg": {
+   "id": "region.units.bag_kg",
+   "value": 60,
+   "unit": "kg",
+   "evidence_class": "unknown",
+   "source_id": null,
+   "transform": "pipeline.decision.precompute.region_doc",
+   "method_id": "M5-units-v1",
+   "data_version": "plan 14.2 and 7.15",
+   "uncertainty": {
+    "kind": "exact"
+   },
+   "validation_state": "not_applicable",
+   "limits": "A unit of the region, used to convert your numbers.",
+   "seal": "Unknown",
+   "owner": "M5"
+  },
+  "scoreboard.late_notes": {
+   "id": "scoreboard.late_notes",
+   "value": null,
+   "unit": "text",
+   "evidence_class": "unknown",
+   "source_id": null,
+   "transform": "pipeline.bench.scoreboard.build",
+   "method_id": "M4-scoreboard-v1",
+   "data_version": "notes added after the freeze",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "A declared gap. It goes to local review.",
+   "seal": "Unknown",
+   "owner": "M4"
+  },
+  "scoreboard.s_by_site": {
+   "id": "scoreboard.s_by_site",
+   "value": null,
+   "unit": "site-seasons, Kendall S",
+   "evidence_class": "derived_from_trials",
+   "source_id": "embrapa_docs",
+   "transform": "pipeline.bench.scoreboard.build",
+   "method_id": "M4-scoreboard-v1",
+   "data_version": "Embrapa Soja, Documentos 398, 459 and 476 (cached PDFs)",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Shown for every trial site, none left out. No p-value, no confidence interval.",
+   "seal": "Derived from trials",
+   "owner": "M4"
+  },
+  "scoreboard.site_seasons": {
+   "id": "scoreboard.site_seasons",
+   "value": null,
+   "unit": "site-seasons, Kendall S",
+   "evidence_class": "derived_from_trials",
+   "source_id": "embrapa_docs",
+   "transform": "pipeline.bench.scoreboard.build",
+   "method_id": "M4-scoreboard-v1",
+   "data_version": "Embrapa Soja, Documentos 398, 459 and 476 (cached PDFs)",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Shown for every trial site, none left out. No p-value, no confidence interval.",
+   "seal": "Derived from trials",
+   "owner": "M4"
+  },
+  "scoreboard.tests.A1": {
+   "id": "scoreboard.tests.A1",
+   "value": null,
+   "unit": "Kendall S, RMSE in kg/ha",
+   "evidence_class": "derived_from_trials",
+   "source_id": "embrapa_docs",
+   "transform": "pipeline.bench.label",
+   "method_id": "M4-bench-v1",
+   "data_version": "Embrapa Soja, Documentos 398, 459 and 476 (cached PDFs)",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Exploratory, not blind. 10 site-seasons of 3 sites are not 10 independent sites.",
+   "seal": "Derived from trials",
+   "owner": "M4"
+  },
+  "scoreboard.tests.A2": {
+   "id": "scoreboard.tests.A2",
+   "value": null,
+   "unit": "years counted with each rain source",
+   "evidence_class": "reanalysis",
+   "source_id": "power_daily",
+   "transform": "pipeline.bench.ablation",
+   "method_id": "M4-A2-v1",
+   "data_version": "POWER daily point API, community AG",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Reported in How we know. Not a key of the NASA switch.",
+   "seal": "Reanalysis",
+   "owner": "M4"
+  },
+  "scoreboard.tests.A3": {
+   "id": "scoreboard.tests.A3",
+   "value": null,
+   "unit": "states",
+   "evidence_class": "derived_from_trials",
+   "source_id": "hls_vi_v2",
+   "transform": "pipeline.bench.ablation.evaluate_a3",
+   "method_id": "M5-A3-v1",
+   "data_version": "HLSL30_VI 2.0, HLSS30_VI 2.0",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Counted on the fictitious example. Read as a sensitivity to price.",
+   "seal": "Derived from trials",
+   "owner": "M4"
+  },
+  "scoreboard.tests.H1": {
+   "id": "scoreboard.tests.H1",
+   "value": null,
+   "unit": "tasks",
+   "evidence_class": "unknown",
+   "source_id": null,
+   "transform": "pipeline.bench.scoreboard",
+   "method_id": "M4-H1-v1",
+   "data_version": "H1 sessions of the event",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Informal. It measures understanding of the page, not farm impact.",
+   "seal": "Unknown",
+   "owner": "M4"
+  },
+  "scoreboard.tests.H2": {
+   "id": "scoreboard.tests.H2",
+   "value": null,
+   "unit": "state",
+   "evidence_class": "unknown",
+   "source_id": null,
+   "transform": "pipeline.bench.scoreboard.h2_entry",
+   "method_id": "M4-H2-v1",
+   "data_version": "protocol.tests.H2",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Not attempted. There was no local agronomist review.",
+   "seal": "Unknown",
+   "owner": "M4"
+  },
+  "scoreboard.tests.L0": {
+   "id": "scoreboard.tests.L0",
+   "value": null,
+   "unit": "mm per swap, repeat, artifacts",
+   "evidence_class": "simulated",
+   "source_id": null,
+   "transform": "pipeline.bench.l0",
+   "method_id": "M4-L0-v1",
+   "data_version": "crop engine runs of the bench",
+   "uncertainty": {
+    "kind": "exact"
+   },
+   "validation_state": "not_applicable",
+   "limits": "A check of the model's water balance, not of the field.",
+   "seal": "Simulated",
+   "owner": "M4"
+  },
+  "scoreboard.tests.L1": {
+   "id": "scoreboard.tests.L1",
+   "value": null,
+   "unit": "% rain bias per season, °C temperature bias",
+   "evidence_class": "reanalysis",
+   "source_id": "power_daily,stations",
+   "transform": "pipeline.bench.l1",
+   "method_id": "M4-L1-v1",
+   "data_version": "POWER daily point API, community AG; INMET and IDR-Paraná weather stations, Londrina",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "checked_against_station",
+   "limits": "Londrina stations only. A series outside the limits is labelled, never corrected in silence.",
+   "seal": "Reanalysis",
+   "owner": "M4"
+  },
+  "scoreboard.tests.N1": {
+   "id": "scoreboard.tests.N1",
+   "value": null,
+   "unit": "days",
+   "evidence_class": "estimated_from_satellite",
+   "source_id": "hls_vi_v2",
+   "transform": "pipeline.bench.n1",
+   "method_id": "M4-N1-v1",
+   "data_version": "HLSL30_VI 2.0, HLSS30_VI 2.0",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Nothing below the floor reaches the screen.",
+   "seal": "Estimated from satellite",
+   "owner": "M4"
+  },
+  "scoreboard.tests.P1": {
+   "id": "scoreboard.tests.P1",
+   "value": null,
+   "unit": "Kendall S, RMSE in kg/ha",
+   "evidence_class": "derived_from_trials",
+   "source_id": "embrapa_docs",
+   "transform": "pipeline.bench.label",
+   "method_id": "M4-bench-v1",
+   "data_version": "Embrapa Soja, Documentos 398, 459 and 476 (cached PDFs)",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Exploratory, not blind. 10 site-seasons of 3 sites are not 10 independent sites.",
+   "seal": "Derived from trials",
+   "owner": "M4"
+  },
+  "scoreboard.tests.R1": {
+   "id": "scoreboard.tests.R1",
+   "value": null,
+   "unit": "members, inversions",
+   "evidence_class": "simulated",
+   "source_id": null,
+   "transform": "pipeline.bench.r1",
+   "method_id": "M4-R1-v1",
+   "data_version": "crop engine runs of the bench",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Runs only if T1 passes. Stability in the model is not success in the real world.",
+   "seal": "Simulated",
+   "owner": "M4"
+  },
+  "scoreboard.tests.T0": {
+   "id": "scoreboard.tests.T0",
+   "value": null,
+   "unit": "Kendall S, RMSE in kg/ha",
+   "evidence_class": "derived_from_trials",
+   "source_id": "embrapa_docs",
+   "transform": "pipeline.bench.label",
+   "method_id": "M4-bench-v1",
+   "data_version": "Embrapa Soja, Documentos 398, 459 and 476 (cached PDFs)",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Exploratory, not blind. 10 site-seasons of 3 sites are not 10 independent sites.",
+   "seal": "Derived from trials",
+   "owner": "M4"
+  },
+  "scoreboard.tests.T1": {
+   "id": "scoreboard.tests.T1",
+   "value": null,
+   "unit": "Kendall S, RMSE in kg/ha",
+   "evidence_class": "derived_from_trials",
+   "source_id": "embrapa_docs",
+   "transform": "pipeline.bench.label",
+   "method_id": "M4-bench-v1",
+   "data_version": "Embrapa Soja, Documentos 398, 459 and 476 (cached PDFs)",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Exploratory, not blind. 10 site-seasons of 3 sites are not 10 independent sites.",
+   "seal": "Derived from trials",
+   "owner": "M4"
+  },
+  "sensitivity.s_by_site": {
+   "id": "sensitivity.s_by_site",
+   "value": null,
+   "unit": "site-seasons, Kendall S",
+   "evidence_class": "derived_from_trials",
+   "source_id": "embrapa_docs",
+   "transform": "pipeline.bench.sensitivity.build",
+   "method_id": "M4-scoreboard-v1",
+   "data_version": "Embrapa Soja, Documentos 398, 459 and 476 (cached PDFs)",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Shown for every trial site, none left out. No p-value, no confidence interval.",
+   "seal": "Derived from trials",
+   "owner": "M4"
+  },
+  "sensitivity.site_seasons": {
+   "id": "sensitivity.site_seasons",
+   "value": null,
+   "unit": "site-seasons, Kendall S",
+   "evidence_class": "derived_from_trials",
+   "source_id": "embrapa_docs",
+   "transform": "pipeline.bench.sensitivity.build",
+   "method_id": "M4-scoreboard-v1",
+   "data_version": "Embrapa Soja, Documentos 398, 459 and 476 (cached PDFs)",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Shown for every trial site, none left out. No p-value, no confidence interval.",
+   "seal": "Derived from trials",
+   "owner": "M4"
+  },
+  "sensitivity.soil": {
+   "id": "sensitivity.soil",
+   "value": null,
+   "unit": "clay in % by mass, available water in mm",
+   "evidence_class": "unknown",
+   "source_id": "soilgrids_wcs,embrapa_docs",
+   "transform": "pipeline.engine.soil_diagnosis.soil_record",
+   "method_id": "M3-soil-diagnosis-v1",
+   "data_version": "SoilGrids 2.0 (WCS 2.0.1, maps.isric.org); Embrapa Soja, Documentos 398, 459 and 476 (cached PDFs)",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Water limits from the engine's texture formula on a global soil map and on the clay printed in the trial reports. Not a lab measurement of these soils.",
+   "seal": "Unknown",
+   "owner": "M4"
+  },
+  "sensitivity.tests.A1": {
+   "id": "sensitivity.tests.A1",
+   "value": null,
+   "unit": "Kendall S, RMSE in kg/ha",
+   "evidence_class": "derived_from_trials",
+   "source_id": "embrapa_docs,soilgrids_wcs",
+   "transform": "pipeline.bench.sensitivity.build",
+   "method_id": "M4-bench-v1",
+   "data_version": "Embrapa Soja, Documentos 398, 459 and 476 (cached PDFs); SoilGrids 2.0 (WCS 2.0.1, maps.isric.org)",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Soil sensitivity decided after the freeze: the trial soils from SoilGrids, everything else unchanged. Exploratory, not blind. It never changes the label.",
+   "seal": "Derived from trials",
+   "owner": "M4"
+  },
+  "sensitivity.tests.L0": {
+   "id": "sensitivity.tests.L0",
+   "value": null,
+   "unit": "mm per swap, repeat, artifacts",
+   "evidence_class": "simulated",
+   "source_id": null,
+   "transform": "pipeline.bench.l0",
+   "method_id": "M4-L0-v1",
+   "data_version": "crop engine runs of the bench (field chains, as the frozen L0)",
+   "uncertainty": {
+    "kind": "exact"
+   },
+   "validation_state": "not_applicable",
+   "limits": "A check of the model's water balance, not of the field. Run after the freeze, it never changes the label.",
+   "seal": "Simulated",
+   "owner": "M4"
+  },
+  "sensitivity.tests.P1": {
+   "id": "sensitivity.tests.P1",
+   "value": null,
+   "unit": "Kendall S, RMSE in kg/ha",
+   "evidence_class": "derived_from_trials",
+   "source_id": "embrapa_docs,soilgrids_wcs",
+   "transform": "pipeline.bench.sensitivity.build",
+   "method_id": "M4-bench-v1",
+   "data_version": "Embrapa Soja, Documentos 398, 459 and 476 (cached PDFs); SoilGrids 2.0 (WCS 2.0.1, maps.isric.org)",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Soil sensitivity decided after the freeze: the trial soils from SoilGrids, everything else unchanged. Exploratory, not blind. It never changes the label.",
+   "seal": "Derived from trials",
+   "owner": "M4"
+  },
+  "sensitivity.tests.T0": {
+   "id": "sensitivity.tests.T0",
+   "value": null,
+   "unit": "Kendall S, RMSE in kg/ha",
+   "evidence_class": "derived_from_trials",
+   "source_id": "embrapa_docs,soilgrids_wcs",
+   "transform": "pipeline.bench.sensitivity.build",
+   "method_id": "M4-bench-v1",
+   "data_version": "Embrapa Soja, Documentos 398, 459 and 476 (cached PDFs); SoilGrids 2.0 (WCS 2.0.1, maps.isric.org)",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Soil sensitivity decided after the freeze: the trial soils from SoilGrids, everything else unchanged. Exploratory, not blind. It never changes the label.",
+   "seal": "Derived from trials",
+   "owner": "M4"
+  },
+  "sensitivity.tests.T1": {
+   "id": "sensitivity.tests.T1",
+   "value": null,
+   "unit": "Kendall S, RMSE in kg/ha",
+   "evidence_class": "derived_from_trials",
+   "source_id": "embrapa_docs,soilgrids_wcs",
+   "transform": "pipeline.bench.sensitivity.build",
+   "method_id": "M4-bench-v1",
+   "data_version": "Embrapa Soja, Documentos 398, 459 and 476 (cached PDFs); SoilGrids 2.0 (WCS 2.0.1, maps.isric.org)",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Soil sensitivity decided after the freeze: the trial soils from SoilGrids, everything else unchanged. Exploratory, not blind. It never changes the label.",
+   "seal": "Derived from trials",
+   "owner": "M4"
+  },
+  "sensitivity.zero_yield": {
+   "id": "sensitivity.zero_yield",
+   "value": null,
+   "unit": "seasons",
+   "evidence_class": "simulated",
+   "source_id": null,
+   "transform": "pipeline.engine.soil_diagnosis.zero_yield_counts",
+   "method_id": "M3-soil-diagnosis-v1",
+   "data_version": "crop engine runs of the bench",
+   "uncertainty": {
+    "kind": "exact"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Direction only. Never a percentage, never an absolute yield, never in the money.",
+   "seal": "Simulated",
+   "owner": "M4"
+  },
+  "trials.S2": {
+   "id": "trials.S2",
+   "value": null,
+   "unit": "site-seasons",
+   "evidence_class": "derived_from_trials",
+   "source_id": "embrapa_docs",
+   "transform": "pipeline.decision.precompute.trials_steps_doc",
+   "method_id": "M5-steps-v1",
+   "data_version": "trials_a.csv sha256 bba555752cd4dae91640e7744373af732ad43b7ddd2f258254a2687cc0d8c40a, protocol-v1 tagged",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Our calculation on published trial means. Never a measured value.",
+   "seal": "Derived from trials",
+   "owner": "M5"
+  },
+  "trials.S2.bad_year": {
+   "id": "trials.S2.bad_year",
+   "value": null,
+   "unit": "text",
+   "evidence_class": "measured_in_trials",
+   "source_id": "embrapa_docs",
+   "transform": "pipeline.decision.precompute.trials_steps_doc",
+   "method_id": "M5-bad-year-v1",
+   "data_version": "trials_a.csv sha256 bba555752cd4dae91640e7744373af732ad43b7ddd2f258254a2687cc0d8c40a, protocol-v1 tagged",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "A trial plot, not this field.",
+   "seal": "Measured in trials",
+   "owner": "M5"
+  },
+  "trials.S3": {
+   "id": "trials.S3",
+   "value": null,
+   "unit": "site-seasons",
+   "evidence_class": "derived_from_trials",
+   "source_id": "embrapa_docs",
+   "transform": "pipeline.decision.precompute.trials_steps_doc",
+   "method_id": "M5-steps-v1",
+   "data_version": "trials_a.csv sha256 bba555752cd4dae91640e7744373af732ad43b7ddd2f258254a2687cc0d8c40a, protocol-v1 tagged",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "Our calculation on published trial means. Never a measured value.",
+   "seal": "Derived from trials",
+   "owner": "M5"
+  },
+  "trials.S3.bad_year": {
+   "id": "trials.S3.bad_year",
+   "value": null,
+   "unit": "text",
+   "evidence_class": "measured_in_trials",
+   "source_id": "embrapa_docs",
+   "transform": "pipeline.decision.precompute.trials_steps_doc",
+   "method_id": "M5-bad-year-v1",
+   "data_version": "trials_a.csv sha256 bba555752cd4dae91640e7744373af732ad43b7ddd2f258254a2687cc0d8c40a, protocol-v1 tagged",
+   "uncertainty": {
+    "kind": "not_quantified"
+   },
+   "validation_state": "not_applicable",
+   "limits": "A trial plot, not this field.",
+   "seal": "Measured in trials",
+   "owner": "M5"
+  }
+ }
+}

@@ -1,0 +1,312 @@
+{
+  "_notice": "Written with an SI tool (Claude, Anthropic) for NASA Space Apps 2026. See AI_USE.md.",
+  "schema_version": 1,
+  "role": "sensitivity after the freeze",
+  "frozen": false,
+  "decision": "SA-D77",
+  "label_id": "model_not_validated_here",
+  "label_text": "Model not validated here",
+  "frozen_label_id": "model_not_validated_here",
+  "protocol_hash": "2ec8fb222a32cb34bf23a70b00799f4f4f0817d6a53e3dbda85101cc53a44330",
+  "note": "Decided after the freeze (SA-D77). It never changes the frozen label.",
+  "soil": {
+    "ledger": "sensitivity.soil",
+    "source": "SoilGrids 2.0 texture at each trial point, in every layer: the side files data/interim/trial_<site>_soil_soilgrids.json, written as sensitivity before the freeze",
+    "frozen_source": "clay printed in the trial reports, extended to the whole profile (data/interim/trial_<site>_soil.json)",
+    "formula": "aquacrop 3.1.0 Soil.calculate_soil_hydraulic_properties (Saxton and Rawls 2006), through pipeline.engine.cli.load_layers and pipeline.engine.soilmodel.make_soil",
+    "by_site": {
+      "Londrina": {
+        "frozen": {
+          "file": "data/interim/trial_londrina_soil.json",
+          "sha256": "70fbc0e0849a9b486729ea6af26aafd1abb11c98bc12a4be4f8bacbd34b5e95f",
+          "clay_pct_min": 78.0,
+          "clay_pct_max": 78.0,
+          "aw_mm_0_1m": 66.8,
+          "aw_mm_0_2_4m": 171.9
+        },
+        "sensitivity": {
+          "file": "data/interim/trial_londrina_soil_soilgrids.json",
+          "sha256": "7074e379f2449c3ba54291e7586aacb5bbb29e8a3109f92617ebaf2f812e089b",
+          "clay_pct_min": 40.8,
+          "clay_pct_max": 52.6,
+          "aw_mm_0_1m": 129.2,
+          "aw_mm_0_2_4m": 308.3
+        }
+      },
+      "Floresta": {
+        "frozen": {
+          "file": "data/interim/trial_floresta_soil.json",
+          "sha256": "5dd215b098e33dc6cb60065435bb94068223a1ec54e4bc0ae0090f4aa71be8d3",
+          "clay_pct_min": 60.0,
+          "clay_pct_max": 60.0,
+          "aw_mm_0_1m": 109.9,
+          "aw_mm_0_2_4m": 270.8
+        },
+        "sensitivity": {
+          "file": "data/interim/trial_floresta_soil_soilgrids.json",
+          "sha256": "9f289f1d53240916740c0561a1b8ad7b56183f73e32d05414a5132aa6c844c75",
+          "clay_pct_min": 42.6,
+          "clay_pct_max": 51.5,
+          "aw_mm_0_1m": 128.7,
+          "aw_mm_0_2_4m": 309.1
+        }
+      },
+      "Cafelandia": {
+        "frozen": {
+          "file": "data/interim/trial_cafelandia_soil.json",
+          "sha256": "508d6c4169a827834d52dbccf80d74c6d47f8dae8b0876d371276df953d618b3",
+          "clay_pct_min": 77.0,
+          "clay_pct_max": 77.0,
+          "aw_mm_0_1m": 71.9,
+          "aw_mm_0_2_4m": 188.0
+        },
+        "sensitivity": {
+          "file": "data/interim/trial_cafelandia_soil_soilgrids.json",
+          "sha256": "f1db1d8f0e79df13ad454dc033fa9bd7cc8591a5a7fa18c79214c3522c300812",
+          "clay_pct_min": 56.2,
+          "clay_pct_max": 69.1,
+          "aw_mm_0_1m": 99.0,
+          "aw_mm_0_2_4m": 236.0
+        }
+      }
+    }
+  },
+  "zero_yield": {
+    "ledger": "sensitivity.zero_yield",
+    "by_site": {
+      "Londrina": {
+        "sensitivity": {
+          "base": {
+            "zero": 2,
+            "simulated": 18
+          },
+          "a1": {
+            "zero": 2,
+            "simulated": 18
+          },
+          "p1": {
+            "zero": 2,
+            "simulated": 162
+          }
+        },
+        "frozen": {
+          "base": {
+            "zero": 11,
+            "simulated": 18
+          },
+          "a1": {
+            "zero": 11,
+            "simulated": 18
+          },
+          "p1": {
+            "zero": 62,
+            "simulated": 162
+          }
+        }
+      },
+      "Floresta": {
+        "sensitivity": {
+          "base": {
+            "zero": 0,
+            "simulated": 22
+          },
+          "a1": {
+            "zero": 0,
+            "simulated": 22
+          },
+          "p1": {
+            "zero": 4,
+            "simulated": 208
+          }
+        },
+        "frozen": {
+          "base": {
+            "zero": 0,
+            "simulated": 22
+          },
+          "a1": {
+            "zero": 0,
+            "simulated": 22
+          },
+          "p1": {
+            "zero": 5,
+            "simulated": 208
+          }
+        }
+      },
+      "Cafelandia": {
+        "sensitivity": {
+          "base": {
+            "zero": 2,
+            "simulated": 18
+          },
+          "a1": {
+            "zero": 1,
+            "simulated": 18
+          },
+          "p1": {
+            "zero": 2,
+            "simulated": 172
+          }
+        },
+        "frozen": {
+          "base": {
+            "zero": 6,
+            "simulated": 18
+          },
+          "a1": {
+            "zero": 6,
+            "simulated": 18
+          },
+          "p1": {
+            "zero": 21,
+            "simulated": 172
+          }
+        }
+      }
+    }
+  },
+  "site_seasons": {
+    "ledger": "sensitivity.site_seasons",
+    "block": {
+      "expected": 10,
+      "complete": 10,
+      "by_site": {
+        "Londrina": {
+          "expected": 3,
+          "complete": 3
+        },
+        "Floresta": {
+          "expected": 4,
+          "complete": 4
+        },
+        "Cafelandia": {
+          "expected": 3,
+          "complete": 3
+        }
+      }
+    }
+  },
+  "s_by_site": {
+    "ledger": "sensitivity.s_by_site",
+    "block": {
+      "Londrina": 3,
+      "Floresta": 5,
+      "Cafelandia": 0
+    }
+  },
+  "tests": [
+    {
+      "id": "L0",
+      "status": "fail",
+      "statistic": "water_closure_repeat_artifacts",
+      "value": {
+        "max_gap_mm": 1.1368683772161603e-13,
+        "repeat_exact": true,
+        "n_artifacts": 50,
+        "n_unexplained": 50
+      },
+      "threshold": {
+        "closure_mm_per_swap": 1.0,
+        "repeat": "exact",
+        "unexplained_artifacts_max": 0
+      },
+      "n": 252,
+      "note": "failed on artifacts; a failure blocks reading any Delta; L0 reads the field chains, which do not use the trial soils: it checks the same chains as the frozen L0",
+      "ledger": "sensitivity.tests.L0"
+    },
+    {
+      "id": "T0",
+      "status": "pass",
+      "statistic": "kendall_s",
+      "value": {
+        "s": 23,
+        "tau": 0.5111111111111111,
+        "within_site_sum": 2,
+        "s_by_site": {
+          "Londrina": -1,
+          "Floresta": 2,
+          "Cafelandia": 1
+        }
+      },
+      "threshold": {
+        "s_min": 21,
+        "within_site_s_sum_gt": 0
+      },
+      "n": 10,
+      "note": null,
+      "ledger": "sensitivity.tests.T0"
+    },
+    {
+      "id": "T1",
+      "status": "fail",
+      "statistic": "kendall_s_and_rmse",
+      "value": {
+        "s": 19,
+        "tau": 0.4222222222222222,
+        "rmse_kg_ha": 1648.2536287083321,
+        "rmse_constant_in_sample_kg_ha": 279.81487364703156,
+        "rmse_constant_loo_kg_ha": 310.9054151633684,
+        "rmse_zero_kg_ha": 365.0674059783,
+        "n_same_sign": 2,
+        "n_observed_positive": 8,
+        "s_by_site": {
+          "Londrina": 3,
+          "Floresta": 5,
+          "Cafelandia": 0
+        }
+      },
+      "threshold": {
+        "s_min": 21,
+        "rmse_lt": "in_sample_constant_rmse",
+        "rmse_lt_kg_ha": 279.81487364703156
+      },
+      "n": 10,
+      "note": "failed on both; signs are reported and approve nothing",
+      "ledger": "sensitivity.tests.T1"
+    },
+    {
+      "id": "P1",
+      "status": "fail",
+      "statistic": "kendall_s",
+      "value": {
+        "t0": {
+          "status": "fail",
+          "s_real": 23,
+          "wrong_year_s_at_least": 1
+        },
+        "t1": {
+          "status": "pass",
+          "s_real": 19,
+          "wrong_year_s_at_least": 0
+        }
+      },
+      "threshold": {
+        "wrong_year_s_at_least_max": 0,
+        "shifts": 9
+      },
+      "n": 9,
+      "note": null,
+      "ledger": "sensitivity.tests.P1"
+    },
+    {
+      "id": "A1",
+      "status": "fail",
+      "statistic": "d_kendall_s_with_minus_without_state",
+      "value": {
+        "d": 3,
+        "s_with_state": 19,
+        "s_without_state": 16,
+        "patterns": 1024
+      },
+      "threshold": {
+        "d_gt": 0,
+        "rule": "and the exhaustive paired swap of the protocol"
+      },
+      "n": 10,
+      "note": "D above zero, but the paired-swap rule of the protocol was not met",
+      "ledger": "sensitivity.tests.A1"
+    }
+  ],
+  "t1_failed_on": "both"
+}

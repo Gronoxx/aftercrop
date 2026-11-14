@@ -1,0 +1,26 @@
+{
+  "_note": "example, fictitious. Shape of a CMR umm_json answer for NASADEM_HGT; ids and urls are made up",
+  "hits": 2,
+  "items": [
+    {
+      "meta": {"concept-id": "G-EXAMPLE-0001", "revision-id": 1},
+      "umm": {
+        "GranuleUR": "NASADEM_HGT_s24w052",
+        "RelatedUrls": [
+          {"Type": "GET DATA", "URL": "https://example.test/NASADEM_HGT.001/NASADEM_HGT_s24w052/NASADEM_HGT_s24w052.zip"},
+          {"Type": "GET DATA VIA DIRECT ACCESS", "URL": "s3://example/NASADEM_HGT_s24w052.zip"},
+          {"Type": "VIEW RELATED INFORMATION", "URL": "https://example.test/NASADEM_HGT_s24w052.cmr.xml"}
+        ]
+      }
+    },
+    {
+      "meta": {"concept-id": "G-EXAMPLE-0002", "revision-id": 1},
+      "umm": {
+        "GranuleUR": "NASADEM_HGT_s25w052",
+        "RelatedUrls": [
+          {"Type": "GET DATA", "URL": "https://example.test/NASADEM_HGT.001/NASADEM_HGT_s25w052/NASADEM_HGT_s25w052.zip"}
+        ]
+      }
+    }
+  ]
+}

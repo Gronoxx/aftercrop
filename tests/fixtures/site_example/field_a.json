@@ -1,0 +1,1356 @@
+{
+  "schema_version": "1",
+  "field_id": "a",
+  "criterion": "Example, fictitious: soybean that leaves early",
+  "fictional_persona_note": "Example field, fictitious farm. The location is real, with no owner data.",
+  "polygon_px": [
+    [
+      10,
+      10
+    ],
+    [
+      60,
+      12
+    ],
+    [
+      55,
+      50
+    ],
+    [
+      12,
+      48
+    ]
+  ],
+  "area_ha": {
+    "v": 12.5,
+    "l": "field_a.area_ha"
+  },
+  "scale_note": {
+    "power_cell_km": {
+      "v": 50,
+      "l": "field_a.scale_note.power_cell_km"
+    },
+    "radiation_cell_km": {
+      "v": 100,
+      "l": "field_a.scale_note.radiation_cell_km"
+    },
+    "soil_m": {
+      "v": 250,
+      "l": "field_a.scale_note.soil_m"
+    },
+    "dem_m": {
+      "v": 30,
+      "l": "field_a.scale_note.dem_m"
+    },
+    "erosivity_km": {
+      "v": 1,
+      "l": "field_a.scale_note.erosivity_km"
+    }
+  },
+  "soil": {
+    "source": "example, fictitious",
+    "layers": [
+      {
+        "top_m": 0.0,
+        "bottom_m": 0.3,
+        "clay_pct": 70,
+        "sand_pct": 10,
+        "om_pct": 3
+      },
+      {
+        "top_m": 0.3,
+        "bottom_m": 2.4,
+        "clay_pct": 72,
+        "sand_pct": 9,
+        "om_pct": 1
+      }
+    ],
+    "clay_q05_q95": [
+      60,
+      80
+    ],
+    "estimated_class": "example, fictitious",
+    "zarc_ad_class": "AD4",
+    "transfer_warning": "Example, fictitious.",
+    "lab_report_request": "Ask for a soil lab report.",
+    "ledger": "field_a.soil"
+  },
+  "relief": {
+    "slope_class": "gentle",
+    "lowspot_alert": false,
+    "terrace_question": "Is the field terraced?",
+    "ledger": "field_a.relief"
+  },
+  "ndvi_series": {
+    "ledger": "field_a.ndvi_series",
+    "points": [
+      {
+        "date": "2026-01-15",
+        "ndvi": 0.81,
+        "nbr2": 0.12,
+        "sensor": "S30",
+        "n_clean": 120,
+        "clean_frac": 0.9
+      },
+      {
+        "date": "2026-02-20",
+        "ndvi": 0.35,
+        "nbr2": 0.05,
+        "sensor": "L30",
+        "n_clean": 110,
+        "clean_frac": 0.8
+      }
+    ]
+  },
+  "ribbon": {
+    "ledger": "field_a.ribbon",
+    "seasons": [
+      {
+        "season": "2025/26",
+        "cells": [
+          "no_data",
+          "no_data",
+          "not_green",
+          "not_green",
+          "not_green",
+          "not_green",
+          "green",
+          "green",
+          "green",
+          "green",
+          "green",
+          "green",
+          "green",
+          "green",
+          "green",
+          "green",
+          "green",
+          "green",
+          "not_green",
+          "not_green",
+          "green",
+          "green",
+          "green",
+          "green",
+          "green",
+          "green",
+          "green",
+          "green",
+          "green",
+          "green",
+          "green",
+          "green",
+          "not_green",
+          "not_green",
+          "not_green",
+          "not_green"
+        ],
+        "n_obs": 21,
+        "longest_gap_days": 39
+      }
+    ]
+  },
+  "green_end": [
+    {
+      "season": "2018/19",
+      "low": "2019-02-10",
+      "high": "2019-02-26",
+      "gap_days": {
+        "v": 16,
+        "l": "field_a.green_end.2018_19"
+      },
+      "status": "ok"
+    },
+    {
+      "season": "2019/20",
+      "low": "2020-02-29",
+      "high": "2020-03-12",
+      "gap_days": {
+        "v": 12,
+        "l": "field_a.green_end.2019_20"
+      },
+      "status": "ok"
+    },
+    {
+      "season": "2020/21",
+      "low": "2021-02-05",
+      "high": "2021-02-20",
+      "gap_days": {
+        "v": 15,
+        "l": "field_a.green_end.2020_21"
+      },
+      "status": "ok"
+    },
+    {
+      "season": "2021/22",
+      "low": "2022-02-14",
+      "high": "2022-03-01",
+      "gap_days": {
+        "v": 15,
+        "l": "field_a.green_end.2021_22"
+      },
+      "status": "ok"
+    },
+    {
+      "season": "2022/23",
+      "low": "2023-03-02",
+      "high": "2023-03-20",
+      "gap_days": {
+        "v": 18,
+        "l": "field_a.green_end.2022_23"
+      },
+      "status": "ok"
+    },
+    {
+      "season": "2023/24",
+      "low": "2024-02-01",
+      "high": "2024-02-17",
+      "gap_days": {
+        "v": 16,
+        "l": "field_a.green_end.2023_24"
+      },
+      "status": "ok"
+    },
+    {
+      "season": "2024/25",
+      "low": null,
+      "high": null,
+      "gap_days": {
+        "v": null,
+        "l": "field_a.green_end.2024_25"
+      },
+      "status": "to_confirm"
+    },
+    {
+      "season": "2025/26",
+      "low": "2026-02-12",
+      "high": "2026-02-27",
+      "gap_days": {
+        "v": 15,
+        "l": "field_a.green_end.2025_26"
+      },
+      "status": "ok"
+    }
+  ],
+  "window_reading": {
+    "state": "at_the_edge",
+    "k": 1,
+    "n": 7,
+    "zarc_window_end": "2027-02-28",
+    "basis": "declared_class",
+    "soil_class": "AD4",
+    "ledger": "field_a.window_reading"
+  },
+  "window_basis": {
+    "municipio": "Londrina",
+    "min_seasons": 3,
+    "classes": [
+      "AD1",
+      "AD2",
+      "AD3",
+      "AD4",
+      "AD5",
+      "AD6"
+    ],
+    "seasons": [
+      {
+        "season": "2018/19",
+        "low": "2019-02-10",
+        "high": "2019-02-26",
+        "status": "ok",
+        "high_dekad": 18
+      },
+      {
+        "season": "2019/20",
+        "low": "2020-02-29",
+        "high": "2020-03-12",
+        "status": "ok",
+        "high_dekad": 20
+      },
+      {
+        "season": "2020/21",
+        "low": "2021-02-05",
+        "high": "2021-02-20",
+        "status": "ok",
+        "high_dekad": 17
+      },
+      {
+        "season": "2021/22",
+        "low": "2022-02-14",
+        "high": "2022-03-01",
+        "status": "ok",
+        "high_dekad": 19
+      },
+      {
+        "season": "2022/23",
+        "low": "2023-03-02",
+        "high": "2023-03-20",
+        "status": "ok",
+        "high_dekad": 20
+      },
+      {
+        "season": "2023/24",
+        "low": "2024-02-01",
+        "high": "2024-02-17",
+        "status": "ok",
+        "high_dekad": 17
+      },
+      {
+        "season": "2024/25",
+        "low": null,
+        "high": null,
+        "status": "to_confirm",
+        "high_dekad": null
+      },
+      {
+        "season": "2025/26",
+        "low": "2026-02-12",
+        "high": "2026-02-27",
+        "status": "ok",
+        "high_dekad": 18
+      }
+    ],
+    "S1": {
+      "crop": "Milho 2ª Safra",
+      "by_class": {
+        "AD3": {
+          "ciclo": "Grupo II",
+          "start": "2026-12-21",
+          "end": "2027-02-20",
+          "end_by_season": {
+            "2018/19": "2019-02-20",
+            "2019/20": "2020-02-20",
+            "2020/21": "2021-02-20",
+            "2021/22": "2022-02-20",
+            "2022/23": "2023-02-20",
+            "2023/24": "2024-02-20",
+            "2024/25": "2025-02-20",
+            "2025/26": "2026-02-20"
+          }
+        },
+        "AD4": {
+          "ciclo": "Grupo II",
+          "start": "2026-12-21",
+          "end": "2027-02-28",
+          "end_by_season": {
+            "2018/19": "2019-02-28",
+            "2019/20": "2020-02-29",
+            "2020/21": "2021-02-28",
+            "2021/22": "2022-02-28",
+            "2022/23": "2023-02-28",
+            "2023/24": "2024-02-29",
+            "2024/25": "2025-02-28",
+            "2025/26": "2026-02-28"
+          }
+        }
+      },
+      "any": {
+        "end": "2027-02-28",
+        "classes": [
+          "AD4"
+        ],
+        "cycles": [
+          "Grupo II"
+        ],
+        "end_by_season": {
+          "2018/19": "2019-02-28",
+          "2019/20": "2020-02-29",
+          "2020/21": "2021-02-28",
+          "2021/22": "2022-02-28",
+          "2022/23": "2023-02-28",
+          "2023/24": "2024-02-29",
+          "2024/25": "2025-02-28",
+          "2025/26": "2026-02-28"
+        }
+      },
+      "earliest": {
+        "end": "2027-02-20",
+        "classes": [
+          "AD3"
+        ],
+        "cycles": [
+          "Grupo II"
+        ],
+        "end_by_season": {
+          "2018/19": "2019-02-20",
+          "2019/20": "2020-02-20",
+          "2020/21": "2021-02-20",
+          "2021/22": "2022-02-20",
+          "2022/23": "2023-02-20",
+          "2023/24": "2024-02-20",
+          "2024/25": "2025-02-20",
+          "2025/26": "2026-02-20"
+        }
+      },
+      "risk_band": {
+        "crop": "Milho 2ª Safra",
+        "by_class": {
+          "AD3": {
+            "ciclo": "Grupo II",
+            "risk": [
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              20,
+              20,
+              20,
+              20,
+              30,
+              40,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null
+            ]
+          },
+          "AD4": {
+            "ciclo": "Grupo II",
+            "risk": [
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              20,
+              20,
+              20,
+              20,
+              20,
+              30,
+              40,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null
+            ]
+          }
+        },
+        "min": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          20,
+          20,
+          20,
+          20,
+          20,
+          30,
+          40,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "max": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          20,
+          20,
+          20,
+          20,
+          30,
+          40,
+          40,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "some_outside": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          true,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "ledger": "field_a.zarc_risk_band"
+      }
+    },
+    "S2": {
+      "crop": "Milho 2ª Safra consorciado com Braquiária",
+      "by_class": {
+        "AD3": {
+          "ciclo": "Grupo II",
+          "start": "2027-01-01",
+          "end": "2027-02-20",
+          "end_by_season": {
+            "2018/19": "2019-02-20",
+            "2019/20": "2020-02-20",
+            "2020/21": "2021-02-20",
+            "2021/22": "2022-02-20",
+            "2022/23": "2023-02-20",
+            "2023/24": "2024-02-20",
+            "2024/25": "2025-02-20",
+            "2025/26": "2026-02-20"
+          }
+        },
+        "AD4": {
+          "ciclo": "Grupo II",
+          "start": "2026-12-21",
+          "end": "2027-02-28",
+          "end_by_season": {
+            "2018/19": "2019-02-28",
+            "2019/20": "2020-02-29",
+            "2020/21": "2021-02-28",
+            "2021/22": "2022-02-28",
+            "2022/23": "2023-02-28",
+            "2023/24": "2024-02-29",
+            "2024/25": "2025-02-28",
+            "2025/26": "2026-02-28"
+          }
+        }
+      },
+      "any": {
+        "end": "2027-02-28",
+        "classes": [
+          "AD4"
+        ],
+        "cycles": [
+          "Grupo II"
+        ],
+        "end_by_season": {
+          "2018/19": "2019-02-28",
+          "2019/20": "2020-02-29",
+          "2020/21": "2021-02-28",
+          "2021/22": "2022-02-28",
+          "2022/23": "2023-02-28",
+          "2023/24": "2024-02-29",
+          "2024/25": "2025-02-28",
+          "2025/26": "2026-02-28"
+        }
+      },
+      "earliest": {
+        "end": "2027-02-20",
+        "classes": [
+          "AD3"
+        ],
+        "cycles": [
+          "Grupo II"
+        ],
+        "end_by_season": {
+          "2018/19": "2019-02-20",
+          "2019/20": "2020-02-20",
+          "2020/21": "2021-02-20",
+          "2021/22": "2022-02-20",
+          "2022/23": "2023-02-20",
+          "2023/24": "2024-02-20",
+          "2024/25": "2025-02-20",
+          "2025/26": "2026-02-20"
+        }
+      },
+      "risk_band": {
+        "crop": "Milho 2ª Safra consorciado com Braquiária",
+        "by_class": {
+          "AD3": {
+            "ciclo": "Grupo II",
+            "risk": [
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              20,
+              20,
+              30,
+              30,
+              40,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null
+            ]
+          },
+          "AD4": {
+            "ciclo": "Grupo II",
+            "risk": [
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              20,
+              20,
+              20,
+              null,
+              30,
+              30,
+              40,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null
+            ]
+          }
+        },
+        "min": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          20,
+          20,
+          20,
+          30,
+          30,
+          30,
+          40,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "max": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          20,
+          20,
+          20,
+          30,
+          30,
+          40,
+          40,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "some_outside": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          true,
+          false,
+          false,
+          true,
+          false,
+          false,
+          true,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "ledger": "field_a.zarc_risk_band"
+      }
+    },
+    "risk_at_exit": {
+      "ledger": "field_a.risk_at_exit"
+    },
+    "ended_before": {
+      "ledger": "field_a.ended_before"
+    },
+    "ledger": "field_a.window_reading"
+  },
+  "ribbon_counts": {
+    "no_green": {
+      "median": 10,
+      "of": 36,
+      "seasons": 1,
+      "per_season": [
+        {
+          "season": "2025/26",
+          "not_green": 10,
+          "no_data": 2
+        }
+      ],
+      "ledger": "field_a.ribbon_counts.no_green"
+    }
+  },
+  "risk": {
+    "zarc_class": {
+      "S1": {
+        "crop": "Milho 2ª Safra",
+        "table_safra": "2026/2027",
+        "risk_min": 20,
+        "risk_max": 40,
+        "state": "zarc_window",
+        "by_class": {
+          "AD3": {
+            "ciclo": "Grupo II",
+            "risk_min": 20,
+            "risk_max": 40
+          },
+          "AD4": {
+            "ciclo": "Grupo II",
+            "risk_min": 20,
+            "risk_max": 40
+          }
+        },
+        "any_class": {
+          "risk_min": 20,
+          "risk_max": 40
+        }
+      },
+      "S2": {
+        "crop": "Milho 2ª Safra consorciado com Braquiária",
+        "table_safra": "2026/2027",
+        "risk_min": 20,
+        "risk_max": 40,
+        "state": "zarc_window",
+        "by_class": {
+          "AD3": {
+            "ciclo": "Grupo II",
+            "risk_min": 20,
+            "risk_max": 40
+          },
+          "AD4": {
+            "ciclo": "Grupo II",
+            "risk_min": 20,
+            "risk_max": 40
+          }
+        },
+        "any_class": {
+          "risk_min": 20,
+          "risk_max": 40
+        }
+      },
+      "S3": {
+        "crop": "Trigo",
+        "table_safra": "2025/2026",
+        "risk_min": 20,
+        "risk_max": 40,
+        "state": "zarc_previous_table",
+        "by_class": {
+          "AD3": {
+            "ciclo": "Grupo II",
+            "risk_min": 20,
+            "risk_max": 40
+          },
+          "AD4": {
+            "ciclo": "Grupo II",
+            "risk_min": 20,
+            "risk_max": 40
+          }
+        },
+        "any_class": {
+          "risk_min": 20,
+          "risk_max": 40
+        }
+      }
+    },
+    "climate": {
+      "S1": {
+        "crop": "corn",
+        "start": "02-11",
+        "end": "07-31",
+        "n": 41,
+        "left_out": [
+          "1989/90"
+        ],
+        "frost": {
+          "below_c": 2.0,
+          "k": 38,
+          "seasons": [
+            "1983/84",
+            "1984/85",
+            "1985/86",
+            "1986/87",
+            "1987/88",
+            "1988/89",
+            "1991/92",
+            "1992/93",
+            "1994/95",
+            "1995/96",
+            "1996/97",
+            "1997/98",
+            "1998/99",
+            "1999/00",
+            "2000/01",
+            "2001/02",
+            "2003/04",
+            "2004/05",
+            "2005/06",
+            "2006/07",
+            "2007/08",
+            "2008/09",
+            "2009/10",
+            "2010/11",
+            "2011/12",
+            "2012/13",
+            "2013/14",
+            "2014/15",
+            "2015/16",
+            "2016/17",
+            "2017/18",
+            "2018/19",
+            "2019/20",
+            "2020/21",
+            "2021/22",
+            "2022/23",
+            "2023/24",
+            "2024/25"
+          ]
+        },
+        "rain": {
+          "median_mm": 466.6,
+          "p10_mm": 347.1,
+          "driest": [
+            {
+              "season": "2009/10",
+              "mm": 288.3
+            },
+            {
+              "season": "2000/01",
+              "mm": 318.8
+            },
+            {
+              "season": "1995/96",
+              "mm": 329.5
+            }
+          ]
+        }
+      },
+      "S2": {
+        "crop": "corn_grass",
+        "start": "02-11",
+        "end": "07-31",
+        "n": 41,
+        "left_out": [
+          "1989/90"
+        ],
+        "frost": {
+          "below_c": 2.0,
+          "k": 38,
+          "seasons": [
+            "1983/84",
+            "1984/85",
+            "1985/86",
+            "1986/87",
+            "1987/88",
+            "1988/89",
+            "1991/92",
+            "1992/93",
+            "1994/95",
+            "1995/96",
+            "1996/97",
+            "1997/98",
+            "1998/99",
+            "1999/00",
+            "2000/01",
+            "2001/02",
+            "2003/04",
+            "2004/05",
+            "2005/06",
+            "2006/07",
+            "2007/08",
+            "2008/09",
+            "2009/10",
+            "2010/11",
+            "2011/12",
+            "2012/13",
+            "2013/14",
+            "2014/15",
+            "2015/16",
+            "2016/17",
+            "2017/18",
+            "2018/19",
+            "2019/20",
+            "2020/21",
+            "2021/22",
+            "2022/23",
+            "2023/24",
+            "2024/25"
+          ]
+        },
+        "rain": {
+          "median_mm": 466.6,
+          "p10_mm": 347.1,
+          "driest": [
+            {
+              "season": "2009/10",
+              "mm": 288.3
+            },
+            {
+              "season": "2000/01",
+              "mm": 318.8
+            },
+            {
+              "season": "1995/96",
+              "mm": 329.5
+            }
+          ]
+        }
+      },
+      "S3": {
+        "crop": "wheat",
+        "start": "04-15",
+        "end": "08-31",
+        "n": 42,
+        "left_out": [],
+        "frost": {
+          "below_c": 2.0,
+          "k": 39,
+          "seasons": [
+            "1983/84",
+            "1984/85",
+            "1985/86",
+            "1986/87",
+            "1987/88",
+            "1988/89",
+            "1989/90",
+            "1991/92",
+            "1992/93",
+            "1994/95",
+            "1995/96",
+            "1996/97",
+            "1997/98",
+            "1998/99",
+            "1999/00",
+            "2000/01",
+            "2001/02",
+            "2003/04",
+            "2004/05",
+            "2005/06",
+            "2006/07",
+            "2007/08",
+            "2008/09",
+            "2009/10",
+            "2010/11",
+            "2011/12",
+            "2012/13",
+            "2013/14",
+            "2014/15",
+            "2015/16",
+            "2016/17",
+            "2017/18",
+            "2018/19",
+            "2019/20",
+            "2020/21",
+            "2021/22",
+            "2022/23",
+            "2023/24",
+            "2024/25"
+          ]
+        },
+        "rain": {
+          "median_mm": 302.4,
+          "p10_mm": 178.9,
+          "driest": [
+            {
+              "season": "1995/96",
+              "mm": 151.0
+            },
+            {
+              "season": "1983/84",
+              "mm": 159.2
+            },
+            {
+              "season": "2004/05",
+              "mm": 167.6
+            }
+          ]
+        }
+      },
+      "ledger": "field_a.climate"
+    },
+    "ledger": "field_a.risk"
+  },
+  "calendar": {
+    "S1": [
+      {
+        "crop": "soybean",
+        "start": "2026-09-01",
+        "end": "2026-12-31",
+        "source_id": "adapar_portaria_1579_2026",
+        "state": "legal_window"
+      },
+      {
+        "crop": "soybean",
+        "start": "2027-06-02",
+        "end": "2027-08-31",
+        "source_id": "adapar_portaria_1579_2026",
+        "state": "legal_break"
+      },
+      {
+        "crop": "corn",
+        "start": "2026-12-21",
+        "end": "2027-02-28",
+        "source_id": "zarc_tabua",
+        "state": "zarc_window"
+      },
+      {
+        "crop": "none",
+        "start": "2026-09-01",
+        "end": "2026-09-30",
+        "source_id": "example_calendar",
+        "state": "no_crop"
+      },
+      {
+        "crop": "soybean",
+        "start": "2026-10-01",
+        "end": "2027-02-10",
+        "source_id": "example_calendar",
+        "state": "growing"
+      },
+      {
+        "crop": "corn",
+        "start": "2027-02-11",
+        "end": "2027-07-31",
+        "source_id": "example_calendar",
+        "state": "growing"
+      },
+      {
+        "crop": "none",
+        "start": "2027-08-01",
+        "end": "2027-08-31",
+        "source_id": "example_calendar",
+        "state": "no_crop"
+      }
+    ],
+    "S2": [
+      {
+        "crop": "soybean",
+        "start": "2026-09-01",
+        "end": "2026-12-31",
+        "source_id": "adapar_portaria_1579_2026",
+        "state": "legal_window"
+      },
+      {
+        "crop": "soybean",
+        "start": "2027-06-02",
+        "end": "2027-08-31",
+        "source_id": "adapar_portaria_1579_2026",
+        "state": "legal_break"
+      },
+      {
+        "crop": "corn_grass",
+        "start": "2026-12-21",
+        "end": "2027-01-20",
+        "source_id": "zarc_tabua",
+        "state": "zarc_window"
+      },
+      {
+        "crop": "corn_grass",
+        "start": "2027-02-01",
+        "end": "2027-02-28",
+        "source_id": "zarc_tabua",
+        "state": "zarc_window"
+      },
+      {
+        "crop": "grass",
+        "start": "2026-09-01",
+        "end": "2026-09-15",
+        "source_id": "example_calendar",
+        "state": "growing"
+      },
+      {
+        "crop": "none",
+        "start": "2026-09-16",
+        "end": "2026-09-30",
+        "source_id": "example_calendar",
+        "state": "no_crop"
+      },
+      {
+        "crop": "soybean",
+        "start": "2026-10-01",
+        "end": "2027-02-10",
+        "source_id": "example_calendar",
+        "state": "growing"
+      },
+      {
+        "crop": "corn_grass",
+        "start": "2027-02-11",
+        "end": "2027-07-31",
+        "source_id": "example_calendar",
+        "state": "growing"
+      },
+      {
+        "crop": "grass",
+        "start": "2027-08-01",
+        "end": "2027-08-31",
+        "source_id": "example_calendar",
+        "state": "growing"
+      }
+    ],
+    "S3": [
+      {
+        "crop": "soybean",
+        "start": "2026-09-01",
+        "end": "2026-12-31",
+        "source_id": "adapar_portaria_1579_2026",
+        "state": "legal_window"
+      },
+      {
+        "crop": "soybean",
+        "start": "2027-06-02",
+        "end": "2027-08-31",
+        "source_id": "adapar_portaria_1579_2026",
+        "state": "legal_break"
+      },
+      {
+        "crop": "wheat",
+        "start": "2027-04-01",
+        "end": "2027-05-20",
+        "source_id": "zarc_tabua",
+        "state": "zarc_previous_table"
+      },
+      {
+        "crop": "none",
+        "start": "2026-09-01",
+        "end": "2026-09-30",
+        "source_id": "example_calendar",
+        "state": "no_crop"
+      },
+      {
+        "crop": "soybean",
+        "start": "2026-10-01",
+        "end": "2027-02-10",
+        "source_id": "example_calendar",
+        "state": "growing"
+      },
+      {
+        "crop": "none",
+        "start": "2027-02-11",
+        "end": "2027-04-14",
+        "source_id": "example_calendar",
+        "state": "no_crop"
+      },
+      {
+        "crop": "wheat",
+        "start": "2027-04-15",
+        "end": "2027-08-31",
+        "source_id": "example_calendar",
+        "state": "growing"
+      }
+    ]
+  },
+  "erosivity": {
+    "S1": "reference",
+    "S2": "similar",
+    "S3": "higher",
+    "ledger": "field_a.erosivity"
+  },
+  "next_soy": {
+    "state": "not_completed",
+    "on_main_page": false,
+    "water_note_on_how_we_know": false,
+    "ledger": "field_a.next_soy"
+  }
+}

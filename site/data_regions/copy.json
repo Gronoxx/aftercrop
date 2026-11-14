@@ -1,0 +1,93 @@
+{
+ "_notice": "Written with an SI tool (Claude, Anthropic) for NASA Space Apps 2026. See AI_USE.md.",
+ "schema_version": "1",
+ "default_lang": "en",
+ "langs": {
+  "en": {
+   "how_link": "Another region, observation only",
+   "main_link": "Another region, observation only: Free State, South Africa",
+   "how_link_note": "One field in the Free State, South Africa, read by the same satellite rule. No field trials there, so no verdict.",
+   "observation": {
+    "banner": "Observation region: real NASA data, no field trials, no verdict",
+    "sentence": "No field trials, no verdict. The rule travels. The verdict does not.",
+    "title": "Free State, South Africa",
+    "page_title": "Observation region | Aftercrop",
+    "region": "Observation region: {name}. Summer maize and soybean, season from September to August, as in northern Paraná.",
+    "field_line": "One field of {area} ha, drawn by hand on the HLS image, at {lat}° S, {lon}° E.",
+    "pack_note": "No Regional Pack here: no published field trials, no zoning calendar and no local reviewer. So this page compares nothing and gives no answer.",
+    "ribbon_rule": "The end-of-green rule is the one tagged for northern Paraná, unchanged.",
+    "green_end_count": "End of the first green cycle found in {k} of {n} seasons. The other seasons are to confirm or have no data.",
+    "relief_title": "Relief, NASADEM",
+    "relief_line": "{class} relief, median slope {slope}%, height {min} to {max} m.",
+    "relief_note": "Context only. Relief never changes a state.",
+    "relief_classes": {
+     "flat": "Flat",
+     "gentle": "Gently rolling",
+     "rolling": "Rolling",
+     "strongly_rolling": "Strongly rolling",
+     "mountainous": "Mountainous",
+     "steep": "Steep"
+    },
+    "climate_title": "Climate, NASA POWER",
+    "climate_frost": "Nights below {t} °C, {start} to {end}: in {k} of {n} summers",
+    "climate_rain": "Rain, {start} to {end}: median {median} mm. The driest tenth of summers had {p10} mm or less.",
+    "climate_driest": "Driest summers: {seasons}",
+    "climate_note": "NASA POWER daily at the field point, summers {first} to {last}. {start} to {end} is a fixed summer period, not the dates of a crop on this field: no crop calendar for this field was found. Past summers counted, not a forecast.",
+    "sources_title": "Sources",
+    "source_hls": "{granules} granules, {mb} MB, seasons {first} to {last}, tile {tile}",
+    "source_nasadem": "{tiles} tile, {mb} MB",
+    "source_power": "point {lat}, {lon}, {start} to {end}, {mb} MB",
+    "not_loaded": "Not loaded here: soil (SoilGrids), rainfall erosivity (GloREDa), the zoning calendar (Zarc) and field trials.",
+    "back": "Back to northern Paraná"
+   }
+  },
+  "pt": {
+   "how_link": "Outra região, só observação",
+   "main_link": "Outra região, só observação: Free State, África do Sul",
+   "how_link_note": "Um talhão no Free State, África do Sul, lido pela mesma regra de satélite. Lá não há ensaios de campo, então não há veredito.",
+   "observation": {
+    "banner": "Região de observação: dados reais da NASA, sem ensaios de campo, sem veredito",
+    "sentence": "Sem ensaios de campo, sem veredito. A regra viaja. O veredito não.",
+    "title": "Free State, África do Sul",
+    "page_title": "Região de observação | Aftercrop",
+    "region": "Região de observação: {name}. Milho e soja de verão, safra de setembro a agosto, como no norte do Paraná.",
+    "field_line": "Um talhão de {area} ha, desenhado à mão sobre a imagem HLS, em {lat}° S, {lon}° L.",
+    "pack_note": "Aqui não há Pacote Regional: nenhum ensaio de campo publicado, nenhum calendário de zoneamento e nenhum revisor local. Por isso esta página não compara nada e não dá resposta.",
+    "ribbon_rule": "A regra do fim do verde é a mesma registrada para o norte do Paraná, sem mudança.",
+    "green_end_count": "Fim do primeiro ciclo verde encontrado em {k} de {n} safras. As outras safras estão a confirmar ou sem dado.",
+    "relief_title": "Relevo, NASADEM",
+    "relief_line": "Relevo {class}, declividade mediana de {slope}%, altitude de {min} a {max} m.",
+    "relief_note": "Só contexto. O relevo nunca muda um estado.",
+    "relief_classes": {
+     "flat": "plano",
+     "gentle": "suave ondulado",
+     "rolling": "ondulado",
+     "strongly_rolling": "forte ondulado",
+     "mountainous": "montanhoso",
+     "steep": "escarpado"
+    },
+    "climate_title": "Clima, NASA POWER",
+    "climate_frost": "Noites abaixo de {t} °C, de {start} a {end}: em {k} de {n} verões",
+    "climate_rain": "Chuva, de {start} a {end}: mediana de {median} mm. O décimo mais seco dos verões teve {p10} mm ou menos.",
+    "climate_driest": "Verões mais secos: {seasons}",
+    "climate_note": "NASA POWER diário no ponto do talhão, verões de {first} a {last}. De {start} a {end} é um período fixo de verão, não as datas de uma cultura neste talhão: nenhum calendário de cultura para este talhão foi encontrado. Verões passados contados, não uma previsão.",
+    "sources_title": "Fontes",
+    "source_hls": "{granules} cenas, {mb} MB, safras de {first} a {last}, quadrícula {tile}",
+    "source_nasadem": "{tiles} quadrícula, {mb} MB",
+    "source_power": "ponto {lat}, {lon}, de {start} a {end}, {mb} MB",
+    "not_loaded": "Não carregados aqui: solo (SoilGrids), erosividade da chuva (GloREDa), o calendário de zoneamento (Zarc) e ensaios de campo.",
+    "back": "Voltar ao norte do Paraná"
+   }
+  }
+ },
+ "sources": {
+  "en": {
+   "path": "config/copy_regions_en.yaml",
+   "sha256": "a90f0b946155c49df0cdfa46c5f7b46332d1b7aa49538acd90d735ff3756ad1f"
+  },
+  "pt": {
+   "path": "config/copy_regions_pt.yaml",
+   "sha256": "a49cc5724281e90739a351a6a0fce184e1ae2d470a71214a8dcf0637279c57b2"
+  }
+ }
+}

@@ -1,0 +1,10 @@
+{
+  "_note": "Example, fictitious. Synthetic disagreements in days for tests only. Not HLS data, not a real field. The percentile level and method below are test values: the protocol holds neither yet [DECIDE].",
+  "percentile": 90,
+  "halves_days": [0, 1, 1, 2, 3, 3, 4, 5, 6, 8],
+  "l30_vs_s30_days": [2, 2, 3, 5, 7],
+  "expected": {
+    "nearest_rank": {"halves": 6, "l30_vs_s30": 7, "floor": 7, "set_by": "l30_vs_s30"},
+    "linear": {"halves": [31, 5], "l30_vs_s30": [31, 5], "floor": [31, 5], "set_by": "halves"}
+  }
+}

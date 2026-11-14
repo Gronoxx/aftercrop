@@ -1,0 +1,10 @@
+{
+  "_note": "example, fictitious. A square field and a DEM grid made up for the relief tests",
+  "dem": {"lon0": -51.30, "lat0": -23.05, "step_deg": 0.000277777777777778, "rows": 61, "cols": 61, "base_m": 450.0},
+  "field": {
+    "type": "Polygon",
+    "coordinates": [[[-51.2970, -23.0530], [-51.2890, -23.0530], [-51.2890, -23.0610], [-51.2970, -23.0610], [-51.2970, -23.0530]]]
+  },
+  "plane_slope_pct": 5.0,
+  "lowspot_rule": {"ring_m": 150, "drop_m": 1.0}
+}

@@ -1,0 +1,40 @@
+# Written with an SI tool (Claude, Anthropic) for NASA Space Apps 2026. See AI_USE.md.
+# Copy of the observation region (SA-D79), Portuguese (Brazil). Same keys and placeholders as
+# copy_regions_en.yaml. Built into site/data_regions/copy.json (pipeline.build.copy_json --regions).
+# House style as copy_pt.yaml: no em dash, no en dash, no semicolon.
+
+how_link: "Outra região, só observação"  # checked (SI)
+main_link: "Outra região, só observação: Free State, África do Sul"  # SA-D84  # checked (SI)
+how_link_note: "Um talhão no Free State, África do Sul, lido pela mesma regra de satélite. Lá não há ensaios de campo, então não há veredito."  # checked (SI)
+
+observation:
+  banner: "Região de observação: dados reais da NASA, sem ensaios de campo, sem veredito"  # checked (SI)
+  sentence: "Sem ensaios de campo, sem veredito. A regra viaja. O veredito não."  # plan section 3
+  title: "Free State, África do Sul"  # checked (SI)
+  page_title: "Região de observação | Aftercrop"  # checked (SI)
+  region: "Região de observação: {name}. Milho e soja de verão, safra de setembro a agosto, como no norte do Paraná."  # checked (SI)
+  field_line: "Um talhão de {area} ha, desenhado à mão sobre a imagem HLS, em {lat}° S, {lon}° L."  # checked (SI)
+  pack_note: "Aqui não há Pacote Regional: nenhum ensaio de campo publicado, nenhum calendário de zoneamento e nenhum revisor local. Por isso esta página não compara nada e não dá resposta."  # checked (SI)
+  ribbon_rule: "A regra do fim do verde é a mesma registrada para o norte do Paraná, sem mudança."  # checked (SI)
+  green_end_count: "Fim do primeiro ciclo verde encontrado em {k} de {n} safras. As outras safras estão a confirmar ou sem dado."  # checked (SI)
+  relief_title: "Relevo, NASADEM"  # checked (SI)
+  relief_line: "Relevo {class}, declividade mediana de {slope}%, altitude de {min} a {max} m."  # checked (SI)
+  relief_note: "Só contexto. O relevo nunca muda um estado."  # checked (SI)
+  relief_classes:
+    flat: "plano"  # checked (SI)
+    gentle: "suave ondulado"  # checked (SI)
+    rolling: "ondulado"  # checked (SI)
+    strongly_rolling: "forte ondulado"  # checked (SI)
+    mountainous: "montanhoso"  # checked (SI)
+    steep: "escarpado"  # checked (SI)
+  climate_title: "Clima, NASA POWER"  # checked (SI)
+  climate_frost: "Noites abaixo de {t} °C, de {start} a {end}: em {k} de {n} verões"  # checked (SI)
+  climate_rain: "Chuva, de {start} a {end}: mediana de {median} mm. O décimo mais seco dos verões teve {p10} mm ou menos."  # checked (SI)
+  climate_driest: "Verões mais secos: {seasons}"  # checked (SI)
+  climate_note: "NASA POWER diário no ponto do talhão, verões de {first} a {last}. De {start} a {end} é um período fixo de verão, não as datas de uma cultura neste talhão: nenhum calendário de cultura para este talhão foi encontrado. Verões passados contados, não uma previsão."  # checked (SI)
+  sources_title: "Fontes"  # checked (SI)
+  source_hls: "{granules} cenas, {mb} MB, safras de {first} a {last}, quadrícula {tile}"  # checked (SI)
+  source_nasadem: "{tiles} quadrícula, {mb} MB"  # checked (SI)
+  source_power: "ponto {lat}, {lon}, de {start} a {end}, {mb} MB"  # checked (SI)
+  not_loaded: "Não carregados aqui: solo (SoilGrids), erosividade da chuva (GloREDa), o calendário de zoneamento (Zarc) e ensaios de campo."  # checked (SI)
+  back: "Voltar ao norte do Paraná"  # checked (SI)

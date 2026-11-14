@@ -1,0 +1,84 @@
+# Written with an SI tool (Claude, Anthropic) for NASA Space Apps 2026. See AI_USE.md.
+# Values the protocol does not fix, read by pipeline.decision.base_file --settings (loader:
+# pipeline/decision/settings.py). Every entry is {value, source} or {value: null, removed}.
+# protocol.unsourced_rules (SA-D68): dry autumn, cold period and occupation dates enter only with
+# a threshold and a source. Without one in at most 2 web searches, the variable goes. The searches
+# made are named in each entry. Since SA-D72.5 the page shows no "not shown" line: the
+# protocol.climate block (frost and rain over the occupation dates below) takes their place.
+# The prices and costs are the example farmer of plan 14.3 and 14.4: example, fictitious.
+schema_version: 1
+
+# Tábua cycle group per autumn crop. The cycle group is the farmer's cultivar choice, like the
+# soil class (SA-D64), and no source fixes one for the example field. Without a group no Tábua
+# row is selected: the field calendar keeps the Zarc stretch without dates. The window warning
+# does not use this value: it takes the cycle group that ends latest (calendar.window_basis).
+cycles:
+  corn:
+    value: null
+    removed: "No source fixes the cultivar cycle group of the example field. The Zarc lists Grupo I and II for second-crop corn (Portaria 329/2026, Tábua 2026/27)."
+  corn_grass:
+    value: null
+    removed: "No source fixes the cultivar cycle group of the example field. The Zarc lists Grupo I and II for corn with brachiaria (Portaria 344/2026, Tábua 2026/27)."
+  wheat:
+    value: null
+    removed: "No source fixes the cultivar cycle group of the example field. The Zarc 2025/26 lists Grupo I, II and III for wheat (Portaria 440/2025)."
+
+# Occupation dates of each strategy, MM-DD in the season 1 Sep to 31 Aug. Rule (project rule): the
+# median day of the three Londrina seasons of Embrapa Doc 476, Tabela 3, PDF p. 30 (printed p. 29),
+# as transcribed in config/trial_dates.json (sites.londrina, dates only, no yield). Londrina is the
+# trial site nearest the field window (D3). tests/test_decision_settings.py recomputes the medians.
+occupancy:
+  S1:
+    value:
+      source_id: embrapa_doc476
+      phases:
+        - {crop: soybean, start: "10-19", end: "02-27"}   # sowing 13, 19, 23 Oct; harvest 23 Jan, 27 Feb, 28 Feb
+        - {crop: corn, start: "03-22", end: "09-19"}      # sowing 19 Feb, 29 Mar, 22 Mar; harvest 23 Jul, 19 Sep, 19 Sep
+    source: "Embrapa Doc 476, Tabela 3, PDF p. 30, Londrina 2021/22 to 2023/24: median soybean and second-crop corn dates (config/trial_dates.json)."
+  S2:
+    value:
+      source_id: embrapa_doc476
+      phases:
+        - {crop: soybean, start: "10-19", end: "02-27"}
+        - {crop: corn_grass, start: "03-22", end: "09-19"}   # grass sown on the corn sowing day (source check notes of the project, item 5)
+        - {crop: grass, start: "09-20", end: "10-04", source_id: rsd_2020_brachiaria_desiccation}   # desiccated 15 days before the soybean sowing
+    source: "Soybean and corn: Embrapa Doc 476, Tabela 3, Londrina medians, as S1. Grass sown with the corn (Docs 398 and 459 method sections, source check notes of the project, item 5). Grass alive from the corn harvest to its desiccation 15 days before the soybean sowing: Research, Society and Development (2020), article 10867, desiccation of corn with brachiaria at about 15 days before soybean sowing. In the article: about 15 days before soybean sowing for corn and for corn with brachiaria (one trial in Rio Verde, GO, one cultivar). Embrapa Doc 459 (Cafelândia, method section) starts the management about 45 days before the soybean, with a second application 15 days later: the 15-day date is kept as the last day the grass may be alive, and the difference is a declared limit."
+  S3:
+    value:
+      source_id: embrapa_doc476
+      phases:
+        - {crop: soybean, start: "10-19", end: "02-27"}
+        - {crop: wheat, start: "05-24", end: "09-16"}     # sowing 21 May, 24 May, 7 Jun; harvest 16 Sep, 5 Sep, 19 Sep
+    source: "Embrapa Doc 476, Tabela 3, PDF p. 30, Londrina 2021/22 to 2023/24: median soybean and wheat dates (config/trial_dates.json). The soybean follows the wheat harvest by 33 days, above the 20 days of plan 13.4."
+
+# L2 counts on POWER (plan 12.2). Two searches per variable. Both stay removed:
+# protocol.climate (SA-D72.5) replaces them with frost (T2M_MIN below 2 °C, k of n seasons) and rain
+# (PRECTOTCORR total, median, 10th percentile and the three driest seasons) over the occupation
+# dates of the crop that follows the soybean (occupancy above). pipeline.decision.precompute
+# climate_block, field_<id>.json risk.climate. Precompute no longer reads these two entries.
+risk:
+  dry_autumn:
+    value: null
+    removed: "Replaced by protocol.climate (SA-D72.5): rain total over the occupation dates, with no threshold. No sourced threshold. Searches: (1) 'milho safrinha norte do Paraná chuva abril maio mm déficit hídrico limiar outono seco', (2) 'Embrapa milho segunda safra Paraná período seco mm florescimento abril maio limiar precipitação risco zoneamento'. Both found season reports (IDR-Paraná, Deral) and the Zarc, which uses a water index, never a rain total in mm with a date span."
+  cold_in_window:
+    value: null
+    removed: "Replaced by protocol.climate (SA-D72.5): frost below 2 °C over the occupation dates. No sourced span. The threshold exists (minimum below 2 °C in a shelter, Zarc 2026/27, protocol.frost), but Portaria 329/2026 applies it in phenological phases 1 to 3 counted from sowing, not on calendar dates. Searches: (1) 'Zarc milho 2ª safra Paraná portaria geada temperatura mínima 2 °C período crítico florescimento decêndio critério', (2) 'Portaria SPA/MAPA 329 2026 milho 2ª safra Paraná fase 1 fase 2 fase 3 duração dias ciclo grupo'. The phase lengths were not found. The frost alert of S3 (protocol.frost) stays."
+
+# A3 context of the example farmer (decision.mjs context). Example, fictitious.
+example_context:
+  value: {sowingDate: null, zarcConstraint: true}
+  source: "Example farmer, fictitious (plan 7.16, 13.7 rule 6): no declared corn sowing date, and the insurance or credit restriction inside the Zarc is marked."
+example_constraints:
+  value: []
+  source: "Example farmer, fictitious: no user restriction declared (plan 13.7 rule 1)."
+
+region:
+  pack:
+    value: {decision: true, strategies: true, calendar: true, trials: true, reviewer: false}
+    source: "Plan 5.6 and 8.8: items 1 to 4 of the regional pack are built (decision rule, strategy menu, calendar, trials). Item 5, local reviewer, is false: H2 was not attempted (SA-D56, PROTOCOL.md section 8)."
+  price_k:
+    value: 0.15
+    source: "Plan 14.3: the corn price k lower and k higher, k = 15%, editable (project rule)."
+  example_numbers:
+    value: {p_soy: 100, p_corn: 50, Y_corn: 100, c_corn: 3000, p_wheat: 60, Y_wheat: 50, c_wheat: 1400, c_grass: 400}
+    source: "Example, fictitious (plan 14.3 and 14.4): the example farmer, no real series. Prices in R$ per 60 kg sack, yields in sc/ha, costs in R$/ha. Same numbers as tests/fixtures/decision_precompute_inputs.json."

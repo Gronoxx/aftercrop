@@ -1,0 +1,142 @@
+# Written with an SI tool (Claude, Anthropic) for NASA Space Apps 2026. See AI_USE.md.
+# Observation region (SA-D79): one field in the Free State, South Africa, summer maize and
+# soybean, season September to August like northern Parana. No trials, no Zarc, no verdict.
+# The page shows the 8-season HLS ribbon, NASADEM relief and NASA POWER climate only.
+#
+# Selected with AFTERCROP_CONFIG=config/region_free_state.yaml (pipeline.adapters.base) or
+# make <target> REGION=free_state. The default region stays config/region_norte_pr.yaml.
+# Raw downloads go to paths.raw and derived files to paths.interim, never data/raw/ or
+# data/interim/ of the product. The site documents go to paths.site_out, never site/data/.
+
+region: free_state
+mode: observation
+name: "Free State, South Africa"
+
+paths:
+  raw: data/regions/free_state/raw
+  interim: data/regions/free_state/interim
+  site_out: site/data_regions/free_state
+  fields: config/regions/free_state/fields.geojson
+
+# No trial site. The POWER call is made at the field point (the centroid of the polygon in
+# paths.fields), written by pipeline.regions.observation, never at a trial site.
+trial_sites: []
+
+sources:
+  power:
+    source_id: power_daily
+    url: https://power.larc.nasa.gov/api/temporal/daily/point
+    community: AG
+    license: "NASA data, cite collection and version. No explicit POWER license found"
+    calls:
+      - id: met
+        parameters: [T2M_MIN, PRECTOTCORR]
+        start: "1984-01-01"
+        end: "2025-12-31"
+        time_standard: LST
+
+  # HLS v2.0, one MGRS tile (T35JMK covers lat -28.11 to -27.12, lon 25.98 to 27.10, read from
+  # CMR). Same products, bands and masks as config/region_norte_pr.yaml.
+  hls:
+    source_id: hls
+    cmr_url: https://cmr.earthdata.nasa.gov/search/granules.umm_json
+    license: "NASA open data, no restriction. Cite HLS v2.0, and the Copernicus Sentinel notice for S30"
+    window:
+      id: free_state_bothaville_e
+      # lon_min, lat_min, lon_max, lat_max in EPSG:4326, about 10.0 km by 10.0 km, between
+      # Bothaville (about -27.39, 26.62) and Viljoenskroon (about -27.21, 26.95), rural
+      # cropland of the Free State maize area, outside both towns.
+      bbox: [26.72, -27.36, 26.821, -27.27]
+      tile: T35JMK
+      pad_px: 2
+    vi:
+      collections:
+        - {short_name: HLSL30_VI, version: "2.0", sensor: L30}
+        - {short_name: HLSS30_VI, version: "2.0", sensor: S30}
+      bands: [Fmask, NDVI, NBR2]
+      fill: -19999
+      scale: 0.0001
+      skip_vi_when_open_px_below: protocol.field.min_clean_pixels
+    sr:
+      collections:
+        - {short_name: HLSL30, version: "2.0", sensor: L30}
+        - {short_name: HLSS30, version: "2.0", sensor: S30}
+      bands: [Fmask, B04, B03, B02]
+      fill: -9999
+      scale: 0.0001
+    fmask:
+      fill: 255
+      masked_bits: [cirrus, cloud, adjacent, shadow, snow_ice, water]
+      masked_aerosol: [high]
+    basemap:
+      # Dry winter of 2026, as for northern Parana: fewest clouds, sharp field edges.
+      start: "2026-06-01"
+      end: "2026-08-31"
+      max_tile_cloud_pct: 20
+      min_window_clear_frac: 0.95
+      max_scenes: 6
+      masked_bits: [cirrus, cloud, adjacent, shadow, snow_ice]
+      masked_aerosol: []
+      stretch: {low_pct: 2, high_pct: 98, gamma: 1.0}
+
+  nasadem:
+    source_id: nasadem
+    cmr_url: https://cmr.earthdata.nasa.gov/search/granules.umm_json
+    collection: {short_name: NASADEM_HGT, version: "001"}
+    doi: 10.5067/MEaSUREs/NASADEM/NASADEM_HGT.001
+    license: "NASA data, no restriction. Cite NASADEM_HGT v001 (NASA JPL, LP DAAC)"
+    window: sources.hls.window
+    pad_px: 3
+
+# Not loaded in this region: GloREDa (erosivity) and SoilGrids (soil). The page says so.
+not_loaded: [gloreda, soilgrids, zarc, trials]
+
+# ---------------------------------------------------------------------------
+# protocol: only what the field code reads. Not a protocol of this region: there is no bench
+# and no label here. The end-of-green rule values are COPIED from config/region_norte_pr.yaml
+# (protocol-v1.1), unchanged, so the same rule reads this field.
+# tests/test_region_observation.py checks that every copied value equals the tagged one.
+# Only product_area and development_strip differ: they are the SA-D63 split of the Parana
+# window, which does not exist here (one field, no rehearsal strip), set east of the window.
+# ---------------------------------------------------------------------------
+protocol:
+  id: observation-free-state
+  status: observation              # no bench, no label, no verdict
+  copied_from: "config/region_norte_pr.yaml protocol-v1.1: dates.ribbon_seasons, frost, field (except product_area, development_strip)"
+
+  dates:
+    ribbon_seasons: ["2018/19", "2025/26"]
+
+  frost: {tmin_below_c: 2, role: alert_only}
+
+  # Climate lines of the observation page. No sourced crop calendar for this field was found in
+  # two searches (FAO GIEWS briefs give western-area maize planting from November to
+  # December and harvest from May, in different years). So the whole November to April summer
+  # period is used, labelled as a fixed period, never as the occupation of a crop.
+  observation_climate:
+    period: ["11-01", "04-30"]
+    period_kind: fixed_summer_period
+    years: ["1984", "2025"]        # whole periods only
+    frost: {variable: T2M_MIN, below_c: 2}
+    rain: {variable: PRECTOTCORR, statistic: "total over the period", report: [median, p10_nearest_rank, three_driest_years_by_name]}
+
+  field:
+    window_km: [10, 10]
+    inner_buffer_m: 30
+    min_clean_pixels: 20
+    ndvi_green: 0.30
+    min_clean_frac: 0.5
+    green_end_method: M2-green-end-v2
+    green_end_reference: running_max
+    green_end_half_height_frac: 0.5
+    green_end_min_drop: 0.3
+    green_end_exit_window: ["12-01", "05-31"]
+    green_end_cycle_start_window: ["09-01", "12-31"]
+    green_end_rebound_days: 10
+    green_end_rebound_within: 0.1
+    green_end_max_gap_days: 25
+    green_end_no_pair: "to confirm if a canopy was seen, no data if no clean observation"
+    green_end_second_cycle: "kept in the data and the ribbon. It does not change the status"
+    green_end_compared_variant: "10% of the season amplitude, computed in the rehearsal only and reported beside"
+    product_area: {lon_max: 27.5}            # east of the window: the one field is the observed field
+    development_strip: {lon_min: 27.5, role: "none in this region"}

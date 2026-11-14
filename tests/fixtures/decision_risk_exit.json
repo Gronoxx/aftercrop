@@ -1,0 +1,869 @@
+{
+ "label": "example, fictitious",
+ "note": "Synthetic window_basis with a Zarc risk band (pipeline.decision.calendar.window_basis on RISK_ROWS of tests/test_decision_calendar.py), SA-D72, earliest end without a soil report SA-D84. Python ended_before_from_basis and risk_at_exit_from_basis and decision.mjs endedBeforeFor and riskAtExitFor must all give these.",
+ "basis": {
+  "municipio": "Vila Risco",
+  "min_seasons": 3,
+  "classes": [
+   "AD1",
+   "AD2",
+   "AD3",
+   "AD4",
+   "AD5",
+   "AD6"
+  ],
+  "seasons": [
+   {
+    "season": "2018/19",
+    "low": "2019-01-01",
+    "high": "2019-01-05",
+    "status": "ok",
+    "high_dekad": 13
+   },
+   {
+    "season": "2019/20",
+    "low": "2020-02-01",
+    "high": "2020-02-05",
+    "status": "ok",
+    "high_dekad": 16
+   },
+   {
+    "season": "2020/21",
+    "low": "2021-02-11",
+    "high": "2021-02-15",
+    "status": "ok",
+    "high_dekad": 17
+   },
+   {
+    "season": "2021/22",
+    "low": "2022-03-20",
+    "high": "2022-03-31",
+    "status": "ok",
+    "high_dekad": 21
+   },
+   {
+    "season": "2022/23",
+    "low": "2023-04-01",
+    "high": "2023-04-05",
+    "status": "ok",
+    "high_dekad": 22
+   },
+   {
+    "season": "2023/24",
+    "low": null,
+    "high": null,
+    "status": "to_confirm",
+    "high_dekad": null
+   }
+  ],
+  "S1": {
+   "crop": "Milho 2ª Safra",
+   "by_class": {
+    "AD2": {
+     "ciclo": "Grupo I",
+     "start": "2027-01-01",
+     "end": "2027-03-10",
+     "end_by_season": {
+      "2018/19": "2019-03-10",
+      "2019/20": "2020-03-10",
+      "2020/21": "2021-03-10",
+      "2021/22": "2022-03-10",
+      "2022/23": "2023-03-10",
+      "2023/24": "2024-03-10"
+     }
+    },
+    "AD5": {
+     "ciclo": "Grupo I",
+     "start": "2027-01-01",
+     "end": "2027-03-31",
+     "end_by_season": {
+      "2018/19": "2019-03-31",
+      "2019/20": "2020-03-31",
+      "2020/21": "2021-03-31",
+      "2021/22": "2022-03-31",
+      "2022/23": "2023-03-31",
+      "2023/24": "2024-03-31"
+     }
+    }
+   },
+   "any": {
+    "end": "2027-03-31",
+    "classes": [
+     "AD5"
+    ],
+    "cycles": [
+     "Grupo I"
+    ],
+    "end_by_season": {
+     "2018/19": "2019-03-31",
+     "2019/20": "2020-03-31",
+     "2020/21": "2021-03-31",
+     "2021/22": "2022-03-31",
+     "2022/23": "2023-03-31",
+     "2023/24": "2024-03-31"
+    }
+   },
+   "earliest": {
+    "end": "2027-02-20",
+    "classes": [
+     "AD2"
+    ],
+    "cycles": [
+     "Grupo II"
+    ],
+    "end_by_season": {
+     "2018/19": "2019-02-20",
+     "2019/20": "2020-02-20",
+     "2020/21": "2021-02-20",
+     "2021/22": "2022-02-20",
+     "2022/23": "2023-02-20",
+     "2023/24": "2024-02-20"
+    }
+   },
+   "risk_band": {
+    "crop": "Milho 2ª Safra",
+    "by_class": {
+     "AD2": {
+      "ciclo": "Grupo I",
+      "risk": [
+       null,
+       null,
+       null,
+       null,
+       null,
+       null,
+       null,
+       null,
+       null,
+       null,
+       null,
+       null,
+       20,
+       30,
+       40,
+       null,
+       null,
+       20,
+       20,
+       null,
+       null,
+       null,
+       null,
+       null,
+       null,
+       null,
+       null,
+       null,
+       null,
+       null,
+       null,
+       null,
+       null,
+       null,
+       null,
+       null
+      ]
+     },
+     "AD5": {
+      "ciclo": "Grupo I",
+      "risk": [
+       null,
+       null,
+       null,
+       null,
+       null,
+       null,
+       null,
+       null,
+       null,
+       null,
+       null,
+       null,
+       20,
+       20,
+       20,
+       20,
+       40,
+       20,
+       20,
+       20,
+       20,
+       null,
+       null,
+       null,
+       null,
+       null,
+       null,
+       null,
+       null,
+       null,
+       null,
+       null,
+       null,
+       null,
+       null,
+       null
+      ]
+     }
+    },
+    "min": [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     20,
+     20,
+     20,
+     20,
+     30,
+     20,
+     20,
+     20,
+     20,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    "max": [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     30,
+     30,
+     40,
+     30,
+     40,
+     20,
+     20,
+     20,
+     20,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    "some_outside": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     true,
+     true,
+     true,
+     true,
+     true,
+     true,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ]
+   }
+  },
+  "S2": {
+   "crop": "Milho 2ª Safra consorciado com Braquiária",
+   "by_class": {
+    "AD5": {
+     "ciclo": "Grupo I",
+     "start": "2027-01-01",
+     "end": "2027-01-31",
+     "end_by_season": {
+      "2018/19": "2019-01-31",
+      "2019/20": "2020-01-31",
+      "2020/21": "2021-01-31",
+      "2021/22": "2022-01-31",
+      "2022/23": "2023-01-31",
+      "2023/24": "2024-01-31"
+     }
+    }
+   },
+   "any": {
+    "end": "2027-01-31",
+    "classes": [
+     "AD5"
+    ],
+    "cycles": [
+     "Grupo I"
+    ],
+    "end_by_season": {
+     "2018/19": "2019-01-31",
+     "2019/20": "2020-01-31",
+     "2020/21": "2021-01-31",
+     "2021/22": "2022-01-31",
+     "2022/23": "2023-01-31",
+     "2023/24": "2024-01-31"
+    }
+   },
+   "earliest": {
+    "end": "2027-01-31",
+    "classes": [
+     "AD5"
+    ],
+    "cycles": [
+     "Grupo I"
+    ],
+    "end_by_season": {
+     "2018/19": "2019-01-31",
+     "2019/20": "2020-01-31",
+     "2020/21": "2021-01-31",
+     "2021/22": "2022-01-31",
+     "2022/23": "2023-01-31",
+     "2023/24": "2024-01-31"
+    }
+   },
+   "risk_band": {
+    "crop": "Milho 2ª Safra consorciado com Braquiária",
+    "by_class": {
+     "AD5": {
+      "ciclo": "Grupo I",
+      "risk": [
+       null,
+       null,
+       null,
+       null,
+       null,
+       null,
+       null,
+       null,
+       null,
+       null,
+       null,
+       null,
+       30,
+       30,
+       30,
+       null,
+       null,
+       null,
+       null,
+       null,
+       null,
+       null,
+       null,
+       null,
+       null,
+       null,
+       null,
+       null,
+       null,
+       null,
+       null,
+       null,
+       null,
+       null,
+       null,
+       null
+      ]
+     }
+    },
+    "min": [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     30,
+     30,
+     30,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    "max": [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     30,
+     30,
+     30,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    "some_outside": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ]
+   }
+  }
+ },
+ "cases": [
+  {
+   "sid": "S1",
+   "soil_class": "unknown",
+   "ended_before": {
+    "state": "ok",
+    "k": 3,
+    "n": 5,
+    "basis": "for_any_soil_class",
+    "soil_class": "unknown"
+   },
+   "risk_at_exit": {
+    "state": "ok",
+    "n": 5,
+    "groups": [
+     {
+      "risk_min": 20,
+      "risk_max": 20,
+      "k": 1
+     },
+     {
+      "risk_min": 20,
+      "risk_max": 30,
+      "k": 2
+     },
+     {
+      "risk_min": 30,
+      "risk_max": 40,
+      "k": 1
+     },
+     {
+      "risk_min": null,
+      "risk_max": null,
+      "k": 1
+     }
+    ],
+    "some_outside": 3,
+    "basis": "for_any_soil_class",
+    "soil_class": "unknown"
+   }
+  },
+  {
+   "sid": "S1",
+   "soil_class": "AD1",
+   "ended_before": {
+    "state": "no_window",
+    "k": null,
+    "n": null,
+    "basis": "declared_class",
+    "soil_class": "AD1"
+   },
+   "risk_at_exit": {
+    "state": "no_window",
+    "n": null,
+    "groups": [],
+    "some_outside": null,
+    "basis": "declared_class",
+    "soil_class": "AD1"
+   }
+  },
+  {
+   "sid": "S1",
+   "soil_class": "AD2",
+   "ended_before": {
+    "state": "ok",
+    "k": 3,
+    "n": 5,
+    "basis": "declared_class",
+    "soil_class": "AD2"
+   },
+   "risk_at_exit": {
+    "state": "ok",
+    "n": 5,
+    "groups": [
+     {
+      "risk": 20,
+      "k": 1
+     },
+     {
+      "risk": null,
+      "k": 4
+     }
+    ],
+    "some_outside": null,
+    "basis": "declared_class",
+    "soil_class": "AD2"
+   }
+  },
+  {
+   "sid": "S1",
+   "soil_class": "AD3",
+   "ended_before": {
+    "state": "no_window",
+    "k": null,
+    "n": null,
+    "basis": "declared_class",
+    "soil_class": "AD3"
+   },
+   "risk_at_exit": {
+    "state": "no_window",
+    "n": null,
+    "groups": [],
+    "some_outside": null,
+    "basis": "declared_class",
+    "soil_class": "AD3"
+   }
+  },
+  {
+   "sid": "S1",
+   "soil_class": "AD4",
+   "ended_before": {
+    "state": "no_window",
+    "k": null,
+    "n": null,
+    "basis": "declared_class",
+    "soil_class": "AD4"
+   },
+   "risk_at_exit": {
+    "state": "no_window",
+    "n": null,
+    "groups": [],
+    "some_outside": null,
+    "basis": "declared_class",
+    "soil_class": "AD4"
+   }
+  },
+  {
+   "sid": "S1",
+   "soil_class": "AD5",
+   "ended_before": {
+    "state": "ok",
+    "k": 4,
+    "n": 5,
+    "basis": "declared_class",
+    "soil_class": "AD5"
+   },
+   "risk_at_exit": {
+    "state": "ok",
+    "n": 5,
+    "groups": [
+     {
+      "risk": 20,
+      "k": 3
+     },
+     {
+      "risk": 40,
+      "k": 1
+     },
+     {
+      "risk": null,
+      "k": 1
+     }
+    ],
+    "some_outside": null,
+    "basis": "declared_class",
+    "soil_class": "AD5"
+   }
+  },
+  {
+   "sid": "S1",
+   "soil_class": "AD6",
+   "ended_before": {
+    "state": "no_window",
+    "k": null,
+    "n": null,
+    "basis": "declared_class",
+    "soil_class": "AD6"
+   },
+   "risk_at_exit": {
+    "state": "no_window",
+    "n": null,
+    "groups": [],
+    "some_outside": null,
+    "basis": "declared_class",
+    "soil_class": "AD6"
+   }
+  },
+  {
+   "sid": "S2",
+   "soil_class": "unknown",
+   "ended_before": {
+    "state": "ok",
+    "k": 1,
+    "n": 5,
+    "basis": "for_any_soil_class",
+    "soil_class": "unknown"
+   },
+   "risk_at_exit": {
+    "state": "ok",
+    "n": 5,
+    "groups": [
+     {
+      "risk_min": 30,
+      "risk_max": 30,
+      "k": 1
+     },
+     {
+      "risk_min": null,
+      "risk_max": null,
+      "k": 4
+     }
+    ],
+    "some_outside": 0,
+    "basis": "for_any_soil_class",
+    "soil_class": "unknown"
+   }
+  },
+  {
+   "sid": "S2",
+   "soil_class": "AD1",
+   "ended_before": {
+    "state": "no_window",
+    "k": null,
+    "n": null,
+    "basis": "declared_class",
+    "soil_class": "AD1"
+   },
+   "risk_at_exit": {
+    "state": "no_window",
+    "n": null,
+    "groups": [],
+    "some_outside": null,
+    "basis": "declared_class",
+    "soil_class": "AD1"
+   }
+  },
+  {
+   "sid": "S2",
+   "soil_class": "AD2",
+   "ended_before": {
+    "state": "no_window",
+    "k": null,
+    "n": null,
+    "basis": "declared_class",
+    "soil_class": "AD2"
+   },
+   "risk_at_exit": {
+    "state": "no_window",
+    "n": null,
+    "groups": [],
+    "some_outside": null,
+    "basis": "declared_class",
+    "soil_class": "AD2"
+   }
+  },
+  {
+   "sid": "S2",
+   "soil_class": "AD3",
+   "ended_before": {
+    "state": "no_window",
+    "k": null,
+    "n": null,
+    "basis": "declared_class",
+    "soil_class": "AD3"
+   },
+   "risk_at_exit": {
+    "state": "no_window",
+    "n": null,
+    "groups": [],
+    "some_outside": null,
+    "basis": "declared_class",
+    "soil_class": "AD3"
+   }
+  },
+  {
+   "sid": "S2",
+   "soil_class": "AD4",
+   "ended_before": {
+    "state": "no_window",
+    "k": null,
+    "n": null,
+    "basis": "declared_class",
+    "soil_class": "AD4"
+   },
+   "risk_at_exit": {
+    "state": "no_window",
+    "n": null,
+    "groups": [],
+    "some_outside": null,
+    "basis": "declared_class",
+    "soil_class": "AD4"
+   }
+  },
+  {
+   "sid": "S2",
+   "soil_class": "AD5",
+   "ended_before": {
+    "state": "ok",
+    "k": 1,
+    "n": 5,
+    "basis": "declared_class",
+    "soil_class": "AD5"
+   },
+   "risk_at_exit": {
+    "state": "ok",
+    "n": 5,
+    "groups": [
+     {
+      "risk": 30,
+      "k": 1
+     },
+     {
+      "risk": null,
+      "k": 4
+     }
+    ],
+    "some_outside": null,
+    "basis": "declared_class",
+    "soil_class": "AD5"
+   }
+  },
+  {
+   "sid": "S2",
+   "soil_class": "AD6",
+   "ended_before": {
+    "state": "no_window",
+    "k": null,
+    "n": null,
+    "basis": "declared_class",
+    "soil_class": "AD6"
+   },
+   "risk_at_exit": {
+    "state": "no_window",
+    "n": null,
+    "groups": [],
+    "some_outside": null,
+    "basis": "declared_class",
+    "soil_class": "AD6"
+   }
+  }
+ ]
+}

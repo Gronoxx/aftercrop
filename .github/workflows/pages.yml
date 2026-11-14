@@ -1,0 +1,37 @@
+# Written with an SI tool (Claude, Anthropic) for NASA Space Apps 2026. See AI_USE.md.
+# Publish the static site (the site/ folder as it is in the commit) to GitHub Pages (plan P4).
+# No build runs here: site/data/ is committed after make piso and make assemble. Check the
+# published copy with: make verify-link URL=https://<owner>.github.io/<repository>/
+# Action majors as known when written: check them on the Marketplace before the first push.
+# upload-pages-artifact v4 leaves dotfiles out. Pages from Actions never runs Jekyll, so
+# site/.nojekyll only matters if Pages is switched to "deploy from a branch".
+name: pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: site
+      - id: deployment
+        uses: actions/deploy-pages@v4

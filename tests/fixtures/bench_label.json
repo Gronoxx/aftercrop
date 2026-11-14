@@ -1,0 +1,19 @@
+{
+  "_note": "Expected label for each outcome of the table in plan section 11.6 (and the label() of sheet M4). Statuses are synthetic.",
+  "n_required": 10,
+  "cases": [
+    {"name": "bench did not run", "t0": "not_run", "t1": "not_run", "p1": "not_run", "a1": "not_run", "n": 0, "label": "not_completed"},
+    {"name": "T0 infrastructure failure", "t0": "not_completed", "t1": "pass", "p1": "pass", "a1": "pass", "n": 10, "label": "not_completed"},
+    {"name": "T0 fails", "t0": "fail", "t1": "pass", "p1": "pass", "a1": "pass", "n": 10, "label": "model_not_validated_here"},
+    {"name": "T0 passes, 9 site-seasons", "t0": "pass", "t1": "pass", "p1": "pass", "a1": "pass", "n": 9, "label": "model_not_validated_here"},
+    {"name": "T0 exploratory", "t0": "exploratory", "t1": "exploratory", "p1": "pass", "a1": "pass", "n": 9, "label": "model_not_validated_here"},
+    {"name": "T1 not run with T0 passed", "t0": "pass", "t1": "not_run", "p1": "not_run", "a1": "not_run", "n": 10, "label": "not_completed"},
+    {"name": "T1 infrastructure failure with T0 passed", "t0": "pass", "t1": "not_completed", "p1": "pass", "a1": "pass", "n": 10, "label": "not_completed"},
+    {"name": "T0 passes, T1 fails", "t0": "pass", "t1": "fail", "p1": "pass", "a1": "pass", "n": 10, "label": "direction_not_validated"},
+    {"name": "P1 fails", "t0": "pass", "t1": "pass", "p1": "fail", "a1": "pass", "n": 10, "label": "direction_matched_mechanism_not_shown"},
+    {"name": "A1 fails", "t0": "pass", "t1": "pass", "p1": "pass", "a1": "fail", "n": 10, "label": "direction_matched_mechanism_not_shown"},
+    {"name": "P1 incomplete", "t0": "pass", "t1": "pass", "p1": "not_completed", "a1": "pass", "n": 10, "label": "direction_matched_mechanism_not_shown"},
+    {"name": "A1 not run", "t0": "pass", "t1": "pass", "p1": "pass", "a1": "not_run", "n": 10, "label": "direction_matched_mechanism_not_shown"},
+    {"name": "all four pass", "t0": "pass", "t1": "pass", "p1": "pass", "a1": "pass", "n": 10, "label": "direction_supported_exploratory"}
+  ]
+}

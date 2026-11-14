@@ -1,0 +1,115 @@
+{
+  "schema_version": "1",
+  "rights_note": "Example, fictitious. Steps of 1 bag/ha, not trial values.",
+  "reference": {
+    "season": "Example season",
+    "source": "Example document",
+    "ledger": "trials.reference"
+  },
+  "options": {
+    "S2": {
+      "n": 1,
+      "n_sites": 1,
+      "condition": "Example, fictitious condition",
+      "transfer_warning": "Example, fictitious.",
+      "steps": [],
+      "bad_year": {
+        "text": "Example, fictitious bad year.",
+        "ledger": "trials.S2.bad_year"
+      },
+      "summary": {
+        "season": "Example season",
+        "gain": {
+          "v": 5,
+          "l": "trials.S2.summary.gain"
+        },
+        "roots_pct": {
+          "v": 50,
+          "l": "trials.S2.summary.roots_pct"
+        },
+        "straw_pct": {
+          "v": 40,
+          "l": "trials.S2.summary.straw_pct"
+        },
+        "ledger": "trials.S2.summary"
+      },
+      "ledger": "trials.S2"
+    },
+    "S3": {
+      "n": 10,
+      "n_sites": 3,
+      "condition": "Example, fictitious condition",
+      "transfer_warning": "Example, fictitious.",
+      "steps": [
+        {
+          "g_sc_ha": 1,
+          "count": 9
+        },
+        {
+          "g_sc_ha": 2,
+          "count": 9
+        },
+        {
+          "g_sc_ha": 3,
+          "count": 7
+        },
+        {
+          "g_sc_ha": 4,
+          "count": 6
+        },
+        {
+          "g_sc_ha": 5,
+          "count": 4
+        },
+        {
+          "g_sc_ha": 6,
+          "count": 2
+        },
+        {
+          "g_sc_ha": 7,
+          "count": 0
+        }
+      ],
+      "bad_year": {
+        "text": "Example, fictitious bad year.",
+        "ledger": "trials.S3.bad_year"
+      },
+      "summary": {
+        "delta": {
+          "v": 150,
+          "l": "trials.S3.mean_delta"
+        },
+        "pos": {
+          "v": 9,
+          "l": "trials.S3.summary.pos"
+        },
+        "neg": {
+          "v": 1,
+          "l": "trials.S3.summary.neg"
+        },
+        "a": {
+          "v": 4.0,
+          "l": "trials.S3.summary.a"
+        },
+        "b": {
+          "v": 5.0,
+          "l": "trials.S3.summary.b"
+        },
+        "bags": {
+          "v": 2.5,
+          "l": "trials.S3.summary.bags"
+        },
+        "ledger": "trials.S3.summary"
+      },
+      "ledger": "trials.S3"
+    }
+  },
+  "money_refs": [
+    {
+      "id": "example_ref",
+      "text": "Example, fictitious money reference, with its loss year.",
+      "price_basis": "example, fictitious",
+      "ledger": "trials.money_refs.example_ref"
+    }
+  ]
+}

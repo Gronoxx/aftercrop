@@ -1,0 +1,28 @@
+{
+  "_note": "Example, fictitious. Synthetic chain outputs for tests only. Not engine output, not trial data.",
+  "gaps_mm": {
+    "S1 run 1": [0.0, 0.25, 1.0],
+    "S1 run 2": [0.0, 0.25, 1.0],
+    "S3 run 1": [0.1, 0.999, 0.5, 0.0],
+    "S3 run 2": [0.1, 0.999, 0.5, 0.0]
+  },
+  "run": {
+    "S1": {"2019/20": {"soy_kg_ha": 3210.5, "storage_mm": 412.25}, "2020/21": {"soy_kg_ha": 2980.0, "storage_mm": 398.0}},
+    "S3": {"2019/20": {"soy_kg_ha": 3305.25, "storage_mm": 405.5}, "2020/21": {"soy_kg_ha": 0.0, "storage_mm": 301.75}}
+  },
+  "seasons": [
+    {"arm": "S1", "season": "2019/20", "dry_yield_t_ha": 3.2105, "crop_dead": false, "days_to_emergence": 7},
+    {"arm": "S1", "season": "2020/21", "dry_yield_t_ha": 2.98, "crop_dead": false, "days_to_emergence": 9},
+    {"arm": "S3", "season": "2019/20", "dry_yield_t_ha": 3.30525, "crop_dead": false, "days_to_emergence": 8},
+    {"arm": "S3", "season": "2020/21", "dry_yield_t_ha": 0.0, "crop_dead": true, "days_to_emergence": null}
+  ],
+  "explanations": {
+    "S3|2020/21|zeroed_season": "dry topsoil at sowing, recorded in the diary (example)",
+    "S3|2020/21|dead_canopy": "same dry spell as the zeroed season (example)",
+    "S3|2020/21|days_to_emergence": "no germination on dry topsoil (example)"
+  },
+  "cn_rew": {
+    "computed": {"2019/20": 94.75, "2020/21": -2980.0},
+    "fixed_61_9": {"2019/20": 120.5, "2020/21": -2950.0}
+  }
+}

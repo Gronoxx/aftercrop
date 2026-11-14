@@ -1,0 +1,179 @@
+{
+  "_note": "Synthetic copy of the keys the bench reads from the protocol: block of config/region_norte_pr.yaml (seed, dates, trial_site_seasons, min_site_seasons_for_label, chains.artifact_checks, tests.L0 to tests.H2, r1). Values are the plan's (sections 11.2, 11.3 and 12.4); sites are synthetic. Like the real block, it holds no percentile level or method for N1 and R1: tests pass those as arguments.",
+  "protocol": {
+    "seed": 20261114,
+    "dates": {
+      "climate": [
+        "1984-01-01",
+        "2025-12-31"
+      ],
+      "p1_circular_years": [
+        1985,
+        2024
+      ],
+      "a2_common_period": [
+        "1998-01-01",
+        "2025-09-30"
+      ]
+    },
+    "trial_site_seasons": {
+      "synthetic_site_a": {
+        "seasons": [
+          "2001/02",
+          "2002/03",
+          "2003/04"
+        ]
+      },
+      "synthetic_site_b": {
+        "seasons": [
+          "1991/92",
+          "1992/93",
+          "1993/94",
+          "1994/95"
+        ]
+      },
+      "synthetic_site_c": {
+        "seasons": [
+          "2010/11",
+          "2011/12",
+          "2012/13"
+        ]
+      }
+    },
+    "min_site_seasons_for_label": 10,
+    "tests": {
+      "L0": {
+        "closure_mm_per_swap": 1.0,
+        "repeat": "exact",
+        "unexplained_artifacts": 0
+      },
+      "L1": {
+        "site": "synthetic_site_a",
+        "stations": [
+          "INMET",
+          "IDR-Parana"
+        ],
+        "rain_bias_max_pct_per_season": 10,
+        "temperature_bias_max_c": 1.0
+      },
+      "T0": {
+        "statistic": "kendall_s",
+        "s_total_min": 21,
+        "within_site_s_sum_gt": 0
+      },
+      "T1": {
+        "statistics": [
+          "kendall_s",
+          "rmse"
+        ],
+        "s_total_min": 21,
+        "rmse_lt": "in_sample_constant_rmse",
+        "rmse_constant_audit_kg_ha": 280
+      },
+      "P1": {
+        "B": 9,
+        "shifts_back_years": [
+          4,
+          8,
+          12,
+          16,
+          20,
+          24,
+          28,
+          32,
+          36
+        ],
+        "circular_years": [
+          1985,
+          2024
+        ],
+        "statistic": "kendall_s",
+        "alpha": 0.1,
+        "ties": "count_against",
+        "draws": "none"
+      },
+      "A1": {
+        "permutation": {
+          "kind": "paired_swap",
+          "patterns": 1024,
+          "exhaustive": true
+        },
+        "alpha": 0.1,
+        "ties": "count_against",
+        "draws": "none"
+      },
+      "A2": {
+        "threshold": "none",
+        "role": "reported_only"
+      },
+      "A3": {
+        "zero_changes": "context only"
+      },
+      "N1": {
+        "floor": "the larger of the 90th percentiles of field halves and of L30 against S30",
+        "unit": "days"
+      },
+      "H2": {
+        "threshold": "none",
+        "status": "not_run",
+        "reason": "not attempted, participant decision (SA-D56)",
+        "page": "says there was no local review"
+      }
+    },
+    "chains": {
+      "artifact_checks": [
+        "days_to_emergence",
+        "zeroed_season",
+        "dead_canopy"
+      ]
+    },
+    "r1": {
+      "runs_only_if": "T1 passes",
+      "members": 50,
+      "cut_to": 20,
+      "sampling": "latin_hypercube",
+      "distribution": "uniform",
+      "paired": true,
+      "ranges": {
+        "Zmax_m": [
+          0.4,
+          1.0
+        ],
+        "available_water": "neighbour class of the estimate, within AD1 to AD6",
+        "CCx": [
+          0.85,
+          0.99
+        ],
+        "senescence_pct_of_library": 10,
+        "HI0": {
+          "maize": [
+            0.4,
+            0.53
+          ],
+          "soybean_pct_of_library": 10,
+          "wheat_pct_of_library": 10
+        },
+        "WP_star_g_m2": {
+          "maize": [
+            26,
+            40
+          ],
+          "soybean_pct_of_library": 10,
+          "wheat_pct_of_library": 10
+        },
+        "sowing": {
+          "maize": "event interval (plan 12.3)",
+          "wheat": "April to the 2nd dekad of May"
+        }
+      },
+      "inversion_max": 0.2,
+      "equivalence_kg_ha": 166,
+      "L_kg_ha": "the larger of 166 and the T1 RMSE",
+      "states": {
+        "lower water risk in the model": "P10 > +L and inversion <= 20%",
+        "no water-related difference in the model": "P10 >= -166 and P90 <= +166",
+        "inconclusive": "everything else, including inversion above 20% or R1 not run"
+      }
+    }
+  }
+}

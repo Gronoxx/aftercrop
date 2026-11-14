@@ -1,0 +1,790 @@
+# Written with an SI tool (Claude, Anthropic) for NASA Space Apps 2026. See AI_USE.md.
+# Aftercrop screen copy, Portuguese (Brazil). Written with an AI assistant (AI_USE.md).
+#
+# Same keys and placeholders as copy_en.yaml (plan SA-D59). tests/test_copy.py checks both.
+# The printed agronomist sheet uses the sheet block of this file (sheet M8).
+#
+# House style: no em dash, no en dash and no semicolon in any string, and none of the
+# words of criterion M7.5.
+# Every string translates copy_en.yaml. Translations of wording the plan fixes in English
+# are not marked: review them as translations.
+# "drafted, review" marks the same keys as in copy_en.yaml, whose meaning the plan does not fix.
+# "plan PT" names the plan section whose Portuguese wording is used as written.
+# Field labels carry their article, because the sentence is "Precisamos saber {field}."
+
+meta:
+  lang: "pt-BR"
+  language_name: "Português"
+  switch_to: "English"                       # language button, shows the other language  # checked (SI)
+  switch_aria: "View this page in English"   # read in the other language  # checked (SI)
+  decimal_mark: ","                          # checked (SI)
+  thousands_mark: "."                        # checked (SI)
+  percent: "{v}%"                            # checked (SI)
+
+states:
+  keep: "Fique como está"                    # plan PT, section 3
+  try_strip: "Teste numa faixa aqui"
+  tied: "Empate"
+  not_enough: "Evidência insuficiente"
+  removed: "Não entra aqui"  # checked (SI)
+
+answers:
+  invalid_field: "Evidência insuficiente. Precisamos saber {field}."
+  pays_without_gain: "Teste numa faixa aqui. Com os seus números, {Option} se paga sem nenhum ganho na soja. Use faixas pareadas e repetidas."
+  few_trials: "Evidência insuficiente. Com os seus números, {Option} precisa de {G} sc/ha a mais de soja na próxima safra, e temos só {n} locais-safra de ensaio. A regra pede ao menos 5."
+  counts_try: "Teste numa faixa aqui. Com os seus números, {Option} precisa de {G} sc/ha a mais de soja na próxima safra. Os ensaios chegaram a isso em {N} de {n} locais-safra. Use faixas pareadas e repetidas."
+  counts_keep: "Fique como está. Com os seus números, {Option} precisa de {G} sc/ha a mais de soja na próxima safra. Os ensaios chegaram a isso em só {N} de {n} locais-safra."
+  counts_tied: "Empate. Com os seus números, {Option} precisa de {G} sc/ha a mais de soja na próxima safra. Os ensaios chegaram a isso em {N} de {n} locais-safra, o que não resolve a questão."
+  removed: "{Option} não entra aqui: {reason}."
+  window_outside: "Evidência insuficiente. A sua data de semeadura do milho está fora da janela do Zarc, então esta página não vai dizer fique como está."
+  need_sowing_date: "Evidência insuficiente. Precisamos saber a data de semeadura do milho."
+  out_of_range: "Evidência insuficiente. Estes números não dão um ponto de equilíbrio utilizável para {Option}."  # checked (SI)
+  evidence_unusable: "Evidência insuficiente. Não foi possível ler as contagens de ensaio de {Option}, então esta página não dá veredito."  # checked (SI)
+  window_unknown: "Evidência insuficiente. Não foi possível ler a janela do Zarc deste talhão, então esta página não dá veredito."  # checked (SI)
+  method_missing: "Evidência insuficiente. Não foi possível ler o modo de implantação de cada local-safra de {Option}, então esta página não dá veredito."  # checked (SI)
+  both_removed: "Fique como está. Milho com braquiária e trigo em parte da área não entram aqui, pelos motivos abaixo."  # checked (SI)
+  other_option: "Para {Option}, a resposta é: {state}."  # checked (SI)
+
+messages:
+  needSowingDate: "Evidência insuficiente. Precisamos saber a data de semeadura do milho."
+  windowOutside: "Evidência insuficiente. A sua data de semeadura do milho está fora da janela do Zarc, então esta página não vai dizer fique como está."
+
+fields:
+  p_soy: "o preço da soja"
+  p_corn: "o preço do milho"
+  p_wheat: "o preço líquido do trigo"
+  Y_corn: "a produtividade típica do milho"
+  Y_wheat: "a produtividade típica do trigo"
+  c_corn: "o custo do milho"
+  c_wheat: "o custo do trigo"
+  c_grass: "o custo da braquiária"
+  q: "o fator de qualidade do trigo"
+  sowing_date: "a data de semeadura do milho"
+
+flags:
+  window_warning: "Estimativa por satélite: o primeiro ciclo verde passou do fim da janela do Zarc para o milho em {k} de {n} safras."  # checked (SI)
+  date_in_charge: "A sua data manda neste talhão."
+  check_window_with_bank: "Confira com o seu banco a data de semeadura contra a janela do Zarc."
+  date_invalid: "Não foi possível ler esta data de semeadura. Digite de novo com dia, mês e ano."  # checked (SI)
+  zarc_window_unknown: "Não foi possível ler a janela do Zarc deste talhão. Confira com o seu banco."  # checked (SI)
+
+window:
+  at_the_edge: "Estimativa por satélite: o primeiro ciclo verde passou do fim da janela do Zarc para o milho em {k} de {n} safras. É menos do que a regra pede, então a leitura fica no limite."  # checked (SI)
+  outside_any_class: "Estimativa por satélite: o primeiro ciclo verde passou do fim da janela do Zarc para o milho, para qualquer classe de solo, em {k} de {n} safras."  # checked (SI)
+  at_the_edge_any_class: "Estimativa por satélite: o primeiro ciclo verde passou do fim da janela do Zarc para o milho, para qualquer classe de solo, em {k} de {n} safras. É menos do que a regra pede, então a leitura fica no limite."  # checked (SI)
+  any_class_note: "Sem laudo de solo: o fim de janela usado é o mais tardio entre todas as classes de solo e grupos de ciclo do Zarc no município."  # checked (SI)
+  no_window: "Não há janela do Zarc para o milho neste município, então o satélite não tem com o que ser comparado."  # checked (SI)
+  # SA-D72.3 e SA-D72.2: contagens do passado, nunca data de semeadura e nunca "dentro".
+  ended_before: "Estimativa por satélite: o primeiro ciclo verde terminou antes do fim da janela do Zarc para o milho em {k} de {n} safras."  # checked (SI)
+  ended_before_any_class: "Estimativa por satélite: o primeiro ciclo verde terminou antes do fim da janela do Zarc para o milho, na classe de solo e no ciclo cuja janela fecha mais cedo, em {k} de {n} safras."  # SA-D84  # checked (SI)
+  risk_at_exit:
+    line: "Estimativa por satélite: o primeiro ciclo verde terminou num decêndio que o Zarc classifica com risco de {r}% para {crop} em {k} de {n} safras."  # checked (SI)
+    line_any_class: "Estimativa por satélite: o primeiro ciclo verde terminou num decêndio que o Zarc classifica com risco de {rmin} a {rmax}% para {crop}, conforme a classe de solo, em {k} de {n} safras."  # checked (SI)
+    line_any_class_one: "Estimativa por satélite: o primeiro ciclo verde terminou num decêndio que o Zarc classifica com risco de {r}% para {crop} em qualquer classe de solo zoneada, em {k} de {n} safras."  # checked (SI)
+    outside: "Estimativa por satélite: o primeiro ciclo verde terminou num decêndio fora do zoneamento do Zarc para {crop} em {k} de {n} safras."  # checked (SI)
+    outside_any_class: "Estimativa por satélite: o primeiro ciclo verde terminou num decêndio fora do zoneamento do Zarc para {crop} em todas as classes de solo, em {k} de {n} safras."  # checked (SI)
+    # SA-D90
+    groups: "Estimativa por satélite: o primeiro ciclo verde terminou num decêndio cujo risco no Zarc para {crop} era de {parts}."  # drafted, review
+    groups_any_class: "Estimativa por satélite: o primeiro ciclo verde terminou num decêndio cujo risco no Zarc para {crop}, conforme a classe de solo, era de {parts}."  # drafted, review
+    part_one: "{r}% em {k} de {n} safras"  # drafted, review
+    part_range: "{rmin} a {rmax}% em {k} de {n} safras"  # drafted, review
+    parts_last: "{a} e {b}"  # drafted, review
+    part_outside: "fora do zoneamento em {k} de {n} safras"  # drafted, review
+    part_outside_any_class: "fora do zoneamento em todas as classes de solo em {k} de {n} safras"  # drafted, review
+  same_as_S1: "Mesma leitura de satélite que em {name}."  # SA-D90  # drafted, review
+  class_selector:
+    label: "Classe de solo do seu laudo"  # checked (SI)
+    unknown: "desconhecida"  # checked (SI)
+    hint: "A classe de solo do Zarc (AD1 a AD6) vem só de um laudo de solo, nunca do mapa global de solos."  # checked (SI)
+  soil_class_unknown: "A janela do Zarc ainda não pode ser associada a este solo. A classe de solo do Zarc (AD1 a AD6) não é derivada do mapa global de solos, então confira a janela com o seu banco."  # checked (SI)
+  states:
+    outside: "fora"
+    at_the_edge: "no limite"
+    no_data: "sem dado"
+    to_confirm: "a confirmar"
+
+s2_methods:
+  title: "Ensaios de milho com braquiária, por modo de implantação"  # checked (SI)
+  limit: "Dois modos de implantação e duas taxas de semeadura, uma só espécie de capim, semeada no dia da semeadura do milho."  # checked (SI)
+  line: "{method} ({sites}): {n} locais-safra"  # checked (SI)
+  line_counted: "{method} ({sites}): os ensaios chegaram a isso em {N} de {n} locais-safra"  # checked (SI)
+  names:
+    in_row_or_alternate_rows_2kg: "capim na linha do milho ou em linhas alternadas, 2 kg/ha"  # checked (SI)
+    broadcast_8_12kg: "capim a lanço, 8 a 12 kg/ha"  # checked (SI)
+
+risk:
+  simulated: "Simulado com o clima de 1984 a 2025: {N} de {M} safras (cerca de {K} em 10)"
+  power: "Reanálise POWER, célula regional, 1984 a 2025: {N} de {M} anos (cerca de {K} em 10)"
+  regional: "{N} de {M} anos, regional"
+  trials: "Os ensaios chegaram a isso em {N} de {n} locais-safra"
+  date_bar: "Última imagem limpa {d1}, próxima imagem limpa {d2}"
+  inside_model: "Só dentro do modelo"
+  climate_line: "Clima: Simulado com o clima de 1984 a 2025: {N} de {M} safras (cerca de {K} em 10)"
+  parameters: "Parâmetros: mesma direção em cerca de {K} em 10 variações do modelo. Isto não é chance de sucesso."
+  trials_line: "Ensaios: {label}"
+  icons_alt: "Simulado: {K} de 10 ícones preenchidos"  # checked (SI)
+
+seals:
+  names:
+    seen_by_satellite: "Visto por satélite"
+    estimated_from_satellite: "Estimado por satélite"
+    reanalysis: "Reanálise"
+    simulated: "Simulado"
+    measured_in_trials: "Medido em ensaio"
+    derived_from_trials: "Derivado de ensaios"
+    official_rule: "Regra oficial"
+    published_climatology: "Climatologia publicada"
+    your_numbers: "Os seus números"
+    unknown: "Desconhecido"
+  help:
+    seen_by_satellite: "Só reflectância e NDVI."  # plan PT 7.14  # checked (SI)
+    estimated_from_satellite: "Datas, ciclos verdes e chuva do IMERG, estimados por satélite."  # checked (SI)
+    reanalysis: "Clima da NASA POWER. Trechos do GEOS-IT ficam marcados como provisórios."  # checked (SI)
+    simulated: "Saída do modelo de culturas."  # checked (SI)
+    measured_in_trials: "Número publicado por um ensaio de campo."  # checked (SI)
+    derived_from_trials: "Cálculo da equipe sobre médias publicadas de ensaio."  # plan PT 7.14  # checked (SI)
+    official_rule: "Portaria ou Zarc."  # plan PT 7.14  # checked (SI)
+    published_climatology: "Climatologia publicada, como a do GloREDa, sem ano específico."  # plan PT 7.14  # checked (SI)
+    your_numbers: "Número que você digitou."  # checked (SI)
+    unknown: "Lacuna declarada."  # plan PT 7.14  # checked (SI)
+  provisional: "provisório"  # checked (SI)
+
+labels:
+  not_completed:
+    title: "Não concluído"
+    body: "A bancada de testes não terminou antes do congelamento. Nenhum resultado fica subentendido."
+  model_not_validated_here:
+    title: "Modelo não validado aqui"
+    body: "O modelo não passou na checagem contra os ensaios de campo. Os resultados da sequência de culturas ficam em Como sabemos. Esta página usa histórico de satélite, ensaios, regras e os seus números."
+  direction_not_validated:
+    title: "Direção não validada"
+    body: "O modelo passou na checagem de referência, mas não reproduziu a diferença entre trigo e milho como cultura anterior. Isso quer dizer não demonstrado, e não refutado. A água na semeadura é simulada, sem checagem independente."
+  direction_matched_mechanism_not_shown:
+    title: "Direção coincide, mecanismo não demonstrado"
+    body: "O modelo acompanhou os ensaios, mas não passou no teste do ano errado ou na rodada sem a água herdada da cultura anterior, ou um deles não terminou. Não podemos dizer que a água explica."
+  direction_supported_exploratory:
+    title: "Direção apoiada em 10 locais-safra de ensaio (exploratório, não cego)"
+    body: "O modelo acompanhou os ensaios e passou nos dois controles. Isso vale para trigo em parte da área, só nesta região. Não diz nada sobre quanto você ganharia."
+
+missing:
+  unknown: "Desconhecido"
+  no_data: "sem dado"
+  not_completed: "não concluído"
+  example_folder: "A pasta do exemplo não foi encontrada aqui. O exemplo fictício não faz parte do site publicado. Abra-o a partir de uma cópia do repositório."  # P4  # checked (SI)
+
+page:
+  title: "Aftercrop"
+  rehearsal_banner: "Ensaio geral: dados reais da NASA numa faixa de desenvolvimento, ensaios fictícios"  # SA-D63, run_mode rehearsal  # checked (SI)
+  tagline: "O Aftercrop ajuda o agricultor a decidir o que vem depois da soja num talhão, e avisa quando a evidência não basta."
+
+  header:
+    persona: "Talhão de exemplo, fazenda fictícia. O local é real, sem dados de proprietário."
+    region: "Primeira região com evidência: norte do Paraná, Brasil. O método pode ser avaliado em outros lugares, mas cada nova região precisa da sua própria evidência de ensaios de campo."
+    region_rule: "Sem ensaio de campo, sem veredito. A regra viaja. O veredito não."
+    trial_sites: "Ensaios de 3 locais: Londrina, Floresta e Cafelândia."
+    how_we_know: "Como sabemos"
+    field_name: "Talhão {X}"
+    field_picker: "Escolha um talhão"  # checked (SI)
+    map_alt: "Imagem de satélite HLS dos talhões de exemplo, com o contorno de cada um. Escolha um contorno para trocar o talhão."  # checked (SI)
+
+  question:
+    lead: "Antes de comprar semente e adubo da safrinha:"  # plan PT, section 3
+    main: "Neste talhão, depois desta soja, o que vem agora?"
+    options: "Mantenho o milho 2ª, adiciono braquiária ao milho ou testo trigo em parte da área?"  # plan PT, section 3
+
+  answer:
+    title: "Resposta"  # checked (SI)
+    example_prices: "preços de exemplo, talhão real"  # SA-D84  # checked (SI)
+    caption: "Contagens de ensaios de 3 locais, não a sua chance. Não é previsão para o seu talhão."
+    caption_sites: "Contagens de ensaios de {sites} locais, não a sua chance. Não é previsão para o seu talhão."  # checked (SI)
+    caption_one_site: "Contagens de ensaios de um local, não a sua chance. Não é previsão para o seu talhão."  # checked (SI)
+    per_hectare: "Todos os números são por hectare."
+    bag: "Saca = 60 kg."
+    which_field_first: "Em qual talhão primeiro: {line}"  # plan PT, section 3
+    nasa_line:  # SA-D78
+      hls: "NASA HLS, este talhão: o primeiro ciclo verde terminou antes do fim da janela do Zarc para o milho em {k} de {n} safras."  # SA-D84  # checked (SI)
+      power: "NASA POWER: noites abaixo de {t} °C em {k} de {n} safras de milho."  # checked (SI)
+    model_check: "Checagem do modelo de sequência de culturas (opção trigo, só água): {label}. A resposta acima não depende dela."
+    transfer_warning: "Estes ensaios vêm de 3 locais com argila acima de 750 g/kg. Confira se o seu solo é parecido."
+    use_with_care: "Use com cuidado"
+    use_with_care_note: "A argila que você declarou fica entre {low} e {high} g/kg. Os ensaios são em argila acima de 750 g/kg."  # checked (SI)
+    soil_out_of_domain: "Evidência insuficiente. O solo que você declarou tem argila abaixo de 350 g/kg, ou o talhão está em plantio convencional. Os ensaios são em plantio direto com argila acima de 750 g/kg."  # checked (SI)
+
+  field_order:
+    first: "Talhão {X} primeiro: a soja saiu dele mais tarde que do Talhão {Y} em {N} de {M} safras, a confirmar."
+    none: "Nenhum talhão se destaca, use o que você sabe."
+    one_field: "Só um talhão de exemplo está carregado, então não há ordem de talhões."
+
+  priority:
+    label: "Prioridade:"
+    income: "renda"
+    water: "água"
+    soil: "solo"
+    note: "A prioridade só destaca uma linha. Ela nunca muda a resposta."  # checked (SI)
+
+  strategies:
+    S1:
+      code: "S1"
+      name: "Manter o milho"
+      sub: "a sua rotação atual"
+      sequence: "Soja e depois milho 2ª, todo ano."  # checked (SI)
+    S2:
+      code: "S2"
+      name: "Milho com braquiária"
+      sub: "não simulado"
+      fixed: "Não simulado. O milho aparece como em S1 porque o ensaio registrou diferença muito pequena no milho."
+      sequence: "Soja e depois milho 2ª semeado com braquiária (Urochloa ruziziensis)."  # checked (SI)
+    S3:
+      code: "S3"
+      name: "Trigo em parte da área"
+      sub: "em até 50% da área"
+      sequence: "Soja, trigo, soja, em até 50% da área, sem repetir todo ano."  # plan PT 13.4  # checked (SI)
+      late_soy_gap: "Lacuna: a soja semeada depois do trigo vem mais tarde e pode encurtar a janela do milho do ano seguinte. Esse efeito não é calculado."  # plan PT 13.4  # checked (SI)
+
+  rows:
+    L1:
+      title: "Quando não há nada crescendo?"
+      S1: "Soja, milho 2ª e depois pousio. O vão vem depois do milho."  # plan PT 7.5, 13.6  # checked (SI)
+      S2: "Mesmo calendário, com o capim vivo depois do milho. O capim fecha o vão até a dessecação."  # plan PT 7.5, 13.6  # checked (SI)
+      S3: "Trigo semeado de abril ao 2º decêndio de maio. De fevereiro a abril fica o pousio declarado, com alerta de mato e palha fina de soja. O vão passa para o outono e não some."  # plan PT 7.5, 13.6  # checked (SI)
+      hls_note: "Os pontos de satélite ficam só atrás de S1, como fundo. Eles nunca servem para comparar."  # checked (SI)
+      no_green: "Sem verde visto em {N} de 36 decêndios (mediana de {S} safras). Os decêndios marcados sem dado não tiveram imagem limpa e não entram na conta."  # SA-D72.4  # checked (SI)
+    L2:
+      title: "O que pode dar errado?"
+      zarc_class: "Classe de risco do Zarc para {crop}: {class}"  # checked (SI)
+      soil_class_unknown: "ainda não pode ser associada a este solo"  # checked (SI)
+      any_class_range: "{a} a {b}% em qualquer classe de solo"  # SA-D72.6, sem laudo  # checked (SI)
+      any_class_one: "{a}% em qualquer classe de solo"  # SA-D72.6, sem laudo  # checked (SI)
+      class_not_zoned: "sem janela do Zarc para a classe de solo {class}"  # SA-D72.6  # checked (SI)
+      crops:
+        corn: "milho 2ª"  # checked (SI)
+        grass: "milho com braquiária"  # checked (SI)
+        wheat: "trigo"  # checked (SI)
+      wheat_zarc: "Zarc 2025/26, o último com trigo"
+      climate_frost: "Noites abaixo de {t} °C, de {start} a {end}: em {k} de {n} safras"  # SA-D72.5  # checked (SI)
+      climate_rain: "Chuva, de {start} a {end}: mediana de {median} mm. O décimo mais seco das safras teve {p10} mm ou menos."  # SA-D72.5  # checked (SI)
+      climate_driest: "Safras mais secas: {seasons}"  # SA-D72.5  # checked (SI)
+      climate_note: "NASA POWER, 1984 a 2025, nas datas de {crop} do Doc 476 da Embrapa. Contagem de safras passadas, não previsão."  # SA-D72.5  # checked (SI)
+      years: "Anos: {years}"  # checked (SI)
+      frost_alert: "Alerta de geada no espigamento do trigo. É um alerta regional pela temperatura mínima, não previsão para o talhão."  # checked (SI)
+      regional: "O clima é o mesmo para todos os talhões de uma célula, então esta linha não separa talhões."  # checked (SI)
+      filter: "Recontar só com os anos que você citar"  # checked (SI)
+      filter_note: "Isto reconta anos passados. Não prevê nada."  # checked (SI)
+    L3:
+      title: "O que os ensaios mediram?"
+      S1: "Referência. Ano ruim: {season} no {source}."  # plan PT 7.5  # checked (SI)
+      S2: "Medido: {gain} em {season}, num local."  # checked (SI)
+      S2_roots: "Num ensaio em Londrina, as raízes explicam {roots_pct}% do ganho e a palhada {straw_pct}%. Raízes não se veem da órbita, e o modelo não as carrega de uma cultura para a outra."  # checked (SI)
+      S2_model8: "O modelo 8 da Embrapa (braquiária, soja, milho, soja, milho, soja) pede abrir mão de um milho."  # checked (SI)
+      S2_oats: "Uma sequência mais longa, com aveia e nabo, fica só como citação."  # checked (SI)
+      S3: "{delta} kg/ha em média, cerca de {bags} sc/ha, em {n} locais-safra de 3 locais: {pos} positivos e {neg} negativos."  # checked (SI)
+      S3_compilation: "Um resumo expandido encontrou {a} e {b} em argila acima de 750 g/kg. Ele não conta como fonte independente."  # checked (SI)
+      S3_mp6: "O MP6 é trigo com trigo-mourisco, não esta sequência. O dinheiro dele não vira resultado de S3."  # plan PT 13.4  # checked (SI)
+    L4:
+      title: "Compensa?"
+      your_numbers: "Os seus números"
+      your_limits: "Os seus limites"
+      S1: "Referência: margem do milho de {M_corn} R$/ha."  # checked (SI)
+      S2: "Ponto de equilíbrio: custo da braquiária dividido pelo preço da soja, {G} sc/ha."  # checked (SI)
+      S3: "Ponto de equilíbrio: margem do milho menos margem do trigo, dividida pelo preço da soja, {G} sc/ha. A renda do trigo entra no mesmo ano."  # checked (SI)
+      loss_year: "O ano de perda fica sempre à vista."  # checked (SI)
+      nitrogen: "Exposição ao nitrogênio"  # plan PT 7.5  # checked (SI)
+      nitrogen_note: "Fica à parte. Não entra em G, porque o adubo já está nos seus custos de milho e de trigo."  # checked (SI)
+      urea_context: "Ureia em contexto, com data, nunca como premissa: {context}"  # checked (SI)
+    L5:
+      title: "Próxima soja aqui"
+      only_if_label: "só se o rótulo permitir"
+      reference: "Referência"  # checked (SI)
+      states:
+        lower_water_risk: "Próxima soja aqui: menor risco hídrico no modelo."
+        no_water_difference: "Próxima soja aqui: nenhuma diferença ligada à água no modelo."
+        inconclusive: "Próxima soja aqui: inconclusivo."
+      stable_note: "Estável no modelo não quer dizer que vai funcionar no seu talhão."
+    soil:
+      line: "Solo usado: {class}, estimado. Peça o seu laudo de solo."
+    erosivity:
+      line: "Erosividade da chuva nos dias sem verde: {class}"
+      classes:
+        reference: "referência"
+        lower: "menor"
+        similar: "parecida"
+        higher: "maior"
+    soil_note: "A rotação ajuda a segurar o solo. Ela não substitui terraços nem impede a enxurrada."
+
+  why:
+    button: "Por quê?"
+    items:
+      why_suggested: "Por que foi sugerida"
+      evidence: "Que evidência"
+      benefits: "Benefícios"
+      gaps: "Lacunas de informação"
+      risks: "Riscos para revisão local"
+    S1:
+      why_suggested: "É o que você faz hoje, e domina por motivos reais."  # plan PT 7.9  # checked (SI)
+      evidence: "Modelo 1 do Doc 398 e MP1 do Doc 476, da Embrapa."  # plan PT 7.9  # checked (SI)
+      benefits: "Renda conhecida."  # plan PT 7.9  # checked (SI)
+      gaps: "Efeito de longo prazo, sem número."  # plan PT 7.9  # checked (SI)
+      risks: "Cigarrinha, enfezamentos, geada."  # plan PT 7.9  # checked (SI)
+    S2:
+      why_suggested: "Mantém o milho e cobre o solo."  # plan PT 7.9  # checked (SI)
+      evidence: "Modelo 4 do Doc 398 e Doc 459, da Embrapa, e Zarc 344/2026, com 7 locais-safra."  # plan PT 7.9, SA-D68  # checked (SI)
+      benefits: "Ganho só como medido."  # plan PT 7.9  # checked (SI)
+      gaps: "Sem simulação, dois modos de implantação nos 7 locais-safra."  # plan PT 7.9, SA-D68  # checked (SI)
+      risks: "Pratylenchus, com laudo. Dessecação na hora certa."  # plan PT 7.9  # checked (SI)
+    S3:
+      why_suggested: "Muda a cultura antecessora da soja em parte da área."  # plan PT 7.9  # checked (SI)
+      evidence: "Doc 476 da Embrapa, compilação de 39 casos, 10 locais-safra."  # plan PT 7.9  # checked (SI)
+      benefits: "Renda do trigo no mesmo ano. Ganho na soja só como medido."  # plan PT 7.9  # checked (SI)
+      gaps: "Sem teste de trigo depois de soja tardia, 3 locais."  # plan PT 7.9  # checked (SI)
+      risks: "Doença de raiz, giberela, geada no espigamento, mofo-branco acima de 600 m."  # plan PT 7.9  # checked (SI)
+    nitrogen: "O nitrogênio aparece aqui só em palavras, nunca como número."  # checked (SI)
+    unaudited: "Brusone e chuva na colheita não foram auditadas. Elas ficam para revisão local."  # checked (SI)
+
+  year_strip:
+    title: "Faixa do ano"
+    sub: "De jan a dez, uma linha por estratégia, mesmo calendário"
+    footer: "O mesmo calendário nas três linhas. Os pontos são deste talhão, só como referência."
+    months: ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"]
+    marks:
+      sanitary_break: "Vazio sanitário"  # checked (SI)
+      soy_window: "Janela legal de semeadura da soja"  # checked (SI)
+      zarc_window: "Janela do Zarc"  # checked (SI)
+      vulnerable: "Meses de risco (L2)"  # checked (SI)
+    no_crop: "Sem cultura viva"  # checked (SI)
+    table_caption: "Faixa do ano em tabela, uma linha por estratégia, por decêndio"  # checked (SI)
+    crops:
+      soybean: "soja"  # checked (SI)
+      grass: "braquiária solteira"  # checked (SI)
+
+  ribbon:
+    title: "8 safras"
+    sub: "Este talhão, 36 decêndios por safra"
+    legend: "Sem verde não quer dizer solo nu. O NDVI não separa palha de solo."
+    cells:
+      green: "verde"
+      not_green: "sem verde"
+      no_data: "sem dado"
+      to_confirm: "a confirmar"
+    two_cycles: "segundo ciclo verde visto, só o primeiro é lido"  # checked (SI)
+    soy_exit: "Fim do primeiro ciclo verde, por safra"  # checked (SI)
+    open_series: "Escolha uma safra para ver a série de NDVI."  # checked (SI)
+    table_caption: "8 safras em tabela, uma linha por safra, por decêndio"  # checked (SI)
+    zarc_end: "Fim da janela do Zarc para o milho"  # checked (SI)
+    risk_band:                     # SA-D72.1, a faixa fina acima da fita
+      title: "Risco do Zarc para semear, por decêndio"  # checked (SI)
+      rows:
+        S1: "Zarc, milho"  # checked (SI)
+        S2: "Zarc, milho com braquiária"  # checked (SI)
+      outside: "fora do zoneamento"  # checked (SI)
+      range: "{a} a {b}%"  # checked (SI)
+      split: "metade de cima o maior, metade de baixo o menor risco"  # checked (SI)
+      partial: "fora do zoneamento para algumas classes de solo"  # checked (SI)
+      any: "Sem laudo de solo: o menor e o maior risco do Zarc entre todas as classes de solo e grupos de ciclo do município."  # checked (SI)
+      declared: "Classe de solo {class}, no grupo de ciclo cuja janela termina mais tarde."  # checked (SI)
+
+  nasa_switch:
+    title: "Interruptor NASA"
+    key: "HLS"
+    switch_on: "ligado"  # checked (SI)
+    switch_off: "desligado"  # checked (SI)
+    changed: "Desligar isto muda {X} de {Y} estados de talhão e opção."
+    short: "{X} de {Y} mudaram. Dependência, não acerto."
+    context_only: "só contexto"
+    legend: "Isto mostra o quanto a resposta depende do NASA HLS. Não mostra que a resposta está certa."
+    date_in_charge: "A sua data manda, então o aviso do satélite não muda a resposta neste talhão."
+    on_your_numbers: "Com os seus números."
+
+  actions:
+    sheet: "Levar ao meu agrônomo"
+    reset: "Voltar aos números de exemplo"  # checked (SI)
+
+  footer:
+    not_visible: "Não se vê da órbita: raízes, nitrogênio, nematoides, doença, produtividade"
+    supports: "Apoia, não substitui o julgamento local."
+    demo: "Demo de 30 segundos"  # SA-D95, link to demo.html  # checked (SI)
+
+  inputs:
+    title: "Os seus números"
+    example: "exemplo, fictício"
+    privacy: "Nada do que você digita sai deste navegador."  # checked (SI)
+    cost_kind: "Diga se cada custo é variável ou total."  # checked (SI)
+    p_soy:
+      label: "Preço da soja"  # checked (SI)
+      unit: "R$ por saca de 60 kg"  # checked (SI)
+    p_corn:
+      label: "Preço do milho"  # checked (SI)
+      unit: "R$ por saca de 60 kg"  # checked (SI)
+    p_wheat:
+      label: "Preço líquido do trigo, já com o desconto de qualidade"  # checked (SI)
+      unit: "R$ por saca de 60 kg"  # checked (SI)
+    Y_corn:
+      label: "Produtividade típica do milho neste talhão"  # checked (SI)
+      unit: "sc/ha"  # checked (SI)
+    Y_wheat:
+      label: "Produtividade típica do trigo neste talhão"  # checked (SI)
+      unit: "sc/ha"  # checked (SI)
+    c_corn:
+      label: "Custo do milho"  # checked (SI)
+      unit: "R$/ha"  # checked (SI)
+    c_wheat:
+      label: "Custo do trigo"  # checked (SI)
+      unit: "R$/ha"  # checked (SI)
+    c_grass:
+      label: "Custo da semente de braquiária e da dessecação"  # checked (SI)
+      unit: "R$/ha"  # checked (SI)
+    sowing_date:
+      label: "Data de semeadura do milho"  # checked (SI)
+      unit: "data"  # checked (SI)
+      note: "A sua data manda sobre o satélite."  # checked (SI)
+    urea_price:
+      label: "Preço da ureia"  # checked (SI)
+      unit: "R$ por tonelada"  # checked (SI)
+    n_dose:
+      label: "Dose de nitrogênio"  # checked (SI)
+      unit: "kg de N/ha"  # checked (SI)
+    scenarios:
+      title: "Três cenários de preço"  # checked (SI)
+      low: "Baixo"
+      base: "Base"
+      high: "Alto"
+      low_note: "Preço do milho {k} menor"  # checked (SI)
+      high_note: "Preço do milho {k} maior"  # checked (SI)
+      changes: "A resposta muda entre os cenários."  # checked (SI)
+      same: "A resposta é a mesma nos três cenários."  # checked (SI)
+
+  limits:
+    title: "Os seus limites"
+    intro: "Um limite real tira uma opção e diz por quê, ou vira item da folha do agrônomo."  # checked (SI)
+    answer_yes: "sim"  # checked (SI)
+    answer_no: "não"  # checked (SI)
+    no_narrow_row_seeder:
+      question: "Você tem semeadora com espaçamento estreito entre linhas para trigo?"  # checked (SI)
+      effect: "Sem ela, trigo em parte da área não entra."  # checked (SI)
+    no_grass_seeding:
+      question: "Como entraria a semente de braquiária?"  # checked (SI)
+      extra_box: "caixa extra na semeadora"  # checked (SI)
+      with_fertilizer: "junto com o adubo"  # checked (SI)
+      broadcast: "a lanço"  # checked (SI)
+      none: "nenhuma destas"  # checked (SI)
+      effect: "Sem caixa extra, adubo ou lanço, milho com braquiária não entra."  # checked (SI)
+    no_wheat_buyer:
+      question: "O seu armazém ou cooperativa recebe trigo?"  # checked (SI)
+      effect: "Sem quem receba o trigo, trigo em parte da área não entra."  # checked (SI)
+    rented_land:
+      question: "A terra é própria ou arrendada?"  # checked (SI)
+      own: "própria"  # checked (SI)
+      rented: "arrendada"  # checked (SI)
+      effect: "Isto vai para a folha do agrônomo."  # checked (SI)
+    zarc_insurance_credit:
+      question: "O seu seguro ou crédito exige o Zarc?"  # checked (SI)
+      effect: "Com seguro ou crédito ligado ao Zarc, a opção fora do Zarc não entra."  # checked (SI)
+    reasons:
+      no_narrow_row_seeder: "sem semeadora de linha estreita para trigo"  # checked (SI)
+      no_grass_seeding: "sem como semear a braquiária"  # checked (SI)
+      no_wheat_buyer: "sem armazém ou cooperativa que receba trigo"  # checked (SI)
+      zarc_consortium_window: "a sua data de semeadura fica fora da janela do Zarc para milho com braquiária, e o seu seguro ou crédito exige o Zarc"  # checked (SI)
+      soy_calendar_portaria_1579_2026: "desrespeita o vazio sanitário ou a janela legal de semeadura da soja"  # checked (SI)
+    soft:
+      wheat_max_half_area: "Trigo em no máximo 50% da área."  # checked (SI)
+      one_winter_without_wheat_or_barley: "Deixe um inverno sem trigo nem cevada antes de voltar ao trigo."  # checked (SI)
+      note: "É um aviso. Não tira a opção."  # checked (SI)
+
+howweknow:
+  title: "Como sabemos"
+  back: "Voltar à resposta"  # checked (SI)
+  current_label: "Rótulo atual: {label}"  # checked (SI)
+  supports: "O Aftercrop apoia, não substitui o julgamento local."
+  no_local_review: "Não houve revisão local. Nenhum agrônomo leu estes cartões antes da submissão."  # checked (SI)
+  water_note: "Água na semeadura: simulada, sem checagem independente."
+  sequence_results: "Resultados da sequência de culturas"  # checked (SI)
+  zarc_independence: "Referência pública: Zarc/MAPA, safra 2026/27. Esta ferramenta é independente: não foi avaliada pelo MAPA nem pela Embrapa, não define acesso a seguro ou crédito e não classifica nível de manejo."  # plan PT 7.12
+
+  scoreboard:
+    title: "Checagem exploratória contra ensaios"
+    intro: "Uma linha por teste, com a pergunta, a regra de aprovação e o resultado. Toda regra de aprovação é regra de projeto, fixada antes de qualquer resultado."  # checked (SI)
+    columns:
+      test: "Teste"  # checked (SI)
+      question: "Pergunta"  # checked (SI)
+      rule: "Regra de aprovação (regra de projeto)"  # checked (SI)
+      result: "Resultado"  # checked (SI)
+    status:
+      pass: "passou"
+      fail: "não passou"
+      not_run: "planejado, não rodou"
+      not_completed: "não concluído"
+      exploratory: "exploratório"
+      reported: "relatado"  # checked (SI)
+    status_line:                             # SA-D89
+      pass: "Passou."  # drafted, review
+      fail: "Não passou."  # drafted, review
+      not_run: "Planejado, não rodou."  # drafted, review
+      not_completed: "Não concluído."  # drafted, review
+      exploratory: "Exploratório."  # drafted, review
+      reported: "Relatado."  # drafted, review
+    lines:                                   # SA-D89
+      L0:
+        fail_artifacts: "O balanço de água fecha e as rodadas se repetem iguais, mas {u} de {a} saídas estranhas do modelo, como uma cultura morta, ficam sem explicação. Para passar, no máximo {max}."  # drafted, review
+      L1:
+        not_run: "Nenhum arquivo de estação meteorológica foi preparado para o evento."  # drafted, review
+      T0:
+        any: "S de Kendall {s}, para passar precisa de {s_min}."  # drafted, review
+      T1:
+        any: "S de Kendall {s}, para passar precisa de {s_min}. RMSE de {rmse} kg/ha, uma constante dá {constant}."  # drafted, review
+      P1:
+        any: "Com o clima de anos errados, o S ficou pelo menos tão alto em {t0_k} de {shifts} deslocamentos no T0 e em {t1_k} de {shifts} no T1. Para passar, no máximo {max}."  # drafted, review
+      A1:
+        fail_paired: "Com e sem a água passada de uma cultura para a outra, S {with} contra {without}, mas o teste pareado do protocolo não passou."  # drafted, review
+        any: "Com e sem a água passada de uma cultura para a outra, S {with} contra {without}."  # drafted, review
+      A2:
+        not_run: "A contagem que ele conferia saiu, e as linhas de chuva não são comparadas com o IMERG no evento."  # drafted, review
+      A3:
+        any: "{k} de {n} estados de talhão e opção mudam sem o NASA HLS."  # drafted, review
+      N1:
+        any: "Piso de ruído de {floor} dias."  # drafted, review
+      H1:
+        not_run: "Nenhuma sessão com leitores aconteceu."  # drafted, review
+      H2:
+        not_run: "Não foi tentado, por decisão do participante, então não houve revisão local."  # drafted, review
+      R1:
+        not_run: "O motor não tem caminho para ele no evento, e ele só roda se o T1 passar."  # drafted, review
+      context_only: "Só contexto."  # drafted, review
+    raw: "Valores gravados"  # drafted, review
+    raw_rule: "Regra como gravada: {raw}"  # drafted, review
+    raw_result: "Resultado como gravado: {raw}"  # drafted, review
+    rules:                                   # SA-D89
+      L0: "O balanço de água fecha dentro de {c} mm em cada troca de cultura, duas rodadas se repetem iguais, e no máximo {max} saídas estranhas do modelo ficam sem explicação."  # drafted, review
+      L1: "Chuva a até {r}% das estações por safra, temperatura a até {c} °C."  # drafted, review
+      T0: "S de Kendall de pelo menos {s}, e a soma dos S dentro de cada local acima de {w}."  # drafted, review
+      T1: "S de Kendall de pelo menos {s}, e um RMSE abaixo do de uma constante, {c} kg/ha."  # drafted, review
+      P1_none: "Em nenhum dos {shifts} deslocamentos para anos errados o S fica pelo menos tão alto quanto com os anos certos."  # drafted, review
+      P1_some: "Em no máximo {max} dos {shifts} deslocamentos para anos errados o S fica pelo menos tão alto quanto com os anos certos."  # drafted, review
+      A1: "S com a água passada de uma cultura para a outra menos S sem ela acima de {d}, e o teste exaustivo de trocas pareadas do protocolo."  # drafted, review
+      L0_none: "O balanço de água fecha dentro de {c} mm em cada troca de cultura, duas rodadas se repetem iguais, e toda saída estranha do modelo tem explicação."  # drafted, review
+      A1_zero: "S com a água passada de uma cultura para a outra acima do S sem ela, e o teste exaustivo de trocas pareadas do protocolo."  # drafted, review
+      none_plain: "Sem regra de aprovação."  # drafted, review
+      A3: "Sem regra de aprovação. Se nenhum estado muda, o NASA HLS é só contexto."  # drafted, review
+      R1: "Roda só se o T1 passar. A direção se mantém com inversões até {inv}% e margem de equivalência de {eq} kg/ha."  # drafted, review
+      none: "Sem regra de aprovação. Relatado como está, nunca como aprovado."  # drafted, review
+    tests:
+      L0: "O balanço de água fecha em cada troca de cultura, e uma rodada se repete igual?"  # checked (SI)
+      L1: "A NASA POWER e o IMERG batem com as estações meteorológicas de Londrina?"  # checked (SI)
+      T0: "O modelo acompanha a produtividade publicada da soja depois do milho 2ª nos 10 locais-safra de ensaio?"  # checked (SI)
+      T1: "O modelo reproduz a diferença da soja depois do trigo contra depois do milho?"  # checked (SI)
+      P1: "O clima do ano certo se sai melhor que o clima de anos errados?"  # checked (SI)
+      A1: "O resultado depende da água que fica da cultura anterior?"  # checked (SI)
+      A2: "As contagens de L2 se mantêm com a chuva do IMERG no lugar da chuva da POWER?"  # checked (SI)
+      A3: "Quantos estados de talhão e opção mudam sem o NASA HLS?"  # checked (SI)
+      N1: "Qual é a menor diferença em dias que fica acima do ruído?"  # checked (SI)
+      H1: "Pessoas que não viram a página conseguem explicá-la depois de 3 minutos?"  # checked (SI)
+      H2: "Um agrônomo local leu os cartões?"  # checked (SI)
+      R1: "A direção se mantém quando parâmetros incertos do modelo variam?"  # checked (SI)
+    s_by_site: "S de Kendall dentro de cada local: Londrina {londrina}, Floresta {floresta}, Cafelândia {cafelandia}"  # checked (SI)
+    t1_failed_on:
+      order: "T1 não passou na ordem (S)."  # checked (SI)
+      size: "T1 não passou no tamanho (RMSE)."  # checked (SI)
+      both: "T1 não passou na ordem (S) nem no tamanho (RMSE)."  # checked (SI)
+    always_positive: "Uma regra que sempre diz que o trigo ajuda já acerta o sinal em 8 locais-safra e erra em 2."  # checked (SI)
+    rights: "Até os direitos da Embrapa serem esclarecidos, esta página mostra contagens e medidas agregadas, não os 10 valores dos ensaios."  # checked (SI)
+    chart: "Onde fica o ano real entre os anos errados"  # checked (SI)
+    fail_means: "Não passar quer dizer não demonstrado, nunca refutado. O ganho pode estar nas raízes, na palhada ou em doença, fora do modelo."  # checked (SI)
+    not_completed: "Se a bancada não terminar até a parada final, o placar diz não concluído."
+
+  sensitivity:                               # SA-D77, site/data/sensitivity.json, preenchido por site/js/sensitivity.mjs
+    title: "Sensibilidade do solo depois do congelamento"  # checked (SI)
+    cause: "O teste congelado usou a argila impressa nos relatórios dos ensaios (77 a 78% em dois locais). A fórmula de textura do motor foi ajustada em solos com até cerca de 60% de argila (Saxton e Rawls 2006). Para estes solos ela dá de metade a três quartos da água disponível que dá à textura do SoilGrids nos mesmos pontos, por isso as culturas simuladas morreram em muitas safras."  # SA-D83  # checked (SI)
+    result: "Rodada uma vez com a textura do solo do SoilGrids nos pontos dos ensaios, todo o resto igual. O rótulo desta rodada continua {label}, porque o L0 confere as cadeias dos talhões, que esta rodada não muda (L0 {l0}). O que a rodada acrescenta: T0 {t0} (S {t0_s}), T1 {t1} (S {t1_s}, RMSE {t1_rmse} kg/ha contra {t1_constant} kg/ha de uma constante), P1 {p1}, A1 {a1} (D {a1_d}). Safras com produção simulada zero: {zero}."  # checked (SI)
+    zero_site: "{site} {k} de {n} (rodada congelada: {k_frozen})"  # checked (SI)
+    unchanged: "O rótulo acima fica como foi congelado. Esta rodada foi decidida depois do congelamento e não o muda."  # checked (SI)
+
+  ablation:
+    title: "O que muda sem o NASA HLS"  # checked (SI)
+    body: "Sem o NASA HLS, {S} de {Y} estados mudam entre os talhões, as opções e os cenários de preço. Uma fonte que não muda nada é marcada como só contexto."  # escopo corrigido
+    measured_on: "Contado no exemplo fictício, nos três cenários de preço."  # checked (SI)
+    power_note: "A NASA POWER não tem interruptor, porque alimenta o modelo de culturas e as contagens de L2. O peso dela aparece no teste do ano errado (P1)."  # checked (SI)
+    rain_check: "Checagem da chuva (A2): as contagens de L2 com a chuva do IMERG no lugar da chuva da POWER, de 1998 a setembro de 2025, no mesmo período para as duas."  # checked (SI)
+
+  switch_placement:                          # SA-D66
+    on_main: "Nos talhões mostrados, desligar o NASA HLS muda {X} de {Y} estados de talhão e opção. O protocolo põe o interruptor na página principal só quando ele muda ao menos {min} deles, por isso ele está lá."  # checked (SI)
+    here: "Nos talhões mostrados, desligar o NASA HLS muda {X} de {Y} estados de talhão e opção. O protocolo põe o interruptor na página principal só quando ele muda ao menos {min} deles, por isso ele fica aqui."  # checked (SI)
+    no_rule: "A regra do protocolo para o interruptor NASA não pôde ser lida, por isso o interruptor fica aqui."  # checked (SI)
+
+  levels:                                    # SA-D66
+    title: "O que está conferido, e o que não está"  # checked (SI)
+    intro: "Quatro níveis, lidos dos arquivos que esta página carrega."  # checked (SI)
+    verified:
+      title: "Verificado internamente"  # checked (SI)
+      ledger: "Todo número destas páginas tem um registro de evidência, e a montagem do site confere cada um contra o seu registro."  # checked (SI)
+      l0: "O balanço de água do modelo de culturas fecha em cada troca de cultura, e uma rodada se repete exatamente (L0)."  # checked (SI)
+      tests: "Testes automáticos conferem que o código concorda consigo mesmo e com o protocolo. O README dá a contagem deles. Eles conferem o código, não o modelo, e não mostram que a resposta está certa."  # checked (SI)
+    obtained:
+      title: "Dados obtidos"  # checked (SI)
+    not_executed:
+      title: "Ainda não executado"  # checked (SI)
+      fields: "Séries de satélite nos talhões reais"  # checked (SI)
+      chains: "Cadeias do modelo de culturas nos locais dos ensaios ({ids})"  # checked (SI)
+      bench: "Testes da bancada ({ids})"  # checked (SI)
+      none: "Todo teste planejado já rodou."  # checked (SI)
+    not_demonstrated:
+      title: "Ainda não demonstrado"  # checked (SI)
+      items:
+        - "Capacidade de prever: nada aqui mostra que a resposta prevê o que um talhão vai produzir."  # checked (SI)
+        - "Alcance fora dos locais dos ensaios: três locais em solo muito argiloso, em testes exploratórios e não cegos."  # checked (SI)
+
+  station:
+    title: "Satélite contra estação"  # plan PT 7.10  # checked (SI)
+    body: "Chuva e temperatura da NASA POWER e do IMERG contra estações do INMET e do IDR-Paraná em Londrina, com o viés de cada uma. Uma série fora dos limites do protocolo ganha rótulo, e nunca é corrigida em silêncio. Este é o teste L1, e a situação dele está no placar."  # checked (SI)
+
+  scale:
+    title: "Escada de escala"  # plan PT 7.10  # checked (SI)
+    body: "Um talhão de {area} ha contra as células dos dados."  # checked (SI)
+    row: "{source}: uma célula cobre cerca de {count} talhões deste tamanho."  # checked (SI)
+    same_cell: "Um valor só da POWER é o mesmo para todos os talhões da mesma célula."  # checked (SI)
+
+  ground:
+    title: "Satélite contra medida no chão"  # plan PT 7.10  # checked (SI)
+    body: "Uma parcela de ensaio de 40 a 240 m² é menor que um pixel HLS de 900 m². O satélite vê o talhão, e o ensaio vê a parcela."  # checked (SI)
+    first_cycle: "O aviso da janela usa o fim do primeiro ciclo verde de cada safra como indicador da fase da soja. Ele nunca classifica a cultura. O segundo ciclo, em geral o milho safrinha, continua visível na fita das 8 safras e nunca confirma que o primeiro foi soja. Os limiares são regras do projeto, ainda não testadas com o HLS aqui (PROTOCOL.md, seção 15, D12)."  # D12  # checked (SI)
+
+  crop_roles:
+    title: "O papel de cada tipo de cultura"  # plan PT 7.10  # checked (SI)
+    nitrogen_fixers:
+      name: "Fixadoras de nitrogênio"
+      text: "A soja não deixa muito nitrogênio no solo. A cultura seguinte ganha mais por ter menos nitrogênio imobilizado. Adubos verdes são outro caso."
+    cover_crops:
+      name: "Plantas de cobertura"
+      text: "Protegem o solo entre as culturas. A entrada de água subiu 34,8% em média em estudos de outros lugares. As perenes mostraram 59,2%."
+    deep_roots:
+      name: "Raízes profundas"
+      text: "As raízes abrem canais e alcançam a água guardada. Mostramos só resultados de ensaio, porque o modelo não carrega raízes de uma cultura para a outra."
+    drought_tolerant:
+      name: "Tolerantes à seca"
+      text: "O sorgo é muito citado. Nenhum efeito regional de rotação foi confirmado, então ele não é opção aqui."
+
+  licenses:
+    title: "Licenças"
+    body: "Cada fonte, a versão, a licença e a data de leitura estão no manifesto. Citar uma fonte nunca sugere que o dono dela endossa esta ferramenta."  # checked (SI)
+
+  limits:
+    title: "Limites"
+    declared:                                # plan PT 11.8, items as in PROTOCOL.md 14 (without item 7)
+      - "O teste não é cego. Os valores observados foram lidos na auditoria."
+      - "Exploratório. Contraste e limiares vêm dos mesmos 10 valores."
+      - "10 locais-safra de 3 locais, não independentes."
+      - "O motor só enxerga água. O trigo pode secar o perfil e o milho pode sair cedo. A água sozinha pode dar sinal nulo ou contrário."
+      - "O que se testa não é o que vai à tela. T1 usa parcelas, datas publicadas e sistemas mantidos. O talhão usa datas estimadas, SoilGrids e uma troca única."
+      - "Os ensaios estão acima de 750 g/kg de argila, em plantio direto. Um solo diferente dispara aviso."
+      - "A ablação mede dependência, não acerto."
+      - "T1 testa só S3 contra S1. S2, L2, a classe de erosividade e os cortes 0,7 e 0,3 não têm teste externo."
+      - "Nenhum agricultor real terá usado a ferramenta até a submissão."
+    not_used_title: "O que não usamos e por quê"
+    not_used:
+      - "Estatística municipal de safra (PAM do IBGE): a unidade é o município, e ela não registra a cultura anterior."  # checked (SI)
+      - "Acompanhamento subjetivo de fases (Deral): o erro não pode ser medido, então não é verdade de talhão."  # checked (SI)
+      - "Verdade de campo para as datas do satélite: não há para estes talhões. N1 mede repetibilidade, não acerto."  # checked (SI)
+      - "Gerador de sequências: ele produziria sequências sem ensaio, e a regra que viaja é sem ensaio, sem veredito."  # checked (SI)
+      - "Cevada e caupi: as perdas nos ensaios vieram de doença ou de causa não determinada. Sorgo: nenhum efeito regional confirmado. Perenes: o modelo não as simula."  # checked (SI)
+      - "Aprendizado de máquina e modelos de linguagem no produto: não há alvo independente para aprender."  # checked (SI)
+      - "Par de produtividade e preço do mesmo ano: não foi mostrado que a anomalia simulada acompanha a real."  # checked (SI)
+
+  protocol:
+    title: "Protocolo, fixado antes de qualquer resultado"  # checked (SI)
+    intro: "O protocolo (protocol-v1) fixa testes, limiares, rótulos e regra de decisão antes de qualquer simulação. O código calcula o rótulo. Ninguém o redige."  # checked (SI)
+    public_note: "O repositório público traz só a versão final. A ordem entre protocolo e resultados não pode ser conferida por ele."  # SA-D101, drafted, review
+    declarations:                            # plan PT 11.1
+      - "Os valores observados já foram lidos."
+      - "O teste não é cego."
+      - "O teste é exploratório, com regra fixa."
+      - "O contraste e os limiares vêm dos mesmos 10 valores."
+      - "Só ciclo e datas são ajustados."
+      - "Tudo é publicado, inclusive as falhas."
+    link: "Ler o protocolo completo"  # checked (SI)
+
+  region:
+    title: "Por que uma região"
+    intro: "Cada nova região entra com os próprios ensaios. Onde não há ensaio público, ensaios em fazenda da mesma região podem cobrir a lacuna."  # plan PT 5.6  # checked (SI)
+    pack_title: "Pacote Regional"  # checked (SI)
+    pack:                                    # plan PT 5.6
+      decision: "1. Decisão recorrente: escolha anual, com prazo e talhão"  # checked (SI)
+      strategies: "2. Estratégias: ao menos três, com fonte, incluindo a atual"  # checked (SI)
+      calendar: "3. Calendário oficial"  # checked (SI)
+      trials: "4. Ensaios: conjunto público de ensaios replicados que teste a diferença"  # checked (SI)
+      reviewer: "5. Revisor local: agrônomo ou técnico que leia os cartões"  # checked (SI)
+    pack_ready: "pronto"  # checked (SI)
+    pack_missing: "falta"  # checked (SI)
+    next: "Próxima região candidata: Iowa, onde existe ensaio replicado de rotação, mas nenhum pacote regional foi montado ainda."
+    label_scope: "O rótulo vale sempre para uma região, nunca para o mundo."  # checked (SI)
+
+glossary:
+  title: "Glossário"
+  hint: "Toque num termo para ver o que ele quer dizer."  # checked (SI)
+  terms:
+    ndvi:
+      term: "NDVI"
+      definition: "Índice de verde calculado com luz vermelha e infravermelho próximo. Valores baixos não dizem se o chão está descoberto ou sob palha."
+    evapotranspiration:
+      term: "Evapotranspiração"
+      definition: "Água que sai do talhão como vapor, pelo solo e pelas plantas."
+    soil_moisture_anomaly:
+      term: "Anomalia de umidade do solo"
+      definition: "O quanto o solo está mais úmido ou mais seco que o normal para a época. Valores de satélite cobrem cerca dos 5 cm de cima, em dezenas de quilômetros."
+    frost_risk:
+      term: "Risco de geada"
+      definition: "Chance de frio que prejudica a cultura. Aqui é um alerta regional pela temperatura mínima, não previsão para o talhão."
+    water_balance:
+      term: "Balanço hídrico"
+      definition: "Chuva e água guardada que entram, menos enxurrada, drenagem, evaporação e uso pelas plantas."
+    site_season:
+      term: "Local-safra de ensaio"  # checked (SI)
+      definition: "Um local de ensaio numa safra. Os 10 locais-safra vêm de 3 locais, então não são independentes."  # checked (SI)
+    zarc:
+      term: "Zarc"  # checked (SI)
+      definition: "Zoneamento Agrícola de Risco Climático do Ministério da Agricultura (MAPA). Define as janelas de semeadura ligadas a seguro e crédito rural."  # checked (SI)
+    dekad:
+      term: "Decêndio"  # checked (SI)
+      definition: "Período de cerca de dez dias. Cada mês tem três: dias 1 a 10, 11 a 20 e 21 ao fim do mês."  # checked (SI)
+    bag:
+      term: "Saca"  # checked (SI)
+      definition: "60 kg de grão, a unidade usada no Brasil para preço e produtividade."  # checked (SI)
+
+# Folha do agrônomo (7.12), impressa em A4. Texto do plano com os acentos restaurados.
+# Os marcadores do plano ({opcao}, {janela} e outros) viraram os mesmos nomes do inglês.
+sheet:
+  title: "AFTERCROP, FOLHA PARA O AGRÔNOMO"  # plan PT 7.12
+  fictitious: "exemplo fictício"  # plan PT 7.12
+  field: "Talhão {X}"  # plan PT 7.12
+  region: "Região: norte do Paraná"  # plan PT 7.12
+  generated: "Gerada em {date}"  # plan PT 7.12
+  items:                                     # plan PT 7.12, in print order. satellite is the second line of item 2
+    option: "Opção para revisar: {option} ({state})"
+    window: "Janela do Zarc: {window}. Data declarada: {sowing_date}"
+    satellite: "Satélite: o primeiro ciclo verde passou da janela em {k} de {n} safras"  # SA-D62
+    assumptions: "Premissas: preços, custos, G em sc/ha e sc/alqueire (1 alqueire = 2,42 ha)"
+    evidence: "Evidência: {N} de {n} locais-safra, {sites} locais, contagem, não chance"  # {sites} filled by sheet.mjs
+    unknowns: "O que a ferramenta não sabe: raízes, nitrogênio, nematoides, doença"
+    local_review: "Revisão local: {alerts}, laudo de solo, terraço"
+    strip_test: "Teste em faixas pareadas e repetidas: {area}, pares a definir aqui"
+  date_missing: "falta"  # plan PT 7.12, "{sua data ou falta}"
+  g_line: "G: {G_ha} sc/ha, ou {G_alq} sc/alqueire"  # checked (SI)
+  window_range: "{start} a {end}"  # checked (SI)
+  date_format: "{day}/{month}/{year}"  # every date on the sheet, dd/mm/aaaa as in plan PT 7.12. P2.3
+  months: ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]  # month as two digits. P2.3
+  window_soil_unknown: "ainda não associada a este solo (classe de solo do Zarc não derivada)"  # checked (SI)
+  area: "{area} ha"  # checked (SI)
+  single_strip: "Faixa única não estima efeito. Esta folha apoia, não substitui o julgamento local."  # plan PT 7.12
+  strip_design: "O desenho das faixas é do agrônomo: número de pares e largura não têm fonte auditada."  # plan PT 7.12
+  independence: "Referência pública: Zarc/MAPA, safra 2026/27. Esta ferramenta é independente: não foi avaliada pelo MAPA nem pela Embrapa, não define acesso a seguro ou crédito e não classifica nível de manejo."  # plan PT 7.12
+  no_local_review: "Não houve revisão local. Nenhum agrônomo revisou esta ferramenta antes da submissão."  # M8.5  # checked (SI)
+  unaudited: "Brusone e chuva na colheita: não auditadas, ficam para revisão local."  # M8.4  # checked (SI)
+  alerts:                                    # plan PT 7.12
+    pratylenchus: "Pratylenchus na braquiária"
+    wheat_root_disease: "doença de raiz no trigo repetido"
+    white_mold: "mofo-branco acima de 600 m"
+    leafhopper_stunting: "cigarrinha e enfezamentos"
+    frost_at_heading: "geada no espigamento"
+    gibberella: "giberela"
+    blast_and_harvest_rain: "brusone e chuva na colheita"
+  print: "Imprimir"  # checked (SI)
+
+ledger:
+  title: "Registro de evidência"  # checked (SI)
+  close: "Fechar"  # checked (SI)

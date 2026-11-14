@@ -1,0 +1,256 @@
+{
+  "label": "example, fictitious",
+  "decision_module": "site/js/decision.mjs",
+  "states": [
+    {
+      "field_id": "a",
+      "scenario": "example_low",
+      "option": "S2",
+      "hls_on": {
+        "state": "not_enough",
+        "code": "few_trials"
+      },
+      "hls_off": {
+        "state": "not_enough",
+        "code": "few_trials"
+      },
+      "changed": false
+    },
+    {
+      "field_id": "a",
+      "scenario": "example_low",
+      "option": "S3",
+      "hls_on": {
+        "state": "try_strip",
+        "code": "pays_without_gain"
+      },
+      "hls_off": {
+        "state": "try_strip",
+        "code": "pays_without_gain"
+      },
+      "changed": false
+    },
+    {
+      "field_id": "a",
+      "scenario": "example_mid",
+      "option": "S2",
+      "hls_on": {
+        "state": "not_enough",
+        "code": "few_trials"
+      },
+      "hls_off": {
+        "state": "not_enough",
+        "code": "few_trials"
+      },
+      "changed": false
+    },
+    {
+      "field_id": "a",
+      "scenario": "example_mid",
+      "option": "S3",
+      "hls_on": {
+        "state": "tied",
+        "code": "counts_tied"
+      },
+      "hls_off": {
+        "state": "tied",
+        "code": "counts_tied"
+      },
+      "changed": false
+    },
+    {
+      "field_id": "a",
+      "scenario": "example_high",
+      "option": "S2",
+      "hls_on": {
+        "state": "not_enough",
+        "code": "few_trials"
+      },
+      "hls_off": {
+        "state": "not_enough",
+        "code": "few_trials"
+      },
+      "changed": false
+    },
+    {
+      "field_id": "a",
+      "scenario": "example_high",
+      "option": "S3",
+      "hls_on": {
+        "state": "keep",
+        "code": "counts_keep"
+      },
+      "hls_off": {
+        "state": "keep",
+        "code": "counts_keep"
+      },
+      "changed": false
+    },
+    {
+      "field_id": "b",
+      "scenario": "example_low",
+      "option": "S2",
+      "hls_on": {
+        "state": "not_enough",
+        "code": "few_trials"
+      },
+      "hls_off": {
+        "state": "not_enough",
+        "code": "few_trials"
+      },
+      "changed": false
+    },
+    {
+      "field_id": "b",
+      "scenario": "example_low",
+      "option": "S3",
+      "hls_on": {
+        "state": "try_strip",
+        "code": "pays_without_gain"
+      },
+      "hls_off": {
+        "state": "try_strip",
+        "code": "pays_without_gain"
+      },
+      "changed": false
+    },
+    {
+      "field_id": "b",
+      "scenario": "example_mid",
+      "option": "S2",
+      "hls_on": {
+        "state": "not_enough",
+        "code": "few_trials"
+      },
+      "hls_off": {
+        "state": "not_enough",
+        "code": "few_trials"
+      },
+      "changed": false
+    },
+    {
+      "field_id": "b",
+      "scenario": "example_mid",
+      "option": "S3",
+      "hls_on": {
+        "state": "tied",
+        "code": "counts_tied"
+      },
+      "hls_off": {
+        "state": "tied",
+        "code": "counts_tied"
+      },
+      "changed": false
+    },
+    {
+      "field_id": "b",
+      "scenario": "example_high",
+      "option": "S2",
+      "hls_on": {
+        "state": "not_enough",
+        "code": "few_trials"
+      },
+      "hls_off": {
+        "state": "not_enough",
+        "code": "few_trials"
+      },
+      "changed": false
+    },
+    {
+      "field_id": "b",
+      "scenario": "example_high",
+      "option": "S3",
+      "hls_on": {
+        "state": "not_enough",
+        "code": "need_sowing_date"
+      },
+      "hls_off": {
+        "state": "keep",
+        "code": "counts_keep"
+      },
+      "changed": true
+    }
+  ],
+  "answers": [
+    {
+      "field_id": "a",
+      "scenario": "example_low",
+      "hls_on": {
+        "state": "try_strip",
+        "code": "pays_without_gain"
+      },
+      "hls_off": {
+        "state": "try_strip",
+        "code": "pays_without_gain"
+      },
+      "changed": false
+    },
+    {
+      "field_id": "a",
+      "scenario": "example_mid",
+      "hls_on": {
+        "state": "tied",
+        "code": "counts_tied"
+      },
+      "hls_off": {
+        "state": "tied",
+        "code": "counts_tied"
+      },
+      "changed": false
+    },
+    {
+      "field_id": "a",
+      "scenario": "example_high",
+      "hls_on": {
+        "state": "keep",
+        "code": "counts_keep"
+      },
+      "hls_off": {
+        "state": "keep",
+        "code": "counts_keep"
+      },
+      "changed": false
+    },
+    {
+      "field_id": "b",
+      "scenario": "example_low",
+      "hls_on": {
+        "state": "try_strip",
+        "code": "pays_without_gain"
+      },
+      "hls_off": {
+        "state": "try_strip",
+        "code": "pays_without_gain"
+      },
+      "changed": false
+    },
+    {
+      "field_id": "b",
+      "scenario": "example_mid",
+      "hls_on": {
+        "state": "tied",
+        "code": "counts_tied"
+      },
+      "hls_off": {
+        "state": "tied",
+        "code": "counts_tied"
+      },
+      "changed": false
+    },
+    {
+      "field_id": "b",
+      "scenario": "example_high",
+      "hls_on": {
+        "state": "not_enough",
+        "code": "need_sowing_date"
+      },
+      "hls_off": {
+        "state": "keep",
+        "code": "counts_keep"
+      },
+      "changed": true
+    }
+  ],
+  "states_changed": 1,
+  "states_total": 12
+}

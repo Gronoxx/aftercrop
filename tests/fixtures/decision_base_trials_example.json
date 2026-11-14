@@ -1,0 +1,25 @@
+{
+  "label": "example, fictitious",
+  "note": "Fictitious per-site-season gains in kg/ha for pipeline.decision.base_file --trials example. Not read from any document and not derived from any trial. Sites and seasons follow protocol.trial_site_seasons, the values do not.",
+  "S3": [
+    {"site": "londrina", "season": "2021/22", "gain_kg_ha": 410},
+    {"site": "londrina", "season": "2022/23", "gain_kg_ha": 95},
+    {"site": "londrina", "season": "2023/24", "gain_kg_ha": 260},
+    {"site": "floresta", "season": "2012/13", "gain_kg_ha": 180},
+    {"site": "floresta", "season": "2013/14", "gain_kg_ha": -40},
+    {"site": "floresta", "season": "2014/15", "gain_kg_ha": 330},
+    {"site": "floresta", "season": "2015/16", "gain_kg_ha": 120},
+    {"site": "cafelandia", "season": "2020/21", "gain_kg_ha": 75},
+    {"site": "cafelandia", "season": "2021/22", "gain_kg_ha": 205},
+    {"site": "cafelandia", "season": "2022/23", "gain_kg_ha": 150}
+  ],
+  "S2": [
+    {"site": "floresta", "season": "2012/13", "gain_kg_ha": 140},
+    {"site": "floresta", "season": "2013/14", "gain_kg_ha": 60},
+    {"site": "floresta", "season": "2014/15", "gain_kg_ha": 215},
+    {"site": "floresta", "season": "2015/16", "gain_kg_ha": -25},
+    {"site": "cafelandia", "season": "2020/21", "gain_kg_ha": 90},
+    {"site": "cafelandia", "season": "2021/22", "gain_kg_ha": 30},
+    {"site": "cafelandia", "season": "2022/23", "gain_kg_ha": 185}
+  ]
+}

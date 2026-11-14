@@ -1,0 +1,24 @@
+{
+  "_note": "Vendored files, served from this folder only. No CDN at runtime. tests/test_site_static.py checks each sha256.",
+  "files": [
+    {
+      "file": "alpine-3.17.5.min.js",
+      "package": "alpinejs",
+      "version": "3.17.5",
+      "build": "dist/module.esm.min.js (ES module, minified, imported by js/app.mjs)",
+      "source": "https://registry.npmjs.org/alpinejs/-/alpinejs-3.17.5.tgz",
+      "npm_integrity": "sha512-XewMqRC6zjy8iaUPn86dxjvooAsNai3hUtQbdn0A5H2w7Jt10xHGZ1SczN5+Dvp3UKkuSEt9moy/UaUWOwKdnQ==",
+      "sha256": "ee019270eb31565b5258ca7e06391cc7f6cae8ed8f4b14db0d3d3d6f09524f7b",
+      "license": "MIT",
+      "license_file": "LICENSE-alpinejs.txt",
+      "bundled": "@vue/reactivity 3.5.41 and @vue/shared 3.5.41, MIT, notices kept at the end of the file"
+    }
+  ],
+  "not_vendored": [
+    {
+      "package": "echarts",
+      "version": "6.1.0",
+      "why": "Its only use was the NDVI series, cut (plan 16.4). NDVI dots are hand-drawn SVG in the year strip."
+    }
+  ]
+}

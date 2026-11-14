@@ -1,0 +1,108 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "field_id": "a",
+        "criterion": "Field A: earliest end of green among the drawn candidates in 2024/25"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -51.261803,
+              -23.101411
+            ],
+            [
+              -51.258288,
+              -23.101416
+            ],
+            [
+              -51.258299,
+              -23.107378
+            ],
+            [
+              -51.261815,
+              -23.107373
+            ],
+            [
+              -51.261803,
+              -23.101411
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "field_id": "b",
+        "criterion": "Field B: latest end of green among the drawn candidates in 2024/25"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -51.315598,
+              -23.054972
+            ],
+            [
+              -51.307984,
+              -23.054987
+            ],
+            [
+              -51.307998,
+              -23.06122
+            ],
+            [
+              -51.315613,
+              -23.061205
+            ],
+            [
+              -51.315598,
+              -23.054972
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "field_id": "c",
+        "criterion": "Field C: steepest slope among the other drawn candidates"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -51.267552,
+              -23.045575
+            ],
+            [
+              -51.260817,
+              -23.045587
+            ],
+            [
+              -51.260825,
+              -23.049923
+            ],
+            [
+              -51.267561,
+              -23.049911
+            ],
+            [
+              -51.267552,
+              -23.045575
+            ]
+          ]
+        ]
+      }
+    }
+  ],
+  "window_id": "londrina_rural_nw"
+}

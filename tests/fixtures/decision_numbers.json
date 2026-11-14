@@ -1,0 +1,29 @@
+{
+  "label": "example, fictitious",
+  "note": "Synthetic round numbers chosen so that G lands exactly on the limits of the rule. Not prices, yields or costs from any source, and not trial values. All numbers per hectare.",
+  "base": {
+    "p_soy": 100,
+    "p_corn": 50,
+    "Y_corn": 100,
+    "c_corn": 3000,
+    "p_wheat": 60,
+    "Y_wheat": 50,
+    "c_wheat": 1400,
+    "c_grass": 400
+  },
+  "g3_cases": [
+    { "id": "g3_negative", "override": { "c_wheat": 500 }, "M_corn": 2000, "M_wheat": 2500, "G3": -5 },
+    { "id": "g3_zero", "override": { "c_wheat": 1000 }, "M_corn": 2000, "M_wheat": 2000, "G3": 0 },
+    { "id": "g3_small_positive", "override": { "c_wheat": 1001 }, "M_corn": 2000, "M_wheat": 1999, "G3": 0.01 },
+    { "id": "g3_exact_4", "override": {}, "M_corn": 2000, "M_wheat": 1600, "G3": 4 },
+    { "id": "g3_just_above_4", "override": { "c_wheat": 1401 }, "M_corn": 2000, "M_wheat": 1599, "G3": 4.01 },
+    { "id": "g3_exact_7", "override": { "c_wheat": 1700 }, "M_corn": 2000, "M_wheat": 1300, "G3": 7 },
+    { "id": "g3_exact_8", "override": { "c_wheat": 1800 }, "M_corn": 2000, "M_wheat": 1200, "G3": 8 },
+    { "id": "g3_zero_costs", "override": { "c_corn": 0, "c_wheat": 0 }, "M_corn": 5000, "M_wheat": 3000, "G3": 20 }
+  ],
+  "g2_cases": [
+    { "id": "g2_zero", "override": { "c_grass": 0 }, "G2": 0 },
+    { "id": "g2_half", "override": { "c_grass": 250 }, "G2": 2.5 },
+    { "id": "g2_exact_4", "override": {}, "G2": 4 }
+  ]
+}

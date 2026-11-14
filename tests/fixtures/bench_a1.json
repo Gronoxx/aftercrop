@@ -1,0 +1,293 @@
+{
+  "_note": "Synthetic values for tests only. Not trial data, not engine output.",
+  "sites": [
+    "synthetic_site_a",
+    "synthetic_site_a",
+    "synthetic_site_a",
+    "synthetic_site_b",
+    "synthetic_site_b",
+    "synthetic_site_b",
+    "synthetic_site_b",
+    "synthetic_site_c",
+    "synthetic_site_c",
+    "synthetic_site_c"
+  ],
+  "seasons": [
+    "2001/02",
+    "2002/03",
+    "2003/04",
+    "1991/92",
+    "1992/93",
+    "1993/94",
+    "1994/95",
+    "2010/11",
+    "2011/12",
+    "2012/13"
+  ],
+  "observed_delta": [
+    340,
+    -150,
+    550,
+    -230,
+    450,
+    60,
+    630,
+    150,
+    250,
+    -50
+  ],
+  "cases": [
+    {
+      "name": "count_102_pass",
+      "with_state": [
+        280,
+        -90,
+        520,
+        -530,
+        660,
+        260,
+        870,
+        80,
+        70,
+        -330
+      ],
+      "without_state": [
+        -280,
+        -340,
+        1230,
+        90,
+        300,
+        230,
+        210,
+        -40,
+        900,
+        120
+      ],
+      "d": 18,
+      "s_with_state": 35,
+      "s_without_state": 17,
+      "n_at_least": 102,
+      "p": [
+        51,
+        512
+      ],
+      "status": "pass"
+    },
+    {
+      "name": "count_103_fail",
+      "with_state": [
+        210,
+        -290,
+        440,
+        -290,
+        380,
+        -240,
+        910,
+        170,
+        540,
+        130
+      ],
+      "without_state": [
+        890,
+        510,
+        900,
+        -320,
+        210,
+        540,
+        770,
+        -500,
+        850,
+        190
+      ],
+      "d": 15,
+      "s_with_state": 36,
+      "s_without_state": 21,
+      "n_at_least": 103,
+      "p": [
+        103,
+        1024
+      ],
+      "status": "fail"
+    },
+    {
+      "name": "count_5_pass",
+      "with_state": [
+        320,
+        -50,
+        390,
+        -330,
+        630,
+        20,
+        740,
+        260,
+        110,
+        -340
+      ],
+      "without_state": [
+        40,
+        420,
+        260,
+        290,
+        860,
+        490,
+        260,
+        470,
+        900,
+        -290
+      ],
+      "d": 35,
+      "s_with_state": 37,
+      "s_without_state": 2,
+      "n_at_least": 5,
+      "p": [
+        5,
+        1024
+      ],
+      "status": "pass"
+    },
+    {
+      "name": "d_positive_p_large",
+      "with_state": [
+        260,
+        150,
+        580,
+        10,
+        580,
+        350,
+        330,
+        340,
+        440,
+        150
+      ],
+      "without_state": [
+        940,
+        110,
+        640,
+        -310,
+        1020,
+        280,
+        310,
+        740,
+        250,
+        300
+      ],
+      "d": 2,
+      "s_with_state": 25,
+      "s_without_state": 23,
+      "n_at_least": 400,
+      "p": [
+        25,
+        64
+      ],
+      "status": "fail"
+    },
+    {
+      "name": "identical_arms_d_zero",
+      "with_state": [
+        60,
+        -150,
+        550,
+        -50,
+        630,
+        340,
+        450,
+        250,
+        150,
+        -230
+      ],
+      "without_state": [
+        60,
+        -150,
+        550,
+        -50,
+        630,
+        340,
+        450,
+        250,
+        150,
+        -230
+      ],
+      "d": 0,
+      "s_with_state": 21,
+      "s_without_state": 21,
+      "n_at_least": 1024,
+      "p": [
+        1,
+        1
+      ],
+      "status": "fail"
+    },
+    {
+      "name": "one_difference_ties_against",
+      "with_state": [
+        60,
+        -150,
+        550,
+        -50,
+        630,
+        340,
+        450,
+        250,
+        150,
+        -230
+      ],
+      "without_state": [
+        60,
+        -150,
+        550,
+        -50,
+        630,
+        340,
+        450,
+        250,
+        150,
+        770
+      ],
+      "d": 10,
+      "s_with_state": 21,
+      "s_without_state": 11,
+      "n_at_least": 512,
+      "p": [
+        1,
+        2
+      ],
+      "status": "fail"
+    },
+    {
+      "name": "d_negative",
+      "with_state": [
+        940,
+        110,
+        640,
+        -310,
+        1020,
+        280,
+        310,
+        740,
+        250,
+        300
+      ],
+      "without_state": [
+        260,
+        150,
+        580,
+        10,
+        580,
+        350,
+        330,
+        340,
+        440,
+        150
+      ],
+      "d": -2,
+      "s_with_state": 23,
+      "s_without_state": 25,
+      "n_at_least": 704,
+      "p": [
+        11,
+        16
+      ],
+      "status": "fail"
+    }
+  ]
+}

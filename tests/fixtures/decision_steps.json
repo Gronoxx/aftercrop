@@ -1,0 +1,91 @@
+{
+  "label": "example, fictitious",
+  "note": "Synthetic step tables built for the limits of the rule (n = 4, n = 5, N/n = 0.7, N/n = 0.3) and for gaps in the table. Not derived from any trial. count is the number of site-seasons with gain >= g_sc_ha.",
+  "n20": {
+    "n": 20,
+    "steps": [
+      { "g_sc_ha": 1, "count": 20 },
+      { "g_sc_ha": 2, "count": 18 },
+      { "g_sc_ha": 3, "count": 16 },
+      { "g_sc_ha": 4, "count": 14 },
+      { "g_sc_ha": 5, "count": 13 },
+      { "g_sc_ha": 6, "count": 10 },
+      { "g_sc_ha": 7, "count": 7 },
+      { "g_sc_ha": 8, "count": 6 },
+      { "g_sc_ha": 9, "count": 3 },
+      { "g_sc_ha": 10, "count": 1 },
+      { "g_sc_ha": 11, "count": 0 }
+    ]
+  },
+  "n5": {
+    "n": 5,
+    "steps": [
+      { "g_sc_ha": 1, "count": 5 },
+      { "g_sc_ha": 2, "count": 4 },
+      { "g_sc_ha": 3, "count": 3 },
+      { "g_sc_ha": 4, "count": 2 },
+      { "g_sc_ha": 5, "count": 1 },
+      { "g_sc_ha": 6, "count": 0 }
+    ]
+  },
+  "n4": {
+    "n": 4,
+    "steps": [
+      { "g_sc_ha": 1, "count": 4 },
+      { "g_sc_ha": 2, "count": 4 },
+      { "g_sc_ha": 3, "count": 4 },
+      { "g_sc_ha": 4, "count": 4 },
+      { "g_sc_ha": 5, "count": 0 }
+    ]
+  },
+  "gap_equal": {
+    "n": 20,
+    "steps": [
+      { "g_sc_ha": 1, "count": 20 },
+      { "g_sc_ha": 3, "count": 20 },
+      { "g_sc_ha": 4, "count": 0 }
+    ]
+  },
+  "gap_unequal": {
+    "n": 20,
+    "steps": [
+      { "g_sc_ha": 1, "count": 20 },
+      { "g_sc_ha": 3, "count": 10 },
+      { "g_sc_ha": 4, "count": 0 }
+    ]
+  },
+  "top_open": {
+    "n": 20,
+    "steps": [
+      { "g_sc_ha": 1, "count": 20 },
+      { "g_sc_ha": 2, "count": 15 }
+    ]
+  },
+  "bottom_full": {
+    "n": 20,
+    "steps": [
+      { "g_sc_ha": 3, "count": 20 },
+      { "g_sc_ha": 4, "count": 0 }
+    ]
+  },
+  "bottom_open": {
+    "n": 20,
+    "steps": [
+      { "g_sc_ha": 3, "count": 12 },
+      { "g_sc_ha": 4, "count": 0 }
+    ]
+  },
+  "count_above_n": {
+    "n": 20,
+    "steps": [
+      { "g_sc_ha": 1, "count": 21 }
+    ]
+  },
+  "count_grows": {
+    "n": 20,
+    "steps": [
+      { "g_sc_ha": 1, "count": 10 },
+      { "g_sc_ha": 2, "count": 12 }
+    ]
+  }
+}

@@ -1,0 +1,86 @@
+{
+ "_notice": "Written with an SI tool (Claude, Anthropic) for NASA Space Apps 2026. See AI_USE.md.",
+ "schema_version": "1",
+ "region_id": "free_state",
+ "mode": "observation",
+ "name": "Free State, South Africa",
+ "pack": {
+  "decision": false,
+  "strategies": false,
+  "calendar": false,
+  "trials": false,
+  "reviewer": false
+ },
+ "not_loaded": [
+  "gloreda",
+  "soilgrids",
+  "zarc",
+  "trials"
+ ],
+ "window": {
+  "id": "free_state_bothaville_e",
+  "bbox_lonlat": [
+   26.72,
+   -27.36,
+   26.821,
+   -27.27
+  ],
+  "tile": "T35JMK"
+ },
+ "rule_copied_from": "config/region_norte_pr.yaml protocol-v1.1: dates.ribbon_seasons, frost, field (except product_area, development_strip)",
+ "sources": [
+  {
+   "id": "hls_vi_v2",
+   "title": "HLS-VI v2.0 (HLSL30_VI, HLSS30_VI), NASA LP DAAC",
+   "license": "NASA open data, no restriction. Cite HLS v2.0, and the Copernicus Sentinel notice for S30",
+   "detail": {
+    "granules": 827,
+    "band_files": 2325,
+    "mb": 227.4,
+    "seasons": [
+     "2018/19",
+     "2025/26"
+    ],
+    "tile": "T35JMK"
+   }
+  },
+  {
+   "id": "nasadem",
+   "title": "NASADEM_HGT v001, NASA JPL, LP DAAC",
+   "license": "NASA data, no restriction. Cite NASADEM_HGT v001 (NASA JPL, LP DAAC)",
+   "detail": {
+    "tiles": 1,
+    "mb": 6.3,
+    "names": [
+     "s28e026"
+    ]
+   }
+  },
+  {
+   "id": "power_daily",
+   "title": "NASA POWER daily, community AG",
+   "license": "NASA data, cite collection and version. No explicit POWER license found",
+   "detail": {
+    "point": [
+     -27.3282,
+     26.7627
+    ],
+    "returned_point": [
+     26.763,
+     -27.328,
+     1344.13
+    ],
+    "period": [
+     "1984-01-01",
+     "2025-12-31"
+    ],
+    "parameters": [
+     "T2M_MIN",
+     "PRECTOTCORR"
+    ],
+    "mb": 0.5,
+    "version": "POWER v2.10.3, NASA/POWER Source Native Resolution Daily Data"
+   }
+  }
+ ]
+}

@@ -1,0 +1,133 @@
+{
+  "png": "data/regions/free_state/interim/basemap_free_state_bothaville_e.png",
+  "width": 339,
+  "height": 338,
+  "crs_epsg": 32635,
+  "crs_wkt": "PROJCS[\"WGS 84 / UTM zone 35N\",GEOGCS[\"WGS 84\",DATUM[\"WGS_1984\",SPHEROID[\"WGS 84\",6378137,298.257223563,AUTHORITY[\"EPSG\",\"7030\"]],AUTHORITY[\"EPSG\",\"6326\"]],PRIMEM[\"Greenwich\",0,AUTHORITY[\"EPSG\",\"8901\"]],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AUTHORITY[\"EPSG\",\"4326\"]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"latitude_of_origin\",0],PARAMETER[\"central_meridian\",27],PARAMETER[\"scale_factor\",0.9996],PARAMETER[\"false_easting\",500000],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH],AUTHORITY[\"EPSG\",\"32635\"]]",
+  "crs_note": "CRS as declared by the HLS file. Southern tiles are labelled UTM north with negative northings (plan 9.2): use this CRS, never EPSG:32722.",
+  "transform": [
+    30.0,
+    0.0,
+    472200.0,
+    0.0,
+    -30.0,
+    -3016290.0
+  ],
+  "pixel_size_m": [
+    30.0,
+    30.0
+  ],
+  "bounds": {
+    "left": 472200.0,
+    "bottom": -3026430.0,
+    "right": 482370.0,
+    "top": -3016290.0
+  },
+  "bounds_lonlat_approx": {
+    "lon_min": 26.71889891845554,
+    "lat_min": -27.360973400182246,
+    "lon_max": 26.821879128439043,
+    "lat_max": -27.26925949808951
+  },
+  "pixel_to_xy": "x = c + col * a, y = f + row * e, (col, row) from the top-left corner",
+  "window": {
+    "id": "free_state_bothaville_e",
+    "bbox_lonlat": [
+      26.72,
+      -27.36,
+      26.821,
+      -27.27
+    ],
+    "tile": "T35JMK",
+    "pad_px": 2,
+    "key": "w_7786bf6511"
+  },
+  "method": {
+    "product": [
+      "HLSL30 2.0",
+      "HLSS30 2.0"
+    ],
+    "bands_rgb": [
+      "B04",
+      "B03",
+      "B02"
+    ],
+    "period": [
+      "2026-06-01",
+      "2026-08-31"
+    ],
+    "max_tile_cloud_pct": 20,
+    "min_window_clear_frac": 0.95,
+    "max_scenes": 6,
+    "fmask": {
+      "fill": 255,
+      "masked_bits": [
+        "cirrus",
+        "cloud",
+        "adjacent",
+        "shadow",
+        "snow_ice"
+      ],
+      "masked_aerosol": []
+    },
+    "composite": "per-pixel median of clear observations",
+    "stretch": {
+      "low_pct": 2.0,
+      "high_pct": 98.0,
+      "gamma": 1.0
+    },
+    "no_clear_observation": "alpha 0, not filled"
+  },
+  "scenes": [
+    {
+      "granule_ur": "HLS.S30.T35JMK.2026203T075609.v2.0",
+      "date": "2026-07-22",
+      "sensor": "S30",
+      "clear_frac": 1.0,
+      "cloud_cover_pct": 0.0
+    },
+    {
+      "granule_ur": "HLS.L30.T35JMK.2026208T080839.v2.0",
+      "date": "2026-07-27",
+      "sensor": "L30",
+      "clear_frac": 1.0,
+      "cloud_cover_pct": 0.0
+    },
+    {
+      "granule_ur": "HLS.S30.T35JMK.2026228T075611.v2.0",
+      "date": "2026-08-16",
+      "sensor": "S30",
+      "clear_frac": 1.0,
+      "cloud_cover_pct": 0.0
+    },
+    {
+      "granule_ur": "HLS.S30.T35JMK.2026230T080021.v2.0",
+      "date": "2026-08-18",
+      "sensor": "S30",
+      "clear_frac": 1.0,
+      "cloud_cover_pct": 1.0
+    },
+    {
+      "granule_ur": "HLS.L30.T35JMK.2026232T080839.v2.0",
+      "date": "2026-08-20",
+      "sensor": "L30",
+      "clear_frac": 1.0,
+      "cloud_cover_pct": 0.0
+    },
+    {
+      "granule_ur": "HLS.L30.T35JMK.2026240T080847.v2.0",
+      "date": "2026-08-28",
+      "sensor": "L30",
+      "clear_frac": 1.0,
+      "cloud_cover_pct": 0.0
+    }
+  ],
+  "candidates": 26,
+  "pixels_without_clear_obs": 0,
+  "clear_obs_per_pixel": {
+    "min": 3,
+    "median": 6.0,
+    "max": 6
+  },
+  "use": "Draw fields on the PNG in pixel coordinates; geometry code converts with the transform."
+}

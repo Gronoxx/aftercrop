@@ -1,0 +1,1813 @@
+{
+ "_notice": "Written with an SI tool (Claude, Anthropic) for NASA Space Apps 2026. See AI_USE.md.",
+ "schema_version": "1",
+ "default_lang": "en",
+ "langs": {
+  "en": {
+   "meta": {
+    "lang": "en",
+    "language_name": "English",
+    "switch_to": "Português",
+    "switch_aria": "Ver esta página em português",
+    "decimal_mark": ".",
+    "thousands_mark": ",",
+    "percent": "{v}%"
+   },
+   "states": {
+    "keep": "Keep what you do",
+    "try_strip": "Try it on a strip here",
+    "tied": "Tied",
+    "not_enough": "Not enough evidence",
+    "removed": "Out here"
+   },
+   "answers": {
+    "invalid_field": "Not enough evidence. We need your {field}.",
+    "pays_without_gain": "Try it on a strip here. {Option} pays on your numbers without any soybean gain. Use paired, repeated strips.",
+    "few_trials": "Not enough evidence. On your numbers, {Option} needs {G} bags/ha more soybean next season, and we have only {n} trial site-seasons. The rule asks for at least 5.",
+    "counts_try": "Try it on a strip here. On your numbers, {Option} needs {G} bags/ha more soybean next season. Trials reached that in {N} of {n} site-seasons. Use paired, repeated strips.",
+    "counts_keep": "Keep what you do. On your numbers, {Option} needs {G} bags/ha more soybean next season. Trials reached that in only {N} of {n} site-seasons.",
+    "counts_tied": "Tied. On your numbers, {Option} needs {G} bags/ha more soybean next season. Trials reached that in {N} of {n} site-seasons, which does not settle it.",
+    "removed": "{Option} is out here: {reason}.",
+    "window_outside": "Not enough evidence. Your corn sowing date is outside the Zarc window, so this page will not say keep what you do.",
+    "need_sowing_date": "Not enough evidence. We need your sowing date.",
+    "out_of_range": "Not enough evidence. These numbers give no usable break-even for {Option}.",
+    "evidence_unusable": "Not enough evidence. The trial counts for {Option} could not be read, so this page gives no verdict.",
+    "window_unknown": "Not enough evidence. The Zarc window for this field could not be read, so this page gives no verdict.",
+    "method_missing": "Not enough evidence. The establishment method of each {Option} site-season could not be read, so this page gives no verdict.",
+    "both_removed": "Keep what you do. Corn with grass and wheat on part are both out here, for the reasons below.",
+    "other_option": "For {Option}, the answer is: {state}."
+   },
+   "messages": {
+    "needSowingDate": "Not enough evidence. We need your sowing date.",
+    "windowOutside": "Not enough evidence. Your corn sowing date is outside the Zarc window, so this page will not say keep what you do."
+   },
+   "fields": {
+    "p_soy": "soybean price",
+    "p_corn": "corn price",
+    "p_wheat": "net wheat price",
+    "Y_corn": "typical corn yield",
+    "Y_wheat": "typical wheat yield",
+    "c_corn": "corn cost",
+    "c_wheat": "wheat cost",
+    "c_grass": "grass cost",
+    "q": "wheat quality factor",
+    "sowing_date": "sowing date"
+   },
+   "flags": {
+    "window_warning": "Satellite estimate: the first green cycle persisted beyond the corn Zarc window in {k} of {n} seasons.",
+    "date_in_charge": "Your date is in charge on this field.",
+    "check_window_with_bank": "Check your sowing date against the Zarc window with your bank.",
+    "date_invalid": "This sowing date could not be read. Type it again with day, month and year.",
+    "zarc_window_unknown": "The Zarc window for this field could not be read. Check it with your bank."
+   },
+   "window": {
+    "at_the_edge": "Satellite estimate: the first green cycle persisted beyond the corn Zarc window in {k} of {n} seasons. That is fewer than the rule needs, so the reading stays at the edge.",
+    "outside_any_class": "Satellite estimate: the first green cycle persisted beyond the corn Zarc window for any soil class in {k} of {n} seasons.",
+    "at_the_edge_any_class": "Satellite estimate: the first green cycle persisted beyond the corn Zarc window for any soil class in {k} of {n} seasons. That is fewer than the rule needs, so the reading stays at the edge.",
+    "any_class_note": "No soil report: the window end used is the latest of every Zarc soil class and cycle group of the municipality.",
+    "no_window": "No corn Zarc window was found for this municipality, so the satellite has nothing to be compared with.",
+    "ended_before": "Satellite estimate: the first green cycle ended before the corn Zarc window closed in {k} of {n} seasons.",
+    "ended_before_any_class": "Satellite estimate: the first green cycle ended before the corn Zarc window closed, for the soil class and cycle whose window closes earliest, in {k} of {n} seasons.",
+    "risk_at_exit": {
+     "line": "Satellite estimate: the first green cycle ended in a ten-day period the Zarc rates at {r}% risk for {crop} in {k} of {n} seasons.",
+     "line_any_class": "Satellite estimate: the first green cycle ended in a ten-day period the Zarc rates at {rmin} to {rmax}% risk for {crop}, depending on the soil class, in {k} of {n} seasons.",
+     "line_any_class_one": "Satellite estimate: the first green cycle ended in a ten-day period the Zarc rates at {r}% risk for {crop} for any zoned soil class in {k} of {n} seasons.",
+     "outside": "Satellite estimate: the first green cycle ended in a ten-day period outside the Zarc zoning for {crop} in {k} of {n} seasons.",
+     "outside_any_class": "Satellite estimate: the first green cycle ended in a ten-day period outside the Zarc zoning for {crop} for every soil class in {k} of {n} seasons.",
+     "groups": "Satellite estimate: the first green cycle ended in a ten-day period whose Zarc risk for {crop} was {parts}.",
+     "groups_any_class": "Satellite estimate: the first green cycle ended in a ten-day period whose Zarc risk for {crop}, depending on the soil class, was {parts}.",
+     "part_one": "{r}% in {k} of {n} seasons",
+     "part_range": "{rmin} to {rmax}% in {k} of {n} seasons",
+     "parts_last": "{a} and {b}",
+     "part_outside": "outside the zoning in {k} of {n} seasons",
+     "part_outside_any_class": "outside the zoning for every soil class in {k} of {n} seasons"
+    },
+    "same_as_S1": "Same satellite reading as {name}.",
+    "class_selector": {
+     "label": "Soil class from your soil report",
+     "unknown": "unknown",
+     "hint": "The Zarc soil class (AD1 to AD6) comes only from a soil report, never from the global soil map."
+    },
+    "soil_class_unknown": "The Zarc window cannot be matched to this soil yet. The Zarc soil class (AD1 to AD6) is not derived from the global soil map, so check the window with your bank.",
+    "states": {
+     "outside": "outside",
+     "at_the_edge": "at the edge",
+     "no_data": "no data",
+     "to_confirm": "to confirm"
+    }
+   },
+   "s2_methods": {
+    "title": "Corn with grass trials, by establishment method",
+    "limit": "Two establishment methods and seeding rates, one grass species sown on the corn sowing day.",
+    "line": "{method} ({sites}): {n} site-seasons",
+    "line_counted": "{method} ({sites}): trials reached that in {N} of {n} site-seasons",
+    "names": {
+     "in_row_or_alternate_rows_2kg": "grass in the corn row or in alternate rows, 2 kg/ha",
+     "broadcast_8_12kg": "grass broadcast, 8 to 12 kg/ha"
+    }
+   },
+   "risk": {
+    "simulated": "Simulated with the climate of 1984 to 2025: {N} of {M} seasons (about {K} in 10)",
+    "power": "POWER reanalysis, regional cell, 1984 to 2025: {N} of {M} years (about {K} in 10)",
+    "regional": "{N} of {M} years, regional",
+    "trials": "Trials reached that in {N} of {n} site-seasons",
+    "date_bar": "Last clean look {d1}, next clean look {d2}",
+    "inside_model": "Inside the model only",
+    "climate_line": "Climate: Simulated with the climate of 1984 to 2025: {N} of {M} seasons (about {K} in 10)",
+    "parameters": "Parameters: same direction in about {K} in 10 model variations. This is not a chance of success.",
+    "trials_line": "Trials: {label}",
+    "icons_alt": "Simulated: {K} of 10 icons filled"
+   },
+   "seals": {
+    "names": {
+     "seen_by_satellite": "Seen by satellite",
+     "estimated_from_satellite": "Estimated from satellite",
+     "reanalysis": "Reanalysis",
+     "simulated": "Simulated",
+     "measured_in_trials": "Measured in trials",
+     "derived_from_trials": "Derived from trials",
+     "official_rule": "Official rule",
+     "published_climatology": "Published climatology",
+     "your_numbers": "Your numbers",
+     "unknown": "Unknown"
+    },
+    "help": {
+     "seen_by_satellite": "Reflectance and NDVI only.",
+     "estimated_from_satellite": "Dates, green cycles and IMERG rain, estimated from satellite.",
+     "reanalysis": "NASA POWER climate. Stretches from GEOS-IT are marked provisional.",
+     "simulated": "Output of the crop model.",
+     "measured_in_trials": "A number published by a field trial.",
+     "derived_from_trials": "Our calculation on published trial means.",
+     "official_rule": "A Portaria or the Zarc.",
+     "published_climatology": "Published climatology, like GloREDa, with no specific year.",
+     "your_numbers": "A number you typed.",
+     "unknown": "A declared gap."
+    },
+    "provisional": "provisional"
+   },
+   "labels": {
+    "not_completed": {
+     "title": "Not completed",
+     "body": "The test bench did not finish before the freeze. No result is implied."
+    },
+    "model_not_validated_here": {
+     "title": "Model not validated here",
+     "body": "The model did not pass its check against the field trials. Results from the crop sequence stay on How we know. This page uses satellite history, trials, rules and your numbers."
+    },
+    "direction_not_validated": {
+     "title": "Direction not validated",
+     "body": "The model passed its reference check but did not reproduce the difference between wheat and corn as the previous crop. That means not shown, not disproved. Water at sowing is simulated, not independently checked."
+    },
+    "direction_matched_mechanism_not_shown": {
+     "title": "Direction matched, mechanism not shown",
+     "body": "The model followed the trials, but it did not pass the wrong-year test or the run without carried-over water, or one of them did not finish. We cannot say water explains it."
+    },
+    "direction_supported_exploratory": {
+     "title": "Direction supported in 10 trial site-seasons (exploratory, not blind)",
+     "body": "The model followed the trials and passed both controls. This holds for wheat on part, in this region only. It says nothing about how much you would gain."
+    }
+   },
+   "missing": {
+    "unknown": "Unknown",
+    "no_data": "no data",
+    "not_completed": "not completed",
+    "example_folder": "The example folder was not found here. The fictitious example is not part of the published site. Open it from a copy of the repository."
+   },
+   "page": {
+    "title": "Aftercrop",
+    "rehearsal_banner": "Rehearsal: real NASA data on a development strip, fictitious trials",
+    "tagline": "Aftercrop helps a farmer decide what follows soybeans on one field, and says so when the evidence is not enough.",
+    "header": {
+     "persona": "Example field, fictitious farm. The location is real, with no owner data.",
+     "region": "First evidence region: northern Paraná, Brazil. The method can be evaluated elsewhere, but each new region needs its own field-trial evidence.",
+     "region_rule": "No field trials, no verdict. The rule travels. The verdict does not.",
+     "trial_sites": "Trials from 3 sites: Londrina, Floresta and Cafelândia.",
+     "how_we_know": "How we know",
+     "field_name": "Field {X}",
+     "field_picker": "Choose a field",
+     "map_alt": "HLS satellite image of the example fields, with each field outline. Select an outline to change the field."
+    },
+    "question": {
+     "lead": "Before you buy seed and fertilizer for the second crop:",
+     "main": "On this field, after this soybean, what comes next?",
+     "options": "Keep corn, add grass to the corn, or test wheat on part of the area?"
+    },
+    "answer": {
+     "title": "Answer",
+     "example_prices": "example prices, real field",
+     "caption": "Counts of trials from 3 sites, not your chance. Not a forecast for your field.",
+     "caption_sites": "Counts of trials from {sites} sites, not your chance. Not a forecast for your field.",
+     "caption_one_site": "Counts of trials from one site, not your chance. Not a forecast for your field.",
+     "per_hectare": "All numbers per hectare.",
+     "bag": "Bag = 60 kg.",
+     "which_field_first": "Which field first: {line}",
+     "nasa_line": {
+      "hls": "NASA HLS, this field: the first green cycle ended before the corn Zarc window closed in {k} of {n} seasons.",
+      "power": "NASA POWER: nights below {t} °C in {k} of {n} corn seasons."
+     },
+     "model_check": "Crop-sequence model check (wheat option, water only): {label}. The answer above does not depend on it.",
+     "transfer_warning": "These trials come from 3 sites on clay above 750 g/kg. Check whether your soil is similar.",
+     "use_with_care": "Use with care",
+     "use_with_care_note": "The clay you declared is between {low} and {high} g/kg. The trials are on clay above 750 g/kg.",
+     "soil_out_of_domain": "Not enough evidence. The soil you declared has clay below 350 g/kg, or the field is under conventional tillage. The trials are on no-till fields with clay above 750 g/kg."
+    },
+    "field_order": {
+     "first": "Field {X} first: soybeans left it later than Field {Y} in {N} of {M} seasons, to confirm.",
+     "none": "No field stands out, use what you know.",
+     "one_field": "Only one example field is loaded, so there is no field order."
+    },
+    "priority": {
+     "label": "Priority:",
+     "income": "income",
+     "water": "water",
+     "soil": "soil",
+     "note": "Priority only highlights a row. It never changes the answer."
+    },
+    "strategies": {
+     "S1": {
+      "code": "S1",
+      "name": "Keep corn",
+      "sub": "your current rotation",
+      "sequence": "Soybean, then second-crop corn, every year."
+     },
+     "S2": {
+      "code": "S2",
+      "name": "Corn with grass",
+      "sub": "not simulated",
+      "fixed": "Not simulated. Corn is shown as in S1 because the trial recorded a very small difference in corn.",
+      "sequence": "Soybean, then second-crop corn sown with Urochloa ruziziensis grass."
+     },
+     "S3": {
+      "code": "S3",
+      "name": "Wheat on part",
+      "sub": "up to 50% of the area",
+      "sequence": "Soybean, wheat, soybean, on up to 50% of the area, not every year.",
+      "late_soy_gap": "Gap: soybean sown after wheat comes later and may shorten next year's corn window. This effect is not calculated."
+     }
+    },
+    "rows": {
+     "L1": {
+      "title": "When is nothing growing?",
+      "S1": "Soybean, second-crop corn, then fallow. The gap comes after the corn.",
+      "S2": "Same calendar, with the grass alive after the corn. The grass closes the gap until it is desiccated.",
+      "S3": "Wheat sown from April to the 2nd ten-day period of May. February to April is declared fallow, with a weed alert and thin soybean straw. The gap moves to autumn and does not disappear.",
+      "hls_note": "The satellite dots sit behind S1 only, as background. They are never used to compare.",
+      "no_green": "No green seen in {N} of 36 ten-day periods (median of {S} seasons). Periods marked no data had no clean image and are not counted."
+     },
+     "L2": {
+      "title": "What can go wrong?",
+      "zarc_class": "Zarc risk class for {crop}: {class}",
+      "soil_class_unknown": "cannot be matched to this soil yet",
+      "any_class_range": "{a} to {b}% for any soil class",
+      "any_class_one": "{a}% for any soil class",
+      "class_not_zoned": "no Zarc window for soil class {class}",
+      "crops": {
+       "corn": "second-crop corn",
+       "grass": "corn with grass",
+       "wheat": "wheat"
+      },
+      "wheat_zarc": "Zarc 2025/26, latest with wheat",
+      "climate_frost": "Nights below {t} °C, {start} to {end}: in {k} of {n} seasons",
+      "climate_rain": "Rain, {start} to {end}: median {median} mm. The driest tenth of seasons had {p10} mm or less.",
+      "climate_driest": "Driest seasons: {seasons}",
+      "climate_note": "NASA POWER, 1984 to 2025, over the {crop} dates of Embrapa Doc 476. Past seasons counted, not a forecast.",
+      "years": "Years: {years}",
+      "frost_alert": "Frost alert at wheat heading. A regional alert from minimum temperature, not a field forecast.",
+      "regional": "Climate is the same for every field in one cell, so this row does not separate fields.",
+      "filter": "Recount with only the years you name",
+      "filter_note": "This recounts past years. It does not predict anything."
+     },
+     "L3": {
+      "title": "What did trials measure?",
+      "S1": "Reference. Bad year: {season} in {source}.",
+      "S2": "Measured: {gain} in {season}, at one site.",
+      "S2_roots": "In a Londrina trial, roots explain {roots_pct}% of the gain and straw {straw_pct}%. Roots are not visible from orbit, and the model does not carry them.",
+      "S2_model8": "Embrapa model 8 (brachiaria, soybean, corn, soybean, corn, soybean) asks you to give up one corn crop.",
+      "S2_oats": "A longer sequence with oats and radish is cited only.",
+      "S3": "{delta} kg/ha on average, about {bags} bags/ha, in {n} site-seasons from 3 sites: {pos} positive and {neg} negative.",
+      "S3_compilation": "A conference summary found {a} and {b} on clay above 750 g/kg. It is not counted as an independent source.",
+      "S3_mp6": "MP6 is wheat with buckwheat, not this sequence. Its money is not a result for S3."
+     },
+     "L4": {
+      "title": "Does it pay?",
+      "your_numbers": "Your numbers",
+      "your_limits": "Your limits",
+      "S1": "Reference: corn margin {M_corn} R$/ha.",
+      "S2": "Break-even: grass cost divided by soybean price, {G} bags/ha.",
+      "S3": "Break-even: corn margin minus wheat margin, divided by soybean price, {G} bags/ha. The wheat income counts in the same year.",
+      "loss_year": "The loss year stays visible.",
+      "nitrogen": "Nitrogen exposure",
+      "nitrogen_note": "Shown apart. It does not enter G, because fertilizer is already in your corn and wheat costs.",
+      "urea_context": "Urea in context, dated, never an assumption: {context}"
+     },
+     "L5": {
+      "title": "Next soybean here",
+      "only_if_label": "only if the label allows",
+      "reference": "Reference",
+      "states": {
+       "lower_water_risk": "Next soybean here: lower water risk in the model.",
+       "no_water_difference": "Next soybean here: no water-related difference in the model.",
+       "inconclusive": "Next soybean here: inconclusive."
+      },
+      "stable_note": "Stable in the model does not mean it will work on your field."
+     },
+     "soil": {
+      "line": "Soil used: {class}, estimated. Ask for your soil test."
+     },
+     "erosivity": {
+      "line": "Rain erosivity in no-green days: {class}",
+      "classes": {
+       "reference": "reference",
+       "lower": "lower",
+       "similar": "similar",
+       "higher": "higher"
+      }
+     },
+     "soil_note": "Rotation helps hold soil. It does not replace terraces or stop runoff."
+    },
+    "why": {
+     "button": "Why?",
+     "items": {
+      "why_suggested": "Why suggested",
+      "evidence": "What evidence",
+      "benefits": "Benefits",
+      "gaps": "Information gaps",
+      "risks": "Risks for local review"
+     },
+     "S1": {
+      "why_suggested": "It is what you do today, and it dominates for real reasons.",
+      "evidence": "Model 1 of Embrapa Doc 398 and MP1 of Doc 476.",
+      "benefits": "Known income.",
+      "gaps": "Long-term effect, with no number.",
+      "risks": "Corn leafhopper, corn stunt, frost."
+     },
+     "S2": {
+      "why_suggested": "Keeps the corn and covers the soil.",
+      "evidence": "Model 4 of Embrapa Doc 398, Embrapa Doc 459 and Zarc 344/2026, with 7 site-seasons.",
+      "benefits": "Gain only as measured.",
+      "gaps": "Not simulated, two establishment methods in the 7 site-seasons.",
+      "risks": "Pratylenchus, checked with a lab test. Desiccation at the right time."
+     },
+     "S3": {
+      "why_suggested": "Changes the crop before soybean on part of the area.",
+      "evidence": "Embrapa Doc 476, a compilation of 39 cases, 10 site-seasons.",
+      "benefits": "Wheat income in the same year. Soybean gain only as measured.",
+      "gaps": "No test of wheat after late soybean, 3 sites.",
+      "risks": "Root disease, head blight, frost at heading, white mold above 600 m."
+     },
+     "nitrogen": "Nitrogen appears here only in words, never as a number.",
+     "unaudited": "Wheat blast and rain at harvest were not audited. They are listed for local review."
+    },
+    "year_strip": {
+     "title": "Year strip",
+     "sub": "Jan to Dec, one row per strategy, same calendar",
+     "footer": "Same calendar in all three rows. The dots are this field, for reference only.",
+     "months": [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec"
+     ],
+     "marks": {
+      "sanitary_break": "Soybean-free period",
+      "soy_window": "Legal soybean sowing window",
+      "zarc_window": "Zarc window",
+      "vulnerable": "Months at risk (L2)"
+     },
+     "no_crop": "No living crop",
+     "table_caption": "Year strip as a table, one row per strategy, by ten-day period",
+     "crops": {
+      "soybean": "soybean",
+      "grass": "brachiaria alone"
+     }
+    },
+    "ribbon": {
+     "title": "8 seasons",
+     "sub": "This field, 36 ten-day steps per season",
+     "legend": "No green does not mean bare soil. NDVI cannot separate straw from soil.",
+     "cells": {
+      "green": "green",
+      "not_green": "no green",
+      "no_data": "no data",
+      "to_confirm": "to confirm"
+     },
+     "two_cycles": "second green cycle seen, only the first is read",
+     "soy_exit": "End of the first green cycle, by season",
+     "open_series": "Select a season to see its NDVI series.",
+     "table_caption": "8 seasons as a table, one row per season, by ten-day period",
+     "zarc_end": "End of the corn Zarc window",
+     "risk_band": {
+      "title": "Zarc risk for sowing, by ten-day period",
+      "rows": {
+       "S1": "Zarc, corn",
+       "S2": "Zarc, corn with grass"
+      },
+      "outside": "outside the zoning",
+      "range": "{a} to {b}%",
+      "split": "upper half the highest, lower half the lowest risk",
+      "partial": "outside the zoning for some soil classes",
+      "any": "No soil report: the lowest and highest Zarc risk of every soil class and cycle group of the municipality.",
+      "declared": "Soil class {class}, at its cycle group whose window ends latest."
+     }
+    },
+    "nasa_switch": {
+     "title": "NASA switch",
+     "key": "HLS",
+     "switch_on": "on",
+     "switch_off": "off",
+     "changed": "Turning this off changes {X} of {Y} field and option states.",
+     "short": "{X} of {Y} changed. Dependence, not accuracy.",
+     "context_only": "context only",
+     "legend": "This shows how much the answer depends on NASA HLS. It does not show that the answer is right.",
+     "date_in_charge": "Your date is in charge, so the satellite warning does not change the answer on this field.",
+     "on_your_numbers": "On your numbers."
+    },
+    "actions": {
+     "sheet": "Take this to my agronomist",
+     "reset": "Back to the example numbers"
+    },
+    "footer": {
+     "not_visible": "Not visible from orbit: roots, nitrogen, nematodes, disease, yield",
+     "supports": "Supports, does not replace local judgment.",
+     "demo": "30-second demo"
+    },
+    "inputs": {
+     "title": "Your numbers",
+     "example": "example, fictitious",
+     "privacy": "Nothing you type leaves this browser.",
+     "cost_kind": "Say whether each cost is variable or total.",
+     "p_soy": {
+      "label": "Soybean price",
+      "unit": "R$ per 60 kg bag"
+     },
+     "p_corn": {
+      "label": "Corn price",
+      "unit": "R$ per 60 kg bag"
+     },
+     "p_wheat": {
+      "label": "Net wheat price, after the quality discount",
+      "unit": "R$ per 60 kg bag"
+     },
+     "Y_corn": {
+      "label": "Typical corn yield on this field",
+      "unit": "bags/ha"
+     },
+     "Y_wheat": {
+      "label": "Typical wheat yield on this field",
+      "unit": "bags/ha"
+     },
+     "c_corn": {
+      "label": "Corn cost",
+      "unit": "R$/ha"
+     },
+     "c_wheat": {
+      "label": "Wheat cost",
+      "unit": "R$/ha"
+     },
+     "c_grass": {
+      "label": "Brachiaria seed and desiccation cost",
+      "unit": "R$/ha"
+     },
+     "sowing_date": {
+      "label": "Corn sowing date",
+      "unit": "date",
+      "note": "Your date is in charge over the satellite."
+     },
+     "urea_price": {
+      "label": "Urea price",
+      "unit": "R$ per tonne"
+     },
+     "n_dose": {
+      "label": "Nitrogen dose",
+      "unit": "kg N/ha"
+     },
+     "scenarios": {
+      "title": "Three price scenarios",
+      "low": "Low",
+      "base": "Base",
+      "high": "High",
+      "low_note": "Corn price {k} lower",
+      "high_note": "Corn price {k} higher",
+      "changes": "The answer changes between the scenarios.",
+      "same": "The answer is the same in the three scenarios."
+     }
+    },
+    "limits": {
+     "title": "Your limits",
+     "intro": "A real limit removes an option and says why, or becomes an item of the agronomist sheet.",
+     "answer_yes": "yes",
+     "answer_no": "no",
+     "no_narrow_row_seeder": {
+      "question": "Do you have a narrow-row seed drill for wheat?",
+      "effect": "Without it, wheat on part is out."
+     },
+     "no_grass_seeding": {
+      "question": "How would the brachiaria seed go in?",
+      "extra_box": "extra seed box on the planter",
+      "with_fertilizer": "mixed with the fertilizer",
+      "broadcast": "broadcast",
+      "none": "none of these",
+      "effect": "Without an extra box, the fertilizer or broadcasting, corn with grass is out."
+     },
+     "no_wheat_buyer": {
+      "question": "Does your storage or cooperative receive wheat?",
+      "effect": "Without a buyer for wheat, wheat on part is out."
+     },
+     "rented_land": {
+      "question": "Is the land yours or rented?",
+      "own": "own",
+      "rented": "rented",
+      "effect": "This goes to the agronomist sheet."
+     },
+     "zarc_insurance_credit": {
+      "question": "Are your insurance or credit tied to the Zarc?",
+      "effect": "With insurance or credit tied to the Zarc, an option outside the Zarc is out."
+     },
+     "reasons": {
+      "no_narrow_row_seeder": "no narrow-row seed drill for wheat",
+      "no_grass_seeding": "no way to sow the brachiaria seed",
+      "no_wheat_buyer": "no storage or cooperative receives wheat",
+      "zarc_consortium_window": "your sowing date is outside the Zarc window for corn with grass, and your insurance or credit is tied to the Zarc",
+      "soy_calendar_portaria_1579_2026": "it breaks the soybean-free period or the legal soybean window"
+     },
+     "soft": {
+      "wheat_max_half_area": "Keep wheat to at most 50% of the area.",
+      "one_winter_without_wheat_or_barley": "Leave one winter without wheat or barley before wheat comes back.",
+      "note": "A warning. It does not remove the option."
+     }
+    }
+   },
+   "howweknow": {
+    "title": "How we know",
+    "back": "Back to the answer",
+    "current_label": "Current label: {label}",
+    "supports": "Aftercrop supports, does not replace local judgment.",
+    "no_local_review": "There was no local review. No agronomist read these cards before the submission.",
+    "water_note": "Water at sowing: simulated, not independently checked.",
+    "sequence_results": "Crop-sequence results",
+    "zarc_independence": "Public reference: Zarc/MAPA, 2026/27 season. This tool is independent: it was not evaluated by MAPA or Embrapa, it does not define access to insurance or credit and it does not rate management level.",
+    "scoreboard": {
+     "title": "Exploratory trial check",
+     "intro": "One line per test, with its question, its pass rule and the result. Every pass rule is a project rule, fixed before any result.",
+     "columns": {
+      "test": "Test",
+      "question": "Question",
+      "rule": "Pass rule (project rule)",
+      "result": "Result"
+     },
+     "status": {
+      "pass": "pass",
+      "fail": "fail",
+      "not_run": "planned, not run",
+      "not_completed": "not completed",
+      "exploratory": "exploratory",
+      "reported": "reported"
+     },
+     "status_line": {
+      "pass": "Pass.",
+      "fail": "Fail.",
+      "not_run": "Planned, not run.",
+      "not_completed": "Not completed.",
+      "exploratory": "Exploratory.",
+      "reported": "Reported."
+     },
+     "lines": {
+      "L0": {
+       "fail_artifacts": "The water balance closes and runs repeat exactly, but {u} of {a} odd model outputs, such as a dead crop, have no explanation. A pass allows {max}."
+      },
+      "L1": {
+       "not_run": "No weather station file was prepared for the event."
+      },
+      "T0": {
+       "any": "Kendall S {s}, a pass needs {s_min}."
+      },
+      "T1": {
+       "any": "Kendall S {s}, a pass needs {s_min}. RMSE {rmse} kg/ha, a constant gives {constant}."
+      },
+      "P1": {
+       "any": "With the wrong years' weather, S was at least as high in {t0_k} of {shifts} shifts for T0 and in {t1_k} of {shifts} for T1. A pass allows {max}."
+      },
+      "A1": {
+       "fail_paired": "With and without the water hand-off, S {with} against {without}, but the paired test of the protocol did not pass.",
+       "any": "With and without the water hand-off, S {with} against {without}."
+      },
+      "A2": {
+       "not_run": "The count it checked was removed, and the rain lines are not compared with IMERG in the event."
+      },
+      "A3": {
+       "any": "{k} of {n} field and option states change without NASA HLS."
+      },
+      "N1": {
+       "any": "Noise floor {floor} days."
+      },
+      "H1": {
+       "not_run": "No reader session took place."
+      },
+      "H2": {
+       "not_run": "Not attempted, by the participant's decision, so there was no local review."
+      },
+      "R1": {
+       "not_run": "The engine has no path for it in the event, and it runs only if T1 passes."
+      },
+      "context_only": "Context only."
+     },
+     "raw": "Stored values",
+     "raw_rule": "Pass rule as stored: {raw}",
+     "raw_result": "Result as stored: {raw}",
+     "rules": {
+      "L0": "The water balance closes within {c} mm at each crop swap, two runs repeat exactly, and at most {max} odd model outputs have no explanation.",
+      "L1": "Rain within {r}% of the stations per season, temperature within {c} °C.",
+      "T0": "Kendall S of at least {s}, and the S within each site adds up to more than {w}.",
+      "T1": "Kendall S of at least {s}, and an RMSE below that of a constant, {c} kg/ha.",
+      "P1_none": "In none of the {shifts} shifts to wrong years is S at least as high as with the right years.",
+      "P1_some": "In at most {max} of the {shifts} shifts to wrong years, S is at least as high as with the right years.",
+      "A1": "S with the water hand-off minus S without it above {d}, and the exhaustive paired swap test of the protocol.",
+      "L0_none": "The water balance closes within {c} mm at each crop swap, two runs repeat exactly, and every odd model output has an explanation.",
+      "A1_zero": "S with the water hand-off above S without it, and the exhaustive paired swap test of the protocol.",
+      "none_plain": "No pass rule.",
+      "A3": "No pass rule. If no state changes, NASA HLS is context only.",
+      "R1": "Runs only if T1 passes. The direction holds with inversions up to {inv}% and an equivalence margin of {eq} kg/ha.",
+      "none": "No pass rule. Reported as is, never as passed."
+     },
+     "tests": {
+      "L0": "Does the water balance close at each crop swap, and does a run repeat exactly?",
+      "L1": "Do NASA POWER and IMERG agree with weather stations in Londrina?",
+      "T0": "Does the model follow the published soybean yields after second-crop corn in the 10 trial site-seasons?",
+      "T1": "Does the model reproduce the soybean difference after wheat against after corn?",
+      "P1": "Does the climate of the right year beat the climate of wrong years?",
+      "A1": "Does the result need the water carried over from the previous crop?",
+      "A2": "Do the L2 counts hold with IMERG rain in place of POWER rain?",
+      "A3": "How many field and option states change without NASA HLS?",
+      "N1": "What is the smallest difference in days that stands above the noise?",
+      "H1": "Can people who have not seen the page explain it after 3 minutes?",
+      "H2": "Did a local agronomist read the cards?",
+      "R1": "Does the direction hold when uncertain model settings vary?"
+     },
+     "s_by_site": "Kendall S within each site: Londrina {londrina}, Floresta {floresta}, Cafelândia {cafelandia}",
+     "t1_failed_on": {
+      "order": "T1 failed on order (S).",
+      "size": "T1 failed on size (RMSE).",
+      "both": "T1 failed on order (S) and on size (RMSE)."
+     },
+     "always_positive": "A rule that always says wheat helps already gets the sign right in 8 site-seasons and wrong in 2.",
+     "rights": "Until the rights of Embrapa are clarified, this page shows counts and summary measures, not the 10 trial values.",
+     "chart": "Where the real year sits among the wrong years",
+     "fail_means": "A fail means not shown, never refuted. The gain may live in roots, straw or disease, outside the model.",
+     "not_completed": "If the bench does not finish by the hard stop, the scoreboard says not completed."
+    },
+    "sensitivity": {
+     "title": "Soil sensitivity after the freeze",
+     "cause": "The frozen check used the clay printed in the trial reports (77 to 78% at two sites). The engine's texture formula was fitted on soils with clay up to about 60% (Saxton and Rawls 2006). For these soils it gives half to three quarters of the available water it gives the SoilGrids texture at the same points, so the simulated crops died in many seasons.",
+     "result": "Run once with the SoilGrids soil texture at the trial points, everything else unchanged. The label of this run is still {label}, because L0 checks the field chains, which this run does not change (L0 {l0}). What the run adds: T0 {t0} (S {t0_s}), T1 {t1} (S {t1_s}, RMSE {t1_rmse} kg/ha against {t1_constant} kg/ha for a constant), P1 {p1}, A1 {a1} (D {a1_d}). Seasons with zero simulated yield: {zero}.",
+     "zero_site": "{site} {k} of {n} (frozen run: {k_frozen})",
+     "unchanged": "The label above stays as frozen. This run was decided after the freeze and does not change it."
+    },
+    "ablation": {
+     "title": "What changes without NASA HLS",
+     "body": "Without NASA HLS, {S} of {Y} states change across the fields, options and price scenarios. A source that changes nothing is marked context only.",
+     "measured_on": "Counted on the fictitious example, in the three price scenarios.",
+     "power_note": "NASA POWER has no switch, because it drives the crop model and the L2 counts. Its weight shows in the wrong-year test (P1).",
+     "rain_check": "Rain check (A2): the L2 counts with IMERG rain in place of POWER rain, from 1998 to September 2025, on the same period for both."
+    },
+    "switch_placement": {
+     "on_main": "On the fields shown, turning NASA HLS off changes {X} of {Y} field and option states. The protocol puts the switch on the main page only when it changes at least {min} of them, so it is there.",
+     "here": "On the fields shown, turning NASA HLS off changes {X} of {Y} field and option states. The protocol puts the switch on the main page only when it changes at least {min} of them, so it stays here.",
+     "no_rule": "The protocol rule for the NASA switch could not be read, so the switch stays here."
+    },
+    "levels": {
+     "title": "What is checked, and what is not",
+     "intro": "Four levels, read from the files this page loads.",
+     "verified": {
+      "title": "Verified internally",
+      "ledger": "Every number on these pages has a ledger record, and the build checks each one against its record.",
+      "l0": "The water balance of the crop model closes at each crop swap, and a run repeats exactly (L0).",
+      "tests": "Automated tests check that the code agrees with itself and with the protocol. The README gives their count. They check the code, not the model, and they do not show that the answer is right."
+     },
+     "obtained": {
+      "title": "Data obtained"
+     },
+     "not_executed": {
+      "title": "Not yet executed",
+      "fields": "Satellite series on the real fields",
+      "chains": "Crop model chains on the trial sites ({ids})",
+      "bench": "Bench tests ({ids})",
+      "none": "Every planned test has run."
+     },
+     "not_demonstrated": {
+      "title": "Not yet demonstrated",
+      "items": [
+       "Predictive skill: nothing here shows that the answer predicts what a field will yield.",
+       "Reach outside the trial sites: three sites on very clayey soil, in exploratory tests that are not blind."
+      ]
+     }
+    },
+    "station": {
+     "title": "Satellite against station",
+     "body": "Rain and temperature from NASA POWER and IMERG against INMET and IDR-Paraná stations in Londrina, with the bias of each. A series outside the protocol limits is labelled, never corrected in silence. This is test L1, and its status is in the scoreboard."
+    },
+    "scale": {
+     "title": "Scale ladder",
+     "body": "One field of {area} ha against the data cells.",
+     "row": "{source}: one cell covers about {count} fields of this size.",
+     "same_cell": "A value from POWER alone is the same for every field in the same cell."
+    },
+    "ground": {
+     "title": "Satellite against ground measurement",
+     "body": "A trial plot of 40 to 240 m² is smaller than one HLS pixel of 900 m². The satellite sees the field, and the trial sees the plot.",
+     "first_cycle": "The window warning uses the end of the first green cycle of each season as a stand-in for the soybean phase. It never classifies the crop. The second cycle, usually second-crop corn, stays visible in the 8 seasons ribbon and never confirms that the first one was soybean. The thresholds are project rules, not yet tested against HLS here (PROTOCOL.md, section 15, D12)."
+    },
+    "crop_roles": {
+     "title": "What each kind of crop does",
+     "nitrogen_fixers": {
+      "name": "Nitrogen fixers",
+      "text": "Soybean does not add much nitrogen to the soil. The next crop benefits mostly from less nitrogen tied up. Green manures are a different case."
+     },
+     "cover_crops": {
+      "name": "Cover crops",
+      "text": "They protect soil between crops. Water entry rose 34.8% on average in studies elsewhere. Perennials showed 59.2%."
+     },
+     "deep_roots": {
+      "name": "Deep roots",
+      "text": "Roots open channels and reach stored water. We show trial results only, because the model does not carry roots between crops."
+     },
+     "drought_tolerant": {
+      "name": "Drought tolerant",
+      "text": "Sorghum is often named. No regional rotation effect was confirmed, so it is not an option here."
+     }
+    },
+    "licenses": {
+     "title": "Licenses",
+     "body": "Each source, its version, its license and the date we read it are listed in the manifest. Citing a source never suggests that its owner endorses this tool."
+    },
+    "limits": {
+     "title": "Limits",
+     "declared": [
+      "The test is not blind. The observed values were read in the audit.",
+      "Exploratory. Contrast and thresholds come from the same 10 values.",
+      "10 site-seasons from 3 sites, not independent.",
+      "The engine sees only water. Wheat may dry the profile and corn may leave early. Water alone may give a null or opposite signal.",
+      "What is tested is not what goes to the screen. T1 uses plots, published dates and maintained systems. The field uses estimated dates, SoilGrids and a single switch.",
+      "Trials sit above 750 g/kg clay under no-till. A different soil triggers a warning.",
+      "Ablation measures dependence, not accuracy.",
+      "T1 tests only S3 against S1. S2, L2, the erosivity class and the 0.7 and 0.3 cut-offs have no external test.",
+      "No real farmer will have used the tool by the submission."
+     ],
+     "not_used_title": "What we did not use and why",
+     "not_used": [
+      "Municipal crop statistics (IBGE PAM): the unit is the municipality, and they do not record the previous crop.",
+      "Subjective crop-stage reports (Deral): their error cannot be measured, so they are not field truth.",
+      "Ground truth for satellite dates: there is none for these fields. N1 measures repeatability, not accuracy.",
+      "A sequence generator: it would produce sequences with no trial, and the rule that travels is no trial, no verdict.",
+      "Barley and cowpea: trial losses came from disease or an undetermined cause. Sorghum: no regional effect confirmed. Perennials: the model does not simulate them.",
+      "Machine learning and language models in the product: there is no independent target to learn from.",
+      "Same-year yield and price pairs: the simulated anomaly was not shown to follow the real one."
+     ]
+    },
+    "protocol": {
+     "title": "Protocol, fixed before any result",
+     "intro": "The protocol (protocol-v1) fixes the tests, thresholds, labels and decision rule before any simulation. The code computes the label. Nobody writes it.",
+     "public_note": "The public repository holds the final version only. The order of protocol and results cannot be checked from it.",
+     "declarations": [
+      "The observed values have already been read.",
+      "The test is not blind.",
+      "The test is exploratory, with a fixed rule.",
+      "The contrast and the thresholds derive from the same 10 values.",
+      "Only cycle and dates are adjusted.",
+      "Everything is published, including failures."
+     ],
+     "link": "Read the full protocol"
+    },
+    "region": {
+     "title": "Why one region",
+     "intro": "Each new region enters with its own trials. Where there is no public trial, on-farm trials from that same region can fill the gap.",
+     "pack_title": "Regional pack",
+     "pack": {
+      "decision": "1. A recurring decision: a yearly choice, with a deadline and a field",
+      "strategies": "2. Strategies: at least three, with a source, including the current one",
+      "calendar": "3. An official calendar",
+      "trials": "4. Trials: a public set of replicated trials that test the difference",
+      "reviewer": "5. A local reviewer: an agronomist or technician who reads the cards"
+     },
+     "pack_ready": "in place",
+     "pack_missing": "missing",
+     "next": "Next candidate region: Iowa, where a replicated rotation trial exists but no regional pack is built yet.",
+     "label_scope": "The label is always for one region, never for the world."
+    }
+   },
+   "glossary": {
+    "title": "Glossary",
+    "hint": "Tap a term to see what it means.",
+    "terms": {
+     "ndvi": {
+      "term": "NDVI",
+      "definition": "A greenness index from red and near-infrared light. Low values do not say if the ground is bare or under straw."
+     },
+     "evapotranspiration": {
+      "term": "Evapotranspiration",
+      "definition": "Water that leaves the field as vapor, from the soil and through plants."
+     },
+     "soil_moisture_anomaly": {
+      "term": "Soil moisture anomaly",
+      "definition": "How much wetter or drier the soil is than usual for the season. Satellite values cover about the top 5 cm over tens of kilometers."
+     },
+     "frost_risk": {
+      "term": "Frost risk",
+      "definition": "Chance of cold that harms the crop. Here it is a regional alert from minimum temperature, not a field forecast."
+     },
+     "water_balance": {
+      "term": "Water balance",
+      "definition": "Rain and stored water in, minus runoff, drainage, evaporation and plant use."
+     },
+     "site_season": {
+      "term": "Trial site-season",
+      "definition": "One trial site in one season. The 10 site-seasons come from 3 sites, so they are not independent."
+     },
+     "zarc": {
+      "term": "Zarc",
+      "definition": "Official agricultural climate risk zoning of the Brazilian Ministry of Agriculture (MAPA). It sets the sowing windows tied to insurance and rural credit."
+     },
+     "dekad": {
+      "term": "Ten-day period",
+      "definition": "About ten days. Each month has three: days 1 to 10, 11 to 20 and 21 to the end of the month."
+     },
+     "bag": {
+      "term": "Bag",
+      "definition": "60 kg of grain, the unit used in Brazil for prices and yields."
+     }
+    }
+   },
+   "sheet": {
+    "title": "AFTERCROP, SHEET FOR THE AGRONOMIST",
+    "fictitious": "fictitious example",
+    "field": "Field {X}",
+    "region": "Region: northern Paraná",
+    "generated": "Generated on {date}",
+    "items": {
+     "option": "Option to review: {option} ({state})",
+     "window": "Zarc window: {window}. Declared date: {sowing_date}",
+     "satellite": "Satellite: the first green cycle persisted beyond the window in {k} of {n} seasons",
+     "assumptions": "Assumptions: prices, costs, G in bags/ha and bags/alqueire (1 alqueire = 2.42 ha)",
+     "evidence": "Evidence: {N} of {n} site-seasons, {sites} sites, a count, not a chance",
+     "unknowns": "What the tool does not know: roots, nitrogen, nematodes, disease",
+     "local_review": "Local review: {alerts}, soil test, terraces",
+     "strip_test": "Test in paired, repeated strips: {area}, pairs to be set here"
+    },
+    "date_missing": "missing",
+    "g_line": "G: {G_ha} bags/ha, or {G_alq} bags/alqueire",
+    "window_range": "{start} to {end}",
+    "date_format": "{day} {month} {year}",
+    "months": [
+     "Jan",
+     "Feb",
+     "Mar",
+     "Apr",
+     "May",
+     "Jun",
+     "Jul",
+     "Aug",
+     "Sep",
+     "Oct",
+     "Nov",
+     "Dec"
+    ],
+    "window_soil_unknown": "not matched to this soil yet (Zarc soil class not derived)",
+    "area": "{area} ha",
+    "single_strip": "A single strip does not estimate an effect. This sheet supports, does not replace local judgment.",
+    "strip_design": "The strip design is the agronomist's. Number of pairs and width have no audited source.",
+    "independence": "Public reference: Zarc/MAPA, 2026/27 season. This tool is independent: it was not evaluated by MAPA or Embrapa, it does not define access to insurance or credit and it does not rate management level.",
+    "no_local_review": "There was no local review. No agronomist reviewed this tool before the submission.",
+    "unaudited": "Wheat blast and rain at harvest: not audited, left for local review.",
+    "alerts": {
+     "pratylenchus": "Pratylenchus in brachiaria",
+     "wheat_root_disease": "root disease in repeated wheat",
+     "white_mold": "white mold above 600 m",
+     "leafhopper_stunting": "corn leafhopper and corn stunt",
+     "frost_at_heading": "frost at heading",
+     "gibberella": "head blight",
+     "blast_and_harvest_rain": "wheat blast and rain at harvest"
+    },
+    "print": "Print"
+   },
+   "ledger": {
+    "title": "Evidence record",
+    "close": "Close"
+   }
+  },
+  "pt": {
+   "meta": {
+    "lang": "pt-BR",
+    "language_name": "Português",
+    "switch_to": "English",
+    "switch_aria": "View this page in English",
+    "decimal_mark": ",",
+    "thousands_mark": ".",
+    "percent": "{v}%"
+   },
+   "states": {
+    "keep": "Fique como está",
+    "try_strip": "Teste numa faixa aqui",
+    "tied": "Empate",
+    "not_enough": "Evidência insuficiente",
+    "removed": "Não entra aqui"
+   },
+   "answers": {
+    "invalid_field": "Evidência insuficiente. Precisamos saber {field}.",
+    "pays_without_gain": "Teste numa faixa aqui. Com os seus números, {Option} se paga sem nenhum ganho na soja. Use faixas pareadas e repetidas.",
+    "few_trials": "Evidência insuficiente. Com os seus números, {Option} precisa de {G} sc/ha a mais de soja na próxima safra, e temos só {n} locais-safra de ensaio. A regra pede ao menos 5.",
+    "counts_try": "Teste numa faixa aqui. Com os seus números, {Option} precisa de {G} sc/ha a mais de soja na próxima safra. Os ensaios chegaram a isso em {N} de {n} locais-safra. Use faixas pareadas e repetidas.",
+    "counts_keep": "Fique como está. Com os seus números, {Option} precisa de {G} sc/ha a mais de soja na próxima safra. Os ensaios chegaram a isso em só {N} de {n} locais-safra.",
+    "counts_tied": "Empate. Com os seus números, {Option} precisa de {G} sc/ha a mais de soja na próxima safra. Os ensaios chegaram a isso em {N} de {n} locais-safra, o que não resolve a questão.",
+    "removed": "{Option} não entra aqui: {reason}.",
+    "window_outside": "Evidência insuficiente. A sua data de semeadura do milho está fora da janela do Zarc, então esta página não vai dizer fique como está.",
+    "need_sowing_date": "Evidência insuficiente. Precisamos saber a data de semeadura do milho.",
+    "out_of_range": "Evidência insuficiente. Estes números não dão um ponto de equilíbrio utilizável para {Option}.",
+    "evidence_unusable": "Evidência insuficiente. Não foi possível ler as contagens de ensaio de {Option}, então esta página não dá veredito.",
+    "window_unknown": "Evidência insuficiente. Não foi possível ler a janela do Zarc deste talhão, então esta página não dá veredito.",
+    "method_missing": "Evidência insuficiente. Não foi possível ler o modo de implantação de cada local-safra de {Option}, então esta página não dá veredito.",
+    "both_removed": "Fique como está. Milho com braquiária e trigo em parte da área não entram aqui, pelos motivos abaixo.",
+    "other_option": "Para {Option}, a resposta é: {state}."
+   },
+   "messages": {
+    "needSowingDate": "Evidência insuficiente. Precisamos saber a data de semeadura do milho.",
+    "windowOutside": "Evidência insuficiente. A sua data de semeadura do milho está fora da janela do Zarc, então esta página não vai dizer fique como está."
+   },
+   "fields": {
+    "p_soy": "o preço da soja",
+    "p_corn": "o preço do milho",
+    "p_wheat": "o preço líquido do trigo",
+    "Y_corn": "a produtividade típica do milho",
+    "Y_wheat": "a produtividade típica do trigo",
+    "c_corn": "o custo do milho",
+    "c_wheat": "o custo do trigo",
+    "c_grass": "o custo da braquiária",
+    "q": "o fator de qualidade do trigo",
+    "sowing_date": "a data de semeadura do milho"
+   },
+   "flags": {
+    "window_warning": "Estimativa por satélite: o primeiro ciclo verde passou do fim da janela do Zarc para o milho em {k} de {n} safras.",
+    "date_in_charge": "A sua data manda neste talhão.",
+    "check_window_with_bank": "Confira com o seu banco a data de semeadura contra a janela do Zarc.",
+    "date_invalid": "Não foi possível ler esta data de semeadura. Digite de novo com dia, mês e ano.",
+    "zarc_window_unknown": "Não foi possível ler a janela do Zarc deste talhão. Confira com o seu banco."
+   },
+   "window": {
+    "at_the_edge": "Estimativa por satélite: o primeiro ciclo verde passou do fim da janela do Zarc para o milho em {k} de {n} safras. É menos do que a regra pede, então a leitura fica no limite.",
+    "outside_any_class": "Estimativa por satélite: o primeiro ciclo verde passou do fim da janela do Zarc para o milho, para qualquer classe de solo, em {k} de {n} safras.",
+    "at_the_edge_any_class": "Estimativa por satélite: o primeiro ciclo verde passou do fim da janela do Zarc para o milho, para qualquer classe de solo, em {k} de {n} safras. É menos do que a regra pede, então a leitura fica no limite.",
+    "any_class_note": "Sem laudo de solo: o fim de janela usado é o mais tardio entre todas as classes de solo e grupos de ciclo do Zarc no município.",
+    "no_window": "Não há janela do Zarc para o milho neste município, então o satélite não tem com o que ser comparado.",
+    "ended_before": "Estimativa por satélite: o primeiro ciclo verde terminou antes do fim da janela do Zarc para o milho em {k} de {n} safras.",
+    "ended_before_any_class": "Estimativa por satélite: o primeiro ciclo verde terminou antes do fim da janela do Zarc para o milho, na classe de solo e no ciclo cuja janela fecha mais cedo, em {k} de {n} safras.",
+    "risk_at_exit": {
+     "line": "Estimativa por satélite: o primeiro ciclo verde terminou num decêndio que o Zarc classifica com risco de {r}% para {crop} em {k} de {n} safras.",
+     "line_any_class": "Estimativa por satélite: o primeiro ciclo verde terminou num decêndio que o Zarc classifica com risco de {rmin} a {rmax}% para {crop}, conforme a classe de solo, em {k} de {n} safras.",
+     "line_any_class_one": "Estimativa por satélite: o primeiro ciclo verde terminou num decêndio que o Zarc classifica com risco de {r}% para {crop} em qualquer classe de solo zoneada, em {k} de {n} safras.",
+     "outside": "Estimativa por satélite: o primeiro ciclo verde terminou num decêndio fora do zoneamento do Zarc para {crop} em {k} de {n} safras.",
+     "outside_any_class": "Estimativa por satélite: o primeiro ciclo verde terminou num decêndio fora do zoneamento do Zarc para {crop} em todas as classes de solo, em {k} de {n} safras.",
+     "groups": "Estimativa por satélite: o primeiro ciclo verde terminou num decêndio cujo risco no Zarc para {crop} era de {parts}.",
+     "groups_any_class": "Estimativa por satélite: o primeiro ciclo verde terminou num decêndio cujo risco no Zarc para {crop}, conforme a classe de solo, era de {parts}.",
+     "part_one": "{r}% em {k} de {n} safras",
+     "part_range": "{rmin} a {rmax}% em {k} de {n} safras",
+     "parts_last": "{a} e {b}",
+     "part_outside": "fora do zoneamento em {k} de {n} safras",
+     "part_outside_any_class": "fora do zoneamento em todas as classes de solo em {k} de {n} safras"
+    },
+    "same_as_S1": "Mesma leitura de satélite que em {name}.",
+    "class_selector": {
+     "label": "Classe de solo do seu laudo",
+     "unknown": "desconhecida",
+     "hint": "A classe de solo do Zarc (AD1 a AD6) vem só de um laudo de solo, nunca do mapa global de solos."
+    },
+    "soil_class_unknown": "A janela do Zarc ainda não pode ser associada a este solo. A classe de solo do Zarc (AD1 a AD6) não é derivada do mapa global de solos, então confira a janela com o seu banco.",
+    "states": {
+     "outside": "fora",
+     "at_the_edge": "no limite",
+     "no_data": "sem dado",
+     "to_confirm": "a confirmar"
+    }
+   },
+   "s2_methods": {
+    "title": "Ensaios de milho com braquiária, por modo de implantação",
+    "limit": "Dois modos de implantação e duas taxas de semeadura, uma só espécie de capim, semeada no dia da semeadura do milho.",
+    "line": "{method} ({sites}): {n} locais-safra",
+    "line_counted": "{method} ({sites}): os ensaios chegaram a isso em {N} de {n} locais-safra",
+    "names": {
+     "in_row_or_alternate_rows_2kg": "capim na linha do milho ou em linhas alternadas, 2 kg/ha",
+     "broadcast_8_12kg": "capim a lanço, 8 a 12 kg/ha"
+    }
+   },
+   "risk": {
+    "simulated": "Simulado com o clima de 1984 a 2025: {N} de {M} safras (cerca de {K} em 10)",
+    "power": "Reanálise POWER, célula regional, 1984 a 2025: {N} de {M} anos (cerca de {K} em 10)",
+    "regional": "{N} de {M} anos, regional",
+    "trials": "Os ensaios chegaram a isso em {N} de {n} locais-safra",
+    "date_bar": "Última imagem limpa {d1}, próxima imagem limpa {d2}",
+    "inside_model": "Só dentro do modelo",
+    "climate_line": "Clima: Simulado com o clima de 1984 a 2025: {N} de {M} safras (cerca de {K} em 10)",
+    "parameters": "Parâmetros: mesma direção em cerca de {K} em 10 variações do modelo. Isto não é chance de sucesso.",
+    "trials_line": "Ensaios: {label}",
+    "icons_alt": "Simulado: {K} de 10 ícones preenchidos"
+   },
+   "seals": {
+    "names": {
+     "seen_by_satellite": "Visto por satélite",
+     "estimated_from_satellite": "Estimado por satélite",
+     "reanalysis": "Reanálise",
+     "simulated": "Simulado",
+     "measured_in_trials": "Medido em ensaio",
+     "derived_from_trials": "Derivado de ensaios",
+     "official_rule": "Regra oficial",
+     "published_climatology": "Climatologia publicada",
+     "your_numbers": "Os seus números",
+     "unknown": "Desconhecido"
+    },
+    "help": {
+     "seen_by_satellite": "Só reflectância e NDVI.",
+     "estimated_from_satellite": "Datas, ciclos verdes e chuva do IMERG, estimados por satélite.",
+     "reanalysis": "Clima da NASA POWER. Trechos do GEOS-IT ficam marcados como provisórios.",
+     "simulated": "Saída do modelo de culturas.",
+     "measured_in_trials": "Número publicado por um ensaio de campo.",
+     "derived_from_trials": "Cálculo da equipe sobre médias publicadas de ensaio.",
+     "official_rule": "Portaria ou Zarc.",
+     "published_climatology": "Climatologia publicada, como a do GloREDa, sem ano específico.",
+     "your_numbers": "Número que você digitou.",
+     "unknown": "Lacuna declarada."
+    },
+    "provisional": "provisório"
+   },
+   "labels": {
+    "not_completed": {
+     "title": "Não concluído",
+     "body": "A bancada de testes não terminou antes do congelamento. Nenhum resultado fica subentendido."
+    },
+    "model_not_validated_here": {
+     "title": "Modelo não validado aqui",
+     "body": "O modelo não passou na checagem contra os ensaios de campo. Os resultados da sequência de culturas ficam em Como sabemos. Esta página usa histórico de satélite, ensaios, regras e os seus números."
+    },
+    "direction_not_validated": {
+     "title": "Direção não validada",
+     "body": "O modelo passou na checagem de referência, mas não reproduziu a diferença entre trigo e milho como cultura anterior. Isso quer dizer não demonstrado, e não refutado. A água na semeadura é simulada, sem checagem independente."
+    },
+    "direction_matched_mechanism_not_shown": {
+     "title": "Direção coincide, mecanismo não demonstrado",
+     "body": "O modelo acompanhou os ensaios, mas não passou no teste do ano errado ou na rodada sem a água herdada da cultura anterior, ou um deles não terminou. Não podemos dizer que a água explica."
+    },
+    "direction_supported_exploratory": {
+     "title": "Direção apoiada em 10 locais-safra de ensaio (exploratório, não cego)",
+     "body": "O modelo acompanhou os ensaios e passou nos dois controles. Isso vale para trigo em parte da área, só nesta região. Não diz nada sobre quanto você ganharia."
+    }
+   },
+   "missing": {
+    "unknown": "Desconhecido",
+    "no_data": "sem dado",
+    "not_completed": "não concluído",
+    "example_folder": "A pasta do exemplo não foi encontrada aqui. O exemplo fictício não faz parte do site publicado. Abra-o a partir de uma cópia do repositório."
+   },
+   "page": {
+    "title": "Aftercrop",
+    "rehearsal_banner": "Ensaio geral: dados reais da NASA numa faixa de desenvolvimento, ensaios fictícios",
+    "tagline": "O Aftercrop ajuda o agricultor a decidir o que vem depois da soja num talhão, e avisa quando a evidência não basta.",
+    "header": {
+     "persona": "Talhão de exemplo, fazenda fictícia. O local é real, sem dados de proprietário.",
+     "region": "Primeira região com evidência: norte do Paraná, Brasil. O método pode ser avaliado em outros lugares, mas cada nova região precisa da sua própria evidência de ensaios de campo.",
+     "region_rule": "Sem ensaio de campo, sem veredito. A regra viaja. O veredito não.",
+     "trial_sites": "Ensaios de 3 locais: Londrina, Floresta e Cafelândia.",
+     "how_we_know": "Como sabemos",
+     "field_name": "Talhão {X}",
+     "field_picker": "Escolha um talhão",
+     "map_alt": "Imagem de satélite HLS dos talhões de exemplo, com o contorno de cada um. Escolha um contorno para trocar o talhão."
+    },
+    "question": {
+     "lead": "Antes de comprar semente e adubo da safrinha:",
+     "main": "Neste talhão, depois desta soja, o que vem agora?",
+     "options": "Mantenho o milho 2ª, adiciono braquiária ao milho ou testo trigo em parte da área?"
+    },
+    "answer": {
+     "title": "Resposta",
+     "example_prices": "preços de exemplo, talhão real",
+     "caption": "Contagens de ensaios de 3 locais, não a sua chance. Não é previsão para o seu talhão.",
+     "caption_sites": "Contagens de ensaios de {sites} locais, não a sua chance. Não é previsão para o seu talhão.",
+     "caption_one_site": "Contagens de ensaios de um local, não a sua chance. Não é previsão para o seu talhão.",
+     "per_hectare": "Todos os números são por hectare.",
+     "bag": "Saca = 60 kg.",
+     "which_field_first": "Em qual talhão primeiro: {line}",
+     "nasa_line": {
+      "hls": "NASA HLS, este talhão: o primeiro ciclo verde terminou antes do fim da janela do Zarc para o milho em {k} de {n} safras.",
+      "power": "NASA POWER: noites abaixo de {t} °C em {k} de {n} safras de milho."
+     },
+     "model_check": "Checagem do modelo de sequência de culturas (opção trigo, só água): {label}. A resposta acima não depende dela.",
+     "transfer_warning": "Estes ensaios vêm de 3 locais com argila acima de 750 g/kg. Confira se o seu solo é parecido.",
+     "use_with_care": "Use com cuidado",
+     "use_with_care_note": "A argila que você declarou fica entre {low} e {high} g/kg. Os ensaios são em argila acima de 750 g/kg.",
+     "soil_out_of_domain": "Evidência insuficiente. O solo que você declarou tem argila abaixo de 350 g/kg, ou o talhão está em plantio convencional. Os ensaios são em plantio direto com argila acima de 750 g/kg."
+    },
+    "field_order": {
+     "first": "Talhão {X} primeiro: a soja saiu dele mais tarde que do Talhão {Y} em {N} de {M} safras, a confirmar.",
+     "none": "Nenhum talhão se destaca, use o que você sabe.",
+     "one_field": "Só um talhão de exemplo está carregado, então não há ordem de talhões."
+    },
+    "priority": {
+     "label": "Prioridade:",
+     "income": "renda",
+     "water": "água",
+     "soil": "solo",
+     "note": "A prioridade só destaca uma linha. Ela nunca muda a resposta."
+    },
+    "strategies": {
+     "S1": {
+      "code": "S1",
+      "name": "Manter o milho",
+      "sub": "a sua rotação atual",
+      "sequence": "Soja e depois milho 2ª, todo ano."
+     },
+     "S2": {
+      "code": "S2",
+      "name": "Milho com braquiária",
+      "sub": "não simulado",
+      "fixed": "Não simulado. O milho aparece como em S1 porque o ensaio registrou diferença muito pequena no milho.",
+      "sequence": "Soja e depois milho 2ª semeado com braquiária (Urochloa ruziziensis)."
+     },
+     "S3": {
+      "code": "S3",
+      "name": "Trigo em parte da área",
+      "sub": "em até 50% da área",
+      "sequence": "Soja, trigo, soja, em até 50% da área, sem repetir todo ano.",
+      "late_soy_gap": "Lacuna: a soja semeada depois do trigo vem mais tarde e pode encurtar a janela do milho do ano seguinte. Esse efeito não é calculado."
+     }
+    },
+    "rows": {
+     "L1": {
+      "title": "Quando não há nada crescendo?",
+      "S1": "Soja, milho 2ª e depois pousio. O vão vem depois do milho.",
+      "S2": "Mesmo calendário, com o capim vivo depois do milho. O capim fecha o vão até a dessecação.",
+      "S3": "Trigo semeado de abril ao 2º decêndio de maio. De fevereiro a abril fica o pousio declarado, com alerta de mato e palha fina de soja. O vão passa para o outono e não some.",
+      "hls_note": "Os pontos de satélite ficam só atrás de S1, como fundo. Eles nunca servem para comparar.",
+      "no_green": "Sem verde visto em {N} de 36 decêndios (mediana de {S} safras). Os decêndios marcados sem dado não tiveram imagem limpa e não entram na conta."
+     },
+     "L2": {
+      "title": "O que pode dar errado?",
+      "zarc_class": "Classe de risco do Zarc para {crop}: {class}",
+      "soil_class_unknown": "ainda não pode ser associada a este solo",
+      "any_class_range": "{a} a {b}% em qualquer classe de solo",
+      "any_class_one": "{a}% em qualquer classe de solo",
+      "class_not_zoned": "sem janela do Zarc para a classe de solo {class}",
+      "crops": {
+       "corn": "milho 2ª",
+       "grass": "milho com braquiária",
+       "wheat": "trigo"
+      },
+      "wheat_zarc": "Zarc 2025/26, o último com trigo",
+      "climate_frost": "Noites abaixo de {t} °C, de {start} a {end}: em {k} de {n} safras",
+      "climate_rain": "Chuva, de {start} a {end}: mediana de {median} mm. O décimo mais seco das safras teve {p10} mm ou menos.",
+      "climate_driest": "Safras mais secas: {seasons}",
+      "climate_note": "NASA POWER, 1984 a 2025, nas datas de {crop} do Doc 476 da Embrapa. Contagem de safras passadas, não previsão.",
+      "years": "Anos: {years}",
+      "frost_alert": "Alerta de geada no espigamento do trigo. É um alerta regional pela temperatura mínima, não previsão para o talhão.",
+      "regional": "O clima é o mesmo para todos os talhões de uma célula, então esta linha não separa talhões.",
+      "filter": "Recontar só com os anos que você citar",
+      "filter_note": "Isto reconta anos passados. Não prevê nada."
+     },
+     "L3": {
+      "title": "O que os ensaios mediram?",
+      "S1": "Referência. Ano ruim: {season} no {source}.",
+      "S2": "Medido: {gain} em {season}, num local.",
+      "S2_roots": "Num ensaio em Londrina, as raízes explicam {roots_pct}% do ganho e a palhada {straw_pct}%. Raízes não se veem da órbita, e o modelo não as carrega de uma cultura para a outra.",
+      "S2_model8": "O modelo 8 da Embrapa (braquiária, soja, milho, soja, milho, soja) pede abrir mão de um milho.",
+      "S2_oats": "Uma sequência mais longa, com aveia e nabo, fica só como citação.",
+      "S3": "{delta} kg/ha em média, cerca de {bags} sc/ha, em {n} locais-safra de 3 locais: {pos} positivos e {neg} negativos.",
+      "S3_compilation": "Um resumo expandido encontrou {a} e {b} em argila acima de 750 g/kg. Ele não conta como fonte independente.",
+      "S3_mp6": "O MP6 é trigo com trigo-mourisco, não esta sequência. O dinheiro dele não vira resultado de S3."
+     },
+     "L4": {
+      "title": "Compensa?",
+      "your_numbers": "Os seus números",
+      "your_limits": "Os seus limites",
+      "S1": "Referência: margem do milho de {M_corn} R$/ha.",
+      "S2": "Ponto de equilíbrio: custo da braquiária dividido pelo preço da soja, {G} sc/ha.",
+      "S3": "Ponto de equilíbrio: margem do milho menos margem do trigo, dividida pelo preço da soja, {G} sc/ha. A renda do trigo entra no mesmo ano.",
+      "loss_year": "O ano de perda fica sempre à vista.",
+      "nitrogen": "Exposição ao nitrogênio",
+      "nitrogen_note": "Fica à parte. Não entra em G, porque o adubo já está nos seus custos de milho e de trigo.",
+      "urea_context": "Ureia em contexto, com data, nunca como premissa: {context}"
+     },
+     "L5": {
+      "title": "Próxima soja aqui",
+      "only_if_label": "só se o rótulo permitir",
+      "reference": "Referência",
+      "states": {
+       "lower_water_risk": "Próxima soja aqui: menor risco hídrico no modelo.",
+       "no_water_difference": "Próxima soja aqui: nenhuma diferença ligada à água no modelo.",
+       "inconclusive": "Próxima soja aqui: inconclusivo."
+      },
+      "stable_note": "Estável no modelo não quer dizer que vai funcionar no seu talhão."
+     },
+     "soil": {
+      "line": "Solo usado: {class}, estimado. Peça o seu laudo de solo."
+     },
+     "erosivity": {
+      "line": "Erosividade da chuva nos dias sem verde: {class}",
+      "classes": {
+       "reference": "referência",
+       "lower": "menor",
+       "similar": "parecida",
+       "higher": "maior"
+      }
+     },
+     "soil_note": "A rotação ajuda a segurar o solo. Ela não substitui terraços nem impede a enxurrada."
+    },
+    "why": {
+     "button": "Por quê?",
+     "items": {
+      "why_suggested": "Por que foi sugerida",
+      "evidence": "Que evidência",
+      "benefits": "Benefícios",
+      "gaps": "Lacunas de informação",
+      "risks": "Riscos para revisão local"
+     },
+     "S1": {
+      "why_suggested": "É o que você faz hoje, e domina por motivos reais.",
+      "evidence": "Modelo 1 do Doc 398 e MP1 do Doc 476, da Embrapa.",
+      "benefits": "Renda conhecida.",
+      "gaps": "Efeito de longo prazo, sem número.",
+      "risks": "Cigarrinha, enfezamentos, geada."
+     },
+     "S2": {
+      "why_suggested": "Mantém o milho e cobre o solo.",
+      "evidence": "Modelo 4 do Doc 398 e Doc 459, da Embrapa, e Zarc 344/2026, com 7 locais-safra.",
+      "benefits": "Ganho só como medido.",
+      "gaps": "Sem simulação, dois modos de implantação nos 7 locais-safra.",
+      "risks": "Pratylenchus, com laudo. Dessecação na hora certa."
+     },
+     "S3": {
+      "why_suggested": "Muda a cultura antecessora da soja em parte da área.",
+      "evidence": "Doc 476 da Embrapa, compilação de 39 casos, 10 locais-safra.",
+      "benefits": "Renda do trigo no mesmo ano. Ganho na soja só como medido.",
+      "gaps": "Sem teste de trigo depois de soja tardia, 3 locais.",
+      "risks": "Doença de raiz, giberela, geada no espigamento, mofo-branco acima de 600 m."
+     },
+     "nitrogen": "O nitrogênio aparece aqui só em palavras, nunca como número.",
+     "unaudited": "Brusone e chuva na colheita não foram auditadas. Elas ficam para revisão local."
+    },
+    "year_strip": {
+     "title": "Faixa do ano",
+     "sub": "De jan a dez, uma linha por estratégia, mesmo calendário",
+     "footer": "O mesmo calendário nas três linhas. Os pontos são deste talhão, só como referência.",
+     "months": [
+      "jan",
+      "fev",
+      "mar",
+      "abr",
+      "mai",
+      "jun",
+      "jul",
+      "ago",
+      "set",
+      "out",
+      "nov",
+      "dez"
+     ],
+     "marks": {
+      "sanitary_break": "Vazio sanitário",
+      "soy_window": "Janela legal de semeadura da soja",
+      "zarc_window": "Janela do Zarc",
+      "vulnerable": "Meses de risco (L2)"
+     },
+     "no_crop": "Sem cultura viva",
+     "table_caption": "Faixa do ano em tabela, uma linha por estratégia, por decêndio",
+     "crops": {
+      "soybean": "soja",
+      "grass": "braquiária solteira"
+     }
+    },
+    "ribbon": {
+     "title": "8 safras",
+     "sub": "Este talhão, 36 decêndios por safra",
+     "legend": "Sem verde não quer dizer solo nu. O NDVI não separa palha de solo.",
+     "cells": {
+      "green": "verde",
+      "not_green": "sem verde",
+      "no_data": "sem dado",
+      "to_confirm": "a confirmar"
+     },
+     "two_cycles": "segundo ciclo verde visto, só o primeiro é lido",
+     "soy_exit": "Fim do primeiro ciclo verde, por safra",
+     "open_series": "Escolha uma safra para ver a série de NDVI.",
+     "table_caption": "8 safras em tabela, uma linha por safra, por decêndio",
+     "zarc_end": "Fim da janela do Zarc para o milho",
+     "risk_band": {
+      "title": "Risco do Zarc para semear, por decêndio",
+      "rows": {
+       "S1": "Zarc, milho",
+       "S2": "Zarc, milho com braquiária"
+      },
+      "outside": "fora do zoneamento",
+      "range": "{a} a {b}%",
+      "split": "metade de cima o maior, metade de baixo o menor risco",
+      "partial": "fora do zoneamento para algumas classes de solo",
+      "any": "Sem laudo de solo: o menor e o maior risco do Zarc entre todas as classes de solo e grupos de ciclo do município.",
+      "declared": "Classe de solo {class}, no grupo de ciclo cuja janela termina mais tarde."
+     }
+    },
+    "nasa_switch": {
+     "title": "Interruptor NASA",
+     "key": "HLS",
+     "switch_on": "ligado",
+     "switch_off": "desligado",
+     "changed": "Desligar isto muda {X} de {Y} estados de talhão e opção.",
+     "short": "{X} de {Y} mudaram. Dependência, não acerto.",
+     "context_only": "só contexto",
+     "legend": "Isto mostra o quanto a resposta depende do NASA HLS. Não mostra que a resposta está certa.",
+     "date_in_charge": "A sua data manda, então o aviso do satélite não muda a resposta neste talhão.",
+     "on_your_numbers": "Com os seus números."
+    },
+    "actions": {
+     "sheet": "Levar ao meu agrônomo",
+     "reset": "Voltar aos números de exemplo"
+    },
+    "footer": {
+     "not_visible": "Não se vê da órbita: raízes, nitrogênio, nematoides, doença, produtividade",
+     "supports": "Apoia, não substitui o julgamento local.",
+     "demo": "Demo de 30 segundos"
+    },
+    "inputs": {
+     "title": "Os seus números",
+     "example": "exemplo, fictício",
+     "privacy": "Nada do que você digita sai deste navegador.",
+     "cost_kind": "Diga se cada custo é variável ou total.",
+     "p_soy": {
+      "label": "Preço da soja",
+      "unit": "R$ por saca de 60 kg"
+     },
+     "p_corn": {
+      "label": "Preço do milho",
+      "unit": "R$ por saca de 60 kg"
+     },
+     "p_wheat": {
+      "label": "Preço líquido do trigo, já com o desconto de qualidade",
+      "unit": "R$ por saca de 60 kg"
+     },
+     "Y_corn": {
+      "label": "Produtividade típica do milho neste talhão",
+      "unit": "sc/ha"
+     },
+     "Y_wheat": {
+      "label": "Produtividade típica do trigo neste talhão",
+      "unit": "sc/ha"
+     },
+     "c_corn": {
+      "label": "Custo do milho",
+      "unit": "R$/ha"
+     },
+     "c_wheat": {
+      "label": "Custo do trigo",
+      "unit": "R$/ha"
+     },
+     "c_grass": {
+      "label": "Custo da semente de braquiária e da dessecação",
+      "unit": "R$/ha"
+     },
+     "sowing_date": {
+      "label": "Data de semeadura do milho",
+      "unit": "data",
+      "note": "A sua data manda sobre o satélite."
+     },
+     "urea_price": {
+      "label": "Preço da ureia",
+      "unit": "R$ por tonelada"
+     },
+     "n_dose": {
+      "label": "Dose de nitrogênio",
+      "unit": "kg de N/ha"
+     },
+     "scenarios": {
+      "title": "Três cenários de preço",
+      "low": "Baixo",
+      "base": "Base",
+      "high": "Alto",
+      "low_note": "Preço do milho {k} menor",
+      "high_note": "Preço do milho {k} maior",
+      "changes": "A resposta muda entre os cenários.",
+      "same": "A resposta é a mesma nos três cenários."
+     }
+    },
+    "limits": {
+     "title": "Os seus limites",
+     "intro": "Um limite real tira uma opção e diz por quê, ou vira item da folha do agrônomo.",
+     "answer_yes": "sim",
+     "answer_no": "não",
+     "no_narrow_row_seeder": {
+      "question": "Você tem semeadora com espaçamento estreito entre linhas para trigo?",
+      "effect": "Sem ela, trigo em parte da área não entra."
+     },
+     "no_grass_seeding": {
+      "question": "Como entraria a semente de braquiária?",
+      "extra_box": "caixa extra na semeadora",
+      "with_fertilizer": "junto com o adubo",
+      "broadcast": "a lanço",
+      "none": "nenhuma destas",
+      "effect": "Sem caixa extra, adubo ou lanço, milho com braquiária não entra."
+     },
+     "no_wheat_buyer": {
+      "question": "O seu armazém ou cooperativa recebe trigo?",
+      "effect": "Sem quem receba o trigo, trigo em parte da área não entra."
+     },
+     "rented_land": {
+      "question": "A terra é própria ou arrendada?",
+      "own": "própria",
+      "rented": "arrendada",
+      "effect": "Isto vai para a folha do agrônomo."
+     },
+     "zarc_insurance_credit": {
+      "question": "O seu seguro ou crédito exige o Zarc?",
+      "effect": "Com seguro ou crédito ligado ao Zarc, a opção fora do Zarc não entra."
+     },
+     "reasons": {
+      "no_narrow_row_seeder": "sem semeadora de linha estreita para trigo",
+      "no_grass_seeding": "sem como semear a braquiária",
+      "no_wheat_buyer": "sem armazém ou cooperativa que receba trigo",
+      "zarc_consortium_window": "a sua data de semeadura fica fora da janela do Zarc para milho com braquiária, e o seu seguro ou crédito exige o Zarc",
+      "soy_calendar_portaria_1579_2026": "desrespeita o vazio sanitário ou a janela legal de semeadura da soja"
+     },
+     "soft": {
+      "wheat_max_half_area": "Trigo em no máximo 50% da área.",
+      "one_winter_without_wheat_or_barley": "Deixe um inverno sem trigo nem cevada antes de voltar ao trigo.",
+      "note": "É um aviso. Não tira a opção."
+     }
+    }
+   },
+   "howweknow": {
+    "title": "Como sabemos",
+    "back": "Voltar à resposta",
+    "current_label": "Rótulo atual: {label}",
+    "supports": "O Aftercrop apoia, não substitui o julgamento local.",
+    "no_local_review": "Não houve revisão local. Nenhum agrônomo leu estes cartões antes da submissão.",
+    "water_note": "Água na semeadura: simulada, sem checagem independente.",
+    "sequence_results": "Resultados da sequência de culturas",
+    "zarc_independence": "Referência pública: Zarc/MAPA, safra 2026/27. Esta ferramenta é independente: não foi avaliada pelo MAPA nem pela Embrapa, não define acesso a seguro ou crédito e não classifica nível de manejo.",
+    "scoreboard": {
+     "title": "Checagem exploratória contra ensaios",
+     "intro": "Uma linha por teste, com a pergunta, a regra de aprovação e o resultado. Toda regra de aprovação é regra de projeto, fixada antes de qualquer resultado.",
+     "columns": {
+      "test": "Teste",
+      "question": "Pergunta",
+      "rule": "Regra de aprovação (regra de projeto)",
+      "result": "Resultado"
+     },
+     "status": {
+      "pass": "passou",
+      "fail": "não passou",
+      "not_run": "planejado, não rodou",
+      "not_completed": "não concluído",
+      "exploratory": "exploratório",
+      "reported": "relatado"
+     },
+     "status_line": {
+      "pass": "Passou.",
+      "fail": "Não passou.",
+      "not_run": "Planejado, não rodou.",
+      "not_completed": "Não concluído.",
+      "exploratory": "Exploratório.",
+      "reported": "Relatado."
+     },
+     "lines": {
+      "L0": {
+       "fail_artifacts": "O balanço de água fecha e as rodadas se repetem iguais, mas {u} de {a} saídas estranhas do modelo, como uma cultura morta, ficam sem explicação. Para passar, no máximo {max}."
+      },
+      "L1": {
+       "not_run": "Nenhum arquivo de estação meteorológica foi preparado para o evento."
+      },
+      "T0": {
+       "any": "S de Kendall {s}, para passar precisa de {s_min}."
+      },
+      "T1": {
+       "any": "S de Kendall {s}, para passar precisa de {s_min}. RMSE de {rmse} kg/ha, uma constante dá {constant}."
+      },
+      "P1": {
+       "any": "Com o clima de anos errados, o S ficou pelo menos tão alto em {t0_k} de {shifts} deslocamentos no T0 e em {t1_k} de {shifts} no T1. Para passar, no máximo {max}."
+      },
+      "A1": {
+       "fail_paired": "Com e sem a água passada de uma cultura para a outra, S {with} contra {without}, mas o teste pareado do protocolo não passou.",
+       "any": "Com e sem a água passada de uma cultura para a outra, S {with} contra {without}."
+      },
+      "A2": {
+       "not_run": "A contagem que ele conferia saiu, e as linhas de chuva não são comparadas com o IMERG no evento."
+      },
+      "A3": {
+       "any": "{k} de {n} estados de talhão e opção mudam sem o NASA HLS."
+      },
+      "N1": {
+       "any": "Piso de ruído de {floor} dias."
+      },
+      "H1": {
+       "not_run": "Nenhuma sessão com leitores aconteceu."
+      },
+      "H2": {
+       "not_run": "Não foi tentado, por decisão do participante, então não houve revisão local."
+      },
+      "R1": {
+       "not_run": "O motor não tem caminho para ele no evento, e ele só roda se o T1 passar."
+      },
+      "context_only": "Só contexto."
+     },
+     "raw": "Valores gravados",
+     "raw_rule": "Regra como gravada: {raw}",
+     "raw_result": "Resultado como gravado: {raw}",
+     "rules": {
+      "L0": "O balanço de água fecha dentro de {c} mm em cada troca de cultura, duas rodadas se repetem iguais, e no máximo {max} saídas estranhas do modelo ficam sem explicação.",
+      "L1": "Chuva a até {r}% das estações por safra, temperatura a até {c} °C.",
+      "T0": "S de Kendall de pelo menos {s}, e a soma dos S dentro de cada local acima de {w}.",
+      "T1": "S de Kendall de pelo menos {s}, e um RMSE abaixo do de uma constante, {c} kg/ha.",
+      "P1_none": "Em nenhum dos {shifts} deslocamentos para anos errados o S fica pelo menos tão alto quanto com os anos certos.",
+      "P1_some": "Em no máximo {max} dos {shifts} deslocamentos para anos errados o S fica pelo menos tão alto quanto com os anos certos.",
+      "A1": "S com a água passada de uma cultura para a outra menos S sem ela acima de {d}, e o teste exaustivo de trocas pareadas do protocolo.",
+      "L0_none": "O balanço de água fecha dentro de {c} mm em cada troca de cultura, duas rodadas se repetem iguais, e toda saída estranha do modelo tem explicação.",
+      "A1_zero": "S com a água passada de uma cultura para a outra acima do S sem ela, e o teste exaustivo de trocas pareadas do protocolo.",
+      "none_plain": "Sem regra de aprovação.",
+      "A3": "Sem regra de aprovação. Se nenhum estado muda, o NASA HLS é só contexto.",
+      "R1": "Roda só se o T1 passar. A direção se mantém com inversões até {inv}% e margem de equivalência de {eq} kg/ha.",
+      "none": "Sem regra de aprovação. Relatado como está, nunca como aprovado."
+     },
+     "tests": {
+      "L0": "O balanço de água fecha em cada troca de cultura, e uma rodada se repete igual?",
+      "L1": "A NASA POWER e o IMERG batem com as estações meteorológicas de Londrina?",
+      "T0": "O modelo acompanha a produtividade publicada da soja depois do milho 2ª nos 10 locais-safra de ensaio?",
+      "T1": "O modelo reproduz a diferença da soja depois do trigo contra depois do milho?",
+      "P1": "O clima do ano certo se sai melhor que o clima de anos errados?",
+      "A1": "O resultado depende da água que fica da cultura anterior?",
+      "A2": "As contagens de L2 se mantêm com a chuva do IMERG no lugar da chuva da POWER?",
+      "A3": "Quantos estados de talhão e opção mudam sem o NASA HLS?",
+      "N1": "Qual é a menor diferença em dias que fica acima do ruído?",
+      "H1": "Pessoas que não viram a página conseguem explicá-la depois de 3 minutos?",
+      "H2": "Um agrônomo local leu os cartões?",
+      "R1": "A direção se mantém quando parâmetros incertos do modelo variam?"
+     },
+     "s_by_site": "S de Kendall dentro de cada local: Londrina {londrina}, Floresta {floresta}, Cafelândia {cafelandia}",
+     "t1_failed_on": {
+      "order": "T1 não passou na ordem (S).",
+      "size": "T1 não passou no tamanho (RMSE).",
+      "both": "T1 não passou na ordem (S) nem no tamanho (RMSE)."
+     },
+     "always_positive": "Uma regra que sempre diz que o trigo ajuda já acerta o sinal em 8 locais-safra e erra em 2.",
+     "rights": "Até os direitos da Embrapa serem esclarecidos, esta página mostra contagens e medidas agregadas, não os 10 valores dos ensaios.",
+     "chart": "Onde fica o ano real entre os anos errados",
+     "fail_means": "Não passar quer dizer não demonstrado, nunca refutado. O ganho pode estar nas raízes, na palhada ou em doença, fora do modelo.",
+     "not_completed": "Se a bancada não terminar até a parada final, o placar diz não concluído."
+    },
+    "sensitivity": {
+     "title": "Sensibilidade do solo depois do congelamento",
+     "cause": "O teste congelado usou a argila impressa nos relatórios dos ensaios (77 a 78% em dois locais). A fórmula de textura do motor foi ajustada em solos com até cerca de 60% de argila (Saxton e Rawls 2006). Para estes solos ela dá de metade a três quartos da água disponível que dá à textura do SoilGrids nos mesmos pontos, por isso as culturas simuladas morreram em muitas safras.",
+     "result": "Rodada uma vez com a textura do solo do SoilGrids nos pontos dos ensaios, todo o resto igual. O rótulo desta rodada continua {label}, porque o L0 confere as cadeias dos talhões, que esta rodada não muda (L0 {l0}). O que a rodada acrescenta: T0 {t0} (S {t0_s}), T1 {t1} (S {t1_s}, RMSE {t1_rmse} kg/ha contra {t1_constant} kg/ha de uma constante), P1 {p1}, A1 {a1} (D {a1_d}). Safras com produção simulada zero: {zero}.",
+     "zero_site": "{site} {k} de {n} (rodada congelada: {k_frozen})",
+     "unchanged": "O rótulo acima fica como foi congelado. Esta rodada foi decidida depois do congelamento e não o muda."
+    },
+    "ablation": {
+     "title": "O que muda sem o NASA HLS",
+     "body": "Sem o NASA HLS, {S} de {Y} estados mudam entre os talhões, as opções e os cenários de preço. Uma fonte que não muda nada é marcada como só contexto.",
+     "measured_on": "Contado no exemplo fictício, nos três cenários de preço.",
+     "power_note": "A NASA POWER não tem interruptor, porque alimenta o modelo de culturas e as contagens de L2. O peso dela aparece no teste do ano errado (P1).",
+     "rain_check": "Checagem da chuva (A2): as contagens de L2 com a chuva do IMERG no lugar da chuva da POWER, de 1998 a setembro de 2025, no mesmo período para as duas."
+    },
+    "switch_placement": {
+     "on_main": "Nos talhões mostrados, desligar o NASA HLS muda {X} de {Y} estados de talhão e opção. O protocolo põe o interruptor na página principal só quando ele muda ao menos {min} deles, por isso ele está lá.",
+     "here": "Nos talhões mostrados, desligar o NASA HLS muda {X} de {Y} estados de talhão e opção. O protocolo põe o interruptor na página principal só quando ele muda ao menos {min} deles, por isso ele fica aqui.",
+     "no_rule": "A regra do protocolo para o interruptor NASA não pôde ser lida, por isso o interruptor fica aqui."
+    },
+    "levels": {
+     "title": "O que está conferido, e o que não está",
+     "intro": "Quatro níveis, lidos dos arquivos que esta página carrega.",
+     "verified": {
+      "title": "Verificado internamente",
+      "ledger": "Todo número destas páginas tem um registro de evidência, e a montagem do site confere cada um contra o seu registro.",
+      "l0": "O balanço de água do modelo de culturas fecha em cada troca de cultura, e uma rodada se repete exatamente (L0).",
+      "tests": "Testes automáticos conferem que o código concorda consigo mesmo e com o protocolo. O README dá a contagem deles. Eles conferem o código, não o modelo, e não mostram que a resposta está certa."
+     },
+     "obtained": {
+      "title": "Dados obtidos"
+     },
+     "not_executed": {
+      "title": "Ainda não executado",
+      "fields": "Séries de satélite nos talhões reais",
+      "chains": "Cadeias do modelo de culturas nos locais dos ensaios ({ids})",
+      "bench": "Testes da bancada ({ids})",
+      "none": "Todo teste planejado já rodou."
+     },
+     "not_demonstrated": {
+      "title": "Ainda não demonstrado",
+      "items": [
+       "Capacidade de prever: nada aqui mostra que a resposta prevê o que um talhão vai produzir.",
+       "Alcance fora dos locais dos ensaios: três locais em solo muito argiloso, em testes exploratórios e não cegos."
+      ]
+     }
+    },
+    "station": {
+     "title": "Satélite contra estação",
+     "body": "Chuva e temperatura da NASA POWER e do IMERG contra estações do INMET e do IDR-Paraná em Londrina, com o viés de cada uma. Uma série fora dos limites do protocolo ganha rótulo, e nunca é corrigida em silêncio. Este é o teste L1, e a situação dele está no placar."
+    },
+    "scale": {
+     "title": "Escada de escala",
+     "body": "Um talhão de {area} ha contra as células dos dados.",
+     "row": "{source}: uma célula cobre cerca de {count} talhões deste tamanho.",
+     "same_cell": "Um valor só da POWER é o mesmo para todos os talhões da mesma célula."
+    },
+    "ground": {
+     "title": "Satélite contra medida no chão",
+     "body": "Uma parcela de ensaio de 40 a 240 m² é menor que um pixel HLS de 900 m². O satélite vê o talhão, e o ensaio vê a parcela.",
+     "first_cycle": "O aviso da janela usa o fim do primeiro ciclo verde de cada safra como indicador da fase da soja. Ele nunca classifica a cultura. O segundo ciclo, em geral o milho safrinha, continua visível na fita das 8 safras e nunca confirma que o primeiro foi soja. Os limiares são regras do projeto, ainda não testadas com o HLS aqui (PROTOCOL.md, seção 15, D12)."
+    },
+    "crop_roles": {
+     "title": "O papel de cada tipo de cultura",
+     "nitrogen_fixers": {
+      "name": "Fixadoras de nitrogênio",
+      "text": "A soja não deixa muito nitrogênio no solo. A cultura seguinte ganha mais por ter menos nitrogênio imobilizado. Adubos verdes são outro caso."
+     },
+     "cover_crops": {
+      "name": "Plantas de cobertura",
+      "text": "Protegem o solo entre as culturas. A entrada de água subiu 34,8% em média em estudos de outros lugares. As perenes mostraram 59,2%."
+     },
+     "deep_roots": {
+      "name": "Raízes profundas",
+      "text": "As raízes abrem canais e alcançam a água guardada. Mostramos só resultados de ensaio, porque o modelo não carrega raízes de uma cultura para a outra."
+     },
+     "drought_tolerant": {
+      "name": "Tolerantes à seca",
+      "text": "O sorgo é muito citado. Nenhum efeito regional de rotação foi confirmado, então ele não é opção aqui."
+     }
+    },
+    "licenses": {
+     "title": "Licenças",
+     "body": "Cada fonte, a versão, a licença e a data de leitura estão no manifesto. Citar uma fonte nunca sugere que o dono dela endossa esta ferramenta."
+    },
+    "limits": {
+     "title": "Limites",
+     "declared": [
+      "O teste não é cego. Os valores observados foram lidos na auditoria.",
+      "Exploratório. Contraste e limiares vêm dos mesmos 10 valores.",
+      "10 locais-safra de 3 locais, não independentes.",
+      "O motor só enxerga água. O trigo pode secar o perfil e o milho pode sair cedo. A água sozinha pode dar sinal nulo ou contrário.",
+      "O que se testa não é o que vai à tela. T1 usa parcelas, datas publicadas e sistemas mantidos. O talhão usa datas estimadas, SoilGrids e uma troca única.",
+      "Os ensaios estão acima de 750 g/kg de argila, em plantio direto. Um solo diferente dispara aviso.",
+      "A ablação mede dependência, não acerto.",
+      "T1 testa só S3 contra S1. S2, L2, a classe de erosividade e os cortes 0,7 e 0,3 não têm teste externo.",
+      "Nenhum agricultor real terá usado a ferramenta até a submissão."
+     ],
+     "not_used_title": "O que não usamos e por quê",
+     "not_used": [
+      "Estatística municipal de safra (PAM do IBGE): a unidade é o município, e ela não registra a cultura anterior.",
+      "Acompanhamento subjetivo de fases (Deral): o erro não pode ser medido, então não é verdade de talhão.",
+      "Verdade de campo para as datas do satélite: não há para estes talhões. N1 mede repetibilidade, não acerto.",
+      "Gerador de sequências: ele produziria sequências sem ensaio, e a regra que viaja é sem ensaio, sem veredito.",
+      "Cevada e caupi: as perdas nos ensaios vieram de doença ou de causa não determinada. Sorgo: nenhum efeito regional confirmado. Perenes: o modelo não as simula.",
+      "Aprendizado de máquina e modelos de linguagem no produto: não há alvo independente para aprender.",
+      "Par de produtividade e preço do mesmo ano: não foi mostrado que a anomalia simulada acompanha a real."
+     ]
+    },
+    "protocol": {
+     "title": "Protocolo, fixado antes de qualquer resultado",
+     "intro": "O protocolo (protocol-v1) fixa testes, limiares, rótulos e regra de decisão antes de qualquer simulação. O código calcula o rótulo. Ninguém o redige.",
+     "public_note": "O repositório público traz só a versão final. A ordem entre protocolo e resultados não pode ser conferida por ele.",
+     "declarations": [
+      "Os valores observados já foram lidos.",
+      "O teste não é cego.",
+      "O teste é exploratório, com regra fixa.",
+      "O contraste e os limiares vêm dos mesmos 10 valores.",
+      "Só ciclo e datas são ajustados.",
+      "Tudo é publicado, inclusive as falhas."
+     ],
+     "link": "Ler o protocolo completo"
+    },
+    "region": {
+     "title": "Por que uma região",
+     "intro": "Cada nova região entra com os próprios ensaios. Onde não há ensaio público, ensaios em fazenda da mesma região podem cobrir a lacuna.",
+     "pack_title": "Pacote Regional",
+     "pack": {
+      "decision": "1. Decisão recorrente: escolha anual, com prazo e talhão",
+      "strategies": "2. Estratégias: ao menos três, com fonte, incluindo a atual",
+      "calendar": "3. Calendário oficial",
+      "trials": "4. Ensaios: conjunto público de ensaios replicados que teste a diferença",
+      "reviewer": "5. Revisor local: agrônomo ou técnico que leia os cartões"
+     },
+     "pack_ready": "pronto",
+     "pack_missing": "falta",
+     "next": "Próxima região candidata: Iowa, onde existe ensaio replicado de rotação, mas nenhum pacote regional foi montado ainda.",
+     "label_scope": "O rótulo vale sempre para uma região, nunca para o mundo."
+    }
+   },
+   "glossary": {
+    "title": "Glossário",
+    "hint": "Toque num termo para ver o que ele quer dizer.",
+    "terms": {
+     "ndvi": {
+      "term": "NDVI",
+      "definition": "Índice de verde calculado com luz vermelha e infravermelho próximo. Valores baixos não dizem se o chão está descoberto ou sob palha."
+     },
+     "evapotranspiration": {
+      "term": "Evapotranspiração",
+      "definition": "Água que sai do talhão como vapor, pelo solo e pelas plantas."
+     },
+     "soil_moisture_anomaly": {
+      "term": "Anomalia de umidade do solo",
+      "definition": "O quanto o solo está mais úmido ou mais seco que o normal para a época. Valores de satélite cobrem cerca dos 5 cm de cima, em dezenas de quilômetros."
+     },
+     "frost_risk": {
+      "term": "Risco de geada",
+      "definition": "Chance de frio que prejudica a cultura. Aqui é um alerta regional pela temperatura mínima, não previsão para o talhão."
+     },
+     "water_balance": {
+      "term": "Balanço hídrico",
+      "definition": "Chuva e água guardada que entram, menos enxurrada, drenagem, evaporação e uso pelas plantas."
+     },
+     "site_season": {
+      "term": "Local-safra de ensaio",
+      "definition": "Um local de ensaio numa safra. Os 10 locais-safra vêm de 3 locais, então não são independentes."
+     },
+     "zarc": {
+      "term": "Zarc",
+      "definition": "Zoneamento Agrícola de Risco Climático do Ministério da Agricultura (MAPA). Define as janelas de semeadura ligadas a seguro e crédito rural."
+     },
+     "dekad": {
+      "term": "Decêndio",
+      "definition": "Período de cerca de dez dias. Cada mês tem três: dias 1 a 10, 11 a 20 e 21 ao fim do mês."
+     },
+     "bag": {
+      "term": "Saca",
+      "definition": "60 kg de grão, a unidade usada no Brasil para preço e produtividade."
+     }
+    }
+   },
+   "sheet": {
+    "title": "AFTERCROP, FOLHA PARA O AGRÔNOMO",
+    "fictitious": "exemplo fictício",
+    "field": "Talhão {X}",
+    "region": "Região: norte do Paraná",
+    "generated": "Gerada em {date}",
+    "items": {
+     "option": "Opção para revisar: {option} ({state})",
+     "window": "Janela do Zarc: {window}. Data declarada: {sowing_date}",
+     "satellite": "Satélite: o primeiro ciclo verde passou da janela em {k} de {n} safras",
+     "assumptions": "Premissas: preços, custos, G em sc/ha e sc/alqueire (1 alqueire = 2,42 ha)",
+     "evidence": "Evidência: {N} de {n} locais-safra, {sites} locais, contagem, não chance",
+     "unknowns": "O que a ferramenta não sabe: raízes, nitrogênio, nematoides, doença",
+     "local_review": "Revisão local: {alerts}, laudo de solo, terraço",
+     "strip_test": "Teste em faixas pareadas e repetidas: {area}, pares a definir aqui"
+    },
+    "date_missing": "falta",
+    "g_line": "G: {G_ha} sc/ha, ou {G_alq} sc/alqueire",
+    "window_range": "{start} a {end}",
+    "date_format": "{day}/{month}/{year}",
+    "months": [
+     "01",
+     "02",
+     "03",
+     "04",
+     "05",
+     "06",
+     "07",
+     "08",
+     "09",
+     "10",
+     "11",
+     "12"
+    ],
+    "window_soil_unknown": "ainda não associada a este solo (classe de solo do Zarc não derivada)",
+    "area": "{area} ha",
+    "single_strip": "Faixa única não estima efeito. Esta folha apoia, não substitui o julgamento local.",
+    "strip_design": "O desenho das faixas é do agrônomo: número de pares e largura não têm fonte auditada.",
+    "independence": "Referência pública: Zarc/MAPA, safra 2026/27. Esta ferramenta é independente: não foi avaliada pelo MAPA nem pela Embrapa, não define acesso a seguro ou crédito e não classifica nível de manejo.",
+    "no_local_review": "Não houve revisão local. Nenhum agrônomo revisou esta ferramenta antes da submissão.",
+    "unaudited": "Brusone e chuva na colheita: não auditadas, ficam para revisão local.",
+    "alerts": {
+     "pratylenchus": "Pratylenchus na braquiária",
+     "wheat_root_disease": "doença de raiz no trigo repetido",
+     "white_mold": "mofo-branco acima de 600 m",
+     "leafhopper_stunting": "cigarrinha e enfezamentos",
+     "frost_at_heading": "geada no espigamento",
+     "gibberella": "giberela",
+     "blast_and_harvest_rain": "brusone e chuva na colheita"
+    },
+    "print": "Imprimir"
+   },
+   "ledger": {
+    "title": "Registro de evidência",
+    "close": "Fechar"
+   }
+  }
+ },
+ "sources": {
+  "en": {
+   "path": "config/copy_en.yaml",
+   "sha256": "cac03a4ea36c1a3d5af6b1793ad39d32a321988b68ab39d3e402308ad5b629bc"
+  },
+  "pt": {
+   "path": "config/copy_pt.yaml",
+   "sha256": "cd7802b470026aa038e21bde2b451b21f6a741afd26ee9769889431e4e871d3c"
+  }
+ }
+}

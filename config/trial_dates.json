@@ -1,0 +1,62 @@
+{
+  "_note": "Written with an SI tool (Claude, Anthropic) for NASA Space Apps 2026. See AI_USE.md. Dates only, read from the method sections of the three Embrapa Docs (data/raw/embrapa_docs). No yield value is held here. Pages: PDF page, with the printed page when it differs. A null harvest was not printed: the crop ends on its simulated maturity or the day before the next sowing (protocol.chains.trial.crop_end).",
+  "schema_version": 1,
+  "sites": {
+    "londrina": [
+      {"season": "2021/22", "soybean_sowing": "2021-10-13", "soybean_harvest": "2022-01-23",
+       "predecessor_sowing": {"wheat": "2021-05-21", "maize": "2021-02-19"},
+       "predecessor_harvest": {"wheat": "2021-09-16", "maize": "2021-07-23"},
+       "source": "Embrapa Doc 476, Tabela 3, PDF p. 30 (printed p. 29)"},
+      {"season": "2022/23", "soybean_sowing": "2022-10-19", "soybean_harvest": "2023-02-27",
+       "predecessor_sowing": {"wheat": "2022-05-24", "maize": "2022-03-29"},
+       "predecessor_harvest": {"wheat": "2022-09-05", "maize": "2022-09-19"},
+       "source": "Embrapa Doc 476, Tabela 3, PDF p. 30 (printed p. 29)"},
+      {"season": "2023/24", "soybean_sowing": "2023-10-23", "soybean_harvest": "2024-02-28",
+       "predecessor_sowing": {"wheat": "2023-06-07", "maize": "2023-03-22"},
+       "predecessor_harvest": {"wheat": "2023-09-19", "maize": "2023-09-19"},
+       "source": "Embrapa Doc 476, Tabela 3, PDF p. 30 (printed p. 29)"}
+    ],
+    "floresta": [
+      {"season": "2012/13", "soybean_sowing": "2012-09-28", "soybean_harvest": "2013-02-12",
+       "predecessor_sowing": {"wheat": "2012-04-05", "maize": "2012-02-25"},
+       "predecessor_harvest": {"wheat": "2012-08-06", "maize": "2012-07-26"},
+       "source": "Embrapa Doc 398, Tabela 1 (soybean) and Tabela 2 (corn) p. 14, Tabela 3 (wheat) p. 16"},
+      {"season": "2013/14", "soybean_sowing": "2013-10-08", "soybean_harvest": "2014-02-19",
+       "predecessor_sowing": {"wheat": "2013-05-04", "maize": "2013-02-25"},
+       "predecessor_harvest": {"wheat": "2013-09-06", "maize": "2013-07-30"},
+       "source": "Embrapa Doc 398, Tabela 1 (soybean) and Tabela 2 (corn) p. 14, Tabela 3 (wheat) p. 16"},
+      {"season": "2014/15", "soybean_sowing": "2014-09-22", "soybean_harvest": "2015-02-02",
+       "predecessor_sowing": {"wheat": "2014-04-26", "maize": "2014-02-28"},
+       "predecessor_harvest": {"wheat": "2014-09-01", "maize": "2014-08-03"},
+       "source": "Embrapa Doc 398, Tabela 1 (soybean) and Tabela 2 (corn) p. 14, Tabela 3 (wheat) p. 16"},
+      {"season": "2015/16", "soybean_sowing": "2015-09-16", "soybean_harvest": "2016-01-23",
+       "predecessor_sowing": {"wheat": "2015-04-25", "maize": "2015-02-09"},
+       "predecessor_harvest": {"wheat": "2015-08-31", "maize": "2015-08-06"},
+       "source": "Embrapa Doc 398, Tabela 1 (soybean) and Tabela 2 (corn) p. 14, Tabela 3 (wheat) p. 16"}
+    ],
+    "cafelandia": [
+      {"season": "2020/21", "soybean_sowing": "2020-10-07", "soybean_harvest": "2021-03-08",
+       "predecessor_sowing": {"wheat": "2020-05-10", "maize": "2020-01-21"},
+       "predecessor_harvest": {"wheat": "2020-09-05", "maize": "2020-05-27"},
+       "source": "Embrapa Doc 459, Tabela 4, p. 21"},
+      {"season": "2021/22", "soybean_sowing": "2021-10-06", "soybean_harvest": "2022-01-20",
+       "predecessor_sowing": {"wheat": "2021-05-13", "maize": "2021-03-10"},
+       "predecessor_harvest": {"wheat": null, "maize": "2021-07-20"},
+       "source": "Embrapa Doc 459, Tabela 4, p. 21. Wheat 2021: no harvest date, footnote (4) says the crop was lost to frost in the reproductive phase"},
+      {"season": "2022/23", "soybean_sowing": "2022-10-17", "soybean_harvest": "2023-03-05",
+       "predecessor_sowing": {"wheat": "2022-04-29", "maize": "2022-01-24"},
+       "predecessor_harvest": {"wheat": "2022-09-10", "maize": "2022-05-31"},
+       "source": "Embrapa Doc 459, Tabela 4, p. 21"}
+    ]
+  },
+  "yield_basis": {
+    "londrina": {"moisture_pct": 13, "unit": "kg/ha", "source": "Embrapa Doc 476, Material e métodos, PDF p. 34 (printed p. 33): yields corrected to 13% moisture, extrapolated to kg/ha"},
+    "floresta": {"moisture_pct": 13, "unit": "sc/alqueire", "source": "Embrapa Doc 398, Descrição do protocolo experimental, p. 16: values corrected to 13% moisture, expressed in sacks per alqueire"},
+    "cafelandia": {"moisture_pct": 13, "unit": "kg/ha", "source": "Embrapa Doc 459, Metodologia, p. 23: values corrected to 13% moisture, extrapolated to kg/ha"}
+  },
+  "notes": [
+    "Every Doc prints one soybean sowing date per season, common to the treatments, so no soybean date is null and the Floresta missing-date rule is not needed.",
+    "Floresta: Doc 398 prints the corn and wheat dates as day and month under the calendar year of the row (2012 to 2015); the year is that of the row.",
+    "Londrina and Cafelandia: the predecessor row of season Y/Y+1 is sown in year Y (Doc 476 Tabela 3, Doc 459 Tabela 4)."
+  ]
+}

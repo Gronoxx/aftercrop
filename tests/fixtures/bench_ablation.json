@@ -1,0 +1,22 @@
+{
+  "_note": "Example, fictitious. Synthetic L2 flags and decision states for tests only. Not POWER, IMERG or HLS data, not a real field.",
+  "a2": {
+    "dry_autumn": {
+      "main":  {"1997": true, "1998": false, "1999": true, "2000": false, "2024": true, "2025": false},
+      "check": {"1997": true, "1998": true,  "1999": true, "2000": false, "2024": false, "2025": true},
+      "window_months": [3, 5]
+    }
+  },
+  "a3": {
+    "with": {
+      "example_low":  {"field_a|S2": "not_enough", "field_a|S3": "try_strip", "field_b|S2": "not_enough", "field_b|S3": "tied"},
+      "example_mid":  {"field_a|S2": "not_enough", "field_a|S3": "try_strip", "field_b|S2": "not_enough", "field_b|S3": "keep"},
+      "example_high": {"field_a|S2": "not_enough", "field_a|S3": "tied",      "field_b|S2": "not_enough", "field_b|S3": "keep"}
+    },
+    "without_changes": {
+      "example_low":  {"field_a|S2": "not_enough", "field_a|S3": "tied",      "field_b|S2": "not_enough", "field_b|S3": "tied"},
+      "example_mid":  {"field_a|S2": "not_enough", "field_a|S3": "try_strip", "field_b|S2": "not_enough", "field_b|S3": "keep"},
+      "example_high": {"field_a|S2": "not_enough", "field_a|S3": "tied",      "field_b|S2": "not_enough", "field_b|S3": "tied"}
+    }
+  }
+}

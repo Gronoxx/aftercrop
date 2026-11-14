@@ -1,0 +1,9 @@
+{
+  "_note": "example, fictitious. Shape of a Zenodo API record; id, sizes and checksum are made up (size is set by the test)",
+  "doi": "10.5281/zenodo.0000000",
+  "metadata": {"title": "Example erosivity archive", "version": "0.0", "license": {"id": "cc-by-4.0"}},
+  "files": [
+    {"key": "GloREDa.zip", "size": 0, "checksum": "md5:00000000000000000000000000000000",
+     "links": {"self": "https://zenodo.org/api/records/0000000/files/GloREDa.zip/content"}}
+  ]
+}

@@ -1,0 +1,143 @@
+{
+  "label": "example, fictitious",
+  "fields": [
+    {
+      "field_id": "a",
+      "windowReading": {
+        "state": "at_the_edge",
+        "k": 1,
+        "n": 7,
+        "basis": "declared_class"
+      },
+      "zarcWindow": {
+        "corn": {
+          "start": "2026-12-21",
+          "end": "2027-02-28"
+        },
+        "grass": {
+          "start": "2026-12-21",
+          "end": "2027-02-28"
+        },
+        "gaps": {
+          "corn": false,
+          "grass": true
+        }
+      }
+    },
+    {
+      "field_id": "b",
+      "windowReading": {
+        "state": "outside",
+        "k": 4,
+        "n": 6,
+        "basis": "declared_class"
+      },
+      "zarcWindow": {
+        "corn": {
+          "start": "2026-12-21",
+          "end": "2027-02-20"
+        },
+        "grass": {
+          "start": "2027-01-01",
+          "end": "2027-02-20"
+        },
+        "gaps": {
+          "corn": false,
+          "grass": false
+        }
+      }
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "example_low",
+      "numbers": {
+        "p_soy": 100,
+        "p_corn": 42.5,
+        "p_wheat": 60,
+        "Y_corn": 100,
+        "Y_wheat": 50,
+        "c_corn": 3000,
+        "c_wheat": 1400,
+        "c_grass": 400
+      }
+    },
+    {
+      "id": "example_mid",
+      "numbers": {
+        "p_soy": 100,
+        "p_corn": 50,
+        "p_wheat": 60,
+        "Y_corn": 100,
+        "Y_wheat": 50,
+        "c_corn": 3000,
+        "c_wheat": 1400,
+        "c_grass": 400
+      }
+    },
+    {
+      "id": "example_high",
+      "numbers": {
+        "p_soy": 100,
+        "p_corn": 57.5,
+        "p_wheat": 60,
+        "Y_corn": 100,
+        "Y_wheat": 50,
+        "c_corn": 3000,
+        "c_wheat": 1400,
+        "c_grass": 400
+      }
+    }
+  ],
+  "trials": {
+    "S2": {
+      "n": 1,
+      "steps": []
+    },
+    "S3": {
+      "n": 10,
+      "steps": [
+        {
+          "g_sc_ha": 1,
+          "count": 9
+        },
+        {
+          "g_sc_ha": 2,
+          "count": 9
+        },
+        {
+          "g_sc_ha": 3,
+          "count": 7
+        },
+        {
+          "g_sc_ha": 4,
+          "count": 6
+        },
+        {
+          "g_sc_ha": 5,
+          "count": 4
+        },
+        {
+          "g_sc_ha": 6,
+          "count": 2
+        },
+        {
+          "g_sc_ha": 7,
+          "count": 0
+        }
+      ]
+    }
+  },
+  "hardRules": [
+    {
+      "id": "soy_calendar_portaria_1579_2026",
+      "removes": [],
+      "why": "it breaks the soybean-free period or the legal soybean window"
+    }
+  ],
+  "constraints": [],
+  "context": {
+    "sowingDate": null,
+    "zarcConstraint": true
+  }
+}

@@ -1,0 +1,279 @@
+{
+  "_note": "Example, fictitious. Built by tests/test_scoreboard.py from synthetic task outputs (tests/fixtures/bench_*.json). Not a bench result, not trial data, not engine output.",
+  "scoreboard": {
+    "schema_version": 1,
+    "region_id": "example_region",
+    "label_id": "direction_supported_exploratory",
+    "label_text": "Direction supported in 10 trial site-seasons (exploratory, not blind)",
+    "completed": true,
+    "protocol_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+    "not_blind": true,
+    "exploratory": true,
+    "site_seasons": {
+      "expected": 10,
+      "complete": 10,
+      "by_site": {
+        "Synthetic_site_a": {
+          "expected": 3,
+          "complete": 3
+        },
+        "Synthetic_site_b": {
+          "expected": 4,
+          "complete": 4
+        },
+        "Synthetic_site_c": {
+          "expected": 3,
+          "complete": 3
+        }
+      }
+    },
+    "s_by_site": {
+      "Synthetic_site_a": 3,
+      "Synthetic_site_b": 4,
+      "Synthetic_site_c": 1
+    },
+    "tests": [
+      {
+        "id": "L0",
+        "status": "pass",
+        "statistic": "water_closure_repeat_artifacts",
+        "value": {
+          "max_gap_mm": 1.0,
+          "repeat_exact": true,
+          "n_artifacts": 3,
+          "n_unexplained": 0
+        },
+        "threshold": {
+          "closure_mm_per_swap": 1.0,
+          "repeat": "exact",
+          "unexplained_artifacts_max": 0
+        },
+        "n": 14,
+        "note": null
+      },
+      {
+        "id": "L1",
+        "status": "pass",
+        "statistic": "rain_bias_pct_per_season_and_temperature_bias_c",
+        "value": {
+          "max_abs_rain_bias_pct": 10.0,
+          "max_abs_temperature_bias_c": 1.0,
+          "stations_used": [
+            "INMET",
+            "IDR-Parana"
+          ]
+        },
+        "threshold": {
+          "rain_bias_max_pct_per_season": 10.0,
+          "temperature_bias_max_c": 1.0
+        },
+        "n": 4,
+        "note": null
+      },
+      {
+        "id": "T0",
+        "status": "pass",
+        "statistic": "kendall_s",
+        "value": {
+          "s": 45,
+          "tau": 1.0,
+          "within_site_sum": 12,
+          "s_by_site": {
+            "Synthetic_site_a": 3,
+            "Synthetic_site_b": 6,
+            "Synthetic_site_c": 3
+          }
+        },
+        "threshold": {
+          "s_min": 21,
+          "within_site_s_sum_gt": 0
+        },
+        "n": 10,
+        "note": null
+      },
+      {
+        "id": "T1",
+        "status": "pass",
+        "statistic": "kendall_s_and_rmse",
+        "value": {
+          "s": 21,
+          "tau": 0.4666666666666667,
+          "rmse_kg_ha": 175.04285189632853,
+          "rmse_constant_in_sample_kg_ha": 280.0,
+          "rmse_constant_loo_kg_ha": 311.11111111111114,
+          "rmse_zero_kg_ha": 344.0930106817051,
+          "n_same_sign": 10,
+          "n_observed_positive": 7,
+          "s_by_site": {
+            "Synthetic_site_a": 3,
+            "Synthetic_site_b": 4,
+            "Synthetic_site_c": 1
+          }
+        },
+        "threshold": {
+          "s_min": 21,
+          "rmse_lt": "in_sample_constant_rmse",
+          "rmse_lt_kg_ha": 280.0
+        },
+        "n": 10,
+        "note": "signs are reported and approve nothing"
+      },
+      {
+        "id": "P1",
+        "status": "pass",
+        "statistic": "kendall_s",
+        "value": {
+          "t0": {
+            "status": "pass",
+            "s_real": 21,
+            "wrong_year_s_at_least": 0
+          },
+          "t1": {
+            "status": "pass",
+            "s_real": 21,
+            "wrong_year_s_at_least": 0
+          }
+        },
+        "threshold": {
+          "wrong_year_s_at_least_max": 0,
+          "shifts": 9
+        },
+        "n": 9,
+        "note": null
+      },
+      {
+        "id": "A1",
+        "status": "pass",
+        "statistic": "d_kendall_s_with_minus_without_state",
+        "value": {
+          "d": 35,
+          "s_with_state": 37,
+          "s_without_state": 2,
+          "patterns": 1024
+        },
+        "threshold": {
+          "d_gt": 0,
+          "rule": "and the exhaustive paired swap of the protocol"
+        },
+        "n": 10,
+        "note": null
+      },
+      {
+        "id": "A2",
+        "status": "reported",
+        "statistic": "l2_counts_prectotcorr_against_imerg",
+        "value": {
+          "counts": [
+            {
+              "id": "dry_autumn",
+              "m": 5,
+              "n_main": 2,
+              "n_check": 3,
+              "n_changed": 3,
+              "years_main": [
+                1999,
+                2024
+              ],
+              "years_check": [
+                1998,
+                1999,
+                2025
+              ]
+            }
+          ],
+          "common_period": [
+            "1998-01-01",
+            "2025-09-30"
+          ]
+        },
+        "threshold": null,
+        "n": 5,
+        "note": "reported in How we know. Not a key of the NASA switch"
+      },
+      {
+        "id": "A3",
+        "status": "reported",
+        "statistic": "states_changed_without_source",
+        "value": {
+          "states_changed": 2,
+          "states_total": 12,
+          "verdict": "changes_answers",
+          "scenarios": [
+            "example_low",
+            "example_mid",
+            "example_high"
+          ]
+        },
+        "threshold": {
+          "zero_changes": "context only"
+        },
+        "n": 12,
+        "note": "measures dependence on the source, not accuracy; read as a sensitivity to price"
+      },
+      {
+        "id": "N1",
+        "status": "reported",
+        "statistic": "percentile_of_disagreement_days",
+        "value": {
+          "floor_days": 7.0,
+          "percentile": 90.0,
+          "percentile_halves_days": 6.0,
+          "percentile_l30_vs_s30_days": 7.0,
+          "n_halves": 10,
+          "n_l30_vs_s30": 5
+        },
+        "threshold": null,
+        "n": 15,
+        "note": "nothing below the floor reaches the screen"
+      },
+      {
+        "id": "H1",
+        "status": "not_run",
+        "statistic": "tasks_passed",
+        "value": null,
+        "threshold": null,
+        "n": null,
+        "note": "planned, not run"
+      },
+      {
+        "id": "H2",
+        "status": "not_run",
+        "statistic": null,
+        "value": null,
+        "threshold": null,
+        "n": null,
+        "note": "not attempted, participant decision (SA-D56); says there was no local review"
+      },
+      {
+        "id": "R1",
+        "status": "pass",
+        "statistic": "percentile_band_and_inversion",
+        "value": {
+          "fields": [
+            {
+              "field_id": "field_a",
+              "status": "pass",
+              "state": "lower water risk in the model",
+              "column": "S3",
+              "members": 50,
+              "n_inverted": 0,
+              "n_same_direction": 50
+            }
+          ],
+          "members": 50
+        },
+        "threshold": {
+          "inversion_max": 0.2,
+          "equivalence_kg_ha": 166.0,
+          "runs_only_if": "T1 passes"
+        },
+        "n": 1,
+        "note": null
+      }
+    ],
+    "t1_failed_on": null,
+    "noise": null,
+    "correlation_ceiling": null,
+    "late_notes": []
+  }
+}

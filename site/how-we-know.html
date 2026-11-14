@@ -1,0 +1,224 @@
+<!doctype html>
+<!-- Written with an SI tool (Claude, Anthropic) for NASA Space Apps 2026. See AI_USE.md. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Aftercrop</title>
+<link rel="stylesheet" href="css/site.css">
+<script type="module" src="js/app.mjs"></script>
+<script type="module" src="js/sensitivity.mjs"></script>
+</head>
+<!-- How we know (plan 7.10, 7.11). Order: current label and "supports, does not replace local
+     judgment", the four levels of state (SA-D66), scoreboard, ablation, satellite against station, scale ladder, glossary, satellite
+     against ground, role of each kind of crop, licenses, limits. Texts from data/copy.json. -->
+<body data-page="how">
+<div class="page" x-data="aftercrop" x-cloak>
+
+  <p class="example-banner" x-show="v.isExample" x-text="v.exampleWord"></p>
+  <p class="example-banner rehearsal-banner" role="status" x-show="v.isRehearsal" x-text="v.rehearsalBanner"></p>
+  <p class="muted" role="status" x-show="v.dataFolderMissing" x-text="v.dataFolderMissing"></p>
+
+  <header class="site-header">
+    <div class="topbar">
+      <p class="brand"><a href="index.html" data-copy="page.title"></a></p>
+      <nav class="topnav">
+        <a class="btn btn-quiet" href="index.html" data-copy="howweknow.back"></a>
+        <button type="button" class="btn btn-quiet" @click="toggleLang()" :aria-label="v.switchAria" :lang="v.lang === 'en' ? 'pt-BR' : 'en'" x-text="v.switchTo"></button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="how">
+    <h1 data-copy="howweknow.title"></h1>
+
+    <section id="hw-label" aria-labelledby="hw-label-t">
+      <h2 id="hw-label-t" x-text="v.currentLabel"></h2>
+      <p x-text="v.labelBody"></p>
+      <p class="strong" data-copy="howweknow.supports"></p>
+      <p x-show="v.noLocalReview" x-text="v.noLocalReview"></p>
+      <h3 data-copy="howweknow.sequence_results"></h3>
+      <p class="small" x-text="v.waterNote"></p>
+    </section>
+
+    <section id="hw-levels" aria-labelledby="hw-lv-t">
+      <h2 id="hw-lv-t" data-copy="howweknow.levels.title"></h2>
+      <p class="small" data-copy="howweknow.levels.intro"></p>
+      <dl class="defs levels">
+        <template x-for="l in v.levels" :key="l.id">
+          <div :data-level="l.id"><dt x-text="l.title"></dt><dd><ul><template x-for="(x, i) in l.items" :key="i"><li x-text="x"></li></template></ul></dd></div>
+        </template>
+      </dl>
+    </section>
+
+    <section id="hw-scoreboard" aria-labelledby="hw-sb-t">
+      <h2 id="hw-sb-t" data-copy="howweknow.scoreboard.title"></h2>
+      <p class="small" data-copy="howweknow.scoreboard.intro"></p>
+      <p class="muted" x-show="v.scoreboardMissing" x-text="v.scoreboardMissing"></p>
+      <div class="table-wrap">
+        <table class="table">
+          <thead><tr>
+            <th scope="col" data-copy="howweknow.scoreboard.columns.test"></th>
+            <th scope="col" data-copy="howweknow.scoreboard.columns.question"></th>
+            <th scope="col" data-copy="howweknow.scoreboard.columns.rule"></th>
+            <th scope="col" data-copy="howweknow.scoreboard.columns.result"></th>
+          </tr></thead>
+          <tbody>
+            <template x-for="r in v.tests" :key="r.id">
+              <tr>
+                <th scope="row" x-text="r.id"></th>
+                <td x-text="r.question"></td>
+                <td x-text="r.rule"></td>
+                <!-- SA-D89: one plain line from the scoreboard numbers, the stored values behind a toggle. -->
+                <td>
+                  <p class="sb-line">
+                    <template x-if="r.ledger"><button type="button" class="ledger-link" :data-ledger="r.ledger"><span class="strong" x-text="r.statusLine"></span> <span x-text="r.line"></span></button></template>
+                    <template x-if="!r.ledger"><span><span class="strong" x-text="r.statusLine"></span> <span x-text="r.line"></span></span></template>
+                  </p>
+                  <details class="sb-raw" x-show="r.hasRaw"><summary class="small" x-text="v.rawLabel"></summary>
+                    <p class="small mono" x-show="r.ruleRaw" x-text="r.ruleRawText"></p>
+                    <p class="small mono" x-show="r.value" x-text="r.valueText"></p>
+                    <p class="small" lang="en" x-show="r.note" x-text="r.note"></p>
+                  </details>
+                </td>
+              </tr>
+            </template>
+          </tbody>
+        </table>
+      </div>
+      <p x-show="v.sBySite" x-text="v.sBySite"></p>
+      <p x-show="v.t1Failed" x-text="v.t1Failed"></p>
+      <p class="small" data-copy="howweknow.scoreboard.always_positive"></p>
+      <p class="small" data-copy="howweknow.scoreboard.rights"></p>
+      <p class="small" data-copy="howweknow.scoreboard.fail_means"></p>
+      <p class="small" data-copy="howweknow.scoreboard.not_completed"></p>
+    </section>
+
+    <!-- Soil sensitivity after the freeze (SA-D77): shown only when data/sensitivity.json exists.
+         js/sensitivity.mjs fills the result line from it. It never changes the label above. -->
+    <section id="hw-sensitivity" aria-labelledby="hw-sens-t" hidden>
+      <h2 id="hw-sens-t" data-copy="howweknow.sensitivity.title"></h2>
+      <p data-copy="howweknow.sensitivity.cause"></p>
+      <p data-sens-result></p>
+      <p class="strong" data-copy="howweknow.sensitivity.unchanged"></p>
+    </section>
+
+    <section id="hw-ablation" aria-labelledby="hw-ab-t">
+      <h2 id="hw-ab-t" data-copy="howweknow.ablation.title"></h2>
+      <p>
+        <template x-if="v.ablation.ledger"><button type="button" class="ledger-link" :data-ledger="v.ablation.ledger" x-text="v.ablation.body"></button></template>
+        <template x-if="!v.ablation.ledger"><span x-text="v.ablation.body"></span></template>
+        <span class="tag" x-show="v.ablation.contextOnly" x-text="v.ablation.contextOnly"></span>
+      </p>
+      <p id="hw-switch-place">
+        <template x-if="v.switchPlace.ledger"><button type="button" class="ledger-link" :data-ledger="v.switchPlace.ledger" x-text="v.switchPlace.text"></button></template>
+        <template x-if="!v.switchPlace.ledger"><span x-text="v.switchPlace.text"></span></template>
+        <span class="tag" x-show="v.switchPlace.contextOnly" x-text="v.switchPlace.contextOnly"></span>
+      </p>
+      <p class="small" data-copy="howweknow.ablation.measured_on"></p>
+      <p class="small" data-copy="page.nasa_switch.legend"></p>
+      <p class="small" data-copy="howweknow.ablation.power_note"></p>
+      <p class="small" data-copy="howweknow.ablation.rain_check"></p>
+    </section>
+
+    <section id="hw-station" aria-labelledby="hw-st-t">
+      <h2 id="hw-st-t" data-copy="howweknow.station.title"></h2>
+      <p data-copy="howweknow.station.body"></p>
+    </section>
+
+    <section id="hw-scale" aria-labelledby="hw-sc-t">
+      <h2 id="hw-sc-t" data-copy="howweknow.scale.title"></h2>
+      <p x-text="v.scale.body"></p>
+      <ul>
+        <template x-for="(r, i) in v.scale.rows" :key="i">
+          <li>
+            <template x-if="r.ledger"><button type="button" class="ledger-link" :data-ledger="r.ledger" x-text="r.text"></button></template>
+            <template x-if="!r.ledger"><span x-text="r.text"></span></template>
+          </li>
+        </template>
+      </ul>
+      <p class="small" data-copy="howweknow.scale.same_cell"></p>
+    </section>
+
+    <section id="hw-glossary" aria-labelledby="hw-gl-t">
+      <h2 id="hw-gl-t" data-copy="glossary.title"></h2>
+      <p class="small" data-copy="glossary.hint"></p>
+      <div class="glossary">
+        <template x-for="g in v.glossary" :key="g.id">
+          <details class="term"><summary x-text="g.term"></summary><p x-text="g.definition"></p></details>
+        </template>
+        <template x-for="s in v.seals" :key="s.id">
+          <details class="term"><summary><span class="seal" :class="'seal-' + s.id"><span x-html="s.icon"></span><span x-text="s.name"></span></span></summary><p x-text="s.help"></p></details>
+        </template>
+      </div>
+    </section>
+
+    <section id="hw-ground" aria-labelledby="hw-gr-t">
+      <h2 id="hw-gr-t" data-copy="howweknow.ground.title"></h2>
+      <p data-copy="howweknow.ground.body"></p>
+      <p id="hw-first-cycle" data-copy="howweknow.ground.first_cycle"></p>
+    </section>
+
+    <section id="hw-crops" aria-labelledby="hw-cr-t">
+      <h2 id="hw-cr-t" data-copy="howweknow.crop_roles.title"></h2>
+      <dl class="defs">
+        <template x-for="c in v.cropRoles" :key="c.name"><div><dt x-text="c.name"></dt><dd x-text="c.text"></dd></div></template>
+      </dl>
+    </section>
+
+    <section id="hw-licenses" aria-labelledby="hw-li-t">
+      <h2 id="hw-li-t" data-copy="howweknow.licenses.title"></h2>
+      <p data-copy="howweknow.licenses.body"></p>
+      <p class="muted" x-show="v.manifestMissing" x-text="v.manifestMissing"></p>
+      <ul>
+        <template x-for="(m, i) in v.manifest" :key="i">
+          <li lang="en">
+            <template x-if="m.url"><a :href="m.url" rel="noopener" x-text="m.title"></a></template>
+            <template x-if="!m.url"><span x-text="m.title"></span></template>
+            <span x-text="', ' + m.license + (m.version ? ', ' + m.version : '')"></span>
+          </li>
+        </template>
+      </ul>
+      <p class="small" data-copy="howweknow.zarc_independence"></p>
+    </section>
+
+    <section id="hw-limits" aria-labelledby="hw-lm-t">
+      <h2 id="hw-lm-t" data-copy="howweknow.limits.title"></h2>
+      <ul><template x-for="(d, i) in v.declared" :key="i"><li x-text="d"></li></template></ul>
+      <h3 data-copy="howweknow.limits.not_used_title"></h3>
+      <ul><template x-for="(d, i) in v.notUsed" :key="i"><li x-text="d"></li></template></ul>
+    </section>
+
+    <section id="hw-protocol" aria-labelledby="hw-pr-t">
+      <h2 id="hw-pr-t" data-copy="howweknow.protocol.title"></h2>
+      <p data-copy="howweknow.protocol.intro"></p>
+      <p class="small" data-copy="howweknow.protocol.public_note"></p>
+      <ul><template x-for="(d, i) in v.declarations" :key="i"><li x-text="d"></li></template></ul>
+    </section>
+
+    <section id="hw-region" aria-labelledby="hw-rg-t">
+      <h2 id="hw-rg-t" data-copy="howweknow.region.title"></h2>
+      <p data-copy="howweknow.region.intro"></p>
+      <h3 data-copy="howweknow.region.pack_title"></h3>
+      <ul class="pack">
+        <template x-for="(p, i) in v.pack" :key="i"><li :class="p.ok ? 'is-ok' : 'is-missing'"><span x-text="p.text"></span> <span class="tag" x-text="p.state"></span></li></template>
+      </ul>
+      <p data-copy="page.header.region"></p>
+      <p data-copy="page.header.region_rule"></p>
+      <p data-copy="howweknow.region.next"></p>
+      <p class="small" data-copy="howweknow.region.label_scope"></p>
+      <!-- SA-D79: the observation region, one field read by the same rule, no verdict. -->
+      <p class="region-link" x-show="v.regionLink"><a class="btn" :href="v.regionLink ? v.regionLink.href : 'index.html'" x-text="v.regionLink ? v.regionLink.text : ''"></a> <span class="small" x-text="v.regionLink ? v.regionLink.note : ''"></span></p>
+    </section>
+  </main>
+
+  <footer class="fixed-strip">
+    <p class="strong" data-copy="page.footer.not_visible"></p>
+    <p><span data-copy="page.footer.supports"></span> <a class="demo-link" href="demo.html" data-copy="page.footer.demo"></a></p>
+  </footer>
+</div>
+<dialog id="ledger-dialog" class="ledger-dialog"></dialog>
+</body>
+</html>

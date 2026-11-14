@@ -1,0 +1,2 @@
+# Written with an SI tool (Claude, Anthropic) for NASA Space Apps 2026. See AI_USE.md.
+"""Field facts from observation (plan, sheet M2)."""

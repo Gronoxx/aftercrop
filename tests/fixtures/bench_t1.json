@@ -1,0 +1,243 @@
+{
+  "_note": "Synthetic values for tests only. Not trial data, not engine output.",
+  "sites": [
+    "synthetic_site_a",
+    "synthetic_site_a",
+    "synthetic_site_a",
+    "synthetic_site_b",
+    "synthetic_site_b",
+    "synthetic_site_b",
+    "synthetic_site_b",
+    "synthetic_site_c",
+    "synthetic_site_c",
+    "synthetic_site_c"
+  ],
+  "seasons": [
+    "2001/02",
+    "2002/03",
+    "2003/04",
+    "1991/92",
+    "1992/93",
+    "1993/94",
+    "1994/95",
+    "2010/11",
+    "2011/12",
+    "2012/13"
+  ],
+  "observed_delta": [
+    340,
+    -150,
+    550,
+    -230,
+    450,
+    60,
+    630,
+    150,
+    250,
+    -50
+  ],
+  "mse_constant": [
+    78400,
+    1
+  ],
+  "mse_constant_loo": [
+    7840000,
+    81
+  ],
+  "mse_zero": [
+    118400,
+    1
+  ],
+  "n_observed_positive": 7,
+  "scenarios": [
+    {
+      "name": "s21_rmse_below",
+      "simulated": [
+        60,
+        -150,
+        550,
+        -50,
+        630,
+        340,
+        450,
+        250,
+        150,
+        -230
+      ],
+      "s": 21,
+      "mse": [
+        30640,
+        1
+      ],
+      "status": "pass",
+      "failed_on": null,
+      "s_by_site": {
+        "synthetic_site_a": 3,
+        "synthetic_site_b": 4,
+        "synthetic_site_c": 1
+      }
+    },
+    {
+      "name": "s20_rmse_below",
+      "simulated": [
+        60,
+        -150,
+        550,
+        -50,
+        630,
+        395,
+        395,
+        250,
+        150,
+        -230
+      ],
+      "s": 20,
+      "mse": [
+        36305,
+        1
+      ],
+      "status": "fail",
+      "failed_on": "order",
+      "s_by_site": {
+        "synthetic_site_a": 3,
+        "synthetic_site_b": 3,
+        "synthetic_site_c": 1
+      }
+    },
+    {
+      "name": "offset_279_9",
+      "simulated": [
+        619.9,
+        129.9,
+        829.9,
+        49.9,
+        729.9,
+        339.9,
+        909.9,
+        429.9,
+        529.9,
+        229.9
+      ],
+      "s": 45,
+      "mse": [
+        7834401,
+        100
+      ],
+      "status": "pass",
+      "failed_on": null,
+      "s_by_site": {
+        "synthetic_site_a": 3,
+        "synthetic_site_b": 6,
+        "synthetic_site_c": 3
+      }
+    },
+    {
+      "name": "offset_280",
+      "simulated": [
+        620,
+        130,
+        830,
+        50,
+        730,
+        340,
+        910,
+        430,
+        530,
+        230
+      ],
+      "s": 45,
+      "mse": [
+        78400,
+        1
+      ],
+      "status": "fail",
+      "failed_on": "size",
+      "s_by_site": {
+        "synthetic_site_a": 3,
+        "synthetic_site_b": 6,
+        "synthetic_site_c": 3
+      }
+    },
+    {
+      "name": "offset_minus_279_9",
+      "simulated": [
+        60.1,
+        -429.9,
+        270.1,
+        -509.9,
+        170.1,
+        -219.9,
+        350.1,
+        -129.9,
+        -29.9,
+        -329.9
+      ],
+      "s": 45,
+      "mse": [
+        7834401,
+        100
+      ],
+      "status": "pass",
+      "failed_on": null,
+      "s_by_site": {
+        "synthetic_site_a": 3,
+        "synthetic_site_b": 6,
+        "synthetic_site_c": 3
+      }
+    },
+    {
+      "name": "constant_mean",
+      "simulated": [
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200
+      ],
+      "s": 0,
+      "mse": [
+        78400,
+        1
+      ],
+      "status": "fail",
+      "failed_on": "both",
+      "s_by_site": {
+        "synthetic_site_a": 0,
+        "synthetic_site_b": 0,
+        "synthetic_site_c": 0
+      }
+    },
+    {
+      "name": "s20_and_rmse_above",
+      "simulated": [
+        460,
+        250,
+        950,
+        350,
+        1030,
+        795,
+        795,
+        650,
+        550,
+        170
+      ],
+      "s": 20,
+      "mse": [
+        196305,
+        1
+      ],
+      "status": "fail",
+      "failed_on": "both",
+      "s_by_site": {
+        "synthetic_site_a": 3,
+        "synthetic_site_b": 3,
+        "synthetic_site_c": 1
+      }
+    }
+  ]
+}

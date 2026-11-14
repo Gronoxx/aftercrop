@@ -1,0 +1,8 @@
+{
+  "_note": "example, fictitious. SoilGrids mapped values (WCS units) made up for the soil tests",
+  "mapped": {"clay": 650, "sand": 120, "soc": 150, "bdod": 125, "cec": 95, "clay_Q0.05": 560, "clay_Q0.95": 740},
+  "field": {
+    "type": "Polygon",
+    "coordinates": [[[-51.2970, -23.0530], [-51.2890, -23.0530], [-51.2890, -23.0610], [-51.2970, -23.0610], [-51.2970, -23.0530]]]
+  }
+}

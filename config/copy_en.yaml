@@ -1,0 +1,806 @@
+# Written with an SI tool (Claude, Anthropic) for NASA Space Apps 2026. See AI_USE.md.
+# Aftercrop screen copy, English. Written with an AI assistant (AI_USE.md).
+#
+# Every text the page, How we know, the glossary and the agronomist sheet show (plan SA-D59).
+# copy_pt.yaml has the same keys. tests/test_copy.py checks both files.
+# Written before any result (criterion M0.5). English is the default language.
+#
+# House style: no em dash, no en dash and no semicolon in any string, and none of the
+# words of criterion M7.5.
+# Placeholders in braces, like {field}, {Option} or {N}, are filled by the page. They are
+# identical in both languages. {N} and {n} are different placeholders.
+# A comment with a section number names the plan section that fixes the wording.
+# "drafted, review" marks text the plan does not fix. The participant reviews it.
+
+meta:
+  lang: "en"
+  language_name: "English"
+  switch_to: "Português"                     # language button, shows the other language  # checked (SI)
+  switch_aria: "Ver esta página em português" # read in the other language  # checked (SI)
+  decimal_mark: "."                          # checked (SI)
+  thousands_mark: ","                        # checked (SI)
+  percent: "{v}%"                            # a number in percent, as in gain, a and b of L3  # checked (SI)
+
+# Ids of STATES in site/js/decision.mjs. Words of section 13.7.
+states:
+  keep: "Keep what you do"
+  try_strip: "Try it on a strip here"
+  tied: "Tied"
+  not_enough: "Not enough evidence"
+  removed: "Out here"                        # from "{Option} is out here" (7.15)  # checked (SI)
+
+# Main sentence, by the result code of decision.mjs (section 7.15).
+answers:
+  invalid_field: "Not enough evidence. We need your {field}."
+  pays_without_gain: "Try it on a strip here. {Option} pays on your numbers without any soybean gain. Use paired, repeated strips."
+  few_trials: "Not enough evidence. On your numbers, {Option} needs {G} bags/ha more soybean next season, and we have only {n} trial site-seasons. The rule asks for at least 5."
+  counts_try: "Try it on a strip here. On your numbers, {Option} needs {G} bags/ha more soybean next season. Trials reached that in {N} of {n} site-seasons. Use paired, repeated strips."
+  counts_keep: "Keep what you do. On your numbers, {Option} needs {G} bags/ha more soybean next season. Trials reached that in only {N} of {n} site-seasons."
+  counts_tied: "Tied. On your numbers, {Option} needs {G} bags/ha more soybean next season. Trials reached that in {N} of {n} site-seasons, which does not settle it."
+  removed: "{Option} is out here: {reason}."
+  window_outside: "Not enough evidence. Your corn sowing date is outside the Zarc window, so this page will not say keep what you do."
+  need_sowing_date: "Not enough evidence. We need your sowing date."
+  out_of_range: "Not enough evidence. These numbers give no usable break-even for {Option}."  # checked (SI)
+  evidence_unusable: "Not enough evidence. The trial counts for {Option} could not be read, so this page gives no verdict."  # checked (SI)
+  window_unknown: "Not enough evidence. The Zarc window for this field could not be read, so this page gives no verdict."  # checked (SI)
+  method_missing: "Not enough evidence. The establishment method of each {Option} site-season could not be read, so this page gives no verdict."  # S2 without the establishment method (protocol 11)  # checked (SI)
+  both_removed: "Keep what you do. Corn with grass and wheat on part are both out here, for the reasons below."  # checked (SI)
+  other_option: "For {Option}, the answer is: {state}."  # second clause of the main sentence (7.15)  # checked (SI)
+
+# MESSAGES of site/js/decision.mjs, same keys and words.
+messages:
+  needSowingDate: "Not enough evidence. We need your sowing date."
+  windowOutside: "Not enough evidence. Your corn sowing date is outside the Zarc window, so this page will not say keep what you do."
+
+# FIELD_LABELS of site/js/decision.mjs: the words for {field}, same keys and words.
+fields:
+  p_soy: "soybean price"
+  p_corn: "corn price"
+  p_wheat: "net wheat price"
+  Y_corn: "typical corn yield"
+  Y_wheat: "typical wheat yield"
+  c_corn: "corn cost"
+  c_wheat: "wheat cost"
+  c_grass: "grass cost"
+  q: "wheat quality factor"
+  sowing_date: "sowing date"
+
+# Flags of windowContext in decision.mjs (sections 7.15 and 12.3).
+flags:
+  window_warning: "Satellite estimate: the first green cycle persisted beyond the corn Zarc window in {k} of {n} seasons."  # protocol 11, SA-D62  # checked (SI)
+  date_in_charge: "Your date is in charge on this field."
+  check_window_with_bank: "Check your sowing date against the Zarc window with your bank."
+  date_invalid: "This sowing date could not be read. Type it again with day, month and year."  # checked (SI)
+  zarc_window_unknown: "The Zarc window for this field could not be read. Check it with your bank."  # checked (SI)
+
+# Reading of the HLS window (section 12.3). There is no "inside".
+window:
+  at_the_edge: "Satellite estimate: the first green cycle persisted beyond the corn Zarc window in {k} of {n} seasons. That is fewer than the rule needs, so the reading stays at the edge."  # checked (SI). k counts outside seasons (rehearsal)
+  # SA-D64: without a soil report the window end is the latest of every class and cycle group.
+  outside_any_class: "Satellite estimate: the first green cycle persisted beyond the corn Zarc window for any soil class in {k} of {n} seasons."  # 7.15  # checked (SI)
+  at_the_edge_any_class: "Satellite estimate: the first green cycle persisted beyond the corn Zarc window for any soil class in {k} of {n} seasons. That is fewer than the rule needs, so the reading stays at the edge."  # checked (SI). k counts outside seasons (rehearsal)
+  any_class_note: "No soil report: the window end used is the latest of every Zarc soil class and cycle group of the municipality."  # checked (SI)
+  no_window: "No corn Zarc window was found for this municipality, so the satellite has nothing to be compared with."  # checked (SI)
+  # SA-D72.3 and SA-D72.2: counts of the past, never a sowing date and never "inside".
+  ended_before: "Satellite estimate: the first green cycle ended before the corn Zarc window closed in {k} of {n} seasons."  # checked (SI)
+  ended_before_any_class: "Satellite estimate: the first green cycle ended before the corn Zarc window closed, for the soil class and cycle whose window closes earliest, in {k} of {n} seasons."  # SA-D84  # checked (SI)
+  risk_at_exit:
+    line: "Satellite estimate: the first green cycle ended in a ten-day period the Zarc rates at {r}% risk for {crop} in {k} of {n} seasons."  # checked (SI)
+    line_any_class: "Satellite estimate: the first green cycle ended in a ten-day period the Zarc rates at {rmin} to {rmax}% risk for {crop}, depending on the soil class, in {k} of {n} seasons."  # checked (SI)
+    line_any_class_one: "Satellite estimate: the first green cycle ended in a ten-day period the Zarc rates at {r}% risk for {crop} for any zoned soil class in {k} of {n} seasons."  # checked (SI)
+    outside: "Satellite estimate: the first green cycle ended in a ten-day period outside the Zarc zoning for {crop} in {k} of {n} seasons."  # checked (SI)
+    outside_any_class: "Satellite estimate: the first green cycle ended in a ten-day period outside the Zarc zoning for {crop} for every soil class in {k} of {n} seasons."  # checked (SI)
+    # SA-D90: one sentence per column when the seasons fall in more than one risk group.
+    groups: "Satellite estimate: the first green cycle ended in a ten-day period whose Zarc risk for {crop} was {parts}."  # drafted, review
+    groups_any_class: "Satellite estimate: the first green cycle ended in a ten-day period whose Zarc risk for {crop}, depending on the soil class, was {parts}."  # drafted, review
+    part_one: "{r}% in {k} of {n} seasons"  # drafted, review
+    part_range: "{rmin} to {rmax}% in {k} of {n} seasons"  # drafted, review
+    parts_last: "{a} and {b}"  # drafted, review
+    part_outside: "outside the zoning in {k} of {n} seasons"  # drafted, review
+    part_outside_any_class: "outside the zoning for every soil class in {k} of {n} seasons"  # drafted, review
+  same_as_S1: "Same satellite reading as {name}."  # SA-D90, S2 when its satellite numbers equal those of S1  # drafted, review
+  class_selector:
+    label: "Soil class from your soil report"  # checked (SI)
+    unknown: "unknown"  # checked (SI)
+    hint: "The Zarc soil class (AD1 to AD6) comes only from a soil report, never from the global soil map."  # checked (SI)
+  soil_class_unknown: "The Zarc window cannot be matched to this soil yet. The Zarc soil class (AD1 to AD6) is not derived from the global soil map, so check the window with your bank."  # soil_class_unknown of M5  # checked (SI)
+  states:
+    outside: "outside"
+    at_the_edge: "at the edge"
+    no_data: "no data"
+    to_confirm: "to confirm"
+
+# S2 trials by establishment method (protocol 11, SA-D68 row S2). Method ids of the decision base.
+s2_methods:
+  title: "Corn with grass trials, by establishment method"  # checked (SI)
+  limit: "Two establishment methods and seeding rates, one grass species sown on the corn sowing day."  # checked (SI)
+  line: "{method} ({sites}): {n} site-seasons"  # checked (SI)
+  line_counted: "{method} ({sites}): trials reached that in {N} of {n} site-seasons"  # checked (SI)
+  names:
+    in_row_or_alternate_rows_2kg: "grass in the corn row or in alternate rows, 2 kg/ha"  # checked (SI)
+    broadcast_8_12kg: "grass broadcast, 8 to 12 kg/ha"  # checked (SI)
+
+# Text templates for uncertainty (sections 7.13, 12.2 and 12.4).
+risk:
+  simulated: "Simulated with the climate of 1984 to 2025: {N} of {M} seasons (about {K} in 10)"
+  power: "POWER reanalysis, regional cell, 1984 to 2025: {N} of {M} years (about {K} in 10)"
+  regional: "{N} of {M} years, regional"
+  trials: "Trials reached that in {N} of {n} site-seasons"
+  date_bar: "Last clean look {d1}, next clean look {d2}"
+  inside_model: "Inside the model only"
+  climate_line: "Climate: Simulated with the climate of 1984 to 2025: {N} of {M} seasons (about {K} in 10)"
+  parameters: "Parameters: same direction in about {K} in 10 model variations. This is not a chance of success."
+  trials_line: "Trials: {label}"
+  icons_alt: "Simulated: {K} of 10 icons filled"  # checked (SI)
+
+# Seals of section 7.14. Ids are the evidence_class values of the ledger (8.6).
+seals:
+  names:
+    seen_by_satellite: "Seen by satellite"
+    estimated_from_satellite: "Estimated from satellite"
+    reanalysis: "Reanalysis"
+    simulated: "Simulated"
+    measured_in_trials: "Measured in trials"
+    derived_from_trials: "Derived from trials"
+    official_rule: "Official rule"
+    published_climatology: "Published climatology"
+    your_numbers: "Your numbers"
+    unknown: "Unknown"
+  help:
+    seen_by_satellite: "Reflectance and NDVI only."  # checked (SI)
+    estimated_from_satellite: "Dates, green cycles and IMERG rain, estimated from satellite."  # checked (SI)
+    reanalysis: "NASA POWER climate. Stretches from GEOS-IT are marked provisional."  # checked (SI)
+    simulated: "Output of the crop model."  # checked (SI)
+    measured_in_trials: "A number published by a field trial."  # checked (SI)
+    derived_from_trials: "Our calculation on published trial means."  # checked (SI)
+    official_rule: "A Portaria or the Zarc."  # checked (SI)
+    published_climatology: "Published climatology, like GloREDa, with no specific year."  # checked (SI)
+    your_numbers: "A number you typed."  # checked (SI)
+    unknown: "A declared gap."  # checked (SI)
+  provisional: "provisional"  # checked (SI)
+
+# Label of the crop-sequence model check (sections 7.15 and 11.6). Ids are those of
+# pipeline/bench/label.py, which reads its texts from here once this file exists.
+labels:
+  not_completed:
+    title: "Not completed"
+    body: "The test bench did not finish before the freeze. No result is implied."
+  model_not_validated_here:
+    title: "Model not validated here"
+    body: "The model did not pass its check against the field trials. Results from the crop sequence stay on How we know. This page uses satellite history, trials, rules and your numbers."
+  direction_not_validated:
+    title: "Direction not validated"
+    body: "The model passed its reference check but did not reproduce the difference between wheat and corn as the previous crop. That means not shown, not disproved. Water at sowing is simulated, not independently checked."
+  direction_matched_mechanism_not_shown:
+    title: "Direction matched, mechanism not shown"
+    body: "The model followed the trials, but it did not pass the wrong-year test or the run without carried-over water, or one of them did not finish. We cannot say water explains it."
+  direction_supported_exploratory:
+    title: "Direction supported in 10 trial site-seasons (exploratory, not blind)"
+    body: "The model followed the trials and passed both controls. This holds for wheat on part, in this region only. It says nothing about how much you would gain."
+
+# What the page writes when a file or a value is missing (criterion M7.4).
+missing:
+  unknown: "Unknown"
+  no_data: "no data"
+  not_completed: "not completed"
+  example_folder: "The example folder was not found here. The fictitious example is not part of the published site. Open it from a copy of the repository."  # P4  # checked (SI)
+
+page:
+  title: "Aftercrop"
+  rehearsal_banner: "Rehearsal: real NASA data on a development strip, fictitious trials"  # SA-D63, run_mode rehearsal  # checked (SI)
+  tagline: "Aftercrop helps a farmer decide what follows soybeans on one field, and says so when the evidence is not enough."  # section 3
+
+  header:
+    persona: "Example field, fictitious farm. The location is real, with no owner data."  # 7.16
+    region: "First evidence region: northern Paraná, Brazil. The method can be evaluated elsewhere, but each new region needs its own field-trial evidence."  # 3, 7.15
+    region_rule: "No field trials, no verdict. The rule travels. The verdict does not."  # 3, 7.15
+    trial_sites: "Trials from 3 sites: Londrina, Floresta and Cafelândia."  # 3, 7.15
+    how_we_know: "How we know"
+    field_name: "Field {X}"
+    field_picker: "Choose a field"  # checked (SI)
+    map_alt: "HLS satellite image of the example fields, with each field outline. Select an outline to change the field."  # checked (SI)
+
+  question:                                  # 7.2
+    lead: "Before you buy seed and fertilizer for the second crop:"
+    main: "On this field, after this soybean, what comes next?"
+    options: "Keep corn, add grass to the corn, or test wheat on part of the area?"
+
+  answer:
+    title: "Answer"  # checked (SI)
+    example_prices: "example prices, real field"  # SA-D84, the answer tag on real data  # checked (SI)
+    caption: "Counts of trials from 3 sites, not your chance. Not a forecast for your field."  # 7.15
+    caption_sites: "Counts of trials from {sites} sites, not your chance. Not a forecast for your field."  # S2 shows its real number of sites (7.15)  # checked (SI)
+    caption_one_site: "Counts of trials from one site, not your chance. Not a forecast for your field."  # checked (SI)
+    per_hectare: "All numbers per hectare."  # 7.15, 14.2
+    bag: "Bag = 60 kg."  # 7.15
+    which_field_first: "Which field first: {line}"  # 7.2
+    nasa_line:  # SA-D78: two numbers of the selected field right below the answer
+      hls: "NASA HLS, this field: the first green cycle ended before the corn Zarc window closed in {k} of {n} seasons."  # SA-D84, one line for every soil class  # checked (SI)
+      power: "NASA POWER: nights below {t} °C in {k} of {n} corn seasons."  # checked (SI)
+    model_check: "Crop-sequence model check (wheat option, water only): {label}. The answer above does not depend on it."  # 7.15
+    transfer_warning: "These trials come from 3 sites on clay above 750 g/kg. Check whether your soil is similar."  # 5.1
+    use_with_care: "Use with care"  # 13.7, soil domain
+    use_with_care_note: "The clay you declared is between {low} and {high} g/kg. The trials are on clay above 750 g/kg."  # checked (SI)
+    soil_out_of_domain: "Not enough evidence. The soil you declared has clay below 350 g/kg, or the field is under conventional tillage. The trials are on no-till fields with clay above 750 g/kg."  # checked (SI)
+
+  field_order:                               # 7.15
+    first: "Field {X} first: soybeans left it later than Field {Y} in {N} of {M} seasons, to confirm."
+    none: "No field stands out, use what you know."
+    one_field: "Only one example field is loaded, so there is no field order."
+
+  priority:
+    label: "Priority:"  # 7.2
+    income: "income"
+    water: "water"
+    soil: "soil"
+    note: "Priority only highlights a row. It never changes the answer."  # checked (SI)
+
+  strategies:
+    S1:
+      code: "S1"
+      name: "Keep corn"
+      sub: "your current rotation"
+      sequence: "Soybean, then second-crop corn, every year."  # checked (SI)
+    S2:
+      code: "S2"
+      name: "Corn with grass"
+      sub: "not simulated"
+      fixed: "Not simulated. Corn is shown as in S1 because the trial recorded a very small difference in corn."  # 7.15
+      sequence: "Soybean, then second-crop corn sown with Urochloa ruziziensis grass."  # checked (SI)
+    S3:
+      code: "S3"
+      name: "Wheat on part"
+      sub: "up to 50% of the area"
+      sequence: "Soybean, wheat, soybean, on up to 50% of the area, not every year."  # checked (SI)
+      late_soy_gap: "Gap: soybean sown after wheat comes later and may shorten next year's corn window. This effect is not calculated."  # M7.6  # checked (SI)
+
+  rows:
+    L1:
+      title: "When is nothing growing?"
+      S1: "Soybean, second-crop corn, then fallow. The gap comes after the corn."  # checked (SI)
+      S2: "Same calendar, with the grass alive after the corn. The grass closes the gap until it is desiccated."  # checked (SI)
+      S3: "Wheat sown from April to the 2nd ten-day period of May. February to April is declared fallow, with a weed alert and thin soybean straw. The gap moves to autumn and does not disappear."  # checked (SI)
+      hls_note: "The satellite dots sit behind S1 only, as background. They are never used to compare."  # checked (SI)
+      no_green: "No green seen in {N} of 36 ten-day periods (median of {S} seasons). Periods marked no data had no clean image and are not counted."  # SA-D72.4, S1 column, counted from the ribbon  # checked (SI)
+    L2:
+      title: "What can go wrong?"
+      zarc_class: "Zarc risk class for {crop}: {class}"  # checked (SI)
+      soil_class_unknown: "cannot be matched to this soil yet"  # {class} of zarc_class when M5 says soil_class_unknown  # checked (SI)
+      any_class_range: "{a} to {b}% for any soil class"  # SA-D72.6, no soil report  # checked (SI)
+      any_class_one: "{a}% for any soil class"  # SA-D72.6, no soil report  # checked (SI)
+      class_not_zoned: "no Zarc window for soil class {class}"  # SA-D72.6  # checked (SI)
+      crops:
+        corn: "second-crop corn"  # checked (SI)
+        grass: "corn with grass"  # checked (SI)
+        wheat: "wheat"  # checked (SI)
+      wheat_zarc: "Zarc 2025/26, latest with wheat"  # protocol.zarc.wheat_label, D4
+      climate_frost: "Nights below {t} °C, {start} to {end}: in {k} of {n} seasons"  # SA-D72.5, protocol.climate.frost  # checked (SI)
+      climate_rain: "Rain, {start} to {end}: median {median} mm. The driest tenth of seasons had {p10} mm or less."  # SA-D72.5, P10 by nearest rank  # checked (SI)
+      climate_driest: "Driest seasons: {seasons}"  # SA-D72.5, the three driest by name  # checked (SI)
+      climate_note: "NASA POWER, 1984 to 2025, over the {crop} dates of Embrapa Doc 476. Past seasons counted, not a forecast."  # SA-D72.5  # checked (SI)
+      years: "Years: {years}"  # checked (SI)
+      frost_alert: "Frost alert at wheat heading. A regional alert from minimum temperature, not a field forecast."  # checked (SI)
+      regional: "Climate is the same for every field in one cell, so this row does not separate fields."  # 9.6  # checked (SI)
+      filter: "Recount with only the years you name"  # checked (SI)
+      filter_note: "This recounts past years. It does not predict anything."  # checked (SI)
+    L3:
+      title: "What did trials measure?"
+      S1: "Reference. Bad year: {season} in {source}."  # checked (SI)
+      S2: "Measured: {gain} in {season}, at one site."  # checked (SI)
+      S2_roots: "In a Londrina trial, roots explain {roots_pct}% of the gain and straw {straw_pct}%. Roots are not visible from orbit, and the model does not carry them."  # checked (SI)
+      S2_model8: "Embrapa model 8 (brachiaria, soybean, corn, soybean, corn, soybean) asks you to give up one corn crop."  # checked (SI)
+      S2_oats: "A longer sequence with oats and radish is cited only."  # checked (SI)
+      S3: "{delta} kg/ha on average, about {bags} bags/ha, in {n} site-seasons from 3 sites: {pos} positive and {neg} negative."  # checked (SI)
+      S3_compilation: "A conference summary found {a} and {b} on clay above 750 g/kg. It is not counted as an independent source."  # checked (SI)
+      S3_mp6: "MP6 is wheat with buckwheat, not this sequence. Its money is not a result for S3."  # checked (SI)
+    L4:
+      title: "Does it pay?"
+      your_numbers: "Your numbers"
+      your_limits: "Your limits"
+      S1: "Reference: corn margin {M_corn} R$/ha."  # checked (SI)
+      S2: "Break-even: grass cost divided by soybean price, {G} bags/ha."  # checked (SI)
+      S3: "Break-even: corn margin minus wheat margin, divided by soybean price, {G} bags/ha. The wheat income counts in the same year."  # checked (SI)
+      loss_year: "The loss year stays visible."  # 14.7  # checked (SI)
+      nitrogen: "Nitrogen exposure"  # 7.5  # checked (SI)
+      nitrogen_note: "Shown apart. It does not enter G, because fertilizer is already in your corn and wheat costs."  # 14.8  # checked (SI)
+      urea_context: "Urea in context, dated, never an assumption: {context}"  # 14.9  # checked (SI)
+    L5:
+      title: "Next soybean here"
+      only_if_label: "only if the label allows"
+      reference: "Reference"  # checked (SI)
+      states:                                # 7.15, protocol.r1.states
+        lower_water_risk: "Next soybean here: lower water risk in the model."
+        no_water_difference: "Next soybean here: no water-related difference in the model."
+        inconclusive: "Next soybean here: inconclusive."
+      stable_note: "Stable in the model does not mean it will work on your field."  # 12.5
+    soil:
+      line: "Soil used: {class}, estimated. Ask for your soil test."  # 7.2
+    erosivity:
+      line: "Rain erosivity in no-green days: {class}"  # 7.2
+      classes:
+        reference: "reference"
+        lower: "lower"
+        similar: "similar"
+        higher: "higher"
+    soil_note: "Rotation helps hold soil. It does not replace terraces or stop runoff."  # 7.2
+
+  why:                                       # item names of 7.9. Cells translate 7.9
+    button: "Why?"
+    items:
+      why_suggested: "Why suggested"
+      evidence: "What evidence"
+      benefits: "Benefits"
+      gaps: "Information gaps"
+      risks: "Risks for local review"
+    S1:
+      why_suggested: "It is what you do today, and it dominates for real reasons."  # checked (SI)
+      evidence: "Model 1 of Embrapa Doc 398 and MP1 of Doc 476."  # checked (SI)
+      benefits: "Known income."  # checked (SI)
+      gaps: "Long-term effect, with no number."  # checked (SI)
+      risks: "Corn leafhopper, corn stunt, frost."  # checked (SI)
+    S2:
+      why_suggested: "Keeps the corn and covers the soil."  # checked (SI)
+      evidence: "Model 4 of Embrapa Doc 398, Embrapa Doc 459 and Zarc 344/2026, with 7 site-seasons."  # 7.9, SA-D68  # checked (SI)
+      benefits: "Gain only as measured."  # checked (SI)
+      gaps: "Not simulated, two establishment methods in the 7 site-seasons."  # 7.9, SA-D68  # checked (SI)
+      risks: "Pratylenchus, checked with a lab test. Desiccation at the right time."  # checked (SI)
+    S3:
+      why_suggested: "Changes the crop before soybean on part of the area."  # checked (SI)
+      evidence: "Embrapa Doc 476, a compilation of 39 cases, 10 site-seasons."  # checked (SI)
+      benefits: "Wheat income in the same year. Soybean gain only as measured."  # checked (SI)
+      gaps: "No test of wheat after late soybean, 3 sites."  # checked (SI)
+      risks: "Root disease, head blight, frost at heading, white mold above 600 m."  # checked (SI)
+    nitrogen: "Nitrogen appears here only in words, never as a number."  # checked (SI)
+    unaudited: "Wheat blast and rain at harvest were not audited. They are listed for local review."  # checked (SI)
+
+  year_strip:
+    title: "Year strip"
+    sub: "Jan to Dec, one row per strategy, same calendar"  # 7.2
+    footer: "Same calendar in all three rows. The dots are this field, for reference only."  # 7.6
+    months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    marks:
+      sanitary_break: "Soybean-free period"  # checked (SI)
+      soy_window: "Legal soybean sowing window"  # checked (SI)
+      zarc_window: "Zarc window"  # checked (SI)
+      vulnerable: "Months at risk (L2)"  # checked (SI)
+    no_crop: "No living crop"  # checked (SI)
+    table_caption: "Year strip as a table, one row per strategy, by ten-day period"  # 7.18  # checked (SI)
+    crops:
+      soybean: "soybean"  # checked (SI)
+      grass: "brachiaria alone"  # checked (SI)
+
+  ribbon:
+    title: "8 seasons"
+    sub: "This field, 36 ten-day steps per season"  # 7.2
+    legend: "No green does not mean bare soil. NDVI cannot separate straw from soil."  # 7.7
+    cells:
+      green: "green"
+      not_green: "no green"
+      no_data: "no data"
+      to_confirm: "to confirm"
+    two_cycles: "second green cycle seen, only the first is read"  # 7.7, D12  # checked (SI)
+    soy_exit: "End of the first green cycle, by season"  # D12, a proxy for the soybean phase  # checked (SI)
+    open_series: "Select a season to see its NDVI series."  # checked (SI)
+    table_caption: "8 seasons as a table, one row per season, by ten-day period"  # 7.18  # checked (SI)
+    zarc_end: "End of the corn Zarc window"  # checked (SI)
+    risk_band:                     # SA-D72.1, the thin band above the ribbon
+      title: "Zarc risk for sowing, by ten-day period"  # checked (SI)
+      rows:
+        S1: "Zarc, corn"  # checked (SI)
+        S2: "Zarc, corn with grass"  # checked (SI)
+      outside: "outside the zoning"  # checked (SI)
+      range: "{a} to {b}%"  # checked (SI)
+      split: "upper half the highest, lower half the lowest risk"  # checked (SI)
+      partial: "outside the zoning for some soil classes"  # checked (SI)
+      any: "No soil report: the lowest and highest Zarc risk of every soil class and cycle group of the municipality."  # checked (SI)
+      declared: "Soil class {class}, at its cycle group whose window ends latest."  # checked (SI)
+
+  nasa_switch:                               # 7.2, 7.8
+    title: "NASA switch"
+    key: "HLS"
+    switch_on: "on"  # checked (SI)
+    switch_off: "off"  # checked (SI)
+    changed: "Turning this off changes {X} of {Y} field and option states."
+    short: "{X} of {Y} changed. Dependence, not accuracy."
+    context_only: "context only"
+    legend: "This shows how much the answer depends on NASA HLS. It does not show that the answer is right."
+    date_in_charge: "Your date is in charge, so the satellite warning does not change the answer on this field."
+    on_your_numbers: "On your numbers."
+
+  actions:
+    sheet: "Take this to my agronomist"  # 7.2
+    reset: "Back to the example numbers"  # 7.16  # checked (SI)
+
+  footer:                                    # 7.2
+    not_visible: "Not visible from orbit: roots, nitrogen, nematodes, disease, yield"
+    supports: "Supports, does not replace local judgment."
+    demo: "30-second demo"  # SA-D95, link to demo.html  # checked (SI)
+
+  inputs:
+    title: "Your numbers"
+    example: "example, fictitious"  # 7.16, 14.3
+    privacy: "Nothing you type leaves this browser."  # 7.4  # checked (SI)
+    cost_kind: "Say whether each cost is variable or total."  # 14.2  # checked (SI)
+    p_soy:
+      label: "Soybean price"  # checked (SI)
+      unit: "R$ per 60 kg bag"  # checked (SI)
+    p_corn:
+      label: "Corn price"  # checked (SI)
+      unit: "R$ per 60 kg bag"  # checked (SI)
+    p_wheat:
+      label: "Net wheat price, after the quality discount"  # checked (SI)
+      unit: "R$ per 60 kg bag"  # checked (SI)
+    Y_corn:
+      label: "Typical corn yield on this field"  # checked (SI)
+      unit: "bags/ha"  # checked (SI)
+    Y_wheat:
+      label: "Typical wheat yield on this field"  # checked (SI)
+      unit: "bags/ha"  # checked (SI)
+    c_corn:
+      label: "Corn cost"  # checked (SI)
+      unit: "R$/ha"  # checked (SI)
+    c_wheat:
+      label: "Wheat cost"  # checked (SI)
+      unit: "R$/ha"  # checked (SI)
+    c_grass:
+      label: "Brachiaria seed and desiccation cost"  # checked (SI)
+      unit: "R$/ha"  # checked (SI)
+    sowing_date:
+      label: "Corn sowing date"  # checked (SI)
+      unit: "date"  # checked (SI)
+      note: "Your date is in charge over the satellite."  # checked (SI)
+    urea_price:
+      label: "Urea price"  # checked (SI)
+      unit: "R$ per tonne"  # checked (SI)
+    n_dose:
+      label: "Nitrogen dose"  # checked (SI)
+      unit: "kg N/ha"  # checked (SI)
+    scenarios:
+      title: "Three price scenarios"  # checked (SI)
+      low: "Low"  # 7.4
+      base: "Base"  # 7.4
+      high: "High"  # 7.4
+      low_note: "Corn price {k} lower"  # 14.3  # checked (SI)
+      high_note: "Corn price {k} higher"  # 14.3  # checked (SI)
+      changes: "The answer changes between the scenarios."  # checked (SI)
+      same: "The answer is the same in the three scenarios."  # checked (SI)
+
+  limits:                                    # restrictions of 7.4
+    title: "Your limits"
+    intro: "A real limit removes an option and says why, or becomes an item of the agronomist sheet."  # checked (SI)
+    answer_yes: "yes"  # checked (SI)
+    answer_no: "no"  # checked (SI)
+    no_narrow_row_seeder:
+      question: "Do you have a narrow-row seed drill for wheat?"  # checked (SI)
+      effect: "Without it, wheat on part is out."  # checked (SI)
+    no_grass_seeding:
+      question: "How would the brachiaria seed go in?"  # checked (SI)
+      extra_box: "extra seed box on the planter"  # checked (SI)
+      with_fertilizer: "mixed with the fertilizer"  # checked (SI)
+      broadcast: "broadcast"  # checked (SI)
+      none: "none of these"  # checked (SI)
+      effect: "Without an extra box, the fertilizer or broadcasting, corn with grass is out."  # checked (SI)
+    no_wheat_buyer:
+      question: "Does your storage or cooperative receive wheat?"  # checked (SI)
+      effect: "Without a buyer for wheat, wheat on part is out."  # checked (SI)
+    rented_land:
+      question: "Is the land yours or rented?"  # checked (SI)
+      own: "own"  # checked (SI)
+      rented: "rented"  # checked (SI)
+      effect: "This goes to the agronomist sheet."  # checked (SI)
+    zarc_insurance_credit:
+      question: "Are your insurance or credit tied to the Zarc?"  # checked (SI)
+      effect: "With insurance or credit tied to the Zarc, an option outside the Zarc is out."  # checked (SI)
+    reasons:                                 # the {reason} of answers.removed, by rule or constraint id
+      no_narrow_row_seeder: "no narrow-row seed drill for wheat"  # checked (SI)
+      no_grass_seeding: "no way to sow the brachiaria seed"  # checked (SI)
+      no_wheat_buyer: "no storage or cooperative receives wheat"  # checked (SI)
+      zarc_consortium_window: "your sowing date is outside the Zarc window for corn with grass, and your insurance or credit is tied to the Zarc"  # checked (SI)
+      soy_calendar_portaria_1579_2026: "it breaks the soybean-free period or the legal soybean window"  # 13.5  # checked (SI)
+    soft:                                    # soft rules of 13.5: they warn and never remove
+      wheat_max_half_area: "Keep wheat to at most 50% of the area."  # checked (SI)
+      one_winter_without_wheat_or_barley: "Leave one winter without wheat or barley before wheat comes back."  # checked (SI)
+      note: "A warning. It does not remove the option."  # checked (SI)
+
+howweknow:                                   # order of 7.10
+  title: "How we know"
+  back: "Back to the answer"  # checked (SI)
+  current_label: "Current label: {label}"  # checked (SI)
+  supports: "Aftercrop supports, does not replace local judgment."  # 7.10
+  no_local_review: "There was no local review. No agronomist read these cards before the submission."  # M8.5, protocol H2  # checked (SI)
+  water_note: "Water at sowing: simulated, not independently checked."  # 11.6
+  sequence_results: "Crop-sequence results"  # checked (SI)
+  zarc_independence: "Public reference: Zarc/MAPA, 2026/27 season. This tool is independent: it was not evaluated by MAPA or Embrapa, it does not define access to insurance or credit and it does not rate management level."  # translates 7.12  # checked (SI)
+
+  scoreboard:
+    title: "Exploratory trial check"  # 7.10
+    intro: "One line per test, with its question, its pass rule and the result. Every pass rule is a project rule, fixed before any result."  # checked (SI)
+    columns:
+      test: "Test"  # checked (SI)
+      question: "Question"  # checked (SI)
+      rule: "Pass rule (project rule)"  # checked (SI)
+      result: "Result"  # checked (SI)
+    status:                                  # STATUS_TEXT of pipeline/bench/label.py
+      pass: "pass"
+      fail: "fail"
+      not_run: "planned, not run"
+      not_completed: "not completed"
+      exploratory: "exploratory"
+      reported: "reported"  # checked (SI)
+    status_line:                             # SA-D89, first sentence of the result column
+      pass: "Pass."  # drafted, review
+      fail: "Fail."  # drafted, review
+      not_run: "Planned, not run."  # drafted, review
+      not_completed: "Not completed."  # drafted, review
+      exploratory: "Exploratory."  # drafted, review
+      reported: "Reported."  # drafted, review
+    lines:                                   # SA-D89, one plain line per test from the scoreboard numbers (app.mjs scoreboardLine)
+      L0:
+        fail_artifacts: "The water balance closes and runs repeat exactly, but {u} of {a} odd model outputs, such as a dead crop, have no explanation. A pass allows {max}."  # drafted, review
+      L1:
+        not_run: "No weather station file was prepared for the event."  # drafted, review
+      T0:
+        any: "Kendall S {s}, a pass needs {s_min}."  # drafted, review
+      T1:
+        any: "Kendall S {s}, a pass needs {s_min}. RMSE {rmse} kg/ha, a constant gives {constant}."  # drafted, review
+      P1:
+        any: "With the wrong years' weather, S was at least as high in {t0_k} of {shifts} shifts for T0 and in {t1_k} of {shifts} for T1. A pass allows {max}."  # drafted, review
+      A1:
+        fail_paired: "With and without the water hand-off, S {with} against {without}, but the paired test of the protocol did not pass."  # drafted, review
+        any: "With and without the water hand-off, S {with} against {without}."  # drafted, review
+      A2:
+        not_run: "The count it checked was removed, and the rain lines are not compared with IMERG in the event."  # drafted, review
+      A3:
+        any: "{k} of {n} field and option states change without NASA HLS."  # drafted, review
+      N1:
+        any: "Noise floor {floor} days."  # drafted, review
+      H1:
+        not_run: "No reader session took place."  # drafted, review
+      H2:
+        not_run: "Not attempted, by the participant's decision, so there was no local review."  # drafted, review
+      R1:
+        not_run: "The engine has no path for it in the event, and it runs only if T1 passes."  # drafted, review
+      context_only: "Context only."  # drafted, review
+    raw: "Stored values"  # drafted, review
+    raw_rule: "Pass rule as stored: {raw}"  # drafted, review
+    raw_result: "Result as stored: {raw}"  # drafted, review
+    rules:                                   # SA-D89, one plain pass rule per test from the scoreboard thresholds (app.mjs scoreboardRule)
+      L0: "The water balance closes within {c} mm at each crop swap, two runs repeat exactly, and at most {max} odd model outputs have no explanation."  # drafted, review
+      L1: "Rain within {r}% of the stations per season, temperature within {c} °C."  # drafted, review
+      T0: "Kendall S of at least {s}, and the S within each site adds up to more than {w}."  # drafted, review
+      T1: "Kendall S of at least {s}, and an RMSE below that of a constant, {c} kg/ha."  # drafted, review
+      P1_none: "In none of the {shifts} shifts to wrong years is S at least as high as with the right years."  # drafted, review
+      P1_some: "In at most {max} of the {shifts} shifts to wrong years, S is at least as high as with the right years."  # drafted, review
+      A1: "S with the water hand-off minus S without it above {d}, and the exhaustive paired swap test of the protocol."  # drafted, review
+      L0_none: "The water balance closes within {c} mm at each crop swap, two runs repeat exactly, and every odd model output has an explanation."  # drafted, review
+      A1_zero: "S with the water hand-off above S without it, and the exhaustive paired swap test of the protocol."  # drafted, review
+      none_plain: "No pass rule."  # drafted, review
+      A3: "No pass rule. If no state changes, NASA HLS is context only."  # drafted, review
+      R1: "Runs only if T1 passes. The direction holds with inversions up to {inv}% and an equivalence margin of {eq} kg/ha."  # drafted, review
+      none: "No pass rule. Reported as is, never as passed."  # drafted, review
+    tests:
+      L0: "Does the water balance close at each crop swap, and does a run repeat exactly?"  # checked (SI)
+      L1: "Do NASA POWER and IMERG agree with weather stations in Londrina?"  # checked (SI)
+      T0: "Does the model follow the published soybean yields after second-crop corn in the 10 trial site-seasons?"  # checked (SI)
+      T1: "Does the model reproduce the soybean difference after wheat against after corn?"  # checked (SI)
+      P1: "Does the climate of the right year beat the climate of wrong years?"  # checked (SI)
+      A1: "Does the result need the water carried over from the previous crop?"  # checked (SI)
+      A2: "Do the L2 counts hold with IMERG rain in place of POWER rain?"  # checked (SI)
+      A3: "How many field and option states change without NASA HLS?"  # checked (SI)
+      N1: "What is the smallest difference in days that stands above the noise?"  # checked (SI)
+      H1: "Can people who have not seen the page explain it after 3 minutes?"  # checked (SI)
+      H2: "Did a local agronomist read the cards?"  # checked (SI)
+      R1: "Does the direction hold when uncertain model settings vary?"  # checked (SI)
+    s_by_site: "Kendall S within each site: Londrina {londrina}, Floresta {floresta}, Cafelândia {cafelandia}"  # checked (SI)
+    t1_failed_on:
+      order: "T1 failed on order (S)."  # 7.10  # checked (SI)
+      size: "T1 failed on size (RMSE)."  # 7.10  # checked (SI)
+      both: "T1 failed on order (S) and on size (RMSE)."  # checked (SI)
+    always_positive: "A rule that always says wheat helps already gets the sign right in 8 site-seasons and wrong in 2."  # 7.10  # checked (SI)
+    rights: "Until the rights of Embrapa are clarified, this page shows counts and summary measures, not the 10 trial values."  # 7.10  # checked (SI)
+    chart: "Where the real year sits among the wrong years"  # checked (SI)
+    fail_means: "A fail means not shown, never refuted. The gain may live in roots, straw or disease, outside the model."  # PROTOCOL.md 10  # checked (SI)
+    not_completed: "If the bench does not finish by the hard stop, the scoreboard says not completed."  # PROTOCOL.md 9
+
+  sensitivity:                               # SA-D77, site/data/sensitivity.json, filled by site/js/sensitivity.mjs
+    title: "Soil sensitivity after the freeze"  # checked (SI)
+    cause: "The frozen check used the clay printed in the trial reports (77 to 78% at two sites). The engine's texture formula was fitted on soils with clay up to about 60% (Saxton and Rawls 2006). For these soils it gives half to three quarters of the available water it gives the SoilGrids texture at the same points, so the simulated crops died in many seasons."  # SA-D83, sample screening of Saxton and Rawls 2006 (SSSAJ 70:1569)  # checked (SI)
+    result: "Run once with the SoilGrids soil texture at the trial points, everything else unchanged. The label of this run is still {label}, because L0 checks the field chains, which this run does not change (L0 {l0}). What the run adds: T0 {t0} (S {t0_s}), T1 {t1} (S {t1_s}, RMSE {t1_rmse} kg/ha against {t1_constant} kg/ha for a constant), P1 {p1}, A1 {a1} (D {a1_d}). Seasons with zero simulated yield: {zero}."  # checked (SI)
+    zero_site: "{site} {k} of {n} (frozen run: {k_frozen})"  # checked (SI)
+    unchanged: "The label above stays as frozen. This run was decided after the freeze and does not change it."  # checked (SI)
+
+  ablation:
+    title: "What changes without NASA HLS"  # checked (SI)
+    body: "Without NASA HLS, {S} of {Y} states change across the fields, options and price scenarios. A source that changes nothing is marked context only."  # 15.5, scope fixed
+    measured_on: "Counted on the fictitious example, in the three price scenarios."  # checked (SI)
+    power_note: "NASA POWER has no switch, because it drives the crop model and the L2 counts. Its weight shows in the wrong-year test (P1)."  # 7.8  # checked (SI)
+    rain_check: "Rain check (A2): the L2 counts with IMERG rain in place of POWER rain, from 1998 to September 2025, on the same period for both."  # checked (SI)
+
+  switch_placement:                          # SA-D66, counted in the browser on the fields shown
+    on_main: "On the fields shown, turning NASA HLS off changes {X} of {Y} field and option states. The protocol puts the switch on the main page only when it changes at least {min} of them, so it is there."  # checked (SI)
+    here: "On the fields shown, turning NASA HLS off changes {X} of {Y} field and option states. The protocol puts the switch on the main page only when it changes at least {min} of them, so it stays here."  # checked (SI)
+    no_rule: "The protocol rule for the NASA switch could not be read, so the switch stays here."  # checked (SI)
+
+  levels:                                    # SA-D66, four levels read from the files of the page
+    title: "What is checked, and what is not"  # checked (SI)
+    intro: "Four levels, read from the files this page loads."  # checked (SI)
+    verified:
+      title: "Verified internally"  # checked (SI)
+      ledger: "Every number on these pages has a ledger record, and the build checks each one against its record."  # checked (SI)
+      l0: "The water balance of the crop model closes at each crop swap, and a run repeats exactly (L0)."  # checked (SI)
+      tests: "Automated tests check that the code agrees with itself and with the protocol. The README gives their count. They check the code, not the model, and they do not show that the answer is right."  # checked (SI)
+    obtained:
+      title: "Data obtained"  # checked (SI)
+    not_executed:
+      title: "Not yet executed"  # checked (SI)
+      fields: "Satellite series on the real fields"  # checked (SI)
+      chains: "Crop model chains on the trial sites ({ids})"  # checked (SI)
+      bench: "Bench tests ({ids})"  # checked (SI)
+      none: "Every planned test has run."  # checked (SI)
+    not_demonstrated:
+      title: "Not yet demonstrated"  # checked (SI)
+      items:
+        - "Predictive skill: nothing here shows that the answer predicts what a field will yield."  # checked (SI)
+        - "Reach outside the trial sites: three sites on very clayey soil, in exploratory tests that are not blind."  # checked (SI)
+
+  station:
+    title: "Satellite against station"  # checked (SI)
+    body: "Rain and temperature from NASA POWER and IMERG against INMET and IDR-Paraná stations in Londrina, with the bias of each. A series outside the protocol limits is labelled, never corrected in silence. This is test L1, and its status is in the scoreboard."  # checked (SI)
+
+  scale:
+    title: "Scale ladder"  # checked (SI)
+    body: "One field of {area} ha against the data cells."  # checked (SI)
+    row: "{source}: one cell covers about {count} fields of this size."  # checked (SI)
+    same_cell: "A value from POWER alone is the same for every field in the same cell."  # M7.7  # checked (SI)
+
+  ground:
+    title: "Satellite against ground measurement"  # checked (SI)
+    body: "A trial plot of 40 to 240 m² is smaller than one HLS pixel of 900 m². The satellite sees the field, and the trial sees the plot."  # checked (SI)
+    first_cycle: "The window warning uses the end of the first green cycle of each season as a stand-in for the soybean phase. It never classifies the crop. The second cycle, usually second-crop corn, stays visible in the 8 seasons ribbon and never confirms that the first one was soybean. The thresholds are project rules, not yet tested against HLS here (PROTOCOL.md, section 15, D12)."  # D12  # checked (SI)
+
+  crop_roles:                                # 7.10
+    title: "What each kind of crop does"  # checked (SI)
+    nitrogen_fixers:
+      name: "Nitrogen fixers"
+      text: "Soybean does not add much nitrogen to the soil. The next crop benefits mostly from less nitrogen tied up. Green manures are a different case."
+    cover_crops:
+      name: "Cover crops"
+      # The plan adds "(CI 19.8 to 50.0)" after 34.8%. M7.5 forbids CI on the page, so it is left out. [DECIDE]
+      text: "They protect soil between crops. Water entry rose 34.8% on average in studies elsewhere. Perennials showed 59.2%."
+    deep_roots:
+      name: "Deep roots"
+      text: "Roots open channels and reach stored water. We show trial results only, because the model does not carry roots between crops."
+    drought_tolerant:
+      name: "Drought tolerant"
+      text: "Sorghum is often named. No regional rotation effect was confirmed, so it is not an option here."
+
+  licenses:
+    title: "Licenses"
+    body: "Each source, its version, its license and the date we read it are listed in the manifest. Citing a source never suggests that its owner endorses this tool."  # checked (SI)
+
+  limits:
+    title: "Limits"
+    # Declared limits of PROTOCOL.md section 14, word for word. Item 7 (p <= 0.10) is left
+    # out, because M7.5 forbids p on the page. [DECIDE]
+    declared:
+      - "The test is not blind. The observed values were read in the audit."
+      - "Exploratory. Contrast and thresholds come from the same 10 values."
+      - "10 site-seasons from 3 sites, not independent."
+      - "The engine sees only water. Wheat may dry the profile and corn may leave early. Water alone may give a null or opposite signal."
+      - "What is tested is not what goes to the screen. T1 uses plots, published dates and maintained systems. The field uses estimated dates, SoilGrids and a single switch."
+      - "Trials sit above 750 g/kg clay under no-till. A different soil triggers a warning."
+      - "Ablation measures dependence, not accuracy."
+      - "T1 tests only S3 against S1. S2, L2, the erosivity class and the 0.7 and 0.3 cut-offs have no external test."
+      - "No real farmer will have used the tool by the submission."
+    not_used_title: "What we did not use and why"  # 7.10
+    not_used:                                # from 5.5, 11.9, 13.8 and 14.10
+      - "Municipal crop statistics (IBGE PAM): the unit is the municipality, and they do not record the previous crop."  # checked (SI)
+      - "Subjective crop-stage reports (Deral): their error cannot be measured, so they are not field truth."  # checked (SI)
+      - "Ground truth for satellite dates: there is none for these fields. N1 measures repeatability, not accuracy."  # checked (SI)
+      - "A sequence generator: it would produce sequences with no trial, and the rule that travels is no trial, no verdict."  # checked (SI)
+      - "Barley and cowpea: trial losses came from disease or an undetermined cause. Sorghum: no regional effect confirmed. Perennials: the model does not simulate them."  # checked (SI)
+      - "Machine learning and language models in the product: there is no independent target to learn from."  # checked (SI)
+      - "Same-year yield and price pairs: the simulated anomaly was not shown to follow the real one."  # checked (SI)
+
+  protocol:
+    title: "Protocol, fixed before any result"  # checked (SI)
+    intro: "The protocol (protocol-v1) fixes the tests, thresholds, labels and decision rule before any simulation. The code computes the label. Nobody writes it."  # checked (SI)
+    public_note: "The public repository holds the final version only. The order of protocol and results cannot be checked from it."  # SA-D101, drafted, review
+    declarations:                            # PROTOCOL.md section 2 and M0.3, word for word
+      - "The observed values have already been read."
+      - "The test is not blind."
+      - "The test is exploratory, with a fixed rule."
+      - "The contrast and the thresholds derive from the same 10 values."
+      - "Only cycle and dates are adjusted."
+      - "Everything is published, including failures."
+    link: "Read the full protocol"  # checked (SI)
+
+  region:
+    title: "Why one region"  # 5.6
+    intro: "Each new region enters with its own trials. Where there is no public trial, on-farm trials from that same region can fill the gap."  # 5.6  # checked (SI)
+    pack_title: "Regional pack"  # checked (SI)
+    pack:
+      decision: "1. A recurring decision: a yearly choice, with a deadline and a field"  # checked (SI)
+      strategies: "2. Strategies: at least three, with a source, including the current one"  # checked (SI)
+      calendar: "3. An official calendar"  # checked (SI)
+      trials: "4. Trials: a public set of replicated trials that test the difference"  # checked (SI)
+      reviewer: "5. A local reviewer: an agronomist or technician who reads the cards"  # checked (SI)
+    pack_ready: "in place"  # checked (SI)
+    pack_missing: "missing"  # checked (SI)
+    next: "Next candidate region: Iowa, where a replicated rotation trial exists but no regional pack is built yet."  # 5.6
+    label_scope: "The label is always for one region, never for the world."  # 5.6  # checked (SI)
+
+glossary:                                    # 7.11
+  title: "Glossary"
+  hint: "Tap a term to see what it means."  # checked (SI)
+  terms:
+    ndvi:
+      term: "NDVI"
+      definition: "A greenness index from red and near-infrared light. Low values do not say if the ground is bare or under straw."
+    evapotranspiration:
+      term: "Evapotranspiration"
+      definition: "Water that leaves the field as vapor, from the soil and through plants."
+    soil_moisture_anomaly:
+      term: "Soil moisture anomaly"
+      definition: "How much wetter or drier the soil is than usual for the season. Satellite values cover about the top 5 cm over tens of kilometers."
+    frost_risk:
+      term: "Frost risk"
+      definition: "Chance of cold that harms the crop. Here it is a regional alert from minimum temperature, not a field forecast."
+    water_balance:
+      term: "Water balance"
+      definition: "Rain and stored water in, minus runoff, drainage, evaporation and plant use."
+    site_season:
+      term: "Trial site-season"  # checked (SI)
+      definition: "One trial site in one season. The 10 site-seasons come from 3 sites, so they are not independent."  # checked (SI)
+    zarc:
+      term: "Zarc"  # checked (SI)
+      definition: "Official agricultural climate risk zoning of the Brazilian Ministry of Agriculture (MAPA). It sets the sowing windows tied to insurance and rural credit."  # checked (SI)
+    dekad:
+      term: "Ten-day period"  # checked (SI)
+      definition: "About ten days. Each month has three: days 1 to 10, 11 to 20 and 21 to the end of the month."  # checked (SI)
+    bag:
+      term: "Bag"  # checked (SI)
+      definition: "60 kg of grain, the unit used in Brazil for prices and yields."  # checked (SI)
+
+# Agronomist sheet (7.12). The printed sheet is in Portuguese (copy_pt.yaml). This English
+# version serves the bilingual sheet of P2.3 and translates copy_pt.yaml.
+sheet:
+  title: "AFTERCROP, SHEET FOR THE AGRONOMIST"  # checked (SI)
+  fictitious: "fictitious example"  # checked (SI)
+  field: "Field {X}"
+  region: "Region: northern Paraná"  # checked (SI)
+  generated: "Generated on {date}"  # checked (SI)
+  items:                                     # in print order. satellite is the second line of item 2
+    option: "Option to review: {option} ({state})"  # checked (SI)
+    window: "Zarc window: {window}. Declared date: {sowing_date}"  # checked (SI)
+    satellite: "Satellite: the first green cycle persisted beyond the window in {k} of {n} seasons"  # checked (SI), SA-D62
+    assumptions: "Assumptions: prices, costs, G in bags/ha and bags/alqueire (1 alqueire = 2.42 ha)"  # checked (SI)
+    evidence: "Evidence: {N} of {n} site-seasons, {sites} sites, a count, not a chance"  # checked (SI). {sites} filled by sheet.mjs
+    unknowns: "What the tool does not know: roots, nitrogen, nematodes, disease"  # checked (SI)
+    local_review: "Local review: {alerts}, soil test, terraces"  # checked (SI)
+    strip_test: "Test in paired, repeated strips: {area}, pairs to be set here"  # checked (SI)
+  date_missing: "missing"  # checked (SI)
+  g_line: "G: {G_ha} bags/ha, or {G_alq} bags/alqueire"  # checked (SI)
+  window_range: "{start} to {end}"  # checked (SI)
+  date_format: "{day} {month} {year}"  # every date on the sheet, {day} with two digits, {month} from sheet.months. P2.3  # checked (SI)
+  months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]  # P2.3
+  window_soil_unknown: "not matched to this soil yet (Zarc soil class not derived)"  # {window} of items.window with soil_class_unknown  # checked (SI)
+  area: "{area} ha"  # checked (SI)
+  single_strip: "A single strip does not estimate an effect. This sheet supports, does not replace local judgment."  # checked (SI)
+  strip_design: "The strip design is the agronomist's. Number of pairs and width have no audited source."  # checked (SI)
+  independence: "Public reference: Zarc/MAPA, 2026/27 season. This tool is independent: it was not evaluated by MAPA or Embrapa, it does not define access to insurance or credit and it does not rate management level."  # checked (SI)
+  no_local_review: "There was no local review. No agronomist reviewed this tool before the submission."  # M8.5  # checked (SI)
+  unaudited: "Wheat blast and rain at harvest: not audited, left for local review."  # M8.4  # checked (SI)
+  alerts:
+    pratylenchus: "Pratylenchus in brachiaria"  # checked (SI)
+    wheat_root_disease: "root disease in repeated wheat"  # checked (SI)
+    white_mold: "white mold above 600 m"  # checked (SI)
+    leafhopper_stunting: "corn leafhopper and corn stunt"  # checked (SI)
+    frost_at_heading: "frost at heading"  # checked (SI)
+    gibberella: "head blight"  # checked (SI)
+    blast_and_harvest_rain: "wheat blast and rain at harvest"  # checked (SI)
+  print: "Print"  # checked (SI)
+
+ledger:
+  title: "Evidence record"  # checked (SI)
+  close: "Close"  # checked (SI)

@@ -1,0 +1,20 @@
+{
+  "_note": "Example, fictitious. Synthetic rain and temperature values for tests only. Not station data, not POWER or IMERG data.",
+  "site": "synthetic_site_a",
+  "rain": [
+    {"product": "PRECTOTCORR", "station": "INMET", "season": "2018/19", "product_mm": 550, "station_mm": 500, "n_days": 365},
+    {"product": "PRECTOTCORR", "station": "INMET", "season": "2019/20", "product_mm": 450, "station_mm": 500, "n_days": 366},
+    {"product": "PRECTOTCORR", "station": "IDR-Parana", "season": "2018/19", "product_mm": 1210.5, "station_mm": 1200, "n_days": 360},
+    {"product": "IMERG_PRECTOT", "station": "INMET", "season": "2018/19", "product_mm": 540.0, "station_mm": 500, "n_days": 365}
+  ],
+  "rain_just_out": {"product": "PRECTOTCORR", "station": "INMET", "season": "2020/21", "product_mm": 550.05, "station_mm": 500, "n_days": 365},
+  "temperature": [
+    {"product": "POWER", "variable": "T2M_MAX", "station": "INMET", "mean_bias_c": -1.0, "n_days": 700},
+    {"product": "POWER", "variable": "T2M_MIN", "station": "INMET", "mean_bias_c": 0.75, "n_days": 700}
+  ],
+  "temperature_just_out": {"product": "POWER", "variable": "T2M_MIN", "station": "IDR-Parana", "mean_bias_c": 1.01, "n_days": 650},
+  "daily": {
+    "product": {"2019-09-01": 10.0, "2019-09-02": 0.0, "2019-09-03": 5.5, "2019-09-04": null, "2019-10-01": 2.0},
+    "station": {"2019-09-01": 8.0, "2019-09-02": 1.0, "2019-09-03": 5.0, "2019-09-04": 30.0, "2019-09-05": 3.0, "2019-10-01": 2.5}
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "_note": "Example, fictitious. Planted numbers for criterion M6.1 (tests/test_ledger.py::test_planted_number): the build must stop on each of them. Not a site file.",
+  "planted": {
+    "loose": {
+      "file": "field_a.json",
+      "path": ["dry_autumn_share_pct"],
+      "value": 41
+    },
+    "unregistered_num": {
+      "file": "field_a.json",
+      "path": ["area_ha"],
+      "value": {"v": 12.5, "l": "field_a.area_ha_planted"}
+    },
+    "wrong_value": {
+      "file": "ablation.json",
+      "path": ["sources", 0, "states_changed"],
+      "value": {"v": 999, "l": "ablation.hls_vi_v2.states_changed"}
+    }
+  }
+}

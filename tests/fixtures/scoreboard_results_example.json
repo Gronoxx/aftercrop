@@ -1,0 +1,450 @@
+{
+  "_note": "Example, fictitious. Built by tests/test_scoreboard.py from synthetic task outputs (tests/fixtures/bench_*.json). Not a bench result, not trial data, not engine output.",
+  "results": {
+    "schema_version": 1,
+    "region_id": "example_region",
+    "protocol_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+    "label_id": "direction_supported_exploratory",
+    "n_site_seasons": 10,
+    "tests": {
+      "L0": {
+        "id": "L0",
+        "status": "pass",
+        "failed_on": [],
+        "statistic": "water_closure_repeat_artifacts",
+        "closure_mm_per_swap": 1.0,
+        "n_swaps": 14,
+        "max_gap_mm": 1.0,
+        "n_gaps_over": 0,
+        "repeat_exact": true,
+        "digest_first": "1f72c2ee97fc8106b6c9c183d3491f6bd13ba08db689f81fe738c403feda0692",
+        "digest_second": "1f72c2ee97fc8106b6c9c183d3491f6bd13ba08db689f81fe738c403feda0692",
+        "n_artifacts": 3,
+        "n_unexplained": 0,
+        "unexplained_artifacts_max": 0,
+        "artifacts": [
+          {
+            "arm": "S3",
+            "season": "2020/21",
+            "kind": "zeroed_season",
+            "detail": "dry yield 0 t/ha",
+            "explanation": "dry topsoil at sowing, recorded in the diary (example)"
+          },
+          {
+            "arm": "S3",
+            "season": "2020/21",
+            "kind": "dead_canopy",
+            "detail": "crop dead before maturity",
+            "explanation": "same dry spell as the zeroed season (example)"
+          },
+          {
+            "arm": "S3",
+            "season": "2020/21",
+            "kind": "days_to_emergence",
+            "detail": "no emergence",
+            "explanation": "no germination on dry topsoil (example)"
+          }
+        ],
+        "cn_rew": {
+          "by_season": {
+            "2019/20": {
+              "computed": 94.75,
+              "fixed_61_9": 120.5,
+              "difference": -25.75
+            },
+            "2020/21": {
+              "computed": -2980.0,
+              "fixed_61_9": -2950.0,
+              "difference": -30.0
+            }
+          },
+          "max_abs_difference": 30.0,
+          "threshold": null
+        },
+        "blocks_delta": false,
+        "notes": []
+      },
+      "L1": {
+        "id": "L1",
+        "status": "pass",
+        "statistic": "rain_bias_pct_per_season_and_temperature_bias_c",
+        "site": "synthetic_site_a",
+        "n": 4,
+        "rain": [
+          {
+            "product": "PRECTOTCORR",
+            "station": "INMET",
+            "season": "2018/19",
+            "product_mm": 550.0,
+            "station_mm": 500.0,
+            "n_days": 365,
+            "bias_pct": 10.0,
+            "within": true
+          },
+          {
+            "product": "PRECTOTCORR",
+            "station": "INMET",
+            "season": "2019/20",
+            "product_mm": 450.0,
+            "station_mm": 500.0,
+            "n_days": 366,
+            "bias_pct": -10.0,
+            "within": true
+          },
+          {
+            "product": "PRECTOTCORR",
+            "station": "IDR-Parana",
+            "season": "2018/19",
+            "product_mm": 1210.5,
+            "station_mm": 1200.0,
+            "n_days": 360,
+            "bias_pct": 0.875,
+            "within": true
+          },
+          {
+            "product": "IMERG_PRECTOT",
+            "station": "INMET",
+            "season": "2018/19",
+            "product_mm": 540.0,
+            "station_mm": 500.0,
+            "n_days": 365,
+            "bias_pct": 8.0,
+            "within": true
+          }
+        ],
+        "temperature": [
+          {
+            "product": "POWER",
+            "variable": "T2M_MAX",
+            "station": "INMET",
+            "n_days": 700,
+            "mean_bias_c": -1.0,
+            "within": true
+          },
+          {
+            "product": "POWER",
+            "variable": "T2M_MIN",
+            "station": "INMET",
+            "n_days": 700,
+            "mean_bias_c": 0.75,
+            "within": true
+          }
+        ],
+        "flags": [],
+        "stations_used": [
+          "INMET",
+          "IDR-Parana"
+        ],
+        "stations_missing": [],
+        "rain_bias_max_pct_per_season": 10.0,
+        "temperature_bias_max_c": 1.0,
+        "max_abs_rain_bias_pct": 10.0,
+        "max_abs_temperature_bias_c": 1.0,
+        "notes": []
+      },
+      "T0": {
+        "id": "T0",
+        "status": "pass",
+        "n": 10,
+        "n_required": 10,
+        "statistic": "kendall_s",
+        "s": 45,
+        "s_min": 21,
+        "tau": 1.0,
+        "s_by_site": {
+          "synthetic_site_a": 3,
+          "synthetic_site_b": 6,
+          "synthetic_site_c": 3
+        },
+        "within_site_sum": 12,
+        "n_by_site": {
+          "synthetic_site_a": 3,
+          "synthetic_site_b": 4,
+          "synthetic_site_c": 3
+        }
+      },
+      "T1": {
+        "id": "T1",
+        "status": "pass",
+        "t1_failed_on": null,
+        "n": 10,
+        "n_required": 10,
+        "statistic": "kendall_s_and_rmse",
+        "s": 21,
+        "s_min": 21,
+        "tau": 0.4666666666666667,
+        "s_by_site": {
+          "synthetic_site_a": 3,
+          "synthetic_site_b": 4,
+          "synthetic_site_c": 1
+        },
+        "rmse": 175.04285189632853,
+        "rmse_threshold": 280.0,
+        "rmse_constant_in_sample": 280.0,
+        "rmse_constant_loo": 311.11111111111114,
+        "rmse_zero": 344.0930106817051,
+        "n_same_sign": 10,
+        "n_observed_positive": 7,
+        "notes": [],
+        "n_by_site": {
+          "synthetic_site_a": 3,
+          "synthetic_site_b": 4,
+          "synthetic_site_c": 3
+        }
+      },
+      "P1": {
+        "id": "P1",
+        "status": "pass",
+        "statistic": "kendall_s",
+        "t0": {
+          "arm": "T0",
+          "status": "pass",
+          "s_real": 21,
+          "s_by_shift": {
+            "4": 19,
+            "8": 17,
+            "12": 15,
+            "16": 11,
+            "20": 9,
+            "24": 5,
+            "28": 1,
+            "32": -3,
+            "36": -21
+          },
+          "n_at_least": 0,
+          "p": 0.1,
+          "missing_shifts": []
+        },
+        "t1": {
+          "arm": "T1",
+          "status": "pass",
+          "s_real": 21,
+          "s_by_shift": {
+            "4": 19,
+            "8": 17,
+            "12": 15,
+            "16": 11,
+            "20": 9,
+            "24": 5,
+            "28": 1,
+            "32": -3,
+            "36": -21
+          },
+          "n_at_least": 0,
+          "p": 0.1,
+          "missing_shifts": []
+        }
+      },
+      "A1": {
+        "id": "A1",
+        "status": "pass",
+        "n": 10,
+        "n_required": 10,
+        "statistic": "d_kendall_s_with_minus_without_state",
+        "d": 35,
+        "s_with_state": 37,
+        "s_without_state": 2,
+        "n_at_least": 5,
+        "n_patterns": 1024,
+        "p": 0.0048828125
+      },
+      "A2": {
+        "id": "A2",
+        "status": "reported",
+        "statistic": "l2_counts_prectotcorr_against_imerg",
+        "main": "PRECTOTCORR",
+        "check": "IMERG_PRECTOT",
+        "common_period": [
+          "1998-01-01",
+          "2025-09-30"
+        ],
+        "n": 5,
+        "threshold": null,
+        "counts": [
+          {
+            "id": "dry_autumn",
+            "m": 5,
+            "n_main": 2,
+            "n_check": 3,
+            "n_changed": 3,
+            "years_main": [
+              1999,
+              2024
+            ],
+            "years_check": [
+              1998,
+              1999,
+              2025
+            ],
+            "only_main": [
+              2024
+            ],
+            "only_check": [
+              1998,
+              2025
+            ],
+            "years_left_out": [
+              1997
+            ]
+          }
+        ]
+      },
+      "A3": {
+        "id": "A3",
+        "status": "reported",
+        "statistic": "states_changed_without_source",
+        "source": "hls_vi_v2",
+        "swap": "without HLS: no window warning and no field order",
+        "scenarios": [
+          "example_low",
+          "example_mid",
+          "example_high"
+        ],
+        "n": 12,
+        "states_changed": 2,
+        "states_total": 12,
+        "verdict": "changes_answers",
+        "by_scenario": {
+          "example_low": {
+            "changed": 1,
+            "total": 4
+          },
+          "example_mid": {
+            "changed": 0,
+            "total": 4
+          },
+          "example_high": {
+            "changed": 1,
+            "total": 4
+          }
+        },
+        "changed": [
+          {
+            "scenario": "example_low",
+            "state": "field_a|S3",
+            "with": "try_strip",
+            "without": "tied"
+          },
+          {
+            "scenario": "example_high",
+            "state": "field_b|S3",
+            "with": "keep",
+            "without": "tied"
+          }
+        ]
+      },
+      "N1": {
+        "id": "N1",
+        "status": "reported",
+        "statistic": "percentile_of_disagreement_days",
+        "unit": "days",
+        "percentile": 90.0,
+        "percentile_method": "nearest_rank",
+        "n": 15,
+        "n_halves": 10,
+        "n_l30_vs_s30": 5,
+        "percentile_halves_days": 6.0,
+        "percentile_l30_vs_s30_days": 7.0,
+        "floor_days": 7.0,
+        "set_by": "l30_vs_s30",
+        "threshold": null,
+        "notes": []
+      },
+      "H1": {
+        "id": "H1",
+        "status": "not_run"
+      },
+      "H2": {
+        "id": "H2",
+        "status": "not_run",
+        "statistic": null,
+        "value": null,
+        "threshold": null,
+        "n": null,
+        "note": "not attempted, participant decision (SA-D56); says there was no local review"
+      },
+      "R1": {
+        "id": "R1",
+        "status": "pass",
+        "statistic": "percentile_band_and_inversion",
+        "t1_status": "pass",
+        "members": 50,
+        "n": 1,
+        "fields": [
+          {
+            "field_id": "field_a",
+            "status": "pass",
+            "state": "lower water risk in the model",
+            "column": "S3",
+            "members": 50,
+            "n_seasons": 3,
+            "n_inverted": 0,
+            "n_same_direction": 50,
+            "inversion": 0.0,
+            "band_kg_ha": [
+              400.0,
+              400.0
+            ],
+            "base_median_kg_ha": 400.0,
+            "l_kg_ha": 175.04285189632853,
+            "kendall_s_by_member": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "missing_members": [],
+            "incomplete_members": []
+          }
+        ],
+        "notes": []
+      }
+    }
+  }
+}

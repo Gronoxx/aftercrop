@@ -1,0 +1,32 @@
+{
+  "_note": "Synthetic transcriptions in the two formats of data/manual/ (A: printed page, '-PR', YYYY/YY, '+braquiaria'; B: PDF page, accents, YYYY/YYYY, '_braquiaria', derived difference rows). Fictitious documents, sites and values.",
+  "page_offsets": {
+    "syn100": 2,
+    "syn200": 0
+  },
+  "csv_a": "doc,page,table_or_figure,site,season,predecessor,soy_yield,unit,soy_yield_kg_ha,cv_or_sed,note\nSYN-100,10,Tabela 1,Vila Ficticia-PR,2001/2002,trigo,3000,kg/ha,3000,CV=5.0%,synthetic row; printed page\nSYN-100,10,Tabela 1,Vila Ficticia-PR,2001/2002,milho_2a_safra,2900,kg/ha,2900,CV=5.0%,synthetic row; printed page\nSYN-100,10,Tabela 1,Vila Ficticia-PR,2001/2002,milho_2a_safra+braquiaria,3100,kg/ha,3100,CV=5.0%,synthetic row; printed page\nSyn200,5,Figura 1,Monte Inventado-PR,1999/00,trigo,100,sc/alqueire,2479.3,,\"synthetic; rotulo do eixo: 1999/00; kg/ha = sc/alq x 60 / 2.42 (alqueire de 2.42 ha declarado)\"\nSyn200,5,Figura 1,Monte Inventado-PR,1999/00,milho_2a_safra,90,sc/alqueire,2231.4,,\"synthetic; rotulo do eixo: 1999/00; kg/ha = sc/alq x 60 / 2.42 (alqueire de 2.42 ha declarado)\"\n",
+  "csv_b": "doc,page,table_or_figure,site,season,predecessor,soy_yield,unit,soy_yield_kg_ha,cv_or_sed,note\nSYN-100,12,Tabela 1,Vila Fictícia,2001/2002,trigo,3000,kg/ha,3000,\"CV=5,0%\",synthetic row; pagina impressa 10\nSYN-100,12,Tabela 1,Vila Fictícia,2001/2002,milho_2a_safra,2900,kg/ha,2900,\"CV=5,0%\",synthetic row; pagina impressa 10\nSYN-100,12,Tabela 1,Vila Fictícia,2001/2002,milho_2a_safra_braquiaria,3100,kg/ha,3100,\"CV=5,0%\",synthetic row; pagina impressa 10\nSYN-100,12,Tabela 1,Vila Fictícia,2001/2002,diferenca_trigo_menos_milho_2a_safra,100,kg/ha,100,,calculado; synthetic\nSyn200,5,Figura 1,Monte Inventado,1999/2000,trigo,100,sc/alqueire,2479.3,,\"synthetic; rotulo do eixo: 1999/00; conversao: sc/alq x 60 kg / 2,42 ha (alqueire de 2,42 ha declarado)\"\nSyn200,5,Figura 1,Monte Inventado,1999/2000,milho_2a_safra,90,sc/alqueire,2231.4,,\"synthetic; rotulo do eixo: 1999/00; conversao: sc/alq x 60 kg / 2,42 ha (alqueire de 2,42 ha declarado)\"\nSyn200,5,Figura 1,Monte Inventado,1999/2000,diferenca_trigo_menos_milho_2a_safra,10,sc/alqueire,247.9,,\"calculado; synthetic; rotulo do eixo: 1999/00\"\n",
+  "expected": {
+    "equal": true,
+    "n_compared": 5,
+    "derived_dropped_b": 2,
+    "observed_pairs": [
+      {
+        "site": "monte inventado",
+        "season": "1999/00",
+        "delta": [
+          30000,
+          121
+        ]
+      },
+      {
+        "site": "vila ficticia",
+        "season": "2001/02",
+        "delta": [
+          100,
+          1
+        ]
+      }
+    ]
+  }
+}

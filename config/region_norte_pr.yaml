@@ -1,0 +1,509 @@
+# Written with an SI tool (Claude, Anthropic) for NASA Space Apps 2026. See AI_USE.md.
+# Region pack for northern Parana: data specs read by the M1 adapters.
+# The protocol: block at the end (thresholds, rules, P1/A1 items) is hashed
+# on its own. Only that block holds thresholds.
+
+region: norte_pr
+
+trial_sites:
+  - id: londrina
+    name: Londrina
+    uf: PR
+    ibge: 4113700
+    lat: -23.200278          # 23 12 01 S
+    lon: -51.177778          # 51 10 40 W
+    altitude_m: 572
+    place: Embrapa Soja
+    coord_source: "Embrapa Doc 476, Material e metodos"
+    coord_status: as_printed
+  - id: floresta
+    name: Floresta
+    uf: PR
+    ibge: 4107900
+    lat: -23.583333          # 23 35 S, see coord_note
+    lon: -52.066667          # 52 04 W
+    altitude_m: 390
+    place: UDT Cocamar
+    coord_source: "Embrapa Doc 398, Descricao do protocolo experimental"
+    coord_status: to_confirm
+    lat_as_printed: -23.916667
+    coord_note: >-
+      Doc 398 prints 23 55 S, which falls outside Floresta (IBGE mesh 4107900,
+      lat -23.69 to -23.52). 23 35 S falls inside and is used as a probable
+      typo. Confirm with the authors or another Doc before trusting the cell.
+  - id: cafelandia
+    name: Cafelandia
+    uf: PR
+    ibge: 4103453
+    lat: -24.620278          # 24 37 13 S
+    lon: -53.303889          # 53 18 14 W
+    altitude_m: 581
+    place: Centro de Pesquisa Agricola Copacol
+    coord_source: "Embrapa Doc 459, Metodologia"
+    coord_status: as_printed
+
+sources:
+  zarc:
+    source_id: zarc_tabua
+    dataset: https://dados.agricultura.gov.br/dataset/tabua-de-risco-zoneamento-agricola-de-risco-climatico
+    license: "CC BY (dataset page). Cite, never suggest endorsement"
+    dictionary:
+      url: https://dados.agricultura.gov.br/dataset/6d3d141c-885e-41a4-ab7f-dc8ff323b96f/resource/bebb0ebb-bc75-460c-b900-a7a1ebd87bee/download/dicionario-de-dados-tabua-de-risco-2026.pdf
+      filename: dicionario-de-dados-tabua-de-risco-2026.pdf
+    uf: PR
+    municipalities: [4113700, 4107900, 4103453, 4103701, 4102802]   # trial sites, then the field window (Cambe, Bela Vista do Paraiso), from data/interim/municipalities_londrina_rural_nw.json (SA-D64)
+    tables:
+      - safra: "2026/2027"
+        role: current
+        crops: ["Soja", "Milho 2ª Safra", "Milho 2ª Safra consorciado com Braquiária", "Trigo"]  # S2 window (Port. 344/2026)
+        url: https://dados.agricultura.gov.br/dataset/6d3d141c-885e-41a4-ab7f-dc8ff323b96f/resource/139e5a60-1f43-4cc8-aeab-a35dbbf816c0/download/dados-abertos-tabua-de-risco-safra-2026-2027.csv
+        filename: dados-abertos-tabua-de-risco-safra-2026-2027.csv
+      # Trigo is not in the 2026/27 table (checked). The latest
+      # wheat zoning is kept as a labelled reference, never as 2026/27.
+      - safra: "2025/2026"
+        role: previous_season_reference
+        crops: ["Trigo"]
+        url: https://dados.agricultura.gov.br/dataset/6d3d141c-885e-41a4-ab7f-dc8ff323b96f/resource/f9d597f9-0fee-47eb-9344-8642274ca9da/download/dados-abertos-tabua-de-risco-safra-2025-2026.csv
+        filename: dados-abertos-tabua-de-risco-safra-2025-2026.csv
+    # Legal soybean sowing, Regiao 2 (Norte, Noroeste, Centro-Oeste, Oeste),
+    # Adapar, Portaria 1.579/2026: 1 Sep to 31 Dec 2026. Used only to check
+    # the dekad decoding.
+    soy_legal_window: {start: "09-01", end: "12-31"}
+    soy_legal_window_source: https://www.adapar.pr.gov.br/Noticia/Periodos-do-vazio-sanitario-da-Soja-para-safra-de-20262027-comecam-em-junho
+
+  # IBGE municipal mesh of Parana (state 41, split by municipality), read by
+  # pipeline.adapters.ibge_malhas: the municipality of a field, from its polygon
+  # (protocol.field.municipality, SA-D64). Untrusted input, only codarea is read.
+  ibge_malhas:
+    source_id: ibge_malhas
+    license: "IBGE terms of use (ibge.gov.br/acesso-informacao/institucional/termo-de-uso.html). Used to find municipalities, not shipped"
+    state_mesh:
+      url: https://servicodados.ibge.gov.br/api/v3/malhas/estados/41
+      params: {formato: application/vnd.geo+json, qualidade: maxima, intrarregiao: municipio}
+      filename: estado_41_municipios.geojson
+
+  power:
+    source_id: power_daily
+    url: https://power.larc.nasa.gov/api/temporal/daily/point
+    community: AG
+    license: "NASA data, cite collection and version. No explicit POWER license found"
+    calls:
+      - id: met
+        parameters: [T2M_MAX, T2M_MIN, T2MDEW, WS2M, ALLSKY_SFC_SW_DWN, PRECTOTCORR]
+        start: "1984-01-01"
+        end: "2025-12-31"
+        time_standard: LST
+      - id: imerg
+        parameters: [IMERG_PRECTOT]
+        start: "1984-01-01"
+        end: "2025-12-31"
+        time_standard: UTC
+
+  soilgrids:
+    source_id: soilgrids_wcs
+    url: https://maps.isric.org/mapserv
+    license: "CC BY 4.0, ISRIC SoilGrids 2.0"
+    access_test:
+      site: londrina
+      half_size_deg: 0.005
+      coverages: [clay_0-5cm_mean, sand_0-5cm_mean, soc_0-5cm_mean]
+      native_check: [clay_0-5cm_mean]   # same box in the service CRS, native pixels
+
+  # HLS v2.0 windows for the field window (plan 9.2, sheet M1). Read by
+  # pipeline.adapters.hls and pipeline.fields.basemap. Not a threshold block:
+  # the field rules (min_clean_pixels, ribbon_seasons) are read from protocol:.
+  hls:
+    source_id: hls
+    cmr_url: https://cmr.earthdata.nasa.gov/search/granules.umm_json
+    license: "NASA open data, no restriction. Cite HLS v2.0, and the Copernicus Sentinel notice for S30"
+    window:
+      id: londrina_rural_nw
+      # lon_min, lat_min, lon_max, lat_max in EPSG:4326, about 10.2 km by 11.1 km.
+      # Rural window north-west of Londrina, outside the urban perimeter and
+      # away from the Embrapa Soja trial area (about -23.20, -51.18). Proposed
+      # after the first default (-51.25, -23.35, -51.15, -23.25)
+      # turned out to be the city. The participant confirms it (plan 8.4 step 1).
+      bbox: [-51.32, -23.13, -51.22, -23.03]
+      tile: T22KDV                 # MGRS tile. Every window comes from one tile grid
+      pad_px: 2                    # extra pixels on each side, so edge polygons keep their ring
+    vi:
+      collections:
+        - {short_name: HLSL30_VI, version: "2.0", sensor: L30}
+        - {short_name: HLSS30_VI, version: "2.0", sensor: S30}
+      bands: [Fmask, NDVI, NBR2]   # Fmask first: NDVI and NBR2 are skipped when the window is closed
+      fill: -19999                 # _FillValue of the VI files
+      scale: 0.0001                # applied in code, with or without scale_factor (plan 9.2)
+      # Skip NDVI and NBR2 when fewer open pixels (not fill, not cloud, not
+      # cloud shadow) than protocol.field.min_clean_pixels are in the window.
+      # Lossless: no polygon of the window can reach that count.
+      skip_vi_when_open_px_below: protocol.field.min_clean_pixels
+    sr:
+      collections:
+        - {short_name: HLSL30, version: "2.0", sensor: L30}
+        - {short_name: HLSS30, version: "2.0", sensor: S30}
+      bands: [Fmask, B04, B03, B02] # red, green, blue have the same names in L30 and S30
+      fill: -9999
+      scale: 0.0001
+    fmask:                         # bit 0 cirrus, 1 cloud, 2 adjacent, 3 shadow, 4 snow/ice, 5 water, 6-7 aerosol
+      fill: 255
+      masked_bits: [cirrus, cloud, adjacent, shadow, snow_ice, water]
+      masked_aerosol: [high]
+    basemap:
+      # Dry season of the latest winter: fewest clouds, sharp field edges.
+      start: "2026-06-01"
+      end: "2026-08-31"
+      max_tile_cloud_pct: 20       # CMR CLOUD_COVERAGE of the 110 km tile, only to pick candidates
+      min_window_clear_frac: 0.95  # a candidate must be this clear inside the window, by the mask below
+      max_scenes: 6                # median of the clearest scenes, one per date
+      # Basemap mask: only what hides the ground. Water stays (lakes are
+      # landmarks), and the high-aerosol flag (3 to 68% of the window in the
+      # winter of 2026) is left to the median. The VI series keeps fmask: above.
+      masked_bits: [cirrus, cloud, adjacent, shadow, snow_ice]
+      masked_aerosol: []
+      stretch: {low_pct: 2, high_pct: 98, gamma: 1.0}
+
+  # NASADEM for relief (plan 8.4 step 10, 9.1, sheet M2). Read by
+  # pipeline.adapters.nasadem and pipeline.fields.relief. Context only:
+  # relief never changes a state. Whole 1 x 1 degree tiles are kept as
+  # distributed (about 10 MB each); the window is cut in code.
+  nasadem:
+    source_id: nasadem
+    cmr_url: https://cmr.earthdata.nasa.gov/search/granules.umm_json
+    collection: {short_name: NASADEM_HGT, version: "001"}
+    doi: 10.5067/MEaSUREs/NASADEM/NASADEM_HGT.001
+    license: "NASA data, no restriction. Cite NASADEM_HGT v001 (NASA JPL, LP DAAC)"
+    window: sources.hls.window     # the field window has one owner: sources.hls.window
+    pad_px: 3                      # extra 1 arc-second pixels on each side of the window cut
+
+  # GloREDa monthly rainfall erosivity (plan 9.1, 9.3, 10.9, criterion M1.7).
+  # Zenodo copy only: the ESDAC copy must not be redistributed. The record is
+  # one zip of 2.2 GB, so only what the window needs is read, by HTTP ranges.
+  gloreda:
+    source_id: gloreda
+    record_url: https://zenodo.org/api/records/8036998
+    doi: 10.5281/zenodo.8036998
+    archive: GloREDa.zip
+    license: "CC BY 4.0 (Zenodo record 8036998). Cite Panagos et al. 2023, Data in Brief 50, 109482"
+    members: "Rfactor_{month}.tif"   # month = January ... December
+    window: sources.hls.window
+    sanity_site: londrina          # pixel compared with 7,945 MJ mm/ha/h/year (plan 10.9)
+    max_download_bytes: 2300000000 # stop before any tile download above this (2.3 GB). Raised: the window needs about 2.0 GB of the single 2.2 GB zip
+
+# ---------------------------------------------------------------------------
+# protocol: the evaluation rules, fixed before any result (plan, sheet M0).
+# Protocol protocol-v1, open points closed and tagged locally.
+# PROTOCOL.md prints the sha256 of this block: the UTF-8 bytes from the line
+# "protocol:" to the end of this file. protocol: stays the last top-level key.
+# Every value is a project rule unless a source is named.
+# Dn names a point closed by SA-D61. PROTOCOL.md section 15 explains it.
+# ---------------------------------------------------------------------------
+protocol:
+  id: protocol-v1
+  amendments: ["protocol-v1.1: field choice fallback (field.choice_fallback), tagged before any bench result"]
+  status: tagged                   # tagged locally (SA-D71)
+  plan: "PROJETO-DEFINITIVO.md, revisions SA-D55 and SA-D61 to SA-D69"
+  decided_by: "open points closed by the SI tool (Claude), at the participant's request, with an outside review (SA-D61). The participant may veto any of them until the tag"
+  timezone: America/Sao_Paulo      # event local time, UTC-03:00
+  seed: 20261114                   # the one integer for every random draw of the bench (R1). P1 and A1 draw nothing
+
+  dates:
+    event_start: "2026-11-14T09:00:00-03:00"
+    local_tag: "before any simulation on the trial sites and before any read of the trial values (SA-D71)"
+    timing_gate: "2026-11-14T13:00:00-03:00"           # timing.json measured with POWER climate
+    bench_window: ["after the local tag", "2026-11-15T10:45:00-03:00"]   # the bench runs right after the local tag (SA-D65, SA-D71)
+    label_rule: "the label freezes when T0, T1, P1 and A1 finish with no artifact, at the latest at label_freeze. A rerun only for an infrastructure error, with a note in late_notes and both results published"
+    hard_stop: "2026-11-15T10:45:00-03:00"
+    label_freeze: "2026-11-15T11:00:00-03:00"
+    climate: ["1984-01-01", "2025-12-31"]              # full seasons only. POWER radiation starts in 1984
+    p1_circular_years: [1985, 2024]
+    a2_common_period: ["1998-01-01", "2025-09-30"]     # IMERG from 1998. Final V07 ends 09/2025
+    ribbon_seasons: ["2018/19", "2025/26"]             # 8 seasons, 36 dekads from 1 Sep
+
+  trial_site_seasons:              # T0 and T1. Seasons as labelled in the Docs
+    londrina: {doc: "Embrapa Doc 476", seasons: ["2021/22", "2022/23", "2023/24"]}
+    floresta: {doc: "Embrapa Doc 398", seasons: ["2012/13", "2013/14", "2014/15", "2015/16"]}
+    cafelandia: {doc: "Embrapa Doc 459", seasons: ["2020/21", "2021/22", "2022/23"]}
+  min_site_seasons_for_label: 10   # fewer gives "Model not validated here"
+
+  site_coordinates:                # must equal trial_sites above. The test checks it
+    londrina: {lat: -23.200278, lon: -51.177778, status: as_printed}             # D3: the trial point at Embrapa Soja
+    floresta: {lat: -23.583333, lon: -52.066667, status: probable_typo_corrected} # D2: "to confirm". The printed point is kept in side_runs
+    cafelandia: {lat: -24.620278, lon: -53.303889, status: as_printed}
+
+  pairs:
+    inside_mechanism: "soybean after wheat against soybean after second-crop corn"
+    outside_mechanism: [barley, cowpea, intercrop]   # cevada, caupi, consorcio (plan 11.4). Intercrop includes corn with brachiaria, S2 (D5: out of T1 and the engine)
+    secondary_pairs: after_event                     # the 79 secondary pairs
+
+  missing_data:
+    floresta_sowing_date: "both arms take the same date, the first date that meets the sowing rain rule in both arms"
+    season_without_legible_axis_label: absent        # that site-season counts as missing
+    fewer_site_seasons: "exploratory, no approval"
+    infrastructure_failure: not_completed            # code error, missing file, timeout. Never a fail
+    engine_outcome: counts_against_model             # zeroed season, no emergence, dead canopy
+
+  engine:
+    package: "aquacrop==3.1.0"
+    crops: {soybean: SoybeanGDD, maize: MaizeGDD, wheat: WheatGDD}
+    allowed_overrides:
+      cycle: [Emergence, MaxRooting, Senescence, Maturity, HIstart, Flowering, YldForm]   # only cycle and dates are adjusted, never against yield
+      fixed:                       # set once here, never tuned
+        soybean: {Zmax: 1.0, Tmax_lo: 40.0, Tmax_up: 45.0}
+        maize: {Zmax: 1.0, Tmax_lo: 40.0, Tmax_up: 45.0}
+        wheat: {Zmax: 1.0, Tmax_lo: 35.0, Tmax_up: 40.0}
+    profile_min_depth_m: 2.4       # one dz for every crop
+    calc_cn: 1
+    adj_rew: 0
+    carry_over: water_only         # only th passes. Canopy, biomass, roots and straw do not
+    ksat:                          # D1. Never called a measurement of the field
+      mode: measured
+      value_mm_h: 60.5
+      source: "Barbosa et al. 2004, RBCS 28(2), Londrina, 760 to 820 g/kg clay, harrowed"
+      alternative_mm_h: 78
+      alternative_source: "Tavares Filho et al. 2006, Ciencia Rural 36(3), no-till for 20 years, 710 g/kg clay"
+      layer_m: [0.0, 0.3]          # below 0.3 m the texture Ksat stays
+      sensitivity: texture_formula
+    rain: {main: PRECTOTCORR, check: IMERG_PRECTOT}
+    sensitivity_only: {cn: 61, rew: 9, zmax: library_default}   # side runs, never the base run
+
+  sowing:
+    soybean_field:
+      rain_mm: 20
+      rain_days: 3                 # first day d with rain of d-2, d-1 and d summing 20 mm or more, all three on or after start
+      start: "09-01"               # D6: legal soybean window of Região 2, Adapar
+      latest: "12-31"              # D6. No trigger by then: the season counts as a failure
+      rain_after_not_before: true  # D6: the 3 rain days count only from the minimum date
+      common_to_arms: true
+      s3_not_before_wheat_harvest_plus_days: 20
+      arm_day_difference_to: artifacts.json
+    soybean_trials: published_dates
+    wheat_r1_window: "April to the 2nd dekad of May"
+
+  chains:
+    unit: "one site-season in one arm under one climate"
+    trial:
+      run: continuous_per_site_and_arm   # D7. Chronological, years without a trial observation included
+      warmup: "soybean, second-crop corn and soybean, common to both arms, before the first trial season"
+      warmup_dates: "soybean on the sowing rain rule, corn on the day after the soybean harvest"
+      initial_state: field_capacity      # D7: a standard initial state, same in both arms, never an observed moisture
+      dates: published
+      crop_end: "the earliest of simulated maturity, published harvest and the day before the next sowing. The tested soybean ends on the same day in both arms"
+      p1_warmup: "the warm-up follows the same 1985 to 2024 ring, year by year. The ring seam may fall in the warm-up, never in a tested season"
+    field:
+      common_prefix: "soybean and second-crop corn, common to both arms, up to the soybean harvest of year y"
+      S1: [soybean, corn, fallow, soybean]
+      S3: [soybean, fallow, wheat, fallow, soybean]
+    artifact_checks: [days_to_emergence, zeroed_season, dead_canopy]
+    count: {base: 20, a1: 20, p1: 180, total: 220}   # site-season arms, the accounting unit. The engine runs them as continuous runs per site and arm, listed by the engine CLI --dry-run
+
+  tests:
+    L0: {closure_mm_per_swap: 1.0, repeat: exact, unexplained_artifacts: 0, fail_label: "Model not validated here", fail_blocks: "reading any delta"}
+    L1: {site: londrina, stations: [INMET, IDR-Parana], rain_bias_max_pct_per_season: 10, temperature_bias_max_c: 1.0, event_status: planned_not_run}
+    T0:
+      input: "soybean after second-crop corn arm of T1, simulated against the published mean"
+      statistic: kendall_s
+      s_total_min: 21
+      within_site_s_sum_gt: 0
+    T1:
+      delta: "soybean after wheat minus soybean after second-crop corn, kg/ha"
+      statistics: [kendall_s, rmse]
+      s_total_min: 21
+      rmse_lt: in_sample_constant_rmse   # computed by code from the 10 transcribed values
+      rmse_constant_audit_kg_ha: 280     # plan 11.3, audit figure
+      report_beside: {loo_constant_kg_ha: 311, zero_delta_kg_ha: 365}
+      report_failed_on: [order, size]
+      yield_basis: "13% moisture. A dry yield is divided by 0.87. The basis each Doc declares is checked and recorded"
+    P1:
+      B: 9
+      shifts_back_years: [4, 8, 12, 16, 20, 24, 28, 32, 36]
+      circular_years: [1985, 2024]
+      shift_rule: "shifted start year s = y - k, plus 40 when y - k is before 1985. The whole chain of the site-season moves by the same offset"
+      calendar: "published dates keep month and day in the shifted years. A 29 Feb date moves to 28 Feb"
+      all_site_seasons_together: true
+      statistic: kendall_s
+      applied_to: [T0, T1]               # separately
+      h0: "the climate of the right year adds nothing. The real S is exchangeable with the wrong-year S"
+      h1: "one-sided. The real S is larger"
+      p: "(1 + number of wrong-year S >= real S) / (B + 1)"
+      alpha: 0.10
+      ties: count_against
+      draws: none
+      chains: 180
+      stop_rule: "run all 9 shifts, read no partial result, stop only at the hard stop. An incomplete P1 counts as not passed"
+    A1:
+      restart_at: "start of the soybean instance, the day after the predecessor harvest. The fallow runs normally"
+      restart_profile: field_capacity    # D8: a standard condition of the control, same in both arms, never zero water
+      nature: "exploratory, not a strong confirmation"
+      statistic: "D = T1 Kendall S with state minus T1 Kendall S without state"
+      h0: "with and without state are exchangeable within each site-season"
+      h1: "one-sided. D > 0"
+      permutation: {kind: paired_swap, patterns: 1024, exhaustive: true}
+      p: "number of patterns with D* >= D, divided by 1024"
+      pass: "D > 0 and p <= 0.10"
+      alpha: 0.10
+      ties: count_against
+      draws: none
+      chains: 20
+    A2: {threshold: none, role: reported_only, status: reported}
+    A3: {zero_changes: "context only", status: reported}
+    N1:
+      floor: "the larger of the 90th percentiles of field halves and of L30 against S30"
+      unit: days
+      percentile: 90
+      percentile_method: nearest_rank
+      interval_point: midpoint       # a representative value only, never shown as an observed date
+      status: reported
+    H1: {status: reported}
+    H2: {threshold: none, status: not_run, reason: "not attempted, participant decision (SA-D56)", page: "says there was no local review"}
+
+  label:
+    order:
+      - {when: "L0 fails", label: "Model not validated here"}
+      - {when: "T0 not_run or not_completed", label: "not completed"}
+      - {when: "T0 fails or fewer than 10 site-seasons", label: "Model not validated here"}
+      - {when: "T1 not_run or not_completed", label: "not completed"}
+      - {when: "T1 fails", label: "Direction not validated"}
+      - {when: "P1 or A1 fails", label: "Direction matched, mechanism not shown"}
+      - {when: "T0, T1, P1 and A1 pass", label: "Direction supported in 10 trial site-seasons (exploratory, not blind)"}
+    make: "one Make target per task, run with make -k"
+
+  r1:
+    runs_only_if: "T1 passes"
+    event_status: planned_not_run  # the engine has no R1 path (SA-D65). The page says "inconclusive"
+    band_percentiles: [10, 90]
+    percentile_method: nearest_rank
+    members: 50
+    cut_to: 20
+    sampling: latin_hypercube
+    distribution: uniform
+    paired: true                   # same draws for both arms and every year, with protocol.seed
+    ranges:
+      Zmax_m: [0.4, 1.0]
+      available_water: "neighbour class of the estimate, within AD1 to AD6"
+      CCx: [0.85, 0.99]
+      senescence_pct_of_library: 10
+      HI0: {maize: [0.40, 0.53], soybean_pct_of_library: 10, wheat_pct_of_library: 10}
+      WP_star_g_m2: {maize: [26, 40], soybean_pct_of_library: 10, wheat_pct_of_library: 10}
+      sowing: {maize: "event interval (plan 12.3)", wheat: "April to the 2nd dekad of May"}
+    inversion_max: 0.20
+    equivalence_kg_ha: 166
+    L_kg_ha: "the larger of 166 and the T1 RMSE"
+    states:
+      lower water risk in the model: "P10 > +L and inversion <= 20%"
+      no water-related difference in the model: "P10 >= -166 and P90 <= +166"
+      inconclusive: "everything else, including inversion above 20% or R1 not run"
+
+  h1:
+    confirmed: 4                   # invitations go out in waves until 4 people confirm (SA-D57)
+    slots: 3
+    minutes: 3
+    language: "English, the version the judges see (SA-D60). The language of each session is recorded"
+    profile: "people who read English, with no farming background required, who have not seen the project and are not team members (SA-D60)"
+    slot_rule: "the 3 slots go to the first 3 confirmations, in the order they arrive"
+    reserve_rule: "later confirmations form the reserve list, in the order they arrive. A reserve joins only if someone does not attend or does not finish the session, never to replace a result, until 15:45 on Sunday"
+    measures: "page comprehension, not farm impact. Informal"
+    tasks:                         # D11: criteria from plan 11.2, fixed before the sessions
+      - {id: 1, task: "Say the answer in your own words", pass: "names the option and the state the page shows for it"}
+      - {id: 2, task: "Say what you would test and where", pass: "names the option and a strip in a named field"}
+      - {id: 3, task: "Read N of n as a count, not a chance", pass: "calls it a number of trial site-seasons, with no probability or percent chance"}
+      - {id: 4, task: "Say one thing the tool does not know", pass: "names one limit the page states, such as roots, nitrogen, disease, nematodes or the yield of this field"}
+      - {id: 5, task: "Say what you would ask the agronomist", pass: "asks one question about a local check listed on the agronomist sheet"}
+
+  decision:
+    gain_step_sc_ha: 1             # G rounded up to the step
+    min_n: 5
+    try_ratio_min: 0.7
+    keep_ratio_max: 0.3
+    s2_evidence: "7 site-seasons from 2 sites (Floresta 4, Cafelandia 3), one species sown on the corn sowing day, two establishment methods. The page shows the method and the count per method. If it cannot, S2 gives Not enough evidence"
+    order:
+      - "G <= 0 gives Try it on a strip here"
+      - "n < 5 gives Not enough evidence"
+      - "N/n >= 0.7 gives Try it on a strip here"
+      - "N/n <= 0.3 gives Keep what you do"
+      - "otherwise Tied"
+
+  soil_domain:
+    decides: user_declared_only    # SoilGrids never decides
+    not_enough_evidence_below_clay_g_kg: 350
+    use_with_care_clay_g_kg: [350, 600]
+    inside_above_clay_g_kg: 600
+    conventional_tillage: "Not enough evidence"
+    source: "SiBCS 2018, p. 46 and 47"
+
+  window_warning:
+    outside: "the whole end-of-green interval after the end of the corn Zarc window, zero delay"
+    outside_min_seasons: 3
+    of_seasons: 8
+    inference: one_sided
+    out_of_k_and_n: ["to confirm", "no data"]
+    never: inside
+    ended_before: "the whole end-of-green interval before the end of the corn Zarc window, zero delay. Reported as a count, never as a sowing date and never as inside the window (SA-D72)"
+    risk_at_exit: "the Zarc corn risk (%) of the ten-day period that holds high, the end of the end-of-green interval. With a declared class, that class at its latest-ending cycle group. Without a report, the lowest and highest across every class and cycle group of the municipality. A condition of the field being free, never a sowing date (SA-D72)"
+    risk_at_exit_count: "k of n seasons per risk value, n the seasons with status ok"
+
+  zarc_risk_band:                  # SA-D72. Drawn above the 8-season ribbon
+    source: "Tábua de Risco do Zarc, risk by ten-day period (dec1 to dec36), corn 2nd crop (S1) and corn with brachiaria (S2)"
+    with_report: "the declared class at its latest-ending cycle group"
+    without_report: "the lowest and highest risk across every class and cycle group of the municipality, per ten-day period"
+    zero: "a ten-day period with no Zarc risk value is outside the zoning, drawn as such"
+
+  ribbon_counts:                   # SA-D72
+    no_green: "ten-day periods with not_green per season, then the median over the seasons shown, as N of 36. no_data periods are counted apart and never as no green"
+
+  climate:                         # SA-D72. Replaces dry autumn and cold in the window. NASA POWER daily at the field cell
+    period: "the occupation dates of each crop (config/decision_settings.yaml, Embrapa Doc 476 medians)"
+    years: ["1984", "2025"]        # full occupation periods only
+    frost: {variable: T2M_MIN, below_c: 2, count: "years with at least one day below the threshold while the crop occupies the field, k of the years counted", source: "Zarc 2026/27, minimum below 2 °C (protocol.frost)"}
+    rain: {variable: PRECTOTCORR, statistic: "total while the crop occupies the field", report: [median, p10_nearest_rank, three_driest_years_by_name]}
+    nature: "descriptive counts of the past, never a forecast and never a threshold of failure"
+
+  field:
+    window_km: [10, 10]
+    inner_buffer_m: 30
+    min_clean_pixels: 20
+    ndvi_green: 0.30               # D10, ribbon cells and "canopy seen". A project rule, not validated for HLS here
+    min_clean_frac: 0.5            # D10, a project rule, on top of min_clean_pixels
+    green_end_method: M2-green-end-v2   # D12 (SA-D62). End of the first green cycle, a proxy for the soybean phase, never a crop classification
+    green_end_reference: running_max    # M(t), the largest clean NDVI of the field from 1 Sep to t
+    green_end_half_height_frac: 0.5     # low above 0.5 M, high at or below 0.5 M. Inspired by the MCD12Q2 MidGreendown (50% of the segment amplitude), adapted
+    green_end_min_drop: 0.3             # M minus NDVI at high
+    green_end_exit_window: ["12-01", "05-31"]   # high falls in this window
+    green_end_cycle_start_window: ["09-01", "12-31"]   # a clean observation at or below half height before the peak, in the soybean window. Otherwise "to confirm"
+    green_end_rebound_days: 10          # a clean observation within these days after high back at or above M minus rebound_within drops the pair
+    green_end_rebound_within: 0.1
+    green_end_max_gap_days: 25          # no gap between clean observations from 1 Dec to high above this, otherwise "to confirm". Raised from 20 by the allowed adjustment: 9 of 24 development-strip field-seasons were ok with 20, 12 of 24 with 25
+    green_end_no_pair: "to confirm if a canopy was seen, no data if no clean observation"
+    green_end_second_cycle: "kept in the data and the ribbon. It does not change the status"
+    green_end_allowed_adjustment: "max_gap_days from 20 to 25 before the tag, only if fewer than half of the development-strip seasons come out ok. Applied (9 of 24 ok with 20). No further change"
+    green_end_compared_variant: "10% of the season amplitude, computed in the rehearsal only and reported beside"
+    choice_seasons: ["2025/26"]    # D9, kept out of the field order. With no ok series, no silent switch to another season
+    choice_fallback:               # amendment protocol-v1.1, before any bench result
+      older_seasons_in_order: ["2024/25", "2023/24", "2022/23"]
+      rule: "if fewer than 2 candidates are ok in the choice season, the next older season is used alone, one at a time, until Field A and B exist. Every season tried is published, and the season used stays out of the field order"
+      reason: "in 2025/26 only 1 of the 10 product candidates was ok: cloud gaps of 34 to 40 days from 1 Dec to the exit, a rule outcome, not an infrastructure error"
+    product_area: {lon_max: -51.25}          # SA-D63: candidates only west of this
+    development_strip: {lon_min: -51.245, role: "rehearsal only, never a product field"}
+    municipality: "from the IBGE municipal mesh, by the polygon (SA-D64)"
+    slope: median
+    candidates: [8, 12]
+    first_field: "latest soybean exit in more than half of the comparable seasons, difference above N1, only fields with the option in Try or Tied"
+
+  erosion: {similar_within_pct_points: 5, gloreda_line: "kept only if the GloREDa monthly shares match the local source within these points, otherwise the line goes. No tolerance on the annual value: both values are published as context"}
+  unsourced_rules: "dry autumn, cold period and occupation dates enter only with a threshold and a source. Without one, the variable goes (SA-D68). The climate block replaces dry autumn and cold in the window with descriptive counts on sourced periods (SA-D72)"
+  nasa_switch: {main_page_if_states_changed_min: 1, otherwise: how_we_know}   # SA-D66
+  frost: {tmin_below_c: 2, role: alert_only}
+
+  zarc:
+    wheat_table: "2025/2026"       # D4: historical reference. The 2026/27 table has no wheat
+    wheat_label: "Zarc 2025/26, latest with wheat"
+    field_ad_class: "from a soil report only: the declared class AD1 to AD6, or sand, silt and clay of 0 to 40 cm by the IN MAPA 1/2022 formula. SoilGrids never gives a class (SA-D64)"
+    without_report: "the class is unknown, no window for the field. The window warning uses the latest end of the corn window across every class and cycle group of the municipality, for any soil class"
+
+  side_runs:
+    floresta_printed_coordinate: {lat: -23.916667, lon: -52.066667, rule: "if T0 or T1 changes result with the printed point, Floresta leaves the bench and the rule of fewer than 10 site-seasons applies"}
+
+  opening_checks:                  # filled at the local tag (SA-D71, M0.6)
+    imerg_prectot_last_date: {result: "2026-09-14, unchanged. Only with time-standard=UTC: the LST request returns -999 everywhere", state_in_plan: "2026-09-14"}
+    imerg_v08_in_cmr: {result: "no V08. GPM_3IMERGDF V07 only, ends 2025-09-30", state_in_plan: "V07 only, Final ended 09/2025"}
+    merra2_geosit_boundary: {result: "unchanged: MERRA2 on 2026-09-30, GEOSIT on 2026-10-01", state_in_plan: "MERRA2 on 2026-09-30, GEOSIT on 2026-10-01"}
+    soilgrids_rest: {result: "200 (REST back). WCS GetCapabilities 200. WCS stays the access path", state_in_plan: "503, no date given"}

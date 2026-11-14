@@ -1,0 +1,16 @@
+{
+  "label": "example, fictitious",
+  "note": "Synthetic Zarc windows and dates, not read from the Tábua de Risco. ISO dates, inclusive.",
+  "zarcWindow": {
+    "corn": { "start": "2027-01-11", "end": "2027-03-10" },
+    "grass": { "start": "2027-01-11", "end": "2027-02-28" }
+  },
+  "dates": {
+    "inside_both": "2027-02-01",
+    "corn_start": "2027-01-11",
+    "corn_end": "2027-03-10",
+    "inside_corn_outside_grass": "2027-03-05",
+    "outside_both_late": "2027-03-11",
+    "outside_both_early": "2027-01-10"
+  }
+}

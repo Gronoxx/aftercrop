@@ -1,0 +1,47 @@
+<!doctype html>
+<!-- Example, fictitious. A hand-written stand-in for a rendered page build/dom_*.html (criteria
+     M6.2 and M6.5), used by tests/test_ledger.py until the site (M7) renders real pages.
+     Ledger ids are those of the M5 example (tests/fixtures/decision_example/) and of the
+     registry (pipeline/ledger/registry.py). The numbers are fictitious. -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Aftercrop, example, fictitious</title>
+  <style>.seal::before { content: "1"; } body { margin: 0 16px; }</style>
+  <script type="module">const STEP = 1; const n = 10;</script>
+</head>
+<body>
+  <header>
+    <h1>Aftercrop</h1>
+    <p class="label">Direction supported in 10 trial site-seasons (exploratory, not blind)</p>
+  </header>
+  <main>
+    <section aria-label="Field A">
+      <h2>Field A</h2>
+      <p>Area <span data-ledger="field_a.area_ha">12.5</span> ha</p>
+      <p>POWER reanalysis, regional cell, 1984 to 2025: <span data-ledger="field_a.risk">17</span> of
+         <span data-ledger="field_a.risk">41</span> years (about <span data-ledger="field_a.risk">4</span> in 10)</p>
+      <div class="ribbon" data-ledger="field_a.ribbon">
+        <span>2025/26</span> <span title="21 clean looks">no data</span>
+      </div>
+      <ol data-ledger="field_a.green_end.2025_26"><li>2026-02-12 to 2026-02-27</li></ol>
+    </section>
+    <section aria-label="Answer">
+      <h2>S3 Wheat on part</h2>
+      <p>You need <b data-ledger="browser.S3.G">3.2</b> sc/ha. Trials reached it in
+         <b data-ledger="browser.S3.N">7</b> of <b data-ledger="browser.S3.n">10</b>.</p>
+      <p>Bag = 60 kg.</p>
+      <p data-copy="page.why.S3.evidence">Embrapa Doc 476, a compilation of <em>39 cases</em>, 10 site-seasons.</p>
+      <label>Soybean price <input type="text" data-ledger="browser.input.p_soy" value="100" aria-label="R$ per bag"></label>
+      <img src="seal.svg" alt="Estimated from satellite">
+    </section>
+    <section aria-label="How we know">
+      <table>
+        <tr data-ledger="scoreboard.tests.T1"><td>T1</td><td>S = 23</td><td>RMSE 210</td></tr>
+        <tr><td>S2</td><td>L3</td></tr>
+      </table>
+      <p data-manifest="power_daily">NASA POWER</p>
+    </section>
+  </main>
+</body>
+</html>

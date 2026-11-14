@@ -1,0 +1,201 @@
+{
+  "_notice": "Written with an SI tool (Claude, Anthropic) for NASA Space Apps 2026. See AI_USE.md.",
+  "schema_version": "1",
+  "rights_note": "Counts from Embrapa Soja Documentos 398, 459 and 476, cited with document, page and table. The yields themselves are not shipped.",
+  "reference": null,
+  "options": {
+    "S2": {
+      "n": 7,
+      "n_sites": 2,
+      "condition": "7 site-seasons from 2 sites (Floresta 4, Cafelândia 3), soybean after second-crop corn with brachiaria, one species sown on the corn sowing day, two establishment methods, against soybean after second-crop corn",
+      "transfer_warning": "Trials on clay above 750 g/kg. Check whether your soil is similar.",
+      "steps": [
+        {
+          "g_sc_ha": 1,
+          "count": 6
+        },
+        {
+          "g_sc_ha": 2,
+          "count": 6
+        },
+        {
+          "g_sc_ha": 3,
+          "count": 6
+        },
+        {
+          "g_sc_ha": 4,
+          "count": 6
+        },
+        {
+          "g_sc_ha": 5,
+          "count": 4
+        },
+        {
+          "g_sc_ha": 6,
+          "count": 3
+        },
+        {
+          "g_sc_ha": 7,
+          "count": 2
+        },
+        {
+          "g_sc_ha": 8,
+          "count": 1
+        },
+        {
+          "g_sc_ha": 9,
+          "count": 0
+        }
+      ],
+      "bad_year": {
+        "text": "Lowest gain in Floresta, 2012/13.",
+        "ledger": "trials.S2.bad_year"
+      },
+      "summary": null,
+      "ledger": "trials.S2",
+      "by_method": [
+        {
+          "method": "in_row_or_alternate_rows_2kg",
+          "n": 4,
+          "sites": [
+            "Floresta"
+          ],
+          "steps": [
+            {
+              "g_sc_ha": 1,
+              "count": 3
+            },
+            {
+              "g_sc_ha": 2,
+              "count": 3
+            },
+            {
+              "g_sc_ha": 3,
+              "count": 3
+            },
+            {
+              "g_sc_ha": 4,
+              "count": 3
+            },
+            {
+              "g_sc_ha": 5,
+              "count": 1
+            },
+            {
+              "g_sc_ha": 6,
+              "count": 1
+            },
+            {
+              "g_sc_ha": 7,
+              "count": 0
+            }
+          ]
+        },
+        {
+          "method": "broadcast_8_12kg",
+          "n": 3,
+          "sites": [
+            "Cafelândia"
+          ],
+          "steps": [
+            {
+              "g_sc_ha": 1,
+              "count": 3
+            },
+            {
+              "g_sc_ha": 2,
+              "count": 3
+            },
+            {
+              "g_sc_ha": 3,
+              "count": 3
+            },
+            {
+              "g_sc_ha": 4,
+              "count": 3
+            },
+            {
+              "g_sc_ha": 5,
+              "count": 3
+            },
+            {
+              "g_sc_ha": 6,
+              "count": 2
+            },
+            {
+              "g_sc_ha": 7,
+              "count": 2
+            },
+            {
+              "g_sc_ha": 8,
+              "count": 1
+            },
+            {
+              "g_sc_ha": 9,
+              "count": 0
+            }
+          ]
+        }
+      ]
+    },
+    "S3": {
+      "n": 10,
+      "n_sites": 3,
+      "condition": "10 site-seasons from 3 sites (Londrina 3, Floresta 4, Cafelândia 3), soybean after wheat, against soybean after second-crop corn",
+      "transfer_warning": "Trials on clay above 750 g/kg. Check whether your soil is similar.",
+      "steps": [
+        {
+          "g_sc_ha": 1,
+          "count": 8
+        },
+        {
+          "g_sc_ha": 2,
+          "count": 6
+        },
+        {
+          "g_sc_ha": 3,
+          "count": 5
+        },
+        {
+          "g_sc_ha": 4,
+          "count": 5
+        },
+        {
+          "g_sc_ha": 5,
+          "count": 4
+        },
+        {
+          "g_sc_ha": 6,
+          "count": 4
+        },
+        {
+          "g_sc_ha": 7,
+          "count": 3
+        },
+        {
+          "g_sc_ha": 8,
+          "count": 2
+        },
+        {
+          "g_sc_ha": 9,
+          "count": 2
+        },
+        {
+          "g_sc_ha": 10,
+          "count": 2
+        },
+        {
+          "g_sc_ha": 11,
+          "count": 0
+        }
+      ],
+      "bad_year": {
+        "text": "Lowest gain in Floresta, 2012/13.",
+        "ledger": "trials.S3.bad_year"
+      },
+      "summary": null,
+      "ledger": "trials.S3"
+    }
+  },
+  "money_refs": []
+}

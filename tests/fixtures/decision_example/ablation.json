@@ -1,0 +1,38 @@
+{
+  "schema_version": "1",
+  "scenarios": [
+    "example_low",
+    "example_mid",
+    "example_high"
+  ],
+  "sources": [
+    {
+      "id": "hls_vi_v2",
+      "swap": "without_hls_no_window_warning_no_field_order",
+      "status": "reported",
+      "states_changed": {
+        "v": 1,
+        "l": "ablation.hls_vi_v2.states_changed"
+      },
+      "states_total": {
+        "v": 12,
+        "l": "ablation.hls_vi_v2.states_total"
+      },
+      "verdict": "changes_answers"
+    },
+    {
+      "id": "nasadem",
+      "swap": "by_construction_relief_changes_no_state",
+      "status": "not_run",
+      "states_changed": {
+        "v": null,
+        "l": "ablation.nasadem.states_changed"
+      },
+      "states_total": {
+        "v": null,
+        "l": "ablation.nasadem.states_total"
+      },
+      "verdict": "context_only"
+    }
+  ]
+}

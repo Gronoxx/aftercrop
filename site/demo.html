@@ -1,0 +1,40 @@
+<!doctype html>
+<!-- Written with an SI tool (Claude, Anthropic) for NASA Space Apps 2026. See AI_USE.md. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Aftercrop · 30-second demo</title>
+<link rel="stylesheet" href="css/site.css">
+</head>
+<!-- Demo page (SA-D95): plays the 30-second screen recording of the real page, made by
+     make demo-video (tools/record_demo.mjs). English only. The captions are part of the picture,
+     so the page loads no script and no copy file. -->
+<body data-page="demo">
+<div class="page">
+
+  <header class="site-header">
+    <div class="topbar">
+      <p class="brand"><a href="index.html">Aftercrop</a></p>
+      <nav class="topnav">
+        <a class="btn btn-quiet" href="index.html">Back to the main page</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="demo">
+    <h1>Aftercrop · 30-second demo</h1>
+    <p>A screen recording of the real page, 28 seconds, no sound. The English captions are part of the picture.</p>
+    <video id="demo-video" controls playsinline preload="metadata" width="1920" height="1080">
+      <source src="demo/aftercrop_demo.mp4" type="video/mp4">
+      <a href="demo/aftercrop_demo.mp4">Download the video (MP4)</a>
+    </video>
+    <p class="small demo-notice">Site code and texts written with an SI tool (Claude, Anthropic). See AI_USE.md in the repository.</p>
+    <p><a href="index.html">Open Aftercrop</a> · <a href="how-we-know.html">How we know</a></p>
+  </main>
+
+</div>
+</body>
+</html>

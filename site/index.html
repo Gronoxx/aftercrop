@@ -1,0 +1,456 @@
+<!doctype html>
+<!-- Written with an SI tool (Claude, Anthropic) for NASA Space Apps 2026. See AI_USE.md. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Aftercrop</title>
+<link rel="stylesheet" href="css/site.css">
+<script type="module" src="js/app.mjs"></script>
+</head>
+<!-- Aftercrop main page (plan 7.2 and 7.3). Fixed order: field picker, question, answer with the
+     NASA line, ribbon with the Zarc risk band (SA-D78), three columns, year strip, NASA switch,
+     fixed strip. Every text comes from data/copy.json:
+     data-copy holds a copy key, and Alpine binds the rest from the view model of js/app.mjs. -->
+<body data-page="index">
+<div class="page" x-data="aftercrop" x-cloak>
+
+  <p class="example-banner" x-show="v.isExample" x-text="v.exampleWord"></p>
+  <p class="example-banner rehearsal-banner" role="status" x-show="v.isRehearsal" x-text="v.rehearsalBanner"></p>
+  <!-- SA-D79: an observation region (region.json mode "observation") has its own banner. -->
+  <p class="example-banner rehearsal-banner observation-banner" role="status" x-show="v.observation" x-text="v.observation ? v.obs.banner : ''"></p>
+  <p class="muted" role="status" x-show="v.dataFolderMissing" x-text="v.dataFolderMissing"></p>
+
+  <header class="site-header" id="sec-picker">
+    <div class="topbar">
+      <p class="brand" data-copy="page.title"></p>
+      <nav class="topnav">
+        <a class="btn btn-quiet" href="how-we-know.html" data-copy="page.header.how_we_know"></a>
+        <button type="button" class="btn btn-quiet" @click="toggleLang()" :aria-label="v.switchAria" :lang="v.lang === 'en' ? 'pt-BR' : 'en'" x-text="v.switchTo"></button>
+      </nav>
+    </div>
+    <div class="header-grid">
+      <div class="map" x-show="v.map" x-html="v.map" @click="mapClick($event)"></div>
+      <div class="header-text">
+        <div class="field-picker" role="group" data-copy-label="page.header.field_picker">
+          <template x-for="f in v.fields" :key="f.id">
+            <button type="button" class="btn chip" :aria-pressed="f.active ? 'true' : 'false'" @click="setField(f.id)" x-text="f.name"></button>
+          </template>
+          <p class="muted" x-show="!v.hasFields" x-text="v.noFieldText"></p>
+        </div>
+        <template x-if="!v.observation">
+          <div>
+            <p class="persona" data-copy="page.header.persona"></p>
+            <p data-copy="page.header.region"></p>
+            <p class="region-link" x-show="v.regionLink"><a :href="v.regionLink ? v.regionLink.href : 'index.html'" x-text="v.regionLink ? v.regionLink.text : ''"></a></p>
+            <p data-copy="page.header.trial_sites"></p>
+          </div>
+        </template>
+        <template x-if="v.observation">
+          <div class="obs-header">
+            <p class="strong" x-text="v.obs.region"></p>
+            <p x-text="v.obs.field"></p>
+          </div>
+        </template>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- SA-D79, observation region: the sentence of plan section 3 in place of the question and
+         the answer. Nothing below compares, prices or decides. -->
+    <template x-if="v.observation">
+    <section class="question observation" id="sec-observation" aria-labelledby="obs-sentence">
+      <h1 id="obs-sentence" class="q-main" x-text="v.obs.sentence"></h1>
+      <p x-text="v.obs.packNote"></p>
+      <p class="small" x-text="v.obs.notLoaded"></p>
+    </section>
+    </template>
+
+    <template x-if="!v.observation">
+    <section class="question" id="sec-question" aria-labelledby="q-main">
+      <p class="q-lead" data-copy="page.question.lead"></p>
+      <h1 id="q-main" class="q-main" data-copy="page.question.main"></h1>
+      <p class="q-options" data-copy="page.question.options"></p>
+    </section>
+    </template>
+
+    <template x-if="!v.observation">
+    <section class="answer" id="sec-answer" aria-labelledby="answer-title">
+      <h2 id="answer-title" class="sr-only" data-copy="page.answer.title"></h2>
+      <div class="answer-box" :class="'state-' + v.answer.state" aria-live="polite" aria-atomic="true">
+        <span class="answer-icon" x-html="v.answer.icon"></span>
+        <div class="answer-body">
+          <p class="answer-text" x-text="v.answer.text"></p>
+          <p class="answer-other" x-show="v.answer.other" x-text="v.answer.other"></p>
+          <ul class="answer-reasons" x-show="v.answer.reasons.length">
+            <template x-for="(r, i) in v.answer.reasons" :key="i"><li x-text="r"></li></template>
+          </ul>
+        </div>
+        <span class="tag tag-example" x-show="v.example" x-text="v.answerExampleWord"></span>
+      </div>
+      <!-- SA-D78: two NASA numbers of the selected field, each linked to its ledger entry. -->
+      <p class="nasa-line" x-show="v.answer.nasaLine.length">
+        <template x-for="(p, i) in v.answer.nasaLine" :key="'nl' + i">
+          <span class="nasa-part">
+            <template x-if="p.ledger"><button type="button" class="ledger-link" :data-ledger="p.ledger" x-text="p.text"></button></template>
+            <template x-if="!p.ledger"><span x-text="p.text"></span></template>
+          </span>
+        </template>
+      </p>
+      <p class="caption" x-text="v.answer.caption"></p>
+      <p class="caption"><span data-copy="page.answer.per_hectare"></span> <span data-copy="page.answer.bag"></span></p>
+      <ul class="notes" x-show="v.answer.notes.length">
+        <template x-for="(n, i) in v.answer.notes" :key="i"><li x-text="n"></li></template>
+      </ul>
+      <p class="field-order" x-show="v.answer.fieldOrder">
+        <template x-if="v.answer.fieldOrderLedger"><button type="button" class="ledger-link" :data-ledger="v.answer.fieldOrderLedger" x-text="v.answer.fieldOrder"></button></template>
+        <template x-if="!v.answer.fieldOrderLedger"><span x-text="v.answer.fieldOrder"></span></template>
+      </p>
+      <p class="model-check" x-text="v.answer.modelCheck"></p>
+      <p class="label-body small" x-text="v.answer.labelBody"></p>
+      <p class="gap-note small" x-text="v.answer.lateSoyGap"></p>
+      <div class="priority" role="group" aria-labelledby="priority-label">
+        <span id="priority-label" class="priority-label" data-copy="page.priority.label"></span>
+        <template x-for="p in v.priority" :key="p.id">
+          <button type="button" class="btn chip" :aria-pressed="p.active ? 'true' : 'false'" @click="setPriority(p.id)" x-text="p.label"></button>
+        </template>
+        <span class="small muted" data-copy="page.priority.note"></span>
+      </div>
+    </section>
+    </template>
+
+    <section class="chart-section" id="sec-ribbon" aria-labelledby="rb-title">
+      <h2 id="rb-title" data-copy="page.ribbon.title"></h2>
+      <p class="small" data-copy="page.ribbon.sub"></p>
+      <p class="muted" x-show="v.ribbon.empty" x-text="v.ribbon.empty"></p>
+      <div class="chart" aria-hidden="true" x-show="v.ribbon.rows.length">
+        <div class="chart-row chart-axis"><span class="chart-label"></span><div class="months"><template x-for="(m, i) in v.ribbon.months" :key="i"><span x-text="m"></span></template></div></div>
+        <!-- SA-D72.1: the Zarc risk band above the 8 seasons, follows the soil class selector. -->
+        <template x-for="b in (v.ribbon.band ? v.ribbon.band.rows : [])" :key="'band' + b.id">
+          <div class="chart-row band-row">
+            <span class="chart-label small" x-text="b.name"></span>
+            <div class="chart-svg" x-html="b.svg"></div>
+          </div>
+        </template>
+        <template x-for="r in v.ribbon.rows" :key="r.season">
+          <div class="chart-row">
+            <span class="chart-label"><span x-text="r.season"></span> <span class="tag" x-show="r.twoCycles" x-text="r.twoCycles"></span></span>
+            <div class="chart-svg" x-html="r.svg"></div>
+          </div>
+        </template>
+      </div>
+      <ul class="legend" aria-hidden="true">
+        <template x-for="(l, i) in v.ribbon.legend" :key="i"><li><span class="swatch" :class="'sw-' + l.kind"></span><span x-text="l.text"></span></li></template>
+      </ul>
+      <template x-if="v.ribbon.band">
+        <div class="risk-band-key">
+          <p class="small"><span class="seal seal-official_rule"><span x-html="v.ribbon.band.seal.icon"></span><span x-text="v.ribbon.band.seal.name"></span></span> <span x-text="v.ribbon.band.title"></span></p>
+          <ul class="legend" aria-hidden="true">
+            <template x-for="(l, i) in v.ribbon.band.legend" :key="'bl' + i"><li><span class="swatch" :class="'sw-' + l.kind"></span><span x-text="l.text"></span></li></template>
+          </ul>
+          <p class="small">
+            <template x-if="v.ribbon.band.ledger"><button type="button" class="ledger-link" :data-ledger="v.ribbon.band.ledger" x-text="v.ribbon.band.note"></button></template>
+            <template x-if="!v.ribbon.band.ledger"><span x-text="v.ribbon.band.note"></span></template>
+          </p>
+        </div>
+      </template>
+      <p class="small strong" x-text="v.ribbon.note"></p>
+      <template x-if="v.observation">
+        <div>
+          <p class="small" x-show="v.obs.greenEnd" x-text="v.obs.greenEnd"></p>
+          <p class="small" x-text="v.obs.ribbonRule"></p>
+        </div>
+      </template>
+      <p class="small" x-show="v.ribbon.ledger"><button type="button" class="ledger-link" :data-ledger="v.ribbon.ledger" data-copy="page.ribbon.soy_exit"></button></p>
+      <ul class="seals">
+        <template x-for="s in v.ribbon.seals" :key="s.id"><li class="seal" :class="'seal-' + s.id"><span x-html="s.icon"></span><span x-text="s.name"></span></li></template>
+      </ul>
+      <div class="sr-only"><table>
+        <caption data-copy="page.ribbon.table_caption"></caption>
+        <thead><tr><td></td><th scope="col" data-copy="page.ribbon.soy_exit"></th><template x-for="(h, i) in v.ribbon.heads" :key="i"><th scope="col" x-text="h"></th></template></tr></thead>
+        <tbody>
+          <template x-for="b in (v.ribbon.band ? v.ribbon.band.rows : [])" :key="'bt' + b.id">
+            <tr><th scope="row" x-text="b.name"></th><td x-text="v.ribbon.band.title"></td><template x-for="(c, i) in b.cells" :key="i"><td x-text="c"></td></template></tr>
+          </template>
+          <template x-for="r in v.ribbon.rows" :key="r.season">
+            <tr><th scope="row"><span x-text="r.season"></span> <span x-text="r.twoCycles || ''"></span></th><td x-text="r.exitText"></td><template x-for="(c, i) in r.cells" :key="i"><td x-text="c"></td></template></tr>
+          </template>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- SA-D79, observation region: relief, climate and sources of the one field. -->
+    <template x-if="v.observation">
+    <section class="panel observation-facts" id="sec-observation-facts" aria-labelledby="obs-relief-t">
+      <h2 id="obs-relief-t" x-text="v.obs.reliefTitle"></h2>
+      <template x-for="(ln, i) in v.obs.relief" :key="'rl' + i"><p class="ln" :class="ln.kind ? 'ln-' + ln.kind : ''" x-text="ln.text"></p></template>
+      <h2 x-text="v.obs.climateTitle"></h2>
+      <template x-for="(ln, i) in v.obs.climate" :key="'cl' + i"><p class="ln" :class="ln.kind ? 'ln-' + ln.kind : ''" x-text="ln.text"></p></template>
+      <h2 x-text="v.obs.sourcesTitle"></h2>
+      <ul class="obs-sources">
+        <template x-for="s in v.obs.sources" :key="s.id"><li><span class="strong" lang="en" x-text="s.title"></span> <span x-text="s.detail"></span> <span class="small" lang="en" x-text="s.license"></span></li></template>
+      </ul>
+      <p><a class="btn" href="index.html" x-text="v.obs.back"></a></p>
+    </section>
+    </template>
+
+    <template x-if="!v.observation">
+    <section class="compare" id="sec-columns" aria-labelledby="q-main">
+      <div class="grid" :style="'--rows:' + v.rowCount">
+        <div class="labels" aria-hidden="true">
+          <div class="lab lab-head"></div>
+          <template x-for="r in v.rows" :key="r.id">
+            <div class="lab" :class="r.highlight ? 'is-hl' : ''">
+              <p class="row-title" x-text="r.title"></p>
+              <p class="row-note small" x-show="r.note" x-text="r.note"></p>
+              <ul class="seals">
+                <template x-for="s in r.seals" :key="s.id"><li class="seal" :class="'seal-' + s.id"><span x-html="s.icon"></span><span x-text="s.name"></span></li></template>
+              </ul>
+            </div>
+          </template>
+          <div class="lab lab-why"></div>
+        </div>
+
+        <template x-for="c in v.columns" :key="c.id">
+          <article class="card" :class="'card-' + c.id" :aria-labelledby="'col-' + c.id">
+            <header class="cell cell-head">
+              <h2 class="col-title" :id="'col-' + c.id"><span class="code" x-text="c.head.code"></span> <span x-text="c.head.name"></span></h2>
+              <p class="sub" x-text="c.head.sub"></p>
+              <p class="badge" x-show="c.head.badge" :class="c.head.badge ? 'state-' + c.head.badge.state : ''">
+                <span x-html="c.head.badge ? c.head.badge.icon : ''"></span><span x-text="c.head.badge ? c.head.badge.word : ''"></span>
+              </p>
+              <p class="warn" x-show="c.head.warning" :class="c.head.warning ? 'warn-' + c.head.warning.state : ''">
+                <span class="seal" x-show="c.head.warningSeal"><span x-html="c.head.warningSeal ? c.head.warningSeal.icon : ''"></span><span x-text="c.head.warningSeal ? c.head.warningSeal.name : ''"></span></span>
+                <template x-if="c.head.warning && c.head.warning.ledger"><button type="button" class="ledger-link" :data-ledger="c.head.warning.ledger" x-text="c.head.warning.text"></button></template>
+                <template x-if="c.head.warning && !c.head.warning.ledger"><span x-text="c.head.warning.text"></span></template>
+              </p>
+              <!-- SA-D72, SA-D90: the Zarc risk at exit in one sentence, or S2 "same satellite reading". -->
+              <template x-for="(xl, i) in (c.head.exitLines || [])" :key="'xl' + i">
+                <p class="small exit-line">
+                  <template x-if="xl.ledger"><button type="button" class="ledger-link" :data-ledger="xl.ledger" x-text="xl.text"></button></template>
+                  <template x-if="!xl.ledger"><span x-text="xl.text"></span></template>
+                </p>
+              </template>
+              <p class="small" x-show="c.head.fixed" x-text="c.head.fixed"></p>
+            </header>
+            <template x-for="cell in c.cells" :key="cell.id">
+              <section class="cell" :class="cell.highlight ? 'is-hl' : ''">
+                <h3 class="cell-title" x-text="cell.title"></h3>
+                <ul class="seals cell-seals">
+                  <template x-for="s in cell.seals" :key="s.id"><li class="seal" :class="'seal-' + s.id"><span x-html="s.icon"></span><span x-text="s.name"></span></li></template>
+                </ul>
+                <template x-for="(ln, i) in cell.lines" :key="i">
+                  <p class="ln" :class="ln.kind ? 'ln-' + ln.kind : ''" :lang="ln.lang ? ln.lang : false">
+                    <template x-if="ln.ledger"><button type="button" class="ledger-link" :data-ledger="ln.ledger" x-text="ln.text"></button></template>
+                    <template x-if="!ln.ledger"><span x-text="ln.text"></span></template>
+                  </p>
+                </template>
+                <div class="cell-svg" x-show="cell.svg" x-html="cell.svg"></div>
+                <template x-if="cell.id === 'L4' && c.id === 'S1'">
+                  <p class="row-links"><a class="btn chip" href="#your-numbers" x-text="v.links.numbers"></a> <a class="btn chip" href="#your-limits" x-text="v.links.limits"></a></p>
+                </template>
+              </section>
+            </template>
+            <details class="cell cell-why">
+              <summary class="btn" x-text="c.whyButton"></summary>
+              <dl class="why-list">
+                <template x-for="w in c.why" :key="w.label"><div><dt x-text="w.label"></dt><dd x-text="w.text"></dd></div></template>
+              </dl>
+              <template x-for="(n, i) in c.whyNotes" :key="i"><p class="small" x-text="n.text"></p></template>
+            </details>
+          </article>
+        </template>
+      </div>
+
+      <div class="below-grid">
+        <p class="soil">
+          <span class="seal seal-unknown"><span x-html="v.soil.seal.icon"></span><span x-text="v.soil.seal.name"></span></span>
+          <template x-if="v.soil.ledger"><button type="button" class="ledger-link" :data-ledger="v.soil.ledger" x-text="v.soil.text"></button></template>
+          <template x-if="!v.soil.ledger"><span x-text="v.soil.text"></span></template>
+        </p>
+        <p class="small" x-text="v.soil.note"></p>
+        <div class="money-refs" x-show="v.moneyRefs.length">
+          <p class="small strong" x-text="v.lossYear"></p>
+          <template x-for="(m, i) in v.moneyRefs" :key="i">
+            <p class="small" lang="en">
+              <template x-if="m.ledger"><button type="button" class="ledger-link" :data-ledger="m.ledger" x-text="m.text"></button></template>
+              <template x-if="!m.ledger"><span x-text="m.text"></span></template>
+            </p>
+          </template>
+        </div>
+      </div>
+    </section>
+    </template>
+
+    <template x-if="!v.observation">
+    <section class="panel" id="your-numbers" aria-labelledby="numbers-title">
+      <h2 id="numbers-title" data-copy="page.inputs.title"></h2>
+      <p class="small"><span data-copy="page.inputs.privacy"></span> <span data-copy="page.answer.per_hectare"></span> <span data-copy="page.inputs.cost_kind"></span></p>
+      <div class="inputs">
+        <template x-for="f in v.inputs" :key="f.id">
+          <div class="input-row">
+            <label :for="'in-' + f.id" x-text="f.label"></label>
+            <div class="input-wrap">
+              <input :id="'in-' + f.id" type="text" inputmode="decimal" autocomplete="off" spellcheck="false"
+                     :value="f.raw" @input="setRaw(f.id, $event.target.value)"
+                     :aria-invalid="f.invalid ? 'true' : 'false'" :aria-describedby="'unit-' + f.id">
+              <span class="unit" :id="'unit-' + f.id" x-text="f.unit"></span>
+            </div>
+            <span class="tag tag-example" x-show="f.example" x-text="v.exampleWord"></span>
+          </div>
+        </template>
+        <div class="input-row">
+          <label for="in-sowing" data-copy="page.inputs.sowing_date.label"></label>
+          <div class="input-wrap">
+            <input id="in-sowing" type="date" :value="ui.sowingDate" @input="setDate($event.target.value)" aria-describedby="sowing-note">
+          </div>
+          <span class="small muted" id="sowing-note" data-copy="page.inputs.sowing_date.note"></span>
+        </div>
+        <!-- Zarc soil class from the user's soil report (SA-D64): recomputes the window warning. -->
+        <div class="input-row" x-show="v.soilClass">
+          <label for="in-soil-class" x-text="v.soilClass ? v.soilClass.label : ''"></label>
+          <div class="input-wrap">
+            <select id="in-soil-class" :value="v.soilClass ? v.soilClass.value : 'unknown'" @change="setSoilClass($event.target.value)" aria-describedby="soil-class-note">
+              <template x-for="o in (v.soilClass ? v.soilClass.options : [])" :key="o.value">
+                <option :value="o.value" :selected="o.active" x-text="o.label"></option>
+              </template>
+            </select>
+          </div>
+          <span class="small muted" id="soil-class-note"><span x-text="v.soilClass ? v.soilClass.hint : ''"></span> <span x-show="v.soilClass && v.soilClass.note" x-text="v.soilClass ? v.soilClass.note : ''"></span></span>
+        </div>
+      </div>
+      <p><button type="button" class="btn" @click="reset()" data-copy="page.actions.reset"></button></p>
+
+      <div class="scenarios" x-show="v.scenarios">
+        <h3 x-text="v.scenarios ? v.scenarios.title : ''"></h3>
+        <table class="table">
+          <thead><tr><th scope="col"></th><th scope="col" x-text="v.scenarios ? v.scenarios.heads.S2 : ''"></th><th scope="col" x-text="v.scenarios ? v.scenarios.heads.S3 : ''"></th><th scope="col" x-text="v.scenarios ? v.scenarios.heads.answer : ''"></th></tr></thead>
+          <tbody>
+            <template x-for="s in (v.scenarios ? v.scenarios.list : [])" :key="s.id">
+              <tr><th scope="row"><span x-text="s.label"></span> <span class="small muted" x-show="s.note" x-text="s.note"></span></th><td x-text="s.S2"></td><td x-text="s.S3"></td><td class="strong" x-text="s.answer"></td></tr>
+            </template>
+          </tbody>
+        </table>
+        <p class="small"><span x-text="v.scenarios ? v.scenarios.summary : ''"></span> <span class="tag tag-example" x-text="v.exampleWord"></span></p>
+      </div>
+
+      <div class="nitrogen">
+        <h3 x-text="v.nitrogen.title"></h3>
+        <div class="inputs">
+          <template x-for="f in v.nitrogen.inputs" :key="f.id">
+            <div class="input-row">
+              <label :for="'in-' + f.id" x-text="f.label"></label>
+              <div class="input-wrap">
+                <input :id="'in-' + f.id" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" :value="f.raw" @input="setRaw(f.id, $event.target.value)">
+                <span class="unit" x-text="f.unit"></span>
+              </div>
+            </div>
+          </template>
+        </div>
+        <p x-show="v.nitrogen.value">
+          <template x-if="v.nitrogen.ledger"><button type="button" class="ledger-link strong" :data-ledger="v.nitrogen.ledger" x-text="v.nitrogen.value"></button></template>
+          <template x-if="!v.nitrogen.ledger"><span class="strong" x-text="v.nitrogen.value"></span></template>
+        </p>
+        <p class="small" x-text="v.nitrogen.note"></p>
+      </div>
+    </section>
+    </template>
+
+    <template x-if="!v.observation">
+    <section class="panel" id="your-limits" aria-labelledby="limits-title">
+      <h2 id="limits-title" data-copy="page.limits.title"></h2>
+      <p class="small" data-copy="page.limits.intro"></p>
+      <template x-for="q in v.limits" :key="q.id">
+        <fieldset class="limit">
+          <legend x-text="q.question"></legend>
+          <div class="limit-options">
+            <template x-for="o in q.options" :key="o.value">
+              <button type="button" class="btn chip" :aria-pressed="o.active ? 'true' : 'false'" @click="setLimit(q.id, o.value)" x-text="o.label"></button>
+            </template>
+          </div>
+          <p class="small muted" x-text="q.effect"></p>
+        </fieldset>
+      </template>
+    </section>
+    </template>
+
+    <template x-if="!v.observation">
+    <section class="chart-section" id="sec-year-strip" aria-labelledby="ys-title">
+      <h2 id="ys-title" data-copy="page.year_strip.title"></h2>
+      <p class="small" data-copy="page.year_strip.sub"></p>
+      <p class="muted" x-show="v.yearStrip.empty" x-text="v.yearStrip.empty"></p>
+      <div class="chart" aria-hidden="true" x-show="v.yearStrip.rows.length">
+        <div class="chart-row chart-axis"><span class="chart-label"></span><div class="months"><template x-for="(m, i) in v.yearStrip.months" :key="i"><span x-text="m"></span></template></div></div>
+        <template x-for="r in v.yearStrip.rows" :key="r.id">
+          <div class="chart-row"><span class="chart-label" x-text="r.name"></span><div class="chart-svg" x-html="r.svg"></div></div>
+        </template>
+      </div>
+      <ul class="legend" aria-hidden="true">
+        <template x-for="(l, i) in v.yearStrip.legend" :key="i"><li><span class="swatch" :class="'sw-' + l.kind"></span><span x-text="l.text"></span></li></template>
+        <li x-show="v.yearStrip.ndviSeal"><span class="swatch sw-ndvi"></span><span x-text="v.yearStrip.ndviSeal ? v.yearStrip.ndviSeal.name : ''"></span></li>
+      </ul>
+      <p class="small strong zarc-note" x-show="v.yearStrip.zarcNote">
+        <template x-if="v.yearStrip.zarcNote && v.yearStrip.zarcNote.ledger"><button type="button" class="ledger-link" :data-ledger="v.yearStrip.zarcNote.ledger" x-text="v.yearStrip.zarcNote.text"></button></template>
+        <template x-if="v.yearStrip.zarcNote && !v.yearStrip.zarcNote.ledger"><span x-text="v.yearStrip.zarcNote.text"></span></template>
+      </p>
+      <p class="small">
+        <span data-copy="page.year_strip.footer"></span>
+        <template x-if="v.yearStrip.ndviLedger"><button type="button" class="ledger-link small" :data-ledger="v.yearStrip.ndviLedger" x-text="v.yearStrip.ndviSeal ? v.yearStrip.ndviSeal.name : ''"></button></template>
+      </p>
+      <div class="sr-only"><table>
+        <caption data-copy="page.year_strip.table_caption"></caption>
+        <thead><tr><td></td><template x-for="(h, i) in v.yearStrip.heads" :key="i"><th scope="col" x-text="h"></th></template></tr></thead>
+        <tbody>
+          <template x-for="r in v.yearStrip.rows" :key="r.id">
+            <tr><th scope="row" x-text="r.name"></th><template x-for="(c, i) in r.cells" :key="i"><td x-text="c"></td></template></tr>
+          </template>
+        </tbody>
+      </table></div>
+    </section>
+    </template>
+
+    <!-- SA-D66: on the main page only when the switch changes at least the protocol minimum of
+         states on the fields shown (app.mjs switchPlacement). Otherwise How we know shows it. -->
+    <template x-if="!v.observation">
+    <section class="nasa" id="sec-nasa" aria-labelledby="nasa-title" x-show="v.nasa.onMain">
+      <h2 id="nasa-title" data-copy="page.nasa_switch.title"></h2>
+      <p class="nasa-row">
+        <button type="button" class="switch" role="switch" :aria-checked="v.nasa.on ? 'true' : 'false'" @click="toggleHls()" aria-labelledby="nasa-key nasa-state">
+          <span class="switch-track" aria-hidden="true"><span class="switch-knob"></span></span>
+          <span id="nasa-key" class="strong" data-copy="page.nasa_switch.key"></span>
+          <span id="nasa-state" x-text="v.nasa.stateWord"></span>
+        </button>
+        <template x-if="v.nasa.ledger"><button type="button" class="ledger-link" :data-ledger="v.nasa.ledger" x-text="v.nasa.short"></button></template>
+        <template x-if="!v.nasa.ledger"><span x-text="v.nasa.short"></span></template>
+        <span class="tag" x-show="v.nasa.contextOnly" x-text="v.nasa.contextOnly"></span>
+      </p>
+      <p class="strong" x-show="v.nasa.changed">
+        <template x-if="v.nasa.ledger"><button type="button" class="ledger-link" :data-ledger="v.nasa.ledger" x-text="v.nasa.changed"></button></template>
+        <template x-if="!v.nasa.ledger"><span x-text="v.nasa.changed"></span></template>
+      </p>
+      <p class="small" data-copy="page.nasa_switch.legend"></p>
+      <p class="small" x-show="v.nasa.dateInCharge" x-text="v.nasa.dateInCharge"></p>
+      <p class="small" x-show="v.nasa.onYourNumbers" x-text="v.nasa.onYourNumbers"></p>
+    </section>
+    </template>
+
+    <template x-if="!v.observation">
+    <section class="closing" id="sec-closing">
+      <p class="strong" data-copy="page.header.region_rule"></p>
+      <p><a class="btn btn-primary" :href="v.sheetHref" data-copy="page.actions.sheet"></a></p>
+      <p class="small muted" data-copy="howweknow.zarc_independence"></p>
+    </section>
+    </template>
+  </main>
+
+  <footer class="fixed-strip" id="sec-strip">
+    <p class="strong" data-copy="page.footer.not_visible"></p>
+    <p><span data-copy="page.footer.supports"></span> <a class="demo-link" href="demo.html" data-copy="page.footer.demo"></a></p>
+  </footer>
+</div>
+<dialog id="ledger-dialog" class="ledger-dialog"></dialog>
+</body>
+</html>

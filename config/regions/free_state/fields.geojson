@@ -1,0 +1,40 @@
+{
+ "type": "FeatureCollection",
+ "window_id": "free_state_bothaville_e",
+ "features": [
+  {
+   "type": "Feature",
+   "properties": {
+    "field_id": "a",
+    "criterion": "observation field: inside one visibly homogeneous field on the winter 2026 HLS basemap, away from the trees and tracks"
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       26.758411,
+       -27.325127
+      ],
+      [
+       26.766902,
+       -27.325141
+      ],
+      [
+       26.766889,
+       -27.331371
+      ],
+      [
+       26.758398,
+       -27.331356
+      ],
+      [
+       26.758411,
+       -27.325127
+      ]
+     ]
+    ]
+   }
+  }
+ ]
+}

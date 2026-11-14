@@ -1,0 +1,133 @@
+{
+  "png": "data/interim/basemap_londrina_rural_nw.png",
+  "width": 347,
+  "height": 374,
+  "crs_epsg": 32622,
+  "crs_wkt": "PROJCS[\"WGS 84 / UTM zone 22N\",GEOGCS[\"WGS 84\",DATUM[\"WGS_1984\",SPHEROID[\"WGS 84\",6378137,298.257223563,AUTHORITY[\"EPSG\",\"7030\"]],AUTHORITY[\"EPSG\",\"6326\"]],PRIMEM[\"Greenwich\",0,AUTHORITY[\"EPSG\",\"8901\"]],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AUTHORITY[\"EPSG\",\"4326\"]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"latitude_of_origin\",0],PARAMETER[\"central_meridian\",-51],PARAMETER[\"scale_factor\",0.9996],PARAMETER[\"false_easting\",500000],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH],AUTHORITY[\"EPSG\",\"32622\"]]",
+  "crs_note": "CRS as declared by the HLS file. Southern tiles are labelled UTM north with negative northings (plan 9.2): use this CRS, never EPSG:32722.",
+  "transform": [
+    30.0,
+    0.0,
+    467130.0,
+    0.0,
+    -30.0,
+    -2546790.0
+  ],
+  "pixel_size_m": [
+    30.0,
+    30.0
+  ],
+  "bounds": {
+    "left": 467130.0,
+    "bottom": -2558010.0,
+    "right": 477540.0,
+    "top": -2546790.0
+  },
+  "bounds_lonlat_approx": {
+    "lon_min": -51.32104918851555,
+    "lat_min": -23.13074312446147,
+    "lon_max": -51.21920856281427,
+    "lat_max": -23.02921625510618
+  },
+  "pixel_to_xy": "x = c + col * a, y = f + row * e, (col, row) from the top-left corner",
+  "window": {
+    "id": "londrina_rural_nw",
+    "bbox_lonlat": [
+      -51.32,
+      -23.13,
+      -51.22,
+      -23.03
+    ],
+    "tile": "T22KDV",
+    "pad_px": 2,
+    "key": "w_e76e8577cb"
+  },
+  "method": {
+    "product": [
+      "HLSL30 2.0",
+      "HLSS30 2.0"
+    ],
+    "bands_rgb": [
+      "B04",
+      "B03",
+      "B02"
+    ],
+    "period": [
+      "2026-06-01",
+      "2026-08-31"
+    ],
+    "max_tile_cloud_pct": 20,
+    "min_window_clear_frac": 0.95,
+    "max_scenes": 6,
+    "fmask": {
+      "fill": 255,
+      "masked_bits": [
+        "cirrus",
+        "cloud",
+        "adjacent",
+        "shadow",
+        "snow_ice"
+      ],
+      "masked_aerosol": []
+    },
+    "composite": "per-pixel median of clear observations",
+    "stretch": {
+      "low_pct": 2.0,
+      "high_pct": 98.0,
+      "gamma": 1.0
+    },
+    "no_clear_observation": "alpha 0, not filled"
+  },
+  "scenes": [
+    {
+      "granule_ur": "HLS.L30.T22KDV.2026189T132218.v2.0",
+      "date": "2026-07-08",
+      "sensor": "L30",
+      "clear_frac": 1.0,
+      "cloud_cover_pct": 11.0
+    },
+    {
+      "granule_ur": "HLS.S30.T22KDV.2026196T133149.v2.0",
+      "date": "2026-07-15",
+      "sensor": "S30",
+      "clear_frac": 1.0,
+      "cloud_cover_pct": 0.0
+    },
+    {
+      "granule_ur": "HLS.L30.T22KDV.2026197T132231.v2.0",
+      "date": "2026-07-16",
+      "sensor": "L30",
+      "clear_frac": 1.0,
+      "cloud_cover_pct": 0.0
+    },
+    {
+      "granule_ur": "HLS.S30.T22KDV.2026213T133241.v2.0",
+      "date": "2026-08-01",
+      "sensor": "S30",
+      "clear_frac": 1.0,
+      "cloud_cover_pct": 0.0
+    },
+    {
+      "granule_ur": "HLS.L30.T22KDV.2026229T132242.v2.0",
+      "date": "2026-08-17",
+      "sensor": "L30",
+      "clear_frac": 1.0,
+      "cloud_cover_pct": 0.0
+    },
+    {
+      "granule_ur": "HLS.S30.T22KDV.2026231T133141.v2.0",
+      "date": "2026-08-19",
+      "sensor": "S30",
+      "clear_frac": 1.0,
+      "cloud_cover_pct": 1.0
+    }
+  ],
+  "candidates": 12,
+  "pixels_without_clear_obs": 0,
+  "clear_obs_per_pixel": {
+    "min": 5,
+    "median": 6.0,
+    "max": 6
+  },
+  "use": "Draw fields on the PNG in pixel coordinates; geometry code converts with the transform."
+}

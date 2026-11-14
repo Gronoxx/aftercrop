@@ -1,0 +1,291 @@
+{
+  "_notice": "Written with an SI tool (Claude, Anthropic) for NASA Space Apps 2026. See AI_USE.md.",
+  "schema_version": 1,
+  "region_id": "norte_pr",
+  "label_id": "model_not_validated_here",
+  "label_text": "Model not validated here",
+  "completed": true,
+  "protocol_hash": "2ec8fb222a32cb34bf23a70b00799f4f4f0817d6a53e3dbda85101cc53a44330",
+  "not_blind": true,
+  "exploratory": true,
+  "site_seasons": {
+    "expected": 10,
+    "complete": 10,
+    "by_site": {
+      "Londrina": {
+        "expected": 3,
+        "complete": 3
+      },
+      "Floresta": {
+        "expected": 4,
+        "complete": 4
+      },
+      "Cafelandia": {
+        "expected": 3,
+        "complete": 3
+      }
+    }
+  },
+  "s_by_site": {
+    "Londrina": 0,
+    "Floresta": 5,
+    "Cafelandia": 0
+  },
+  "tests": [
+    {
+      "id": "L0",
+      "status": "fail",
+      "statistic": "water_closure_repeat_artifacts",
+      "value": {
+        "max_gap_mm": 1.1368683772161603e-13,
+        "repeat_exact": true,
+        "n_artifacts": 50,
+        "n_unexplained": 50
+      },
+      "threshold": {
+        "closure_mm_per_swap": 1.0,
+        "repeat": "exact",
+        "unexplained_artifacts_max": 0
+      },
+      "n": 252,
+      "note": "failed on artifacts; a failure blocks reading any Delta"
+    },
+    {
+      "id": "L1",
+      "status": "not_run",
+      "statistic": "rain_bias_pct_per_season_and_temperature_bias_c",
+      "value": null,
+      "threshold": {
+        "rain_bias_max_pct_per_season": 10.0,
+        "temperature_bias_max_c": 1.0
+      },
+      "n": null,
+      "note": "planned, not run"
+    },
+    {
+      "id": "T0",
+      "status": "fail",
+      "statistic": "kendall_s",
+      "value": {
+        "s": 0,
+        "tau": 0.0,
+        "within_site_sum": 2,
+        "s_by_site": {
+          "Londrina": 1,
+          "Floresta": 2,
+          "Cafelandia": -1
+        }
+      },
+      "threshold": {
+        "s_min": 21,
+        "within_site_s_sum_gt": 0
+      },
+      "n": 10,
+      "note": null
+    },
+    {
+      "id": "T1",
+      "status": "fail",
+      "statistic": "kendall_s_and_rmse",
+      "value": {
+        "s": 11,
+        "tau": 0.24444444444444444,
+        "rmse_kg_ha": 895.6593690158813,
+        "rmse_constant_in_sample_kg_ha": 279.81487364703156,
+        "rmse_constant_loo_kg_ha": 310.9054151633684,
+        "rmse_zero_kg_ha": 365.0674059783,
+        "n_same_sign": 1,
+        "n_observed_positive": 8,
+        "s_by_site": {
+          "Londrina": 0,
+          "Floresta": 5,
+          "Cafelandia": 0
+        }
+      },
+      "threshold": {
+        "s_min": 21,
+        "rmse_lt": "in_sample_constant_rmse",
+        "rmse_lt_kg_ha": 279.81487364703156
+      },
+      "n": 10,
+      "note": "failed on both; signs are reported and approve nothing"
+    },
+    {
+      "id": "P1",
+      "status": "fail",
+      "statistic": "kendall_s",
+      "value": {
+        "t0": {
+          "status": "fail",
+          "s_real": 0,
+          "wrong_year_s_at_least": 7
+        },
+        "t1": {
+          "status": "pass",
+          "s_real": 11,
+          "wrong_year_s_at_least": 0
+        }
+      },
+      "threshold": {
+        "wrong_year_s_at_least_max": 0,
+        "shifts": 9
+      },
+      "n": 9,
+      "note": null
+    },
+    {
+      "id": "A1",
+      "status": "fail",
+      "statistic": "d_kendall_s_with_minus_without_state",
+      "value": {
+        "d": 2,
+        "s_with_state": 11,
+        "s_without_state": 9,
+        "patterns": 1024
+      },
+      "threshold": {
+        "d_gt": 0,
+        "rule": "and the exhaustive paired swap of the protocol"
+      },
+      "n": 10,
+      "note": "D above zero, but the paired-swap rule of the protocol was not met"
+    },
+    {
+      "id": "A2",
+      "status": "not_run",
+      "statistic": "l2_counts_prectotcorr_against_imerg",
+      "value": null,
+      "threshold": null,
+      "n": null,
+      "note": "planned, not run: the count A2 checked was removed, SA-D68; the rain lines of SA-D72 are not compared with IMERG in the event"
+    },
+    {
+      "id": "A3",
+      "status": "reported",
+      "statistic": "states_changed_without_source",
+      "value": {
+        "states_changed": 0,
+        "states_total": 18,
+        "verdict": "context_only",
+        "scenarios": [
+          "example_low",
+          "example_mid",
+          "example_high"
+        ]
+      },
+      "threshold": {
+        "zero_changes": "context only"
+      },
+      "n": 18,
+      "note": "measures dependence on the source, not accuracy; read as a sensitivity to price"
+    },
+    {
+      "id": "N1",
+      "status": "reported",
+      "statistic": "percentile_of_disagreement_days",
+      "value": {
+        "floor_days": 7.5,
+        "percentile": 90.0,
+        "percentile_halves_days": 0.0,
+        "percentile_l30_vs_s30_days": 7.5,
+        "n_halves": 13,
+        "n_l30_vs_s30": 3
+      },
+      "threshold": null,
+      "n": 16,
+      "note": "nothing below the floor reaches the screen"
+    },
+    {
+      "id": "H1",
+      "status": "not_run",
+      "statistic": "tasks_passed",
+      "value": null,
+      "threshold": null,
+      "n": null,
+      "note": "planned, not run"
+    },
+    {
+      "id": "H2",
+      "status": "not_run",
+      "statistic": null,
+      "value": null,
+      "threshold": null,
+      "n": null,
+      "note": "not attempted, participant decision (SA-D56); says there was no local review"
+    },
+    {
+      "id": "R1",
+      "status": "not_run",
+      "statistic": "percentile_band_and_inversion",
+      "value": null,
+      "threshold": {
+        "inversion_max": 0.2,
+        "equivalence_kg_ha": 166.0,
+        "runs_only_if": "T1 passes"
+      },
+      "n": null,
+      "note": "planned, not run in the event: the engine has no R1 path (protocol.r1.event_status, SA-D65). L5 says inconclusive; L5 reads inconclusive"
+    }
+  ],
+  "t1_failed_on": "both",
+  "noise": null,
+  "correlation_ceiling": null,
+  "late_notes": [
+    {
+      "text": "Infrastructure fix before any bench result: trial chains of Londrina (base and A1) raised a code error and were rerun after the fix. Both results are kept.",
+      "file": "pipeline/engine/chain.py (run_season, new _fallow_piece and FALLOW_PIECE_DAYS); test in tests/test_engine_chain.py",
+      "cause": "RuntimeError 'expected 1 season in instance, got 2' (chain.py, run_season). In Londrina with the real-year climate the warm-up soybean 2019/20 (rain-rule sowing 2019-09-03) died on 2019-09-16 and the warm-up corn sown after it died on 2019-11-03, so the next instance ran from 2019-11-04 to the rain-rule sowing on 2020-12-03, a fallow longer than a year. OSPy places plantings by month and day and built two seasons in that instance. The dead canopies and the September corn are engine outcomes and were not changed.",
+      "fix": "When an instance starts on or before the previous anniversary of its sowing, the fallow up to that anniversary runs first as bare soil in consecutive OSPy pieces of at most 300 days, each carrying the soil water of the day before, every day with its water balance, no reset; each piece checks that no day holds a crop. The crop instance follows from the next day and the pieces join its accounting. Instances shorter than a year run exactly as before. No parameter, date, sowing rule or protocol value changed.",
+      "proof": "Floresta and Cafelandia (base, A1, P1) and Londrina P1 rerun after the fix: every CSV identical to the run before the fix once the two wall-clock columns (init_seconds, seconds) are removed (sha256 per file in data/bench/superseded/, proof_sha256.txt); artifacts.json identical for all 24 regimes. Londrina base: water balance residual at most 2.4e-11 mm over the 473-day instance, handover gap 0. Regression test on synthetic weather: a corn that dies after emergence, then a fallow of almost two years, raised before the fix and passes after.",
+      "superseded": "data/bench/superseded/ (the runs before the fix, with chains.log)",
+      "decided_by": "team lead (decision b, infrastructure)"
+    },
+    {
+      "text": "L0 run after the label froze, with field-chain settings the team lead decided before T0, T1, P1 and A1 ran. Result: fail on unexplained artifacts in all three fields. The label is unchanged (an L0 fail gives Model not validated here, as T0 already did).",
+      "file": "Makefile (L0_FIELD and FIELD_* defaults, l0 target), pipeline/bench/run_tasks.py (L0 on several fields, --l0-settings), tests/test_bench_runners.py, tests/test_makefile.py",
+      "cause": "L0 needs field chains whose settings were open points ([DECIDE]) with no value in the protocol, so L0 was not_completed before this note.",
+      "fix": "Settings decided by the team lead from sourced values: fields a, b, c (the product fields); weather site londrina (the POWER cell of the fields); initial state field_capacity (as D7); corn sowing 03-22 and wheat sowing 05-24 (Doc 476 medians, config/decision_settings.yaml); prefix_years 1 (the smallest giving one common soybean-corn prefix, protocol.chains.field.common_prefix); years 2018 to 2024 (target soybean y/(y+1) of the 8 ribbon seasons whose chain ends by 2025-12-31; 2025/26 ends after the climate). Setups base and cn_rew, run twice. L0 checks each field alone and fails if any fails; the settings are kept in the L0 task file.",
+      "proof": "Water closure at most 1.1e-13 mm over 252 swaps, repeat exact in every field; failed only on artifacts (50 unexplained: dead canopy, zeroed season, days to emergence; no l0_explanations.json).",
+      "superseded": "data/bench/superseded/ (task files, results and scoreboard before this note)",
+      "decided_by": "team lead"
+    },
+    {
+      "text": "A2 reads not_run with its reason instead of not_completed.",
+      "file": "pipeline/bench/run_tasks.py (run_a2), pipeline/bench/scoreboard.py (the A2 reason reaches the page), tests/test_bench_runners.py, tests/test_scoreboard.py",
+      "cause": "Without --a2-threshold-mm the runner raised a [DECIDE] error, shown as an infrastructure failure. The dry-autumn count A2 compared was removed for lack of a sourced threshold (SA-D68).",
+      "fix": "Without a threshold A2 returns not_run with the note: the count A2 checked was removed, SA-D68; the rain lines of SA-D72 are not compared with IMERG in the event. No statistic, no threshold invented. With a threshold the old path is unchanged.",
+      "proof": "Runner test updated; A2 never fed the label.",
+      "superseded": "data/bench/superseded/ (task files, results and scoreboard before this note)",
+      "decided_by": "team lead"
+    },
+    {
+      "text": "Test hygiene only, no output changed: tests no longer read the working tree's field selection or assume an empty site/data.",
+      "file": "pipeline/decision/precompute.py (selection_file()), tests/conftest.py, tests/test_decision_precompute.py, tests/test_rehearsal.py",
+      "cause": "After the real run, 5 tests failed: precompute.choice_seasons (protocol-v1.1) read data/interim/fields_selection.json of the working tree inside the tests, and two tests asserted that site/data had no region.json, scoreboard.json or ledger.json.",
+      "fix": "The selection path goes through precompute.selection_file(), which a session fixture points away from the working tree in tests; the real run reads the same file as before. The site/data tests now check that nothing there changes.",
+      "proof": "The three suites pass. The product decision outputs were not rebuilt for this change.",
+      "superseded": "none",
+      "decided_by": "execution (infrastructure)"
+    },
+    {
+      "text": "Soil sensitivity after the freeze (SA-D77): one run of the trial chains (base, A1, P1) with the SoilGrids texture at each trial point as the soil, everything else unchanged, then T0, T1, P1, A1 and L0 into separate folders. Result: Model not validated here (L0 fail as frozen, T0 pass, T1 fail, P1 fail, A1 fail). Published as site/data/sensitivity.json, marked sensitivity after the freeze. The frozen label, scoreboard and task files are unchanged, and this run never changes them.",
+      "file": "Makefile (soil-diagnosis, sensitivity-soil), pipeline/engine/soil_diagnosis.py, pipeline/engine/cli.py (--trial-soil-suffix, default unchanged), pipeline/bench/sensitivity.py, pipeline/ledger/registry.py (sensitivity ids), site/how-we-know.html, site/js/sensitivity.mjs",
+      "cause": "Diagnosis (data/bench/soil_diagnosis.json, read only): the frozen trial soils extend the clay printed in the trial reports to the whole profile, 78% at Londrina, 77% at Cafelandia and 60% at Floresta. The engine's texture function (AquaCrop-OSPy, Saxton and Rawls 2006) gives them 67, 72 and 110 mm of available water in 0 to 1 m (52 mm/m in the 78% topsoil), against 129, 99 and 129 mm with the SoilGrids texture at the same points. Simulated seasons with zero yield in the frozen base runs: 11 of 18, 6 of 18 and 0 of 22; in the sensitivity base runs: 2 of 18, 2 of 18 and 0 of 22.",
+      "fix": "None to the frozen result. The sensitivity reads the side files trial_<site>_soil_soilgrids.json, written as sensitivity before the freeze. Same config JSON (checked byte for byte), dates, weather, Ksat choice, seed and code. Run once. L0 reads the field chains, which do not use the trial soils, so it checks the same chains as the frozen L0. l0_explanations.json was not written: the 50 L0 artifacts are on fields a, b and c, whose SoilGrids soils (43 to 54% clay, 121 to 123 mm in 0 to 1 m) are not the high-clay case, so the diagnosis does not explain them.",
+      "proof": "sha256 of site/data/scoreboard.json, data/bench/tasks/*.json, data/bench/results.json and data/runs/*.csv identical before and after the run. The scoreboard was then rebuilt only to copy this note: label_id, protocol_hash and every test line unchanged. Runs in data/runs_sens/, tasks, results and scoreboard of the sensitivity in data/bench_sens/.",
+      "superseded": "none",
+      "decided_by": "plan SA-D77, decided after the freeze",
+      "decision": "SA-D77"
+    },
+    {
+      "text": "Descriptive rule touched after the tag, numbers unchanged: without a declared soil class, the main-page line \"ended before the corn Zarc window closed\" now counts against the earliest end of the corn window across every Zarc soil class and cycle group, the conservative side for \"before\", where it used the latest end (the envelope of the window warning). With a declared class it uses that class, as before. Fields a, b and c still read 4 of 4, 3 of 3 and 6 of 6.",
+      "file": "pipeline/decision/calendar.py (earliest_window, window_basis carries earliest, ended_before_from_basis), site/js/decision.mjs (endedBeforeFor), site/js/app.mjs (nasaLine, one shortened line), config/copy_en.yaml and config/copy_pt.yaml, site/data/field_a.json, field_b.json, field_c.json (window_basis.S1 and S2 gain earliest), site/data/ledger.json (limits of field_*.ended_before), tests/test_decision_calendar.py, tests/fixtures/decision_risk_exit.json, tests/fixtures/decision_window_basis.json, tests/fixtures/decision_example/, tests/fixtures/site_example/",
+      "cause": "Plan SA-D84 (first fold): \"ended before\" with the latest end across classes said more than the field shows when the soil class is unknown.",
+      "fix": "In Cambé the earliest end is 10 March (Grupo II of AD1 and AD2) and the latest is 20 March. Every ok season of fields a, b and c ended on or before 7 March, so the counts do not move. The window warning (outside or at the edge) keeps the latest end and is unchanged. No bench input, task file, label or protocol value is read or changed by this rule.",
+      "proof": "precompute rerun on data/build/precompute_inputs.json: field_*.json differ only by the added window_basis.S1.earliest and S2.earliest, region.json, trials_steps.json and ablation.json byte-identical. Python ended_before_from_basis and decision.mjs endedBeforeFor pass the shared cases of tests/fixtures/decision_risk_exit.json. scoreboard rebuilt only to copy this note: label_id, protocol_hash and every test line unchanged.",
+      "superseded": "none",
+      "decided_by": "plan SA-D84, decided after the tag",
+      "decision": "SA-D84"
+    }
+  ]
+}

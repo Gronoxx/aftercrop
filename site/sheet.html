@@ -1,0 +1,32 @@
+<!doctype html>
+<!-- Written with an SI tool (Claude, Anthropic) for NASA Space Apps 2026. See AI_USE.md. -->
+<!--
+  Aftercrop agronomist sheet (plan 7.12, sheet M8). A4 by print CSS, no server.
+  The page state comes in the URL fragment (#s=...), which the browser never sends.
+  Every visible word is filled by js/sheet.mjs from data/copy.json (config/copy_en.yaml and
+  config/copy_pt.yaml). Language: ?lang=en|pt, else the lang of the fragment, else English (P2.3).
+  Serve the site folder over HTTP (python3 -m http.server): modules and fetch need it.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <meta name="robots" content="noindex">
+  <meta name="color-scheme" content="light">
+  <title>Aftercrop</title>
+  <link rel="stylesheet" href="css/sheet.css">
+</head>
+<body class="sheet-page">
+  <div class="toolbar no-print">
+    <a id="lang" class="toolbar__lang" hidden></a>
+    <button type="button" id="print" class="toolbar__print" hidden></button>
+  </div>
+  <main id="sheet" class="sheet" aria-live="polite"></main>
+  <script type="module">
+    import { mount } from './js/sheet.mjs';
+    mount();
+  </script>
+</body>
+</html>

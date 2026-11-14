@@ -1,0 +1,124 @@
+{
+  "_note": "Example, fictitious. A sheet state for tests/sheet.test.mjs and tests/test_sheet.py only. Not a real field, not trial values, not a price series. 'page' is the UI state of app.mjs that sheetHash() encodes, read with the M5 example data of tests/fixtures/decision_example/. 'state' is the same sheet resolved by hand.",
+  "label": "example, fictitious",
+  "now": "2026-11-15",
+  "data_dir": "decision_example",
+  "page": {
+    "lang": "pt",
+    "field": "a",
+    "hlsOn": true,
+    "priority": "income",
+    "sowingDate": "2027-02-10",
+    "raw": {
+      "p_soy": "100",
+      "p_corn": "47,35",
+      "p_wheat": "60",
+      "Y_corn": "100",
+      "Y_wheat": "50",
+      "c_corn": "3000",
+      "c_wheat": "1400",
+      "c_grass": "400"
+    },
+    "limits": {
+      "no_narrow_row_seeder": "",
+      "no_grass_seeding": "",
+      "no_wheat_buyer": "",
+      "rented_land": "rented",
+      "zarc_insurance_credit": "no"
+    }
+  },
+  "state": {
+    "field": "a",
+    "area_ha": 12.5,
+    "option": "S3",
+    "numbers": {
+      "p_soy": 100,
+      "p_corn": 47.35,
+      "p_wheat": 60,
+      "Y_corn": 100,
+      "Y_wheat": 50,
+      "c_corn": 3000,
+      "c_wheat": 1400,
+      "c_grass": 400
+    },
+    "trials": {
+      "S2": {
+        "n": 1,
+        "n_sites": 1,
+        "steps": []
+      },
+      "S3": {
+        "n": 10,
+        "n_sites": 3,
+        "steps": [
+          {
+            "g_sc_ha": 1,
+            "count": 9
+          },
+          {
+            "g_sc_ha": 2,
+            "count": 9
+          },
+          {
+            "g_sc_ha": 3,
+            "count": 7
+          },
+          {
+            "g_sc_ha": 4,
+            "count": 6
+          },
+          {
+            "g_sc_ha": 5,
+            "count": 4
+          },
+          {
+            "g_sc_ha": 6,
+            "count": 2
+          },
+          {
+            "g_sc_ha": 7,
+            "count": 0
+          }
+        ]
+      }
+    },
+    "constraints": [],
+    "hardRules": [],
+    "zarcWindow": {
+      "corn": {
+        "start": "2026-12-21",
+        "end": "2027-02-28"
+      },
+      "grass": {
+        "start": "2026-12-21",
+        "end": "2027-02-28"
+      }
+    },
+    "windowReading": {
+      "state": "at_the_edge",
+      "k": 1,
+      "n": 7
+    },
+    "sowingDate": "2027-02-10",
+    "hlsOn": true,
+    "zarcConstraint": false,
+    "rentedLand": "rented"
+  },
+  "expected": {
+    "_note": "Worked by hand from the numbers above. M_corn = 47.35 x 100 - 3000 = 1735, M_wheat = 60 x 50 - 1400 = 1600, G = 135 / 100 = 1.35 sc/ha, step 2, N = 9 of 10, so try_strip. The sheet shows G as the step (SA-D91): 2 sc/ha, and 2 x 2.42 = 4.84, rounded up to 4,9 sc/alqueire.",
+    "state": "try_strip",
+    "G_ha": "2",
+    "G_alq": "4,9",
+    "N": "9",
+    "n": "10",
+    "window": [
+      "21/12/2026",
+      "28/02/2027"
+    ],
+    "sowing_date": "10/02/2027",
+    "generated": "15/11/2026",
+    "area": "12,5",
+    "k": "1",
+    "k_of": "7"
+  }
+}

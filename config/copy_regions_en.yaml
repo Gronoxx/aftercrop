@@ -1,0 +1,42 @@
+# Written with an SI tool (Claude, Anthropic) for NASA Space Apps 2026. See AI_USE.md.
+# Copy of the observation region (SA-D79), English. Built into site/data_regions/copy.json by
+#   .venv/bin/python -m pipeline.build.copy_json --regions
+# and merged by site/js/app.mjs under the key "regions". Kept apart from config/copy_en.yaml so
+# that site/data/copy.json (frozen product data) stays byte for byte as it is.
+# House style as copy_en.yaml: no em dash, no en dash, no semicolon. Same keys as copy_regions_pt.yaml.
+
+how_link: "Another region, observation only"  # checked (SI)
+main_link: "Another region, observation only: Free State, South Africa"  # SA-D84, main page next to the region line  # checked (SI)
+how_link_note: "One field in the Free State, South Africa, read by the same satellite rule. No field trials there, so no verdict."  # checked (SI)
+
+observation:
+  banner: "Observation region: real NASA data, no field trials, no verdict"  # checked (SI)
+  sentence: "No field trials, no verdict. The rule travels. The verdict does not."  # plan section 3
+  title: "Free State, South Africa"  # checked (SI)
+  page_title: "Observation region | Aftercrop"  # checked (SI)
+  region: "Observation region: {name}. Summer maize and soybean, season from September to August, as in northern Paraná."  # checked (SI)
+  field_line: "One field of {area} ha, drawn by hand on the HLS image, at {lat}° S, {lon}° E."  # checked (SI)
+  pack_note: "No Regional Pack here: no published field trials, no zoning calendar and no local reviewer. So this page compares nothing and gives no answer."  # checked (SI)
+  ribbon_rule: "The end-of-green rule is the one tagged for northern Paraná, unchanged."  # checked (SI)
+  green_end_count: "End of the first green cycle found in {k} of {n} seasons. The other seasons are to confirm or have no data."  # checked (SI)
+  relief_title: "Relief, NASADEM"  # checked (SI)
+  relief_line: "{class} relief, median slope {slope}%, height {min} to {max} m."  # checked (SI)
+  relief_note: "Context only. Relief never changes a state."  # checked (SI)
+  relief_classes:
+    flat: "Flat"  # checked (SI)
+    gentle: "Gently rolling"  # checked (SI)
+    rolling: "Rolling"  # checked (SI)
+    strongly_rolling: "Strongly rolling"  # checked (SI)
+    mountainous: "Mountainous"  # checked (SI)
+    steep: "Steep"  # checked (SI)
+  climate_title: "Climate, NASA POWER"  # checked (SI)
+  climate_frost: "Nights below {t} °C, {start} to {end}: in {k} of {n} summers"  # checked (SI)
+  climate_rain: "Rain, {start} to {end}: median {median} mm. The driest tenth of summers had {p10} mm or less."  # checked (SI)
+  climate_driest: "Driest summers: {seasons}"  # checked (SI)
+  climate_note: "NASA POWER daily at the field point, summers {first} to {last}. {start} to {end} is a fixed summer period, not the dates of a crop on this field: no crop calendar for this field was found. Past summers counted, not a forecast."  # checked (SI)
+  sources_title: "Sources"  # checked (SI)
+  source_hls: "{granules} granules, {mb} MB, seasons {first} to {last}, tile {tile}"  # checked (SI)
+  source_nasadem: "{tiles} tile, {mb} MB"  # checked (SI)
+  source_power: "point {lat}, {lon}, {start} to {end}, {mb} MB"  # checked (SI)
+  not_loaded: "Not loaded here: soil (SoilGrids), rainfall erosivity (GloREDa), the zoning calendar (Zarc) and field trials."  # checked (SI)
+  back: "Back to northern Paraná"  # checked (SI)
