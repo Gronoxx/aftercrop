@@ -1007,7 +1007,8 @@ describe('NASA line below the answer and the ribbon before the columns (SA-D78)'
   test('index.html: the NASA line right below the answer box, the ribbon before the columns', () => {
     const src = text('site/index.html');
     const at = (s) => { const i = src.indexOf(s); assert.ok(i >= 0, s); return i; };
-    const order = ['class="answer-box"', 'class="nasa-line"', 'class="caption"', 'id="sec-ribbon"', 'id="sec-columns"', 'id="your-numbers"', 'id="sec-year-strip"', 'id="sec-nasa"'];
+    // SA-D107: the ribbon right below the answer and the NASA line, before the counts and the model check.
+    const order = ['class="answer-box"', 'class="nasa-line"', 'id="sec-ribbon"', 'class="caption"', 'class="model-check"', 'id="sec-columns"', 'id="your-numbers"', 'id="sec-year-strip"', 'id="sec-nasa"'];
     const pos = order.map(at);
     assert.deepEqual([...pos].sort((a, b) => a - b), pos, order.join(' < '));
     assert.ok(src.includes('x-for="(p, i) in v.answer.nasaLine"'));
@@ -1353,5 +1354,157 @@ describe('one satellite sentence per column (SA-D90)', () => {
     assert.ok(v.columns[1].head.exitLines.every((x) => x.text.includes(t('page.rows.L2.crops.grass'))), 'S2 names its own crop');
     const same = A.buildIndexView(data, ui(data));
     if (same.columns[1].head.sameSatellite) assert.equal(same.columns[1].head.exitLines[0].text, t('window.same_as_S1', { name: t('page.strategies.S1.name') }));
+  });
+});
+
+// ---------------------------------------------------------------- SA-D107 (plan of 15 November, H1)
+
+describe('the field change shows: facts strip, fixed sentence, ribbon up, buttons ready (SA-D107)', () => {
+  const WANT = {
+    en: {
+      a: ['Field A', [['area', 'Area', '23.8 ha'], ['slope', 'Median slope', '8.1%'], ['municipality', 'Municipality', 'Cambé'], ['seasons', 'End of green read cleanly', '4 of 8 seasons'], ['no_green', 'No green, median', '8.5 of 36 ten-day periods']]],
+      b: ['Field B', [['area', 'Area', '53.8 ha'], ['slope', 'Median slope', '4.8%'], ['municipality', 'Municipality', 'Cambé'], ['seasons', 'End of green read cleanly', '3 of 8 seasons'], ['no_green', 'No green, median', '9 of 36 ten-day periods']]],
+      c: ['Field C', [['area', 'Area', '33.1 ha'], ['slope', 'Median slope', '8.5%'], ['municipality', 'Municipality', 'Cambé'], ['seasons', 'End of green read cleanly', '6 of 8 seasons'], ['no_green', 'No green, median', '9.5 of 36 ten-day periods']]],
+    },
+    pt: {
+      a: ['Talhão A', [['area', 'Área', '23,8 ha'], ['slope', 'Declive mediano', '8,1%'], ['municipality', 'Município', 'Cambé'], ['seasons', 'Fim do verde com leitura limpa', '4 de 8 safras'], ['no_green', 'Sem verde, mediana', '8,5 de 36 decêndios']]],
+      b: ['Talhão B', [['area', 'Área', '53,8 ha'], ['slope', 'Declive mediano', '4,8%'], ['municipality', 'Município', 'Cambé'], ['seasons', 'Fim do verde com leitura limpa', '3 de 8 safras'], ['no_green', 'Sem verde, mediana', '9 de 36 decêndios']]],
+      c: ['Talhão C', [['area', 'Área', '33,1 ha'], ['slope', 'Declive mediano', '8,5%'], ['municipality', 'Município', 'Cambé'], ['seasons', 'Fim do verde com leitura limpa', '6 de 8 safras'], ['no_green', 'Sem verde, mediana', '9,5 de 36 decêndios']]],
+    },
+  };
+  const LEDGER = { area: (id) => `field_${id}.area_ha`, slope: (id) => `field_${id}.relief`, municipality: () => null, seasons: (id) => `field_${id}.ribbon`, no_green: (id) => `field_${id}.ribbon_counts.no_green` };
+  const SENTENCE = {
+    en: 'The answer is the same on the three fields, because it comes from the trials and your prices. What changes with the field is its satellite record.',
+    pt: 'A resposta é a mesma nos três talhões, porque vem dos ensaios e dos seus preços. O que muda com o talhão é o histórico de satélite.',
+  };
+
+  test('the strip of fields a, b, c in EN and PT, every number with its ledger entry', async () => {
+    const data = await realSite();
+    for (const lang of ['en', 'pt']) {
+      const seen = new Set();
+      for (const id of data.fieldIds) {
+        const v = A.buildIndexView(data, ui(data, { field: id, lang }));
+        const [title, items] = WANT[lang][id];
+        assert.equal(v.fieldFacts.title, title);
+        assert.deepEqual(v.fieldFacts.items.map((x) => [x.id, x.label, x.value]), items, `${id} ${lang}`);
+        for (const x of v.fieldFacts.items) {
+          assert.equal(x.ledger, LEDGER[x.id](id), `${id} ${x.id}`);
+          if (x.ledger) assert.ok(data.records[x.ledger], `ledger entry ${x.ledger}`);
+          assert.ok(!/[{}]|undefined|NaN|—|–|;/.test(x.label + x.value), x.value);
+        }
+        // The ok seasons are the n of the NASA HLS line (SA-D84).
+        const eb = D.endedBeforeFor(data.fields[id].window_basis, 'S1', 'unknown');
+        assert.ok(v.fieldFacts.items.find((x) => x.id === 'seasons').value.startsWith(`${eb.n} `));
+        assert.deepEqual(badStrings(v), []);
+        seen.add(JSON.stringify(v.fieldFacts));
+      }
+      assert.equal(seen.size, 3, `${lang}: the strip changes with the field`);
+    }
+  });
+
+  test('a missing fact is left out, never "undefined", and no field means no strip', () => {
+    const t = A.makeT(COPY, 'en');
+    assert.equal(A.fieldFactsView(t, null, 'a'), null);
+    assert.equal(A.fieldFactsView(t, {}, 'a'), null);
+    const one = A.fieldFactsView(t, { area_ha: { v: 10, l: 'x.area_ha' } }, 'b');
+    assert.deepEqual(one, { title: 'Field B', items: [{ id: 'area', label: 'Area', value: '10 ha', ledger: 'x.area_ha' }] });
+    const ex = exampleData();
+    const v = A.buildIndexView(ex, ui(ex));
+    assert.deepEqual(badStrings(v.fieldFacts), []);
+  });
+
+  test('the fixed sentence in EN and PT, and the answer itself does not change with the field', async () => {
+    const data = await realSite();
+    for (const lang of ['en', 'pt']) {
+      const views = data.fieldIds.map((id) => A.buildIndexView(data, ui(data, { field: id, lang })));
+      for (const v of views) assert.equal(v.sameAnswer, SENTENCE[lang]);
+      assert.equal(A.makeT(data.copy, lang)('page.header.same_answer'), SENTENCE[lang]);
+      const answers = new Set(views.map((v) => JSON.stringify([v.answer.state, v.answer.text, v.answer.caption])));
+      assert.equal(answers.size, 1, 'the sentence says what the page does');
+    }
+  });
+
+  test('index.html: strip and sentence right after the field buttons, the buttons disabled until ready', () => {
+    const src = text('site/index.html');
+    const at = (s) => { const i = src.indexOf(s); assert.ok(i >= 0, s); return i; };
+    const order = ['class="field-picker"', 'class="field-facts"', 'data-copy="page.header.same_answer"', 'data-copy="page.header.persona"', 'id="sec-question"'];
+    const pos = order.map(at);
+    assert.deepEqual([...pos].sort((a, b) => a - b), pos, order.join(' < '));
+    const strip = src.slice(at('class="field-facts"'), at('data-copy="page.header.same_answer"'));
+    assert.ok(strip.includes('aria-live="polite"'), 'the change is announced');
+    assert.ok(strip.includes(':data-ledger="fc.ledger" x-text="fc.value"'), 'each number links its ledger entry');
+    const picker = src.slice(at('class="field-picker"'), at('class="field-facts"'));
+    assert.match(picker, /<button[^>]*:disabled="!ready"[^>]*@click="setField\(f\.id\)"/);
+  });
+
+  /** Fake Alpine (effects rerun on demand, nextTick as a microtask) and a fake window. */
+  function harness({ georef = { ok: true }, image = 'load' } = {}) {
+    const effects = [];
+    const timers = [];
+    const Alpine = { effect: (fn) => { effects.push(fn); fn(); }, nextTick: (fn) => queueMicrotask(fn) };
+    const g = JSON.parse(readFileSync(new URL('site/img/basemap.json', ROOT), 'utf8'));
+    const images = [];
+    class FakeImage {
+      // The size the browser reads from the PNG.
+      constructor() { images.push(this); this.naturalWidth = g.width; this.naturalHeight = g.height; }
+      set src(v) {
+        this._src = v;
+        if (image === 'never') return;
+        queueMicrotask(() => (image === 'load' ? this.onload() : this.onerror()));
+      }
+    }
+    const win = {
+      Image: FakeImage,
+      setTimeout: (fn, ms) => { timers.push({ fn, ms }); return timers.length; },
+      fetch: async () => (georef.ok ? { ok: true, json: async () => g } : { ok: false, json: async () => null }),
+    };
+    const doc = { documentElement: {}, title: '', querySelectorAll: () => [] };
+    return { Alpine, win, doc, effects, timers, images, g };
+  }
+  const flush = async () => { for (let i = 0; i < 20; i++) await new Promise((r) => setImmediate(r)); };
+
+  test('pageComponent: not ready at first, ready once the basemap settles, the field applies at once', async () => {
+    const data = await realSite();
+    const h = harness();
+    const c = A.pageComponent({ Alpine: h.Alpine, win: h.win, doc: h.doc, data, ui0: A.initialUi(data, 'en'), page: 'index' });
+    assert.equal(c.ready, false);
+    c.init();
+    assert.equal(c.ready, false, 'not ready while the map loads');
+    assert.deepEqual(h.timers.map((x) => x.ms), [A.READY_TIMEOUT_MS]);
+    c.setField('c');
+    h.effects.forEach((fn) => fn());
+    assert.equal(c.v.fieldFacts.title, 'Field C', 'a choice on the map applies before ready');
+    await flush();
+    assert.equal(h.images.length, 1);
+    assert.equal(c.ready, true);
+    assert.equal(c.ui.mapImage.width, h.g.width);
+    h.timers[0].fn();
+    assert.equal(c.ready, true, 'the timeout after ready changes nothing');
+  });
+
+  test('pageComponent: ready without a basemap, after a failed image, and on timeout', async () => {
+    const data = await realSite();
+    for (const opt of [{ georef: { ok: false } }, { image: 'error' }]) {
+      const h = harness(opt);
+      const c = A.pageComponent({ Alpine: h.Alpine, win: h.win, doc: h.doc, data, ui0: A.initialUi(data, 'en') });
+      c.init();
+      await flush();
+      assert.equal(c.ready, true, JSON.stringify(opt));
+      assert.ok(!c.ui.mapImage, 'the map keeps the polygons alone');
+    }
+    const h = harness({ image: 'never' });
+    const c = A.pageComponent({ Alpine: h.Alpine, win: h.win, doc: h.doc, data, ui0: A.initialUi(data, 'en') });
+    c.init();
+    await flush();
+    assert.equal(c.ready, false, 'still waiting for the image');
+    h.timers[0].fn();
+    await flush();
+    assert.equal(c.ready, true, 'the buttons turn on after READY_TIMEOUT_MS anyway');
+    const how = harness();
+    const hc = A.pageComponent({ Alpine: how.Alpine, win: how.win, doc: how.doc, data, ui0: A.initialUi(data, 'en'), page: 'how' });
+    hc.init();
+    await flush();
+    assert.equal(hc.ready, true, 'How we know has no map to wait for');
+    assert.equal(how.images.length, 0);
   });
 });

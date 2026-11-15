@@ -185,7 +185,20 @@
      "how_we_know": "How we know",
      "field_name": "Field {X}",
      "field_picker": "Choose a field",
-     "map_alt": "HLS satellite image of the example fields, with each field outline. Select an outline to change the field."
+     "map_alt": "HLS satellite image of the example fields, with each field outline. Select an outline to change the field.",
+     "facts": {
+      "title": "Field {X}",
+      "area": "Area",
+      "area_value": "{A} ha",
+      "slope": "Median slope",
+      "slope_value": "{P}%",
+      "municipality": "Municipality",
+      "seasons": "End of green read cleanly",
+      "seasons_value": "{k} of {n} seasons",
+      "no_green": "No green, median",
+      "no_green_value": "{N} of {of} ten-day periods"
+     },
+     "same_answer": "The answer is the same on the three fields, because it comes from the trials and your prices. What changes with the field is its satellite record."
     },
     "question": {
      "lead": "Before you buy seed and fertilizer for the second crop:",
@@ -1083,7 +1096,20 @@
      "how_we_know": "Como sabemos",
      "field_name": "Talhão {X}",
      "field_picker": "Escolha um talhão",
-     "map_alt": "Imagem de satélite HLS dos talhões de exemplo, com o contorno de cada um. Escolha um contorno para trocar o talhão."
+     "map_alt": "Imagem de satélite HLS dos talhões de exemplo, com o contorno de cada um. Escolha um contorno para trocar o talhão.",
+     "facts": {
+      "title": "Talhão {X}",
+      "area": "Área",
+      "area_value": "{A} ha",
+      "slope": "Declive mediano",
+      "slope_value": "{P}%",
+      "municipality": "Município",
+      "seasons": "Fim do verde com leitura limpa",
+      "seasons_value": "{k} de {n} safras",
+      "no_green": "Sem verde, mediana",
+      "no_green_value": "{N} de {of} decêndios"
+     },
+     "same_answer": "A resposta é a mesma nos três talhões, porque vem dos ensaios e dos seus preços. O que muda com o talhão é o histórico de satélite."
     },
     "question": {
      "lead": "Antes de comprar semente e adubo da safrinha:",
@@ -1803,11 +1829,11 @@
  "sources": {
   "en": {
    "path": "config/copy_en.yaml",
-   "sha256": "cac03a4ea36c1a3d5af6b1793ad39d32a321988b68ab39d3e402308ad5b629bc"
+   "sha256": "655f5d9a04409936372181b9702d9c4b2b9659402c6c6a5f73231837a748aa58"
   },
   "pt": {
    "path": "config/copy_pt.yaml",
-   "sha256": "cd7802b470026aa038e21bde2b451b21f6a741afd26ee9769889431e4e871d3c"
+   "sha256": "4d123fb3aea89ef71848867d8dd00572917201efa22fef00d319d1f895cb8e89"
   }
  }
 }

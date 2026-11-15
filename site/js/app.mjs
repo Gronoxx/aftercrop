@@ -1024,6 +1024,37 @@ export function noGreenLine(t, field) {
   return line(t('page.rows.L1.no_green', { N, S: formatNumber(ng.seasons, t) }), { ledger: typeof ng.ledger === 'string' ? ng.ledger : null });
 }
 
+/**
+ * Field facts strip next to the field buttons (SA-D107): what changes with the field, read from
+ * its own JSON. Area, median slope, municipality, seasons whose end of green was read cleanly
+ * (status ok, of the seasons read) and the median ten-day periods with no green. Each number links
+ * its ledger entry. A fact whose value is missing is left out. Null without a field.
+ */
+export function fieldFactsView(t, field, id) {
+  if (!isObj(field)) return null;
+  const items = [];
+  const add = (key, value, ledger = null) => {
+    if (typeof value === 'string' && value) items.push({ id: key, label: t(`page.header.facts.${key}`), value, ledger: typeof ledger === 'string' && ledger ? ledger : null });
+  };
+  const area = numValue(field.area_ha);
+  if (area !== null) add('area', t('page.header.facts.area_value', { A: formatNumber(area, t, 1) }), numLedger(field.area_ha));
+  const slope = field.relief?.slope_pct?.median;
+  if (Number.isFinite(slope)) add('slope', t('page.header.facts.slope_value', { P: formatNumber(slope, t, 1) }), field.relief.ledger);
+  const muni = field.window_basis?.municipio;
+  if (typeof muni === 'string' && muni) add('municipality', muni);
+  const ends = Array.isArray(field.green_end) ? field.green_end : [];
+  if (ends.length) {
+    const k = ends.filter((g) => g?.status === 'ok').length;
+    add('seasons', t('page.header.facts.seasons_value', { k: formatNumber(k, t), n: formatNumber(ends.length, t) }), field.ribbon?.ledger);
+  }
+  const ng = field.ribbon_counts?.no_green;
+  if (isObj(ng) && Number.isFinite(ng.median) && Number.isFinite(ng.of)) {
+    const N = formatNumber(ng.median, t, Number.isInteger(ng.median) ? 0 : 1);
+    add('no_green', t('page.header.facts.no_green_value', { N, of: formatNumber(ng.of, t) }), ng.ledger);
+  }
+  return items.length ? { title: t('page.header.facts.title', { X: fieldLetter(id) }), items } : null;
+}
+
 /** Template vars from an optional summary object: Num values formatted, strings kept. */
 function summaryVars(t, summary, digits = {}) {
   const out = {};
@@ -1129,6 +1160,9 @@ export function buildIndexView(data, ui, { used = null } = {}) {
     fields,
     hasFields: fields.length > 0,
     noFieldText: fields.length ? null : t('missing.no_data'),
+    // SA-D107: what changes with the field, and the fixed sentence on what does not.
+    fieldFacts: fieldFactsView(t, field, ui.field),
+    sameAnswer: t('page.header.same_answer'),
     map,
     answer: {
       ...answer,
@@ -2046,32 +2080,22 @@ function safeStorage(win) {
   }
 }
 
-/** Start the page in a browser. Never runs in Node. */
-export async function boot(win = globalThis.window) {
-  const doc = win.document;
-  const page = doc.body?.dataset?.page === 'how' ? 'how' : 'index';
-  const data = await loadAll((url) => fetchJsonFrom(win, url), dataBase(win.location.search));
-  if (!data.copy) {
-    doc.body.classList.add('is-broken');
-    return;
-  }
-  const storage = safeStorage(win);
-  const ui0 = initialUi(data, storedLang(storage) ?? DEFAULT_LANG);
-  doc.body.insertAdjacentHTML('afterbegin', S.defsSvg());
-  // Links between the site's pages keep a ?data= folder (rehearsal, fixtures). An observation
-  // region links to the product pages, which hold the method and the verdict of the default region.
-  if (!data.isObservation) {
-    for (const a of doc.querySelectorAll('a[href="index.html"], a[href="how-we-know.html"]')) {
-      a.setAttribute('href', pageHref(a.getAttribute('href'), data.base));
-    }
-  }
+/** Longest wait for the basemap before the field buttons turn on anyway (SA-D107). */
+export const READY_TIMEOUT_MS = 2500;
 
-  const { default: Alpine } = await import('../vendor/alpine-3.17.5.min.js');
+/**
+ * The Alpine component of index.html and how-we-know.html. `ready` turns true after the first
+ * view is on screen and the basemap has loaded, failed or timed out (READY_TIMEOUT_MS): the map
+ * then has its final size, so the field buttons, below the map on a phone, no longer move under
+ * the finger. Until then index.html renders the field buttons disabled (SA-D107). A field chosen
+ * on the map applies at once. `Alpine` needs effect and nextTick, `win` fetch, Image and setTimeout.
+ */
+export function pageComponent({ Alpine, win, doc, data, ui0, page = 'index', storage = null }) {
   const build = page === 'how' ? buildHowView : buildIndexView;
-
-  Alpine.data('aftercrop', () => ({
+  return {
     ui: ui0,
     v: build(data, ui0),
+    ready: false,
     init() {
       Alpine.effect(() => {
         const ui = JSON.parse(JSON.stringify(this.ui));
@@ -2081,21 +2105,36 @@ export async function boot(win = globalThis.window) {
         doc.title = this.v.title;
         applyCopy(doc, t);
       });
-      if (page === 'index') this.loadMap();
+      let settled = false;
+      const settle = () => {
+        if (settled) return;
+        settled = true;
+        Alpine.nextTick(() => {
+          this.ready = true;
+        });
+      };
+      win.setTimeout(settle, READY_TIMEOUT_MS);
+      if (page === 'index') this.loadMap().then(settle, settle);
+      else settle();
     },
     async loadMap() {
       // Georeference first. Without it, or without the PNG, the map shows the polygons alone.
+      // Resolves once the map has its final image, or none.
       const urls = basemapUrls(data.base);
       const georef = await fetchJsonFrom(win, urls.georef);
       if (!basemapImage(georef, { width: georef?.width, height: georef?.height })) return;
-      const img = new win.Image();
-      img.onload = () => {
-        this.ui.mapImage = basemapImage(georef, { width: img.naturalWidth, height: img.naturalHeight }, urls.png);
-      };
-      img.onerror = () => {
-        this.ui.mapImage = null;
-      };
-      img.src = urls.png;
+      await new Promise((resolve) => {
+        const img = new win.Image();
+        img.onload = () => {
+          this.ui.mapImage = basemapImage(georef, { width: img.naturalWidth, height: img.naturalHeight }, urls.png);
+          resolve();
+        };
+        img.onerror = () => {
+          this.ui.mapImage = null;
+          resolve();
+        };
+        img.src = urls.png;
+      });
     },
     toggleLang() {
       const next = this.ui.lang === 'en' ? 'pt' : 'en';
@@ -2134,7 +2173,31 @@ export async function boot(win = globalThis.window) {
       this.ui.soilClass = 'unknown';
       this.ui.limits = fresh.limits;
     },
-  }));
+  };
+}
+
+/** Start the page in a browser. Never runs in Node. */
+export async function boot(win = globalThis.window) {
+  const doc = win.document;
+  const page = doc.body?.dataset?.page === 'how' ? 'how' : 'index';
+  const data = await loadAll((url) => fetchJsonFrom(win, url), dataBase(win.location.search));
+  if (!data.copy) {
+    doc.body.classList.add('is-broken');
+    return;
+  }
+  const storage = safeStorage(win);
+  const ui0 = initialUi(data, storedLang(storage) ?? DEFAULT_LANG);
+  doc.body.insertAdjacentHTML('afterbegin', S.defsSvg());
+  // Links between the site's pages keep a ?data= folder (rehearsal, fixtures). An observation
+  // region links to the product pages, which hold the method and the verdict of the default region.
+  if (!data.isObservation) {
+    for (const a of doc.querySelectorAll('a[href="index.html"], a[href="how-we-know.html"]')) {
+      a.setAttribute('href', pageHref(a.getAttribute('href'), data.base));
+    }
+  }
+
+  const { default: Alpine } = await import('../vendor/alpine-3.17.5.min.js');
+  Alpine.data('aftercrop', () => pageComponent({ Alpine, win, doc, data, ui0, page, storage }));
   Alpine.start();
   // Elements of x-if blocks (decision and observation parts of index.html) enter the page after
   // the first applyCopy of init(): fill their data-copy keys now and after the next tick.

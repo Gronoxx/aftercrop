@@ -186,6 +186,18 @@ page:
     field_name: "Talhão {X}"
     field_picker: "Escolha um talhão"  # checked (SI)
     map_alt: "Imagem de satélite HLS dos talhões de exemplo, com o contorno de cada um. Escolha um contorno para trocar o talhão."  # checked (SI)
+    facts:  # SA-D107: a faixa de fatos do talhão ao lado dos botões, muda com o talhão
+      title: "Talhão {X}"  # drafted, review
+      area: "Área"  # drafted, review
+      area_value: "{A} ha"  # drafted, review
+      slope: "Declive mediano"  # drafted, review
+      slope_value: "{P}%"  # drafted, review
+      municipality: "Município"  # drafted, review
+      seasons: "Fim do verde com leitura limpa"  # drafted, review
+      seasons_value: "{k} de {n} safras"  # drafted, review
+      no_green: "Sem verde, mediana"  # drafted, review
+      no_green_value: "{N} de {of} decêndios"  # drafted, review
+    same_answer: "A resposta é a mesma nos três talhões, porque vem dos ensaios e dos seus preços. O que muda com o talhão é o histórico de satélite."  # SA-D107
 
   question:
     lead: "Antes de comprar semente e adubo da safrinha:"  # plan PT, section 3

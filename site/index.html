@@ -10,9 +10,9 @@
 <link rel="stylesheet" href="css/site.css">
 <script type="module" src="js/app.mjs"></script>
 </head>
-<!-- Aftercrop main page (plan 7.2 and 7.3). Fixed order: field picker, question, answer with the
-     NASA line, ribbon with the Zarc risk band (SA-D78), three columns, year strip, NASA switch,
-     fixed strip. Every text comes from data/copy.json:
+<!-- Aftercrop main page (plan 7.2 and 7.3). Fixed order: field picker with the field facts strip
+     (SA-D107), question, answer with the NASA line, ribbon with the Zarc risk band (SA-D78,
+     SA-D107), the counts and the model check, three columns, year strip, NASA switch, fixed strip. Every text comes from data/copy.json:
      data-copy holds a copy key, and Alpine binds the rest from the view model of js/app.mjs. -->
 <body data-page="index">
 <div class="page" x-data="aftercrop" x-cloak>
@@ -36,12 +36,29 @@
       <div class="header-text">
         <div class="field-picker" role="group" data-copy-label="page.header.field_picker">
           <template x-for="f in v.fields" :key="f.id">
-            <button type="button" class="btn chip" :aria-pressed="f.active ? 'true' : 'false'" @click="setField(f.id)" x-text="f.name"></button>
+            <button type="button" class="btn chip" :aria-pressed="f.active ? 'true' : 'false'" :disabled="!ready" @click="setField(f.id)" x-text="f.name"></button>
           </template>
           <p class="muted" x-show="!v.hasFields" x-text="v.noFieldText"></p>
         </div>
         <template x-if="!v.observation">
           <div>
+            <!-- SA-D107: what changes with the field, each number linked to its ledger entry,
+                 and the fixed sentence on why the answer does not. -->
+            <div class="field-facts" x-show="v.fieldFacts" aria-live="polite">
+              <p class="facts-title" x-text="v.fieldFacts ? v.fieldFacts.title : ''"></p>
+              <dl class="facts">
+                <template x-for="fc in (v.fieldFacts ? v.fieldFacts.items : [])" :key="fc.id">
+                  <div class="fact" :data-fact="fc.id">
+                    <dt x-text="fc.label"></dt>
+                    <dd>
+                      <template x-if="fc.ledger"><button type="button" class="ledger-link" :data-ledger="fc.ledger" x-text="fc.value"></button></template>
+                      <template x-if="!fc.ledger"><span x-text="fc.value"></span></template>
+                    </dd>
+                  </div>
+                </template>
+              </dl>
+            </div>
+            <p class="same-answer small" data-copy="page.header.same_answer"></p>
             <p class="persona" data-copy="page.header.persona"></p>
             <p data-copy="page.header.region"></p>
             <p class="region-link" x-show="v.regionLink"><a :href="v.regionLink ? v.regionLink.href : 'index.html'" x-text="v.regionLink ? v.regionLink.text : ''"></a></p>
@@ -100,25 +117,6 @@
           </span>
         </template>
       </p>
-      <p class="caption" x-text="v.answer.caption"></p>
-      <p class="caption"><span data-copy="page.answer.per_hectare"></span> <span data-copy="page.answer.bag"></span></p>
-      <ul class="notes" x-show="v.answer.notes.length">
-        <template x-for="(n, i) in v.answer.notes" :key="i"><li x-text="n"></li></template>
-      </ul>
-      <p class="field-order" x-show="v.answer.fieldOrder">
-        <template x-if="v.answer.fieldOrderLedger"><button type="button" class="ledger-link" :data-ledger="v.answer.fieldOrderLedger" x-text="v.answer.fieldOrder"></button></template>
-        <template x-if="!v.answer.fieldOrderLedger"><span x-text="v.answer.fieldOrder"></span></template>
-      </p>
-      <p class="model-check" x-text="v.answer.modelCheck"></p>
-      <p class="label-body small" x-text="v.answer.labelBody"></p>
-      <p class="gap-note small" x-text="v.answer.lateSoyGap"></p>
-      <div class="priority" role="group" aria-labelledby="priority-label">
-        <span id="priority-label" class="priority-label" data-copy="page.priority.label"></span>
-        <template x-for="p in v.priority" :key="p.id">
-          <button type="button" class="btn chip" :aria-pressed="p.active ? 'true' : 'false'" @click="setPriority(p.id)" x-text="p.label"></button>
-        </template>
-        <span class="small muted" data-copy="page.priority.note"></span>
-      </div>
     </section>
     </template>
 
@@ -181,6 +179,31 @@
         </tbody>
       </table></div>
     </section>
+
+    <!-- SA-D107: the counts, the model check and the priority, after the ribbon. -->
+    <template x-if="!v.observation">
+    <section class="answer answer-more" id="sec-answer-notes" aria-labelledby="answer-title">
+      <p class="caption" x-text="v.answer.caption"></p>
+      <p class="caption"><span data-copy="page.answer.per_hectare"></span> <span data-copy="page.answer.bag"></span></p>
+      <ul class="notes" x-show="v.answer.notes.length">
+        <template x-for="(n, i) in v.answer.notes" :key="i"><li x-text="n"></li></template>
+      </ul>
+      <p class="field-order" x-show="v.answer.fieldOrder">
+        <template x-if="v.answer.fieldOrderLedger"><button type="button" class="ledger-link" :data-ledger="v.answer.fieldOrderLedger" x-text="v.answer.fieldOrder"></button></template>
+        <template x-if="!v.answer.fieldOrderLedger"><span x-text="v.answer.fieldOrder"></span></template>
+      </p>
+      <p class="model-check" x-text="v.answer.modelCheck"></p>
+      <p class="label-body small" x-text="v.answer.labelBody"></p>
+      <p class="gap-note small" x-text="v.answer.lateSoyGap"></p>
+      <div class="priority" role="group" aria-labelledby="priority-label">
+        <span id="priority-label" class="priority-label" data-copy="page.priority.label"></span>
+        <template x-for="p in v.priority" :key="p.id">
+          <button type="button" class="btn chip" :aria-pressed="p.active ? 'true' : 'false'" @click="setPriority(p.id)" x-text="p.label"></button>
+        </template>
+        <span class="small muted" data-copy="page.priority.note"></span>
+      </div>
+    </section>
+    </template>
 
     <!-- SA-D79, observation region: relief, climate and sources of the one field. -->
     <template x-if="v.observation">

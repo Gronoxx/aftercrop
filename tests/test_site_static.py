@@ -219,12 +219,40 @@ def test_app_imports_only_vendored_alpine():
 def test_main_page_order():
     ids = parse(SITE / "index.html").ids
     # SA-D78: the ribbon with its Zarc risk band moved up, before the three columns.
-    order = ["sec-picker", "sec-question", "sec-answer", "sec-ribbon", "sec-columns", "sec-year-strip", "sec-nasa", "sec-strip"]
+    # SA-D107: right below the answer and the NASA line, before the counts and the model check.
+    order = ["sec-picker", "sec-question", "sec-answer", "sec-ribbon", "sec-answer-notes", "sec-columns", "sec-year-strip", "sec-nasa", "sec-strip"]
     pos = [ids.index(i) for i in order]
     assert pos == sorted(pos), f"order {order} broken: {pos}"
     src = (SITE / "index.html").read_text(encoding="utf-8")
     assert src.index('id="sec-answer"') < src.index("<svg") if "<svg" in src else True
     assert src.index('id="sec-answer"') < src.index('id="sec-year-strip"')
+
+
+def test_ribbon_between_the_answer_and_the_counts():
+    """SA-D107: answer box, NASA line, the 8-season ribbon with the Zarc band and the legend, then
+    the counts caption and the model check."""
+    src = (SITE / "index.html").read_text(encoding="utf-8")
+    marks = ['class="answer-box"', 'class="nasa-line"', 'id="sec-ribbon"', "v.ribbon.band", "v.ribbon.legend",
+             'id="sec-answer-notes"', 'x-text="v.answer.caption"', 'x-text="v.answer.modelCheck"', 'id="sec-columns"']
+    pos = [src.index(m) for m in marks]
+    assert pos == sorted(pos), f"order {marks} broken: {pos}"
+    answer = src[src.index('id="sec-answer"'):src.index('id="sec-ribbon"')]
+    assert "v.answer.caption" not in answer and "v.answer.modelCheck" not in answer
+
+
+def test_field_facts_strip_next_to_the_buttons():
+    """SA-D107: the facts strip and the fixed sentence in the header, the buttons wait for ready."""
+    src = (SITE / "index.html").read_text(encoding="utf-8")
+    header = src[src.index('id="sec-picker"'):src.index("</header>")]
+    assert 'class="field-facts"' in header and 'data-copy="page.header.same_answer"' in header
+    assert header.index('class="field-picker"') < header.index('class="field-facts"') < header.index("page.header.same_answer")
+    assert ':disabled="!ready"' in header
+    js = (SITE / "js" / "app.mjs").read_text(encoding="utf-8")
+    assert "ready: false" in js and "this.ready = true" in js and "READY_TIMEOUT_MS" in js
+    for lang in ("en", "pt"):
+        copy = json.loads((SITE / "data" / "copy.json").read_text(encoding="utf-8"))
+        assert "same_answer" in copy["langs"][lang]["page"]["header"], lang
+        assert set(copy["langs"][lang]["page"]["header"]["facts"]) >= {"title", "area", "slope", "municipality", "seasons", "no_green"}
 
 
 def test_answer_is_announced():

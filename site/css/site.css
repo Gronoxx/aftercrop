@@ -146,6 +146,8 @@ ul { margin: 0 0 .75em; padding-left: 1.2em; }
 .chip { min-height: 44px; padding: .35em .8em; border-radius: 999px; font-weight: 550; }
 .chip[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--surface); }
 .chip[aria-pressed="true"]::before { content: "\2713"; font-weight: 700; }
+/* SA-D107: the field buttons wait, disabled, until the page is ready. */
+.btn:disabled { cursor: progress; opacity: .55; }
 
 .ledger-link {
   font: inherit; color: inherit; text-align: left;
@@ -192,6 +194,14 @@ ul { margin: 0 0 .75em; padding-left: 1.2em; }
 .header-text p { margin-bottom: .25em; color: var(--ink-2); }
 .header-text .persona { color: var(--ink); font-weight: 600; }
 .field-picker { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
+/* SA-D107: the field facts strip, what changes with the field. */
+.field-facts { margin: 0 0 6px; padding: 8px 10px; border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: var(--radius); background: var(--surface-2); }
+.header-text .facts-title { margin: 0 0 4px; color: var(--ink); font-weight: 700; }
+.facts { display: flex; flex-wrap: wrap; gap: 4px 16px; margin: 0; }
+.fact { display: flex; flex-direction: column; min-width: 0; }
+.fact dt { font-size: .78rem; color: var(--ink-3); }
+.fact dd { margin: 0; font-weight: 650; color: var(--ink); overflow-wrap: anywhere; }
+.header-text .same-answer { margin: 0 0 .6em; color: var(--ink); }
 .map { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: var(--surface-2); }
 .field-map { display: block; width: 100%; height: auto; max-height: 200px; }
 .map-bg { fill: var(--surface-2); }
@@ -206,6 +216,7 @@ ul { margin: 0 0 .75em; padding-left: 1.2em; }
 .q-options { font-size: 1.05rem; color: var(--ink-2); }
 
 .answer { padding: 4px 0 16px; }
+.answer-more { padding-top: 0; }
 .answer-box {
   --state: var(--st-not); --state-bg: var(--st-not-bg);
   display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 12px; align-items: start;
@@ -459,6 +470,7 @@ ul { margin: 0 0 .75em; padding-left: 1.2em; }
   .map { max-width: 180px; }
   .field-map { max-height: 100px; }
   .header-text p { font-size: .88rem; }
+  .facts { gap: 4px 12px; }
   .question { padding-top: 12px; }
   .answer-box { grid-template-columns: auto minmax(0, 1fr); }
   .answer-box .tag-example { grid-column: 1 / -1; justify-self: start; }

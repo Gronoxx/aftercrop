@@ -199,6 +199,18 @@ page:
     field_name: "Field {X}"
     field_picker: "Choose a field"  # checked (SI)
     map_alt: "HLS satellite image of the example fields, with each field outline. Select an outline to change the field."  # checked (SI)
+    facts:  # SA-D107: the field facts strip next to the field buttons, changes with the field
+      title: "Field {X}"  # drafted, review
+      area: "Area"  # drafted, review
+      area_value: "{A} ha"  # drafted, review
+      slope: "Median slope"  # drafted, review
+      slope_value: "{P}%"  # drafted, review
+      municipality: "Municipality"  # drafted, review
+      seasons: "End of green read cleanly"  # drafted, review
+      seasons_value: "{k} of {n} seasons"  # drafted, review
+      no_green: "No green, median"  # drafted, review
+      no_green_value: "{N} of {of} ten-day periods"  # drafted, review
+    same_answer: "The answer is the same on the three fields, because it comes from the trials and your prices. What changes with the field is its satellite record."  # SA-D107
 
   question:                                  # 7.2
     lead: "Before you buy seed and fertilizer for the second crop:"
