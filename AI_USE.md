@@ -17,12 +17,12 @@ The question and the direction came from the team owner. The design of the tool 
 | Plan (`PROJETO-DEFINITIVO.md`, outside this repository) | Research, audit and drafting of the written plan. Proposed the decisions SA-D01 to SA-D54 | Asked the questions and gave the direction. Accepted SA-D01 to SA-D54 by delegation. Took the decisions SA-D55 to SA-D60. Reviewed the plan |
 | Decisions SA-D61 to SA-D69 | At the participant's request, closed the open points of the protocol and of the plan, with an outside review as a second input | Delegated the decisions. May veto any of them until the tag |
 | Decisions SA-D70 to SA-D75 | At the participant's request, checked the work done, decided the next steps (early local tag, NASA lines on the page, presentation package) and listed the decisions still to come | Delegated these decisions, publishes and submits |
-| Later decisions (from SA-D76) | At the participant's request, verified the work and took the decisions delegated to it | Delegated most of them. Took some directly, such as how the project is published |
+| Later decisions (from SA-D76) | At the participant's request, verified the work and took the decisions delegated to it | Delegated them |
 | Code in this repository | Wrote the code and its tests | Authorised each step, decided what to build and in which order |
 | Trial values from Embrapa Documentos 398, 459 and 476 | Two independent transcriptions (A and B) by separate sub-sessions, compared by a script: 27 of 27 values matched | Did not check the values against the PDFs by hand. The two transcriptions are the only check |
 | Screen texts (`config/copy_en.yaml`, `config/copy_pt.yaml`) | Drafted the texts the plan did not fix, then checked them against the protocol and the forbidden words in two passes | Did not review them line by line |
 | Protocol (`PROTOCOL.md`) | Drafted from the plan, and closed its open points (section 15) | Delegated the open points, tags the protocol |
-| Messages and e-mails | Drafted | Wrote and sent their own versions |
+| Messages and e-mails | Drafted | None |
 
 ## What was not done with SI
 
